@@ -68,10 +68,6 @@ graph TD
     end
 
     domain --> data
-
-    data-network --> data-persistence[fa:fa-database data-persistence]
-
-    data-network <--> Y[fa:fa-cloud MastodonAPI]
 ```
 
 
