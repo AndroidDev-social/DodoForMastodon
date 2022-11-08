@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 /**
- * https://docs.joinmastodon.org/entities/emoji/
+ * https://docs.joinmastodon.org/entities/poll/
  */
 @Serializable
 data class Poll(

@@ -4,14 +4,13 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 /**
- * https://docs.joinmastodon.org/entities/tag/
+ * https://docs.joinmastodon.org/entities/error/
  */
 @Serializable
-data class Tag(
+data class Error(
     // required attributes
-    @SerialName("name") val name: String,
-    @SerialName("url") val url: String,
+    @SerialName("error") val error: String,
 
     // optional attributes
-    @SerialName("history") val history: List<History>,
+    @SerialName("error_description") val errorDescription: String? = null,
 )

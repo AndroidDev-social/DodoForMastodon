@@ -20,4 +20,4 @@ data class Source(
     @SerialName("follow_requests_count") val followRequestsCount: Int,
 )
 
-enum class Privacy { PUBLIC, UNLISTED, PRIVATE, DIRECT }
+enum class Privacy { public, unlisted, private, direct }

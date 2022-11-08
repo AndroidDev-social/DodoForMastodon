@@ -51,7 +51,7 @@ class AttachmentTests {
         // then
         Truth.assertThat(attachment).isNotNull()
         Truth.assertThat(attachment.id).isEqualTo("22345792")
-        Truth.assertThat(attachment.type).isEqualTo("image")
+        Truth.assertThat(attachment.type).isEqualTo(AttachmentType.image)
     }
 
     @Test
@@ -104,7 +104,7 @@ class AttachmentTests {
         // then
         Truth.assertThat(attachment).isNotNull()
         Truth.assertThat(attachment.id).isEqualTo("22546306")
-        Truth.assertThat(attachment.type).isEqualTo("video")
+        Truth.assertThat(attachment.type).isEqualTo(AttachmentType.video)
     }
 
     @Test
@@ -154,7 +154,7 @@ class AttachmentTests {
         // then
         Truth.assertThat(attachment).isNotNull()
         Truth.assertThat(attachment.id).isEqualTo("21130559")
-        Truth.assertThat(attachment.type).isEqualTo("gifv")
+        Truth.assertThat(attachment.type).isEqualTo(AttachmentType.gifv)
     }
 
     @Test
@@ -192,6 +192,6 @@ class AttachmentTests {
         // then
         Truth.assertThat(attachment).isNotNull()
         Truth.assertThat(attachment.id).isEqualTo("21165404")
-        Truth.assertThat(attachment.type).isEqualTo("audio")
+        Truth.assertThat(attachment.type).isEqualTo(AttachmentType.audio)
     }
 }

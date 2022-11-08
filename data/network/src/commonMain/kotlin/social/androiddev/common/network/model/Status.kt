@@ -36,7 +36,7 @@ data class Status(
     @SerialName("in_reply_to_account_id") val inReplyToAccountId: String? = null,
     @SerialName("reblog") val reblog: Status? = null,
     @SerialName("poll") val poll: Poll? = null,
-//    @SerialName("card") val card: Card? = null,
+    @SerialName("card") val card: Card? = null,
     @SerialName("language") val language: String? = null,
     @SerialName("text") val text: String? = null,
 

@@ -4,13 +4,13 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 /**
- * https://docs.joinmastodon.org/entities/emoji/
+ * https://docs.joinmastodon.org/entities/attachment/
  */
 @Serializable
 data class Attachment(
     // required attributes
     val id: String,
-    val type: String,
+    val type: AttachmentType,
     val url: String,
     @SerialName("preview_url") val previewUrl: String,
 
@@ -26,7 +26,11 @@ data class Attachment(
 )
 
 enum class AttachmentType {
-    UNKNOWN, IMAGE, GIFV, VIDEO, AUDIO
+    unknown,
+    image,
+    gifv,
+    video,
+    audio,
 }
 
 @Serializable
