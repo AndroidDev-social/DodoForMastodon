@@ -42,12 +42,16 @@ Underneath it is using
 The project is structured in **features and layers**
 
 ```mermaid
-graph TD;
-    A[app-android] --> ui;
-    B[app-desktop] --> ui;
-    C[app-ios] --> ui;
+flowchart TD
+    android[app-android]
+    desktop[app-desktop]
+    ios[app-ios]
 
-    ui-timeline --> |get entries| domain-timeline;
+    android --> ui
+    desktop --> ui
+    ios --> ui
+
+    ui-timeline --> domain-timeline
 
     subgraph ui
         ui-timeline
@@ -66,11 +70,11 @@ graph TD;
         data-persistence
     end
 
-    domain --> data;
+    domain --> data
 
-    data-network --> data-persistence[fa:fa-database data-persistence];
+    data-network --> data-persistence[fa:fa-database data-persistence]
 
-    data-network <--> Y[fa:fa-cloud MastodonAPI];
+    data-network <--> Y[fa:fa-cloud MastodonAPI]
 ```
 
 
