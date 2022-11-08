@@ -6,16 +6,17 @@ import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import org.junit.Test
 
-class AccountTests {
+class StatusTests {
     @Test
     fun `deserialize required fields should succeed`() = runBlocking {
         // given
-        val json: String = javaClass.classLoader.getResource("response_account_required.json").readText()
+        val json: String = javaClass.classLoader.getResource("response_status_required.json").readText()
 
         // when
-        val account = Json.decodeFromString<Account>(json)
+        val status = Json.decodeFromString<Status>(json)
 
         // then
-        Truth.assertThat(account.id).isEqualTo("23634")
+        Truth.assertThat(status).isNotNull()
+        Truth.assertThat(status.id).isEqualTo("103270115826048975")
     }
 }
