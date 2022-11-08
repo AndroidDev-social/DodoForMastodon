@@ -43,9 +43,9 @@ The project is structured in **features and layers**
 
 ```mermaid
 graph TD
-    A[app-android] --> ui
-    B[app-desktop] --> ui
-    C[app-ios] --> ui
+    app-android --> ui
+    app-desktop --> ui
+    app-ios --> ui
 
     
     ui-timeline --> |get entries| domain-timeline
