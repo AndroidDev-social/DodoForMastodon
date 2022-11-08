@@ -1,7 +1,7 @@
 rootProject.name="MastodonCompose"
 
 //include(":app-android")
-//include(":app-desktop")
+include(":app-desktop")
 //include(":app-iOS")
 
 include(":ui:timeline")

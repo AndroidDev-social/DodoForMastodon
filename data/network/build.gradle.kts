@@ -49,7 +49,7 @@ kotlin {
         getByName("androidMain") {
             dependsOn(commonMain)
             dependencies {
-                implementation("io.ktor:ktor-client-okhttp:2.1.3")
+                implementation("io.ktor:ktor-client-cio:2.1.3")
                 //implementation(Deps.Squareup.SQLDelight.androidDriver)
                 //implementation(Deps.Squareup.SQLDelight.sqliteDriver)
             }
@@ -59,6 +59,7 @@ kotlin {
         // desktop
         getByName("desktopMain") {
             dependencies {
+                implementation("io.ktor:ktor-client-cio:2.1.3")
                 //implementation(Deps.Squareup.SQLDelight.sqliteDriver)
             }
         }
