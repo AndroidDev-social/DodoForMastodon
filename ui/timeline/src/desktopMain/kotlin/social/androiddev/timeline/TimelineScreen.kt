@@ -1,6 +1,5 @@
 package social.androiddev.timeline
 
-import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -89,7 +88,9 @@ private val testStatus1 = Status(
 )
 
 
-@Preview
+// skip preview to work with multiplatform
+// https://github.com/JetBrains/compose-jb/issues/1603
+//@Preview
 @Composable
 private fun TimelinePreview() {
     MastodonTheme {
