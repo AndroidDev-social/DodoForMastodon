@@ -1,4 +1,9 @@
 buildscript {
+
+    extra["targetSDKVersion"] = 33
+    extra["compileSDKVersion"] = 33
+    extra["minSDKVersion"] = 23
+
     repositories {
         google()
         mavenCentral()
