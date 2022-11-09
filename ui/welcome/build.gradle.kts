@@ -39,23 +39,20 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-//                implementation(project(":domain:timeline"))
+//                implementation(project(":domain:welcome"))
                 implementation(project(":ui:common"))
                 implementation(compose.runtime)
                 implementation(compose.foundation)
                 implementation(compose.material)
-//                implementation("com.arkivanov.decompose:decompose:1.0.0-alpha-05")
-//                implementation("com.arkivanov.decompose:extensions-compose-jetbrains:1.0.0-alpha-05")
             }
         }
 
         named("androidMain") {
             dependencies {
-//                dependsOn(commonMain)
                 // Workaround for https://github.com/JetBrains/compose-jb/issues/2340
-                api("androidx.compose.foundation:foundation:1.2.1")
-                api("androidx.appcompat:appcompat:1.3.0")
-                api("androidx.core:core-ktx:1.3.1")
+                implementation(libs.androidx.compose.foundation)
+                implementation(libs.androidx.appcompat)
+                implementation(libs.androidx.core.ktx)
             }
         }
 

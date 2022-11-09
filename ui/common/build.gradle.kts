@@ -42,15 +42,15 @@ kotlin {
                 implementation(compose.runtime)
                 implementation(compose.foundation)
                 implementation(compose.material)
-//                implementation("com.arkivanov.decompose:decompose:1.0.0-alpha-05")
-//                implementation("com.arkivanov.decompose:extensions-compose-jetbrains:1.0.0-alpha-05")
+                implementation(libs.com.arkivanov.decompose)
+                implementation(libs.com.arkivanov.decompose.extensions.compose.jetbrains)
             }
         }
 
         named("androidMain") {
             dependencies {
                 // Workaround for https://github.com/JetBrains/compose-jb/issues/2340
-                implementation("androidx.compose.foundation:foundation:1.2.1")
+                implementation(libs.androidx.compose.foundation)
             }
         }
 
