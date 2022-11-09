@@ -29,7 +29,7 @@ android {
 }
 
 dependencies {
-//    implementation(project(":common"))
+    implementation(project(":ui:welcome"))
     implementation("androidx.activity:activity-compose:1.6.1")
     implementation("androidx.appcompat:appcompat:1.5.1")
 }

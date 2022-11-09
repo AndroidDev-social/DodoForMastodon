@@ -5,6 +5,7 @@ include(":app-desktop")
 //include(":app-iOS")
 
 include(":ui:timeline")
+include(":ui:welcome")
 //include(":ui:messages")
 //include(":ui:notifications")
 //include(":ui:search")
