@@ -1,5 +1,6 @@
 import io.gitlab.arturbosch.detekt.Detekt
 import io.gitlab.arturbosch.detekt.DetektCreateBaselineTask
+import io.gitlab.arturbosch.detekt.report.ReportMergeTask
 
 plugins {
     // Suppressed because of https://youtrack.jetbrains.com/issue/KTIJ-19369
@@ -34,6 +35,10 @@ allprojects {
         mavenLocal()
         maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
     }
+}
+
+val htmlReportMerge by tasks.registering(ReportMergeTask::class) {
+    output.set(rootProject.buildDir.resolve("reports/detekt/merge.html"))
 }
 
 subprojects {
@@ -118,6 +123,12 @@ fun Project.coreDetektSetup() {
                     layout.buildDirectory.file("reports/detekt.html")
                 )
             }
+        }
+
+        // Merged Report
+        finalizedBy(htmlReportMerge)
+        htmlReportMerge.configure {
+            input.from(this@detekt.htmlReportFile)
         }
     }
 
