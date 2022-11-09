@@ -29,12 +29,13 @@ fun MastodonButton(
     text: String,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
+    colors: ButtonColors = buttonColors(),
     onClick: () -> Unit,
 ) {
     Button(
         modifier = modifier,
         enabled = enabled,
-        colors = buttonColors(),
+        colors = colors,
         onClick = onClick
     ) {
         Text(text.uppercase())

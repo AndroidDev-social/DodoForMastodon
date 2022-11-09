@@ -27,12 +27,13 @@ fun MastodonOutlinedButton(
     text: String,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
+    colors: ButtonColors = outlinedButtonColors(),
     onClick: () -> Unit,
 ) {
     OutlinedButton(
         modifier = modifier,
         enabled = enabled,
-        colors = outlinedButtonColors(),
+        colors = colors,
         onClick = onClick
     ) {
         Text(text.uppercase())
