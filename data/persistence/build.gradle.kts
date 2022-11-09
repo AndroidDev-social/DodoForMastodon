@@ -1,35 +1,89 @@
 plugins {
-    id("multiplatform-setup")
-    id("android-setup")
+    id("kotlin-multiplatform")
+    id("com.android.library")
     id("com.squareup.sqldelight")
 }
 
-kotlin {
+val targetSDKVersion: Int by rootProject.extra
+val minSDKVersion: Int by rootProject.extra
+val compileSDKVersion: Int by rootProject.extra
+
+android {
+    namespace = "social.androiddev.common.persistence"
+    compileSdk = compileSDKVersion
+
+    defaultConfig {
+        minSdk = minSDKVersion
+        targetSdk = targetSDKVersion
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
+    }
+
     sourceSets {
-        commonMain {
+        named("main") {
+            manifest.srcFile("src/androidMain/AndroidManifest.xml")
+            res.srcDirs("src/androidMain/res")
+        }
+    }
+}
+
+kotlin {
+    jvm("desktop")
+    android()
+    iosX64()
+    iosArm64()
+    iosSimulatorArm64()
+
+    sourceSets {
+        // shared
+        val commonMain by getting {
             dependencies {
             }
         }
 
-        androidMain {
+
+        // android
+        getByName("androidMain") {
+            dependsOn(commonMain)
             dependencies {
-//                Deps.Squareup.SQLDelight.androidDriver
-//                Deps.Squareup.SQLDelight.sqliteDriver
-                implementation("io.ktor:ktor-client-okhttp:2.1.3")
-                //implementation(Deps.Squareup.SQLDelight.androidDriver)
-                //implementation(Deps.Squareup.SQLDelight.sqliteDriver)
+                implementation(libs.com.squareup.sqldelight.android.driver)
+                implementation(libs.com.squareup.sqldelight.sqlite.driver)
             }
         }
 
-        desktopMain {
+
+        // desktop
+        getByName("desktopMain") {
             dependencies {
-                implementation(Deps.Squareup.SQLDelight.sqliteDriver)
+                implementation(libs.com.squareup.sqldelight.sqlite.driver)
             }
         }
 
-        iosMain {
+
+        // iOS
+        val iosX64Main by getting
+        val iosArm64Main by getting
+        val iosSimulatorArm64Main by getting
+        val iosMain by creating {
+            dependsOn(getByName("commonMain"))
+
+            iosX64Main.dependsOn(this)
+            iosArm64Main.dependsOn(this)
+            iosSimulatorArm64Main.dependsOn(this)
+
             dependencies {
-                implementation(Deps.Squareup.SQLDelight.nativeDriver)
+                implementation(libs.com.squareup.sqldelight.native.driver)
+            }
+        }
+
+
+        // testing
+        named("commonTest") {
+            dependencies {
+                implementation(libs.com.google.truth)
             }
         }
     }

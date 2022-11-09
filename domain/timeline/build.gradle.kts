@@ -47,7 +47,6 @@ kotlin {
         getByName("androidMain") {
             dependsOn(commonMain)
             dependencies {
-
             }
         }
 
@@ -55,14 +54,12 @@ kotlin {
         // desktop
         getByName("desktopMain") {
             dependencies {
-                //implementation(Deps.Squareup.SQLDelight.sqliteDriver)
             }
         }
         // testing
         named("commonTest") {
             dependencies {
-                implementation("com.google.truth:truth:1.1.3")
-                implementation("io.ktor:ktor-client-mock-jvm:2.1.1")
+                implementation(libs.com.google.truth)
             }
         }
     }

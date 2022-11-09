@@ -33,19 +33,19 @@ android {
 kotlin {
     jvm("desktop")
     android()
-//    iosX64()
-//    iosArm64()
-//    iosSimulatorArm64()
+    iosX64()
+    iosArm64()
+    iosSimulatorArm64()
 
     sourceSets {
         // shared
         val commonMain by getting {
             dependencies {
-                implementation("io.ktor:ktor-client-core:2.1.3")
-                implementation("io.ktor:ktor-client-serialization:2.0.3")
-                implementation("io.ktor:ktor-serialization-kotlinx-json:2.0.3")
-                implementation("io.ktor:ktor-client-content-negotiation:2.0.3")
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1")
+                implementation(libs.io.ktor.client.core)
+                implementation(libs.io.ktor.client.serialization)
+                implementation(libs.io.ktor.serialization.kotlinx.json)
+                implementation(libs.io.ktor.client.content.negotiation)
+                implementation(libs.org.jetbrains.kotlinx.serialization.json)
             }
         }
 
@@ -54,9 +54,7 @@ kotlin {
         getByName("androidMain") {
             dependsOn(commonMain)
             dependencies {
-                implementation("io.ktor:ktor-client-cio:2.1.3")
-                //implementation(Deps.Squareup.SQLDelight.androidDriver)
-                //implementation(Deps.Squareup.SQLDelight.sqliteDriver)
+                implementation(libs.io.ktor.client.cio)
             }
         }
 
@@ -64,34 +62,42 @@ kotlin {
         // desktop
         getByName("desktopMain") {
             dependencies {
-                implementation("io.ktor:ktor-client-cio:2.1.3")
-                //implementation(Deps.Squareup.SQLDelight.sqliteDriver)
+                implementation(libs.io.ktor.client.cio)
             }
         }
 
 
         // iOS
-//        val iosX64Main by getting
-//        val iosArm64Main by getting
-//        val iosSimulatorArm64Main by getting
-//        val iosMain by creating {
-//            dependsOn(getByName("commonMain"))
-//
-//            iosX64Main.dependsOn(this)
-//            iosArm64Main.dependsOn(this)
-//            iosSimulatorArm64Main.dependsOn(this)
-//
-//            dependencies {
-//                implementation("io.ktor:ktor-client-darwin:2.1.3")
-//            }
-//        }
+        val iosX64Main by getting
+        val iosArm64Main by getting
+        val iosSimulatorArm64Main by getting
+        val iosMain by creating {
+            dependsOn(getByName("commonMain"))
+
+            iosX64Main.dependsOn(this)
+            iosArm64Main.dependsOn(this)
+            iosSimulatorArm64Main.dependsOn(this)
+
+            dependencies {
+                implementation(libs.io.ktor.client.darwin)
+            }
+        }
 
 
         // testing
+        named("androidTest") {
+            dependencies {
+                implementation(libs.io.ktor.client.mock.jvm)
+            }
+        }
+        named("desktopTest") {
+            dependencies {
+                implementation(libs.io.ktor.client.mock.jvm)
+            }
+        }
         named("commonTest") {
             dependencies {
-                implementation("com.google.truth:truth:1.1.3")
-                implementation("io.ktor:ktor-client-mock-jvm:2.1.1")
+                implementation(libs.com.google.truth)
             }
         }
     }
