@@ -23,7 +23,7 @@ See our [Contribution Guidelines](CONTRIBUTING.md)
 
 Building an MVP with base functionality
 
- * Sign up flow (for new users withoug account)
+ * Sign up flow (for new users without account)
  * Select an instance [joinmastodon servers](https://joinmastodon.org/de/servers)
  * Sign in with credentials
  * Browse timeline
