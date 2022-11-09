@@ -4,7 +4,7 @@ org-jetbrains-compose = "1.2.1"
 org-jetbrains-kotlin = "1.7.20"
 com-android-tools-build = "7.2.2"
 com-squareup-sqldelight = "1.5.3"
-io-gitlab-arturbosch-detekt = "1.22.0-RC2"
+io-gitlab-arturbosch-detekt = "1.22.0-RC3"
 
 # libraries
 io-ktor = "2.1.3"
