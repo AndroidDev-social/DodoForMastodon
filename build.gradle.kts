@@ -37,8 +37,8 @@ allprojects {
     }
 }
 
-val htmlReportMerge by tasks.registering(ReportMergeTask::class) {
-    output.set(rootProject.buildDir.resolve("reports/detekt/merge.html"))
+val sarifReportMerge by tasks.registering(ReportMergeTask::class) {
+    output.set(rootProject.buildDir.resolve("reports/detekt/merged_report.sarif"))
 }
 
 subprojects {
@@ -79,7 +79,9 @@ subprojects {
 }
 
 /**
- * To run detekt simply ./gradlew module:detekt
+ * To run detekt simply:
+ * 1. ./gradlew module:detekt for each module
+ * 2. ./gradlew detekt for whole project
  */
 fun Project.coreDetektSetup() {
     // Apply Plugin to sub-project
@@ -112,11 +114,9 @@ fun Project.coreDetektSetup() {
         // Configure reports here
         reports {
             xml.required.set(false)
-            html.required.set(true)
             txt.required.set(false)
-            sarif.required.set(false)
             md.required.set(false)
-
+            sarif.required.set(true)
             html {
                 required.set(true)
                 outputLocation.set(
@@ -126,9 +126,9 @@ fun Project.coreDetektSetup() {
         }
 
         // Merged Report
-        finalizedBy(htmlReportMerge)
-        htmlReportMerge.configure {
-            input.from(this@detekt.htmlReportFile)
+        finalizedBy(sarifReportMerge)
+        sarifReportMerge.configure {
+            input.from(this@detekt.sarifReportFile)
         }
     }
 
