@@ -15,6 +15,5 @@ include(":ui:common")
 include(":domain:timeline")
 
 //include(":data-timeline")
-//include(":data:persistence")
+include(":data:persistence")
 include(":data:network")
-
