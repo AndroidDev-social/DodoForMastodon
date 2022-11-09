@@ -40,6 +40,11 @@ For code analysis and enforcing code guidelines. Run this before your open a PR
 
 1. Run for whole project: `./gradlew detekt`
 2. Run for specific module: `./gradlew module:detekt`
+ * Sign up flow (for new users without account)
+ * Select an instance [joinmastodon servers](https://joinmastodon.org/de/servers)
+ * Sign in with credentials
+ * Browse timeline
+ * Create a Toot!
 
 ## License
 
