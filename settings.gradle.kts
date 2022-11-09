@@ -1,11 +1,12 @@
 rootProject.name="MastodonCompose"
 
-//include(":app-android")
+include(":app-android")
 include(":app-desktop")
 //include(":app-iOS")
 
 include(":ui:timeline")
-//include(":ui:mesages")
+include(":ui:welcome")
+//include(":ui:messages")
 //include(":ui:notifications")
 //include(":ui:search")
 //include(":ui:settings")

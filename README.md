@@ -100,7 +100,7 @@ $ ./gradlew :app-desktop:run
 
 To build and run the android app (emulator or real android device is needed)
 ```shell
-$ ./gradlew :app:android:installDebug
+$ ./gradlew :app-android:installDebug
 ```
 
 

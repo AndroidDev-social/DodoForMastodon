@@ -4,13 +4,14 @@ plugins {
     id("com.android.library")
 }
 
-
 val targetSDKVersion: Int by rootProject.extra
 val minSDKVersion: Int by rootProject.extra
 val compileSDKVersion: Int by rootProject.extra
 
 android {
-    namespace = "social.androiddev.common"
+
+    namespace = "social.androiddev.ui.welcome"
+
     compileSdk = compileSDKVersion
 
     defaultConfig {
@@ -36,9 +37,10 @@ kotlin {
     android()
 
     sourceSets {
-        named("commonMain") {
+        val commonMain by getting {
             dependencies {
-                implementation(project(":data:network"))
+//                implementation(project(":domain:timeline"))
+                implementation(project(":ui:common"))
                 implementation(compose.runtime)
                 implementation(compose.foundation)
                 implementation(compose.material)
@@ -49,13 +51,17 @@ kotlin {
 
         named("androidMain") {
             dependencies {
+//                dependsOn(commonMain)
                 // Workaround for https://github.com/JetBrains/compose-jb/issues/2340
-                implementation("androidx.compose.foundation:foundation:1.2.1")
+                api("androidx.compose.foundation:foundation:1.2.1")
+                api("androidx.appcompat:appcompat:1.3.0")
+                api("androidx.core:core-ktx:1.3.1")
             }
         }
 
         named("desktopMain") {
             dependencies {
+//                dependsOn(commonMain)
                 implementation(compose.desktop.common)
             }
         }

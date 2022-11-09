@@ -4,12 +4,17 @@ plugins {
     id("com.android.library")
 }
 
+val targetSDKVersion: Int by rootProject.extra
+val minSDKVersion: Int by rootProject.extra
+val compileSDKVersion: Int by rootProject.extra
+
 android {
-    compileSdk = 33
+    namespace = "social.androiddev.ui.timeline"
+    compileSdk = compileSDKVersion
 
     defaultConfig {
-        minSdk = 23
-        targetSdk = 33
+        minSdk = minSDKVersion
+        targetSdk = targetSDKVersion
     }
 
     compileOptions {
