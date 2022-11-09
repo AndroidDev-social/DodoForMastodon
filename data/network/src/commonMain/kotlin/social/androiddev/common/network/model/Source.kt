@@ -3,7 +3,6 @@ package social.androiddev.common.network.model
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-
 /**
  * https://docs.joinmastodon.org/entities/source/
  */

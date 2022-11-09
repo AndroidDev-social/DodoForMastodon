@@ -26,7 +26,7 @@ fun UserAvatar(
 
 // skip preview to work with multiplatform
 // https://github.com/JetBrains/compose-jb/issues/1603
-//@Preview
+// @Preview
 @Composable
 private fun UserPreview() {
     MastodonTheme {

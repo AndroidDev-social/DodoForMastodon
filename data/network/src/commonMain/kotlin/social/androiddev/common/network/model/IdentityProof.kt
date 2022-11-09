@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 /**
-     * https://docs.joinmastodon.org/entities/identityproof/
+ * https://docs.joinmastodon.org/entities/identityproof/
  */
 @Serializable
 data class IdentityProof(

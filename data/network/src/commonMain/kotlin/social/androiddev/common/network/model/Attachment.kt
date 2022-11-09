@@ -22,7 +22,8 @@ data class Attachment(
 
     // deprecated attributes
     @Deprecated("Not used anymore")
-    @SerialName("text_url") val textUrl: String? = null
+    @SerialName("text_url")
+    val textUrl: String? = null
 )
 
 enum class AttachmentType {
