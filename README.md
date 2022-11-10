@@ -42,9 +42,7 @@ There is plenty of [other issues to work on outside of MVP](https://github.com/A
 Alternatively, there can be contributions made that aren't code related.
 - Innovative ideas for possible features that don't exist in other existing clients that [require discussion here](https://github.com/AndroidDev-social/MastodonCompose/discussions/categories/ideas)
 - General question, gotchas and other discussions [here](https://github.com/AndroidDev-social/MastodonCompose/discussions/categories/general)
-- Create new Issues/Features for post MVP. (e.g. Material You support, animations, V2 functionality, migrations, etc) 
-
-
+- Create new Issues/Features for post MVP. (e.g. Material You support, animations, V2 functionality, migrations, etc)
 
 ## License
 
