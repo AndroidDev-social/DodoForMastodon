@@ -13,6 +13,6 @@ fun MastodonTheme(
             lightColors
         } else {
             darkColors
-        }, typography = SocialTypography, content = content
+        }, typography = MastodonTypography, content = content
     )
 }
