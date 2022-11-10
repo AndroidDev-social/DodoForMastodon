@@ -40,7 +40,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
 //                implementation(project(":domain:welcome"))
-                implementation(project(":ui:common"))
+                implementation(projects.ui.common)
                 implementation(compose.runtime)
                 implementation(compose.foundation)
                 implementation(compose.material)

@@ -30,8 +30,8 @@ android {
 }
 
 dependencies {
-    implementation(project(":ui:welcome"))
-    implementation(project(":ui:common"))
+    implementation(projects.ui.welcome)
+    implementation(projects.ui.common)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.activity.compose)
