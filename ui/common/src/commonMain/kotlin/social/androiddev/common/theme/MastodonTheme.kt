@@ -6,16 +6,13 @@ import androidx.compose.runtime.Composable
 
 @Composable
 fun MastodonTheme(
-    useDarkTheme: Boolean = isSystemInDarkTheme(),
-    content: @Composable() () -> Unit
+    useDarkTheme: Boolean = isSystemInDarkTheme(), content: @Composable() () -> Unit
 ) {
     MaterialTheme(
         colors = if (!useDarkTheme) {
             lightColors
         } else {
             darkColors
-        },
-        typography = SocialTypography,
-        content = content
+        }, typography = MastodonTypography, content = content
     )
 }

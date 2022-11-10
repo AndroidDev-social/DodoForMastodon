@@ -14,8 +14,8 @@ kotlin {
         named("jvmMain") {
             dependencies {
                 implementation(compose.desktop.currentOs)
-                implementation(project(":ui:timeline"))
-                implementation(project(":ui:common"))
+                implementation(projects.ui.timeline)
+                implementation(projects.ui.common)
             }
         }
     }
