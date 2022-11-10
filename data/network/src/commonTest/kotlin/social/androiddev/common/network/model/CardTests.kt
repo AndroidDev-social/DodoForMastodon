@@ -1,10 +1,10 @@
 package social.androiddev.common.network.model
 
-import com.google.common.truth.Truth
+import kotlin.test.assertEquals
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
-import org.junit.Test
+import kotlin.test.Test
 
 class CardTests {
     @Test
@@ -33,20 +33,20 @@ class CardTests {
         val card = Json.decodeFromString<Card>(json)
 
         // then
-        Truth.assertThat(card.url).isEqualTo("https://www.youtube.com/watch?v=OMv_EPMED8Y")
-        Truth.assertThat(card.title).isEqualTo("♪ Brand New Friend (Christmas Song!)")
-        Truth.assertThat(card.description).isEqualTo("")
-        Truth.assertThat(card.type).isEqualTo(CardType.video)
-        Truth.assertThat(card.authorName).isEqualTo("YOGSCAST Lewis & Simon")
-        Truth.assertThat(card.authorUrl).isEqualTo("https://www.youtube.com/user/BlueXephos")
-        Truth.assertThat(card.providerName).isEqualTo("YouTube")
-        Truth.assertThat(card.providerUrl).isEqualTo("https://www.youtube.com/")
-        Truth.assertThat(card.html).isEqualTo("<iframe width=\"480\" height=\"270\" src=\"https://www.youtube.com/embed/OMv_EPMED8Y?feature=oembed\" frameborder=\"0\" allowfullscreen=\"\"></iframe>")
-        Truth.assertThat(card.width).isEqualTo(480)
-        Truth.assertThat(card.height).isEqualTo(270)
-        Truth.assertThat(card.image).isEqualTo("https://files.mastodon.social/preview_cards/images/014/179/145/original/9cf4b7cf5567b569.jpeg")
-        Truth.assertThat(card.embedUrl).isEqualTo("")
-        Truth.assertThat(card.blurhash).isEqualTo("UvK0HNkV,:s9xBR%njog0fo2W=WBS5ozofV@")
+        assertEquals(expected = "https://www.youtube.com/watch?v=OMv_EPMED8Y", actual = card.url)
+        assertEquals(expected = "♪ Brand New Friend (Christmas Song!)", actual = card.title)
+        assertEquals(expected = "", actual = card.description)
+        assertEquals(expected = CardType.video, actual = card.type)
+        assertEquals(expected = "YOGSCAST Lewis & Simon", actual = card.authorName)
+        assertEquals(expected = "https://www.youtube.com/user/BlueXephos", actual = card.authorUrl)
+        assertEquals(expected = "YouTube", actual = card.providerName)
+        assertEquals(expected = "https://www.youtube.com/", actual = card.providerUrl)
+        assertEquals(expected = "<iframe width=\"480\" height=\"270\" src=\"https://www.youtube.com/embed/OMv_EPMED8Y?feature=oembed\" frameborder=\"0\" allowfullscreen=\"\"></iframe>", actual = card.html)
+        assertEquals(expected = 480, actual = card.width)
+        assertEquals(expected = 270, actual = card.height)
+        assertEquals(expected = "https://files.mastodon.social/preview_cards/images/014/179/145/original/9cf4b7cf5567b569.jpeg", actual = card.image)
+        assertEquals(expected = "", actual = card.embedUrl)
+        assertEquals(expected = "UvK0HNkV,:s9xBR%njog0fo2W=WBS5ozofV@" , actual = card.blurhash)
     }
 
     @Test
@@ -75,20 +75,20 @@ class CardTests {
         val card = Json.decodeFromString<Card>(json)
 
         // then
-        Truth.assertThat(card.url).isEqualTo("https://www.flickr.com/photos/tomfenskephotography/49088768431/")
-        Truth.assertThat(card.title).isEqualTo("Oregon")
-        Truth.assertThat(card.description).isEqualTo("")
-        Truth.assertThat(card.type).isEqualTo(CardType.photo)
-        Truth.assertThat(card.authorName).isEqualTo("Tom Fenske Photography")
-        Truth.assertThat(card.authorUrl).isEqualTo("https://www.flickr.com/photos/tomfenskephotography/")
-        Truth.assertThat(card.providerName).isEqualTo("Flickr")
-        Truth.assertThat(card.providerUrl).isEqualTo("https://www.flickr.com/")
-        Truth.assertThat(card.html).isEqualTo("")
-        Truth.assertThat(card.width).isEqualTo(1024)
-        Truth.assertThat(card.height).isEqualTo(427)
-        Truth.assertThat(card.image).isEqualTo("https://files.mastodon.social/preview_cards/images/014/287/139/original/651b1c6976817824.jpeg")
-        Truth.assertThat(card.embedUrl).isEqualTo("https://live.staticflickr.com/65535/49088768431_6a4322b3bb_b.jpg")
-        Truth.assertThat(card.blurhash).isEqualTo("UnE{@jt6M_oIAhjYs+ayT2WBf9ayRkkDXAj[")
+        assertEquals(expected = "https://www.flickr.com/photos/tomfenskephotography/49088768431/", actual = card.url)
+        assertEquals(expected = "Oregon", actual = card.title)
+        assertEquals(expected = "", actual = card.description)
+        assertEquals(expected = CardType.photo, actual = card.type)
+        assertEquals(expected = "Tom Fenske Photography", actual = card.authorName)
+        assertEquals(expected = "https://www.flickr.com/photos/tomfenskephotography/", actual = card.authorUrl)
+        assertEquals(expected = "Flickr", actual = card.providerName)
+        assertEquals(expected = "https://www.flickr.com/", actual = card.providerUrl)
+        assertEquals(expected = "", actual = card.html)
+        assertEquals(expected = 1024, actual = card.width)
+        assertEquals(expected = 427, actual = card.height)
+        assertEquals(expected = "https://files.mastodon.social/preview_cards/images/014/287/139/original/651b1c6976817824.jpeg", actual = card.image)
+        assertEquals(expected = "https://live.staticflickr.com/65535/49088768431_6a4322b3bb_b.jpg", actual = card.embedUrl)
+        assertEquals(expected = "UnE{@jt6M_oIAhjYs+ayT2WBf9ayRkkDXAj[" , actual = card.blurhash)
     }
 
     @Test
@@ -117,19 +117,19 @@ class CardTests {
         val card = Json.decodeFromString<Card>(json)
 
         // then
-        Truth.assertThat(card.url).isEqualTo("https://www.theguardian.com/money/2019/dec/07/i-lost-my-193000-inheritance-with-one-wrong-digit-on-my-sort-code")
-        Truth.assertThat(card.title).isEqualTo("‘I lost my £193,000 inheritance – with one wrong digit on my sort code’")
-        Truth.assertThat(card.description).isEqualTo("When Peter Teich’s money went to another Barclays customer, the bank offered £25 as a token gesture")
-        Truth.assertThat(card.type).isEqualTo(CardType.link)
-        Truth.assertThat(card.authorName).isEqualTo("")
-        Truth.assertThat(card.authorUrl).isEqualTo("")
-        Truth.assertThat(card.providerName).isEqualTo("")
-        Truth.assertThat(card.providerUrl).isEqualTo("")
-        Truth.assertThat(card.html).isEqualTo("")
-        Truth.assertThat(card.width).isEqualTo(0)
-        Truth.assertThat(card.height).isEqualTo(0)
-        Truth.assertThat(card.image).isEqualTo(null)
-        Truth.assertThat(card.embedUrl).isEqualTo("")
-        Truth.assertThat(card.blurhash).isEqualTo(null)
+        assertEquals(expected = "https://www.theguardian.com/money/2019/dec/07/i-lost-my-193000-inheritance-with-one-wrong-digit-on-my-sort-code", actual = card.url)
+        assertEquals(expected = "‘I lost my £193,000 inheritance – with one wrong digit on my sort code’", actual = card.title)
+        assertEquals(expected = "When Peter Teich’s money went to another Barclays customer, the bank offered £25 as a token gesture", actual = card.description)
+        assertEquals(expected = CardType.link, actual = card.type)
+        assertEquals(expected = "", actual = card.authorName)
+        assertEquals(expected = "", actual = card.authorUrl)
+        assertEquals(expected = "", actual = card.providerName)
+        assertEquals(expected = "", actual = card.providerUrl)
+        assertEquals(expected = "", actual = card.html)
+        assertEquals(expected = 0, actual = card.width)
+        assertEquals(expected = 0, actual = card.height)
+        assertEquals(expected = null, actual = card.image)
+        assertEquals(expected = "", actual = card.embedUrl)
+        assertEquals(expected = null, actual = card.blurhash)
     }
 }

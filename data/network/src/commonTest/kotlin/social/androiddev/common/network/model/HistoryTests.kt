@@ -1,10 +1,10 @@
 package social.androiddev.common.network.model
 
-import com.google.common.truth.Truth
+import kotlin.test.assertEquals
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
-import org.junit.Test
+import kotlin.test.Test
 
 class HistoryTests {
     @Test
@@ -22,8 +22,8 @@ class HistoryTests {
         val history = Json.decodeFromString<History>(json)
 
         // then
-        Truth.assertThat(history.day).isEqualTo("1574553600")
-        Truth.assertThat(history.uses).isEqualTo("200")
-        Truth.assertThat(history.accounts).isEqualTo("31")
+        assertEquals(expected = "1574553600", actual = history.day)
+        assertEquals(expected = "200", actual = history.uses)
+        assertEquals(expected = "31", actual = history.accounts)
     }
 }

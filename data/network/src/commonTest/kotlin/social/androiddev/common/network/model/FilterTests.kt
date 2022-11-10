@@ -1,10 +1,10 @@
 package social.androiddev.common.network.model
 
-import com.google.common.truth.Truth
+import kotlin.test.Test
+import kotlin.test.assertEquals
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
-import org.junit.Test
 
 class FilterTests {
     @Test
@@ -31,18 +31,15 @@ class FilterTests {
         val filter = Json.decodeFromString<Filter>(json)
 
         // then
-        Truth.assertThat(filter.id).isEqualTo("8449")
-        Truth.assertThat(filter.phrase).isEqualTo("test")
-        Truth.assertThat(filter.context).isEqualTo(
-            listOf(
-                FilterContext.home,
-                FilterContext.notifications,
-                FilterContext.public,
-                FilterContext.thread
-            )
+        assertEquals(expected = "8449", actual = filter.id)
+        assertEquals(expected = "test", actual = filter.phrase)
+        assertEquals(
+            expected = listOf(
+                FilterContext.home, FilterContext.notifications, FilterContext.public, FilterContext.thread
+            ), actual = filter.context
         )
-        Truth.assertThat(filter.wholeWord).isEqualTo(false)
-        Truth.assertThat(filter.expiresAt).isEqualTo("2019-11-26T09:08:06.254Z")
-        Truth.assertThat(filter.irreversible).isEqualTo(true)
+        assertEquals(expected = false, actual = filter.wholeWord)
+        assertEquals(expected = "2019-11-26T09:08:06.254Z", actual = filter.expiresAt)
+        assertEquals(expected = true, actual = filter.irreversible)
     }
 }

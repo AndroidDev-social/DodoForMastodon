@@ -59,7 +59,8 @@ kotlin {
         // testing
         named("commonTest") {
             dependencies {
-                implementation(libs.com.google.truth)
+                implementation(libs.org.jetbrains.kotlin.test.common)
+                implementation(libs.org.jetbrains.kotlin.test.annotations.common)
             }
         }
     }

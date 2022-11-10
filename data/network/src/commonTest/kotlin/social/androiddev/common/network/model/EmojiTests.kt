@@ -1,10 +1,10 @@
 package social.androiddev.common.network.model
 
-import com.google.common.truth.Truth
+import kotlin.test.assertEquals
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
-import org.junit.Test
+import kotlin.test.Test
 
 class EmojiTests {
     @Test
@@ -24,10 +24,10 @@ class EmojiTests {
         val emoji = Json.decodeFromString<Emoji>(json)
 
         // then
-        Truth.assertThat(emoji.shortcode).isEqualTo("blobaww")
-        Truth.assertThat(emoji.url).isEqualTo("https://files.mastodon.social/custom_emojis/images/000/011/739/original/blobaww.png")
-        Truth.assertThat(emoji.staticUrl).isEqualTo("https://files.mastodon.social/custom_emojis/images/000/011/739/static/blobaww.png")
-        Truth.assertThat(emoji.visibleInPicker).isEqualTo(true)
-        Truth.assertThat(emoji.category).isEqualTo("Blobs")
+        assertEquals(expected = "blobaww", actual = emoji.shortcode)
+        assertEquals(expected = "https://files.mastodon.social/custom_emojis/images/000/011/739/original/blobaww.png", actual = emoji.url)
+        assertEquals(expected = "https://files.mastodon.social/custom_emojis/images/000/011/739/static/blobaww.png", actual = emoji.staticUrl)
+        assertEquals(expected = true, actual = emoji.visibleInPicker)
+        assertEquals(expected = "Blobs", actual = emoji.category)
     }
 }
