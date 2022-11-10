@@ -1,4 +1,4 @@
-package social.androiddev.common.composables
+package social.androiddev.common.composables.buttons
 
 //import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.Column
@@ -52,7 +52,7 @@ fun textButtonColors(
     contentColor: Color = MaterialTheme.colors.primary,
     disabledContentColor: Color = MaterialTheme.colors.onSurface
         .copy(alpha = ContentAlpha.disabled)
-): ButtonColors = DefaultButtonColors(
+): ButtonColors = DefaultTextButtonColors(
     backgroundColor = backgroundColor,
     contentColor = contentColor,
     disabledBackgroundColor = backgroundColor,
@@ -63,7 +63,7 @@ fun textButtonColors(
  * Default [ButtonColors] implementation for Themed Text Buttons.
  */
 @Immutable
-private class DefaultButtonColors(
+private class DefaultTextButtonColors(
     private val backgroundColor: Color,
     private val contentColor: Color,
     private val disabledBackgroundColor: Color,
@@ -83,7 +83,7 @@ private class DefaultButtonColors(
         if (this === other) return true
         if (other == null || this::class != other::class) return false
 
-        other as DefaultButtonColors
+        other as DefaultTextButtonColors
 
         if (backgroundColor != other.backgroundColor) return false
         if (contentColor != other.contentColor) return false
