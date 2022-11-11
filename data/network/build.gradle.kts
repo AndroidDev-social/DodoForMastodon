@@ -1,7 +1,10 @@
+import social.androiddev.gradle.overrideAppleDevices
+
 plugins {
     id("kotlin-multiplatform")
     id("com.android.library")
     kotlin("plugin.serialization")
+    alias(libs.plugins.test.resources)
 }
 
 val targetSDKVersion: Int by rootProject.extra
@@ -36,6 +39,7 @@ kotlin {
     iosX64()
     iosArm64()
     iosSimulatorArm64()
+    overrideAppleDevices()
 
     sourceSets {
         // shared
@@ -105,6 +109,8 @@ kotlin {
                 implementation(libs.io.ktor.client.mock)
                 implementation(libs.org.jetbrains.kotlin.test.common)
                 implementation(libs.org.jetbrains.kotlin.test.annotations.common)
+                implementation(libs.org.jetbrains.kotlinx.coroutines.test)
+                implementation(libs.com.goncalossilva.test.resources)
             }
         }
     }

@@ -2,6 +2,8 @@ enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 rootProject.name="MastodonCompose"
 
+includeBuild("gradleWorkarounds")
+
 include(":app-android")
 include(":app-desktop")
 //include(":app-iOS")

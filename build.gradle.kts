@@ -1,3 +1,7 @@
+plugins {
+    id("social.androiddev.gradle.workarounds")
+}
+
 buildscript {
 
     extra["targetSDKVersion"] = 33

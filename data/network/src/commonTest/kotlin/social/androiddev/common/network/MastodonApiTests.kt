@@ -1,5 +1,8 @@
+@file:OptIn(ExperimentalCoroutinesApi::class)
+
 package social.androiddev.common.network
 
+import com.goncalossilva.resources.Resource
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.mock.MockEngine
 import io.ktor.client.engine.mock.respond
@@ -10,22 +13,17 @@ import io.ktor.http.HttpStatusCode
 import io.ktor.http.headersOf
 import io.ktor.serialization.kotlinx.json.json
 import io.ktor.utils.io.ByteReadChannel
-import kotlin.test.Ignore
-import kotlin.test.assertFalse
-import kotlin.test.assertNotNull
-import kotlin.test.assertNull
-import kotlin.test.assertTrue
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runTest
 import kotlinx.serialization.json.Json
-import kotlin.test.Test
+import kotlin.test.*
 
 class MastodonApiTests {
-    // TODO: fix loading json from resources
-    // @Test
-    fun `Instance request should fail with invalid response`() = runBlocking {
+    @Test
+    @Ignore // this is broken
+    fun `Instance request should fail with invalid response`() = runTest {
         // given
-        // val content: String = javaClass.classLoader.getResource("response_instance_invalid.json").readText()
-        val content: String = ""
+        val content: String = Resource("src/commonTest/resources/response_instance_invalid.json").readText()
         val mastodonApi = MastodonApiImpl(
             httpClient = createMockClient(
                 statusCode = HttpStatusCode.Unauthorized, content = ByteReadChannel(text = content)
@@ -40,12 +38,11 @@ class MastodonApiTests {
         assertNull(actual = result.getOrNull()?.uri)
     }
 
-    // TODO: fix loading json from resources
-    //@Test
-    fun `Instance request should succeed with required field response`() = runBlocking {
+    @Test
+    @Ignore // this is broken
+    fun `Instance request should succeed with required field response`() = runTest {
         // given
-        // val content: String = javaClass.classLoader.getResource("response_instance_valid.json").readText()
-        val content: String = ""
+        val content = Resource("src/commonTest/resources/response_instance_valid.json").readText()
 
         val mastodonApi = MastodonApiImpl(
             httpClient = createMockClient(

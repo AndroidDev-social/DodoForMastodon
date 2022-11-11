@@ -1,3 +1,5 @@
+import social.androiddev.gradle.overrideAppleDevices
+
 plugins {
     id("kotlin-multiplatform")
     id("com.android.library")
@@ -36,6 +38,7 @@ kotlin {
     iosX64()
     iosArm64()
     iosSimulatorArm64()
+    overrideAppleDevices()
 
     sourceSets {
         // shared

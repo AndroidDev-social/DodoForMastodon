@@ -10,7 +10,7 @@ import kotlin.test.assertNotNull
 
 class AnnouncementTests {
     @Test
-    fun `deserialize required fields should succeed`() = runBlocking {
+    fun `deserialize required fields should succeed`() {
         // given
         val json = """
         {
