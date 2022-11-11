@@ -2,8 +2,8 @@ plugins {
     id("kotlin-multiplatform")
     id("org.jetbrains.compose")
     id("com.android.library")
+    id("dev.icerock.mobile.multiplatform-resources")
 }
-
 
 val targetSDKVersion: Int by rootProject.extra
 val minSDKVersion: Int by rootProject.extra
@@ -44,6 +44,7 @@ kotlin {
                 implementation(compose.material)
                 implementation(libs.com.arkivanov.decompose)
                 implementation(libs.com.arkivanov.decompose.extensions.compose.jetbrains)
+                implementation(libs.dev.icerock.moko.resources.common)
             }
         }
 
@@ -51,12 +52,14 @@ kotlin {
             dependencies {
                 // Workaround for https://github.com/JetBrains/compose-jb/issues/2340
                 implementation(libs.androidx.compose.foundation)
+                implementation(libs.dev.icerock.moko.resources.jvm)
             }
         }
 
         named("desktopMain") {
             dependencies {
                 implementation(compose.desktop.common)
+                implementation(libs.dev.icerock.moko.resources.jvm)
             }
         }
     }
@@ -64,4 +67,12 @@ kotlin {
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
         kotlinOptions.jvmTarget = "11"
     }
+}
+
+multiplatformResources {
+    multiplatformResourcesPackage = "social.androiddev.common" // required
+//    multiplatformResourcesClassName = "SharedRes" // optional, default MR
+//    multiplatformResourcesVisibility = dev.icerock.gradle.MRVisibility.Public // optional, default Public
+//    iosBaseLocalizationRegion = "en" // optional, default "en"
+//    multiplatformResourcesSourceSet = "commonMain"  // optional, default "commonMain"
 }
