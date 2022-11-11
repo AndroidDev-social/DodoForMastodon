@@ -1,8 +1,6 @@
 package social.androiddev.common.network.model
 
 import kotlin.test.assertEquals
-import kotlin.test.Ignore
-import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import com.goncalossilva.resources.Resource

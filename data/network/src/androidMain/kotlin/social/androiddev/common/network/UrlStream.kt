@@ -6,6 +6,6 @@ import io.ktor.client.engine.cio.CIO
 import io.ktor.client.request.get
 import java.io.ByteArrayInputStream
 
-actual suspend fun urlStream(url: String): ByteArrayInputStream = HttpClient(CIO).use {
-    ByteArrayInputStream(it.get(url).body())
+suspend fun String.toUrlStream(): ByteArrayInputStream = HttpClient(CIO).use {
+    ByteArrayInputStream(it.get(this).body())
 }
