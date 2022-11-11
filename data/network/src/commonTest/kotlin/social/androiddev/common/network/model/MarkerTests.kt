@@ -1,10 +1,10 @@
 package social.androiddev.common.network.model
 
-import com.google.common.truth.Truth
+import kotlin.test.assertEquals
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
-import org.junit.Test
+import kotlin.test.Test
 
 class MarkerTests {
     @Test
@@ -41,7 +41,7 @@ class MarkerTests {
             version = 356,
             updatedAt = "2019-11-25T13:47:31.333Z"
         )
-        Truth.assertThat(marker.home).isEqualTo(homeHash)
-        Truth.assertThat(marker.uses).isEqualTo(usesHash)
+        assertEquals(expected = homeHash, actual = marker.home)
+        assertEquals(expected = usesHash, actual = marker.uses)
     }
 }

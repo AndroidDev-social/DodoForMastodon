@@ -1,10 +1,11 @@
 package social.androiddev.common.network.model
 
-import com.google.common.truth.Truth
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertNotNull
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
-import org.junit.Test
 
 class AttachmentTests {
     @Test
@@ -49,9 +50,9 @@ class AttachmentTests {
         val attachment = Json.decodeFromString<Attachment>(json)
 
         // then
-        Truth.assertThat(attachment).isNotNull()
-        Truth.assertThat(attachment.id).isEqualTo("22345792")
-        Truth.assertThat(attachment.type).isEqualTo(AttachmentType.image)
+        assertNotNull(actual = attachment)
+        assertEquals(expected = "22345792", actual = attachment.id)
+        assertEquals(expected = AttachmentType.image, actual = attachment.type)
     }
 
     @Test
@@ -102,9 +103,9 @@ class AttachmentTests {
         val attachment = Json.decodeFromString<Attachment>(json)
 
         // then
-        Truth.assertThat(attachment).isNotNull()
-        Truth.assertThat(attachment.id).isEqualTo("22546306")
-        Truth.assertThat(attachment.type).isEqualTo(AttachmentType.video)
+        assertNotNull(actual = attachment)
+        assertEquals(expected = "22546306", actual = attachment.id)
+        assertEquals(expected = AttachmentType.video, actual = attachment.type)
     }
 
     @Test
@@ -152,9 +153,9 @@ class AttachmentTests {
         val attachment = Json.decodeFromString<Attachment>(json)
 
         // then
-        Truth.assertThat(attachment).isNotNull()
-        Truth.assertThat(attachment.id).isEqualTo("21130559")
-        Truth.assertThat(attachment.type).isEqualTo(AttachmentType.gifv)
+        assertNotNull(actual = attachment)
+        assertEquals(expected = "21130559", actual = attachment.id)
+        assertEquals(expected = AttachmentType.gifv, actual = attachment.type)
     }
 
     @Test
@@ -190,8 +191,8 @@ class AttachmentTests {
         val attachment = Json.decodeFromString<Attachment>(json)
 
         // then
-        Truth.assertThat(attachment).isNotNull()
-        Truth.assertThat(attachment.id).isEqualTo("21165404")
-        Truth.assertThat(attachment.type).isEqualTo(AttachmentType.audio)
+        assertNotNull(attachment)
+        assertEquals(expected = "21165404", actual = attachment.id)
+        assertEquals(expected = AttachmentType.audio, actual = attachment.type)
     }
 }

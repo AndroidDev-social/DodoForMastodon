@@ -37,7 +37,9 @@ io-ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotl
 
 org-jetbrains-kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "org-jetbrains-kotlinx" }
 
-com-google-truth = { module = "com.google.truth:truth", version.ref = "com-google-truth" }
+org-jetbrains-kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "org-jetbrains-kotlin" }
+org-jetbrains-kotlin-test-common = { module = "org.jetbrains.kotlin:kotlin-test-common", version.ref = "org-jetbrains-kotlin" }
+org-jetbrains-kotlin-test-annotations-common = { module = "org.jetbrains.kotlin:kotlin-test-annotations-common", version.ref = "org-jetbrains-kotlin" }
 
 dev-icerock-moko-resources-common = { module = "dev.icerock.moko:resources", version.ref = "dev-icerock-moko-resources"}
 dev-icerock-moko-resources-jvm = { module = "dev.icerock.moko:resources-compose", version.ref = "dev-icerock-moko-resources"}

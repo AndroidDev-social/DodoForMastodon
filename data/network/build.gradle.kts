@@ -87,17 +87,24 @@ kotlin {
         // testing
         named("androidTest") {
             dependencies {
+                implementation(kotlin("test"))
                 implementation(libs.io.ktor.client.mock.jvm)
+                implementation(libs.org.jetbrains.kotlin.test.junit)
             }
         }
         named("desktopTest") {
             dependencies {
+                implementation(kotlin("test"))
                 implementation(libs.io.ktor.client.mock.jvm)
+                implementation(libs.org.jetbrains.kotlin.test.junit)
             }
         }
         named("commonTest") {
             dependencies {
-                implementation(libs.com.google.truth)
+                implementation(kotlin("test"))
+                implementation(libs.io.ktor.client.mock)
+                implementation(libs.org.jetbrains.kotlin.test.common)
+                implementation(libs.org.jetbrains.kotlin.test.annotations.common)
             }
         }
     }
