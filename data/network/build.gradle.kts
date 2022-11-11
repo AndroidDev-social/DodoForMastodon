@@ -2,6 +2,7 @@ plugins {
     id("kotlin-multiplatform")
     id("com.android.library")
     kotlin("plugin.serialization")
+    id("dev.icerock.mobile.multiplatform-resources")
 }
 
 val targetSDKVersion: Int by rootProject.extra
@@ -46,6 +47,7 @@ kotlin {
                 implementation(libs.io.ktor.serialization.kotlinx.json)
                 implementation(libs.io.ktor.client.content.negotiation)
                 implementation(libs.org.jetbrains.kotlinx.serialization.json)
+                implementation(libs.dev.icerock.moko.resources.common)
             }
         }
 
@@ -105,7 +107,13 @@ kotlin {
                 implementation(libs.io.ktor.client.mock)
                 implementation(libs.org.jetbrains.kotlin.test.common)
                 implementation(libs.org.jetbrains.kotlin.test.annotations.common)
+                implementation(libs.dev.icerock.moko.resources.test)
             }
         }
     }
+}
+
+multiplatformResources {
+    multiplatformResourcesPackage = "social.androiddev.common.network" // required
+    multiplatformResourcesSourceSet = "commonTest"  // optional, default "commonMain"
 }
