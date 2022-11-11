@@ -26,7 +26,7 @@ fun TimelineScreen(
     ) {
         LazyColumn {
             items(items, key = { item -> item.id }) { state ->
-                FeedCard(
+                TimelineCard(
                     state = state,
                     modifier = Modifier.wrapContentSize(),
                 )
