@@ -1,10 +1,10 @@
 package social.androiddev.common.network.model
 
-import com.google.common.truth.Truth
+import kotlin.test.assertEquals
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
-import org.junit.Test
+import kotlin.test.Test
 
 class FeatureTests {
     @Test
@@ -24,9 +24,9 @@ class FeatureTests {
         val featuredTag = Json.decodeFromString<FeaturedTag>(json)
 
         // then
-        Truth.assertThat(featuredTag.id).isEqualTo("627")
-        Truth.assertThat(featuredTag.name).isEqualTo("nowplaying")
-        Truth.assertThat(featuredTag.statusesCount).isEqualTo(36)
-        Truth.assertThat(featuredTag.lastStatusAt).isEqualTo("2019-11-15T07:14:43.524Z")
+        assertEquals(expected = "627", actual = featuredTag.id)
+        assertEquals(expected = "nowplaying", actual = featuredTag.name)
+        assertEquals(expected = 36, actual = featuredTag.statusesCount)
+        assertEquals(expected = "2019-11-15T07:14:43.524Z", actual = featuredTag.lastStatusAt)
     }
 }

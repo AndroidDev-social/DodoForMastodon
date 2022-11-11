@@ -1,10 +1,12 @@
 package social.androiddev.common.network.model
 
-import com.google.common.truth.Truth
+import kotlin.test.assertEquals
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
-import org.junit.Test
+import kotlin.test.Test
+import kotlin.test.assertContains
+import kotlin.test.assertNotNull
 
 class AnnouncementTests {
     @Test
@@ -55,14 +57,17 @@ class AnnouncementTests {
         val announcement = Json.decodeFromString<Announcement>(json)
 
         // then
-        Truth.assertThat(announcement.id).isEqualTo("8")
-        Truth.assertThat(announcement.text).contains("Looks like there was an issue processing audio attachments without embedded art since yesterday due to an experimental new feature")
-        Truth.assertThat(announcement.published).isEqualTo(true)
-        Truth.assertThat(announcement.allDay).isEqualTo(false)
-        Truth.assertThat(announcement.createdAt).isEqualTo("2020-07-03T01:27:38.726Z")
-        Truth.assertThat(announcement.updatedAt).isEqualTo("2020-07-03T01:27:38.752Z")
-        Truth.assertThat(announcement.read).isEqualTo(true)
-        Truth.assertThat(announcement.reactions).isNotNull()
-        Truth.assertThat(announcement.reactions.size).isEqualTo(4)
+        assertEquals(expected = "8", actual = announcement.id)
+        assertContains(
+            announcement.text,
+            "Looks like there was an issue processing audio attachments without embedded art since yesterday due to an experimental new feature",
+        )
+        assertEquals(expected = true, actual = announcement.published)
+        assertEquals(expected = false, actual = announcement.allDay)
+        assertEquals(expected = "2020-07-03T01:27:38.726Z", actual = announcement.createdAt)
+        assertEquals(expected = "2020-07-03T01:27:38.752Z", actual = announcement.updatedAt)
+        assertEquals(expected = true, actual = announcement.read)
+        assertNotNull(actual = announcement.reactions)
+        assertEquals(expected = 4, actual = announcement.reactions.size)
     }
 }

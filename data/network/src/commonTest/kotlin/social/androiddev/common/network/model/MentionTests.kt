@@ -1,10 +1,11 @@
 package social.androiddev.common.network.model
 
-import com.google.common.truth.Truth
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertNotNull
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
-import org.junit.Test
 
 class MentionTests {
     @Test
@@ -31,20 +32,20 @@ class MentionTests {
         val mentions = Json.decodeFromString<List<Mention>>(json)
 
         // then
-        Truth.assertThat(mentions).isNotNull()
-        Truth.assertThat(mentions.size).isEqualTo(2)
+        assertNotNull(actual = mentions)
+        assertEquals(expected = 2, actual = mentions.size)
 
         val firstMention = mentions[0]
-        Truth.assertThat(firstMention.id).isEqualTo("952529")
-        Truth.assertThat(firstMention.username).isEqualTo("alayna")
-        Truth.assertThat(firstMention.url).isEqualTo("https://desvox.es/users/alayna")
-        Truth.assertThat(firstMention.acct).isEqualTo("alayna@desvox.es")
+        assertEquals(expected = "952529", actual = firstMention.id)
+        assertEquals(expected = "alayna", actual = firstMention.username)
+        assertEquals(expected = "https://desvox.es/users/alayna", actual = firstMention.url)
+        assertEquals(expected = "alayna@desvox.es", actual = firstMention.acct)
 
         val secondMention = mentions[1]
-        Truth.assertThat(secondMention.id).isEqualTo("14715")
-        Truth.assertThat(secondMention.username).isEqualTo("trwnh")
-        Truth.assertThat(secondMention.url).isEqualTo("https://mastodon.social/@trwnh")
-        Truth.assertThat(secondMention.acct).isEqualTo("trwnh")
+        assertEquals(expected = "14715", actual = secondMention.id)
+        assertEquals(expected = "trwnh", actual = secondMention.username)
+        assertEquals(expected = "https://mastodon.social/@trwnh", actual = secondMention.url)
+        assertEquals(expected = "trwnh", actual = secondMention.acct)
 
     }
 }
