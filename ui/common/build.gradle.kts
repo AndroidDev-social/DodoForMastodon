@@ -62,6 +62,15 @@ kotlin {
                 implementation(libs.dev.icerock.moko.resources.jvm)
             }
         }
+
+        //Testing
+        named("commonTest") {
+            dependencies {
+                implementation(kotlin("test"))
+                implementation(libs.org.jetbrains.kotlin.test.common)
+                implementation(libs.org.jetbrains.kotlin.test.annotations.common)
+            }
+        }
     }
 
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
