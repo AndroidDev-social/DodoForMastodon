@@ -1,10 +1,11 @@
 package social.androiddev.common.network.model
 
-import com.google.common.truth.Truth
+import kotlin.test.assertEquals
+import kotlin.test.assertNotNull
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
-import org.junit.Test
+import kotlin.test.Test
 
 class AnnouncementReactionTests {
     @Test
@@ -31,21 +32,21 @@ class AnnouncementReactionTests {
         val reactions = Json.decodeFromString<List<AnnouncementReaction>>(json)
 
         // then
-        Truth.assertThat(reactions).isNotNull()
-        Truth.assertThat(reactions.size).isEqualTo(2)
-        Truth.assertThat(reactions[0]).isNotNull()
-        Truth.assertThat(reactions[1]).isNotNull()
+        assertNotNull(actual = reactions)
+        assertEquals(expected = 2, actual = reactions.size)
+        assertNotNull(actual = reactions[0])
+        assertNotNull(actual = reactions[1])
 
         val firstReaction = reactions[0]
-        Truth.assertThat(firstReaction.name).isEqualTo("bongoCat")
-        Truth.assertThat(firstReaction.count).isEqualTo(9)
-        Truth.assertThat(firstReaction.me).isEqualTo(false)
-        Truth.assertThat(firstReaction.url).isEqualTo("https://files.mastodon.social/custom_emojis/images/000/067/715/original/fdba57dff7576d53.png")
-        Truth.assertThat(firstReaction.staticUrl).isEqualTo("https://files.mastodon.social/custom_emojis/images/000/067/715/static/fdba57dff7576d53.png")
+        assertEquals(expected = "bongoCat", actual = firstReaction.name)
+        assertEquals(expected = 9, actual = firstReaction.count)
+        assertEquals(expected = false, actual = firstReaction.me)
+        assertEquals(expected = "https://files.mastodon.social/custom_emojis/images/000/067/715/original/fdba57dff7576d53.png", actual = firstReaction.url)
+        assertEquals(expected = "https://files.mastodon.social/custom_emojis/images/000/067/715/static/fdba57dff7576d53.png", actual = firstReaction.staticUrl)
 
         val secondReaction = reactions[1]
-        Truth.assertThat(secondReaction.name).isEqualTo("🤔")
-        Truth.assertThat(secondReaction.count).isEqualTo(1)
-        Truth.assertThat(secondReaction.me).isEqualTo(true)
+        assertEquals(expected = "🤔", actual = secondReaction.name)
+        assertEquals(expected = 1, actual = secondReaction.count)
+        assertEquals(expected = true, actual = secondReaction.me)
     }
 }
