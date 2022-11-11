@@ -38,7 +38,7 @@ kotlin {
     sourceSets {
         named("commonMain") {
             dependencies {
-                implementation(project(":data:network"))
+                implementation(projects.data.network)
                 implementation(compose.runtime)
                 implementation(compose.foundation)
                 implementation(compose.material)

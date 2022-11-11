@@ -37,8 +37,8 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(project(":domain:timeline"))
-                implementation(project(":ui:common"))
+                implementation(projects.domain.timeline)
+                implementation(projects.ui.common)
                 implementation(compose.runtime)
                 implementation(compose.foundation)
                 implementation(compose.material)

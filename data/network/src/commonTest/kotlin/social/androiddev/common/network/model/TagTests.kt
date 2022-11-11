@@ -1,10 +1,10 @@
 package social.androiddev.common.network.model
 
-import com.google.common.truth.Truth
+import kotlin.test.Test
+import kotlin.test.assertEquals
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
-import org.junit.Test
 
 class TagTests {
     @Test
@@ -67,10 +67,10 @@ class TagTests {
         val day6 = History("1574121600", "217", "42")
         val day7 = History("1574035200", "214", "34")
 
-        Truth.assertThat(tag.name).isEqualTo("nowplaying")
-        Truth.assertThat(tag.url).isEqualTo("https://mastodon.social/tags/nowplaying")
-        Truth.assertThat(tag.history).isEqualTo(
-            listOf(
+        assertEquals(expected = "nowplaying", actual = tag.name)
+        assertEquals(expected = "https://mastodon.social/tags/nowplaying", actual = tag.url)
+        assertEquals(
+            expected = listOf(
                 day1,
                 day2,
                 day3,
@@ -78,7 +78,8 @@ class TagTests {
                 day5,
                 day6,
                 day7,
-            )
+            ),
+            actual = tag.history
         )
     }
 }

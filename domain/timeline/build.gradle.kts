@@ -38,7 +38,7 @@ kotlin {
 
         val commonMain by getting {
             dependencies {
-                implementation(project(":data:network"))
+                implementation(projects.data.network)
             }
         }
 
@@ -59,7 +59,8 @@ kotlin {
         // testing
         named("commonTest") {
             dependencies {
-                implementation(libs.com.google.truth)
+                implementation(libs.org.jetbrains.kotlin.test.common)
+                implementation(libs.org.jetbrains.kotlin.test.annotations.common)
             }
         }
     }
