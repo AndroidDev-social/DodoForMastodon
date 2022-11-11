@@ -38,7 +38,7 @@ kotlin {
 
         val commonMain by getting {
             dependencies {
-                implementation(project(":data:network"))
+                implementation(projects.data.network)
             }
         }
 
