@@ -1,4 +1,5 @@
 import social.androiddev.gradle.overrideAppleDevices
+import social.androiddev.gradle.isIdea
 
 plugins {
     id("kotlin-multiplatform")
@@ -35,60 +36,68 @@ android {
 kotlin {
     jvm("desktop")
     android()
-    iosX64()
-    iosArm64()
+    ios()
     iosSimulatorArm64()
     overrideAppleDevices()
 
     sourceSets {
         // shared
-        val commonMain by getting {
+        val commonMain by getting
+        val commonTest by getting {
             dependencies {
+                implementation(libs.org.jetbrains.kotlin.test.common)
+                implementation(libs.org.jetbrains.kotlin.test.annotations.common)
             }
         }
 
-
         // android
-        getByName("androidMain") {
-            dependsOn(commonMain)
+        val androidMain by getting {
             dependencies {
                 implementation(libs.com.squareup.sqldelight.android.driver)
                 implementation(libs.com.squareup.sqldelight.sqlite.driver)
             }
         }
+        if (!isIdea()) {
+            val androidAndroidTestRelease by getting
+            val androidAndroidTest by getting {
+                dependsOn(androidAndroidTestRelease)
+            }
+            val androidTestFixturesDebug by getting
+            val androidTestFixturesRelease by getting
 
+            val androidTestFixtures by getting {
+                dependsOn(androidTestFixturesDebug)
+                dependsOn(androidTestFixturesRelease)
+            }
+
+            val androidTest by getting {
+                dependsOn(androidTestFixtures)
+            }
+        }
+        val androidTest by getting
 
         // desktop
-        getByName("desktopMain") {
+        val desktopMain by getting {
             dependencies {
                 implementation(libs.com.squareup.sqldelight.sqlite.driver)
             }
         }
 
+        val desktopTest by getting
+
 
         // iOS
-        val iosX64Main by getting
-        val iosArm64Main by getting
-        val iosSimulatorArm64Main by getting
-        val iosMain by creating {
-            dependsOn(getByName("commonMain"))
-
-            iosX64Main.dependsOn(this)
-            iosArm64Main.dependsOn(this)
-            iosSimulatorArm64Main.dependsOn(this)
-
+        val iosMain by getting {
             dependencies {
                 implementation(libs.com.squareup.sqldelight.native.driver)
             }
         }
-
-
-        // testing
-        named("commonTest") {
-            dependencies {
-                implementation(libs.org.jetbrains.kotlin.test.common)
-                implementation(libs.org.jetbrains.kotlin.test.annotations.common)
-            }
+        val iosTest by getting
+        val iosSimulatorArm64Main by getting {
+            dependsOn(iosMain)
+        }
+        val iosSimulatorArm64Test by getting {
+            dependsOn(iosTest)
         }
     }
 }

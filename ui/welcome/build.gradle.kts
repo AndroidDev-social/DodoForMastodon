@@ -1,3 +1,5 @@
+import social.androiddev.gradle.isIdea
+
 plugins {
     id("kotlin-multiplatform")
     id("org.jetbrains.compose")
@@ -37,6 +39,7 @@ kotlin {
     android()
 
     sourceSets {
+        // shared
         val commonMain by getting {
             dependencies {
 //                implementation(project(":domain:welcome"))
@@ -46,8 +49,10 @@ kotlin {
                 implementation(compose.material)
             }
         }
+        val commonTest by getting
 
-        named("androidMain") {
+        // android
+        val androidMain by getting {
             dependencies {
                 // Workaround for https://github.com/JetBrains/compose-jb/issues/2340
                 implementation(libs.androidx.compose.foundation)
@@ -56,12 +61,32 @@ kotlin {
             }
         }
 
-        named("desktopMain") {
+        if (!isIdea()) {
+            val androidAndroidTestRelease by getting
+            val androidAndroidTest by getting {
+                dependsOn(androidAndroidTestRelease)
+            }
+            val androidTestFixturesDebug by getting
+            val androidTestFixturesRelease by getting
+
+            val androidTestFixtures by getting {
+                dependsOn(androidTestFixturesDebug)
+                dependsOn(androidTestFixturesRelease)
+            }
+
+            val androidTest by getting {
+                dependsOn(androidTestFixtures)
+            }
+        }
+        val androidTest by getting
+
+        // desktop
+        val desktopMain by getting {
             dependencies {
-//                dependsOn(commonMain)
                 implementation(compose.desktop.common)
             }
         }
+        val desktopTest by getting
     }
 
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {

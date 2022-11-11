@@ -43,7 +43,6 @@ class MastodonApiTests {
     fun `Instance request should succeed with required field response`() = runTest {
         // given
         val content = Resource("src/commonTest/resources/response_instance_valid.json").readText()
-
         val mastodonApi = MastodonApiImpl(
             httpClient = createMockClient(
                 statusCode = HttpStatusCode.Unauthorized, content = ByteReadChannel(text = content)

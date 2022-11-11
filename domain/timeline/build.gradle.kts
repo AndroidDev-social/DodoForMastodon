@@ -1,3 +1,5 @@
+import social.androiddev.gradle.isIdea
+
 plugins {
     id("kotlin-multiplatform")
     id("com.android.library")
@@ -35,33 +37,42 @@ kotlin {
 
     sourceSets {
         // shared
-
         val commonMain by getting {
             dependencies {
                 implementation(projects.data.network)
             }
         }
-
-
-        // android
-        getByName("androidMain") {
-            dependsOn(commonMain)
-            dependencies {
-            }
-        }
-
-
-        // desktop
-        getByName("desktopMain") {
-            dependencies {
-            }
-        }
-        // testing
-        named("commonTest") {
+        val commonTest by getting {
             dependencies {
                 implementation(libs.org.jetbrains.kotlin.test.common)
                 implementation(libs.org.jetbrains.kotlin.test.annotations.common)
             }
         }
+
+        // android
+        val androidMain by getting
+
+        if (!isIdea()) {
+            val androidAndroidTestRelease by getting
+            val androidAndroidTest by getting {
+                dependsOn(androidAndroidTestRelease)
+            }
+            val androidTestFixturesDebug by getting
+            val androidTestFixturesRelease by getting
+
+            val androidTestFixtures by getting {
+                dependsOn(androidTestFixturesDebug)
+                dependsOn(androidTestFixturesRelease)
+            }
+
+            val androidTest by getting {
+                dependsOn(androidTestFixtures)
+            }
+        }
+        val androidTest by getting
+
+        // desktop
+        val desktopMain by getting
+        val desktopTest by getting
     }
 }

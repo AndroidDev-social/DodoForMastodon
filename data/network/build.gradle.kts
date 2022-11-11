@@ -1,4 +1,5 @@
 import social.androiddev.gradle.overrideAppleDevices
+import social.androiddev.gradle.isIdea
 
 plugins {
     id("kotlin-multiplatform")
@@ -36,8 +37,7 @@ android {
 kotlin {
     jvm("desktop")
     android()
-    iosX64()
-    iosArm64()
+    ios()
     iosSimulatorArm64()
     overrideAppleDevices()
 
@@ -52,59 +52,9 @@ kotlin {
                 implementation(libs.org.jetbrains.kotlinx.serialization.json)
             }
         }
-
-
-        // android
-        getByName("androidMain") {
-            dependsOn(commonMain)
+        val commonTest by getting {
             dependencies {
-                implementation(libs.io.ktor.client.cio)
-            }
-        }
 
-
-        // desktop
-        getByName("desktopMain") {
-            dependencies {
-                implementation(libs.io.ktor.client.cio)
-            }
-        }
-
-
-        // iOS
-        val iosX64Main by getting
-        val iosArm64Main by getting
-        val iosSimulatorArm64Main by getting
-        val iosMain by creating {
-            dependsOn(getByName("commonMain"))
-
-            iosX64Main.dependsOn(this)
-            iosArm64Main.dependsOn(this)
-            iosSimulatorArm64Main.dependsOn(this)
-
-            dependencies {
-                implementation(libs.io.ktor.client.darwin)
-            }
-        }
-
-
-        // testing
-        named("androidTest") {
-            dependencies {
-                implementation(kotlin("test"))
-                implementation(libs.io.ktor.client.mock.jvm)
-                implementation(libs.org.jetbrains.kotlin.test.junit)
-            }
-        }
-        named("desktopTest") {
-            dependencies {
-                implementation(kotlin("test"))
-                implementation(libs.io.ktor.client.mock.jvm)
-                implementation(libs.org.jetbrains.kotlin.test.junit)
-            }
-        }
-        named("commonTest") {
-            dependencies {
                 implementation(kotlin("test"))
                 implementation(libs.io.ktor.client.mock)
                 implementation(libs.org.jetbrains.kotlin.test.common)
@@ -112,6 +62,56 @@ kotlin {
                 implementation(libs.org.jetbrains.kotlinx.coroutines.test)
                 implementation(libs.com.goncalossilva.test.resources)
             }
+        }
+
+
+        // android
+        val androidMain by getting {
+            dependencies {
+                implementation(libs.io.ktor.client.cio)
+            }
+        }
+        if (!isIdea()) {
+            val androidAndroidTestRelease by getting
+            val androidAndroidTest by getting {
+                dependsOn(androidAndroidTestRelease)
+            }
+            val androidTestFixturesDebug by getting
+            val androidTestFixturesRelease by getting
+
+            val androidTestFixtures by getting {
+                dependsOn(androidTestFixturesDebug)
+                dependsOn(androidTestFixturesRelease)
+            }
+
+            val androidTest by getting {
+                dependsOn(androidTestFixtures)
+            }
+        }
+        val androidTest by getting
+
+
+        // desktop
+        val desktopMain by getting {
+            dependencies {
+                implementation(libs.io.ktor.client.cio)
+            }
+        }
+        val desktopTest by getting
+
+
+        // iOS
+        val iosMain by getting {
+            dependencies {
+                implementation(libs.io.ktor.client.darwin)
+            }
+        }
+        val iosTest by getting
+        val iosSimulatorArm64Main by getting {
+            dependsOn(iosMain)
+        }
+        val iosSimulatorArm64Test by getting {
+            dependsOn(iosTest)
         }
     }
 }
