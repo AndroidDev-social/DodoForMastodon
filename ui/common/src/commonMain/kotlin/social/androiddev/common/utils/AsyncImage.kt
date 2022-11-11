@@ -17,11 +17,11 @@ import kotlinx.coroutines.withContext
  */
 @Composable
 fun <T> AsyncImage(
-    load: suspend () -> T,
-    painterFor: @Composable (T) -> Painter,
     contentDescription: String,
     modifier: Modifier = Modifier,
     contentScale: ContentScale = ContentScale.Fit,
+    load: suspend () -> T,
+    painterFor: @Composable (T) -> Painter,
 ) {
     val image: T? by produceState<T?>(null) {
         value = withContext(Dispatchers.IO) {

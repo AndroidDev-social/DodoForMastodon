@@ -1,7 +1,6 @@
 package social.androiddev.timeline
 
 //import androidx.compose.desktop.ui.tooling.preview.Preview
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -35,8 +34,8 @@ import social.androiddev.common.theme.MastodonTheme
 @Composable
 fun FeedCard(
     state: FeedItemState,
-    contentPadding: PaddingValues = PaddingValues(8.dp),
     modifier: Modifier = Modifier,
+    contentPadding: PaddingValues = PaddingValues(8.dp),
     backgroundColor: Color = MaterialTheme.colors.surface,
     contentColor: Color = contentColorFor(backgroundColor),
 ) {
@@ -45,7 +44,9 @@ fun FeedCard(
         date = state.date,
         username = state.username,
         userAddress = state.acctAddress,
-        toot = state.toot,
+        toot = state.message,
+        videoUrl = state.videoUrl,
+        images = state.images,
         contentPadding = contentPadding,
         modifier = modifier,
         backgroundColor = backgroundColor,
@@ -63,8 +64,10 @@ fun FeedCard(
     username: String,
     userAddress: String,
     toot: String?,
-    contentPadding: PaddingValues = PaddingValues(8.dp),
+    videoUrl: String?,
+    images: List<String>,
     modifier: Modifier = Modifier,
+    contentPadding: PaddingValues = PaddingValues(8.dp),
     backgroundColor: Color = MaterialTheme.colors.surface,
     contentColor: Color = contentColorFor(backgroundColor),
 ) {
@@ -83,33 +86,34 @@ fun FeedCard(
             UserAvatar(
                 modifier = Modifier
                     .size(72.dp)
-                    .clip(CircleShape)
-                    // TODO We should add support for a default image placeholder
-                    // in the case of loading or error
-                    .background(Color.Red),
+                    .clip(CircleShape),
                 url = userAvatarUrl
             )
 
             HorizontalSpacer()
 
-            TootTextContent(
+            TootContent(
                 modifier = Modifier.weight(1f).wrapContentHeight(),
                 username = username,
                 userAddress = userAddress,
-                toot = toot,
+                message = toot,
                 date = date,
+                images = images,
+                videoUrl = videoUrl
             )
         }
     }
 }
 
 @Composable
-private fun TootTextContent(
+private fun TootContent(
     modifier: Modifier,
     username: String,
     userAddress: String,
-    toot: String?,
+    message: String?,
     date: String,
+    videoUrl: String?,
+    images: List<String>,
 ) {
     Column(
         modifier = modifier,
@@ -120,12 +124,15 @@ private fun TootTextContent(
             date = date,
         )
         VerticalSpacer()
-        if (toot != null) {
+        // TODO Add support for video + multiple images rendering
+        // for now just show message from toot
+        if (message != null) {
             Text(
                 modifier = Modifier.fillMaxWidth(),
-                text = toot,
+                text = message,
                 style = MaterialTheme.typography.caption
             )
+            VerticalSpacer()
         }
     }
 }
@@ -178,7 +185,9 @@ data class FeedItemState(
     val date: String,
     val username: String,
     val acctAddress: String,
-    val toot: String?,
+    val message: String?,
+    val videoUrl: String?,
+    val images: List<String>,
 )
 
 val dummyFeedItem = FeedItemState(
@@ -187,7 +196,9 @@ val dummyFeedItem = FeedItemState(
     date = "1d",
     username = "Benjamin Stürmer",
     acctAddress = "@bino@mastodon.cloud",
-    toot = "\uD83D\uDC4BHello #AndroidDev",
+    message = "\uD83D\uDC4BHello #AndroidDev",
+    videoUrl = null,
+    images = emptyList(),
 )
 
 //@Preview
