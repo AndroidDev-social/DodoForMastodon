@@ -1,6 +1,6 @@
 package social.androiddev.timeline
 
-import androidx.compose.desktop.ui.tooling.preview.Preview
+//import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.wrapContentHeight
@@ -45,7 +45,7 @@ fun TootContentHeader(
     }
 }
 
-@Preview
+//@Preview
 @Composable
 private fun PreviewLight() {
     MastodonTheme(useDarkTheme = false) {
@@ -60,7 +60,7 @@ private fun PreviewLight() {
     }
 }
 
-@Preview
+//@Preview
 @Composable
 private fun PreviewDark() {
     MastodonTheme(useDarkTheme = true) {
