@@ -5,6 +5,7 @@ import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
 import social.androiddev.common.theme.MastodonTheme
 import social.androiddev.timeline.TimelineScreen
+import social.androiddev.timeline.dummyFeedItem
 
 fun main() {
     application {
@@ -16,7 +17,7 @@ fun main() {
             title = "Mastodon"
         ) {
             MastodonTheme {
-                TimelineScreen()
+                TimelineScreen(listOf(dummyFeedItem))
             }
         }
     }
