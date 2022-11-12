@@ -1,6 +1,6 @@
 # Mastodon compose client
 [![CC-BY license](https://img.shields.io/badge/License-CC--BY-blue.svg)](https://creativecommons.org/licenses/by-nd/4.0)
-![CI](https://github.com/thebino/MastodonCompose/workflows/CI/badge.svg)
+![CI](https://github.com/AndroidDev-social/MastodonCompose/actions/workflows/continuous-delivery-pipeline.yml/badge.svg)
 
 A multiplatform Mastodon client written in [Kotlin](kotlinlang.org) for the amazing [androiddev.social](https://androiddev.social) community and everyone else who enjoys #Fediverse
 
