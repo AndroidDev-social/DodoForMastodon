@@ -9,10 +9,10 @@ fun MastodonTheme(
     useDarkTheme: Boolean = isSystemInDarkTheme(), content: @Composable() () -> Unit
 ) {
     MaterialTheme(
-        colors = if (!useDarkTheme) {
-            lightColors
-        } else {
+        colors = if (useDarkTheme) {
             darkColors
+        } else {
+            lightColors
         }, typography = MastodonTypography, content = content
     )
 }
