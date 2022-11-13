@@ -8,7 +8,7 @@ import kotlinx.serialization.json.Json
 
 class TagTests {
     @Test
-    fun `deserialize required fields should succeed`() = runBlocking {
+    fun `deserialize required fields should succeed`() {
         // given
         val json = """
         {

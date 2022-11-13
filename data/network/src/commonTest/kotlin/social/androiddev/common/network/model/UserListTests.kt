@@ -8,7 +8,7 @@ import kotlin.test.Test
 
 class UserListTests {
     @Test
-    fun `deserialize required fields should succeed`() = runBlocking {
+    fun `deserialize required fields should succeed`() {
         // given
         val json = """
         {

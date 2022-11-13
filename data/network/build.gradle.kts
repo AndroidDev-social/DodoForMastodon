@@ -105,6 +105,7 @@ kotlin {
                 implementation(libs.io.ktor.client.mock)
                 implementation(libs.org.jetbrains.kotlin.test.common)
                 implementation(libs.org.jetbrains.kotlin.test.annotations.common)
+                implementation(libs.org.jetbrains.kotlinx.coroutines.test)
             }
         }
     }

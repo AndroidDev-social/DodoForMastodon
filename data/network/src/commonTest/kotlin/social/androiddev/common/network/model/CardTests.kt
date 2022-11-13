@@ -8,7 +8,7 @@ import kotlin.test.Test
 
 class CardTests {
     @Test
-    fun `deserialize video card should succeed`() = runBlocking {
+    fun `deserialize video card should succeed`() {
         // given
         val json = """
         {

@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.produceState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
@@ -19,6 +20,7 @@ import kotlinx.coroutines.withContext
 fun <T> AsyncImage(
     contentDescription: String,
     modifier: Modifier = Modifier,
+    alignment: Alignment = Alignment.Center,
     contentScale: ContentScale = ContentScale.Fit,
     load: suspend () -> T,
     painterFor: @Composable (T) -> Painter,
@@ -39,7 +41,8 @@ fun <T> AsyncImage(
             painter = painterFor(image!!),
             contentDescription = contentDescription,
             contentScale = contentScale,
-            modifier = modifier
+            modifier = modifier,
+            alignment = alignment,
         )
     } else {
         Spacer(

@@ -9,7 +9,7 @@ import kotlin.test.assertNull
 
 class ApplicationTests {
     @Test
-    fun `deserialize required fields should succeed`() = runBlocking {
+    fun `deserialize required fields should succeed`() {
         // given
         val json = """
         {
