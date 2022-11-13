@@ -16,6 +16,7 @@ kotlin {
                 implementation(compose.desktop.currentOs)
                 implementation(projects.ui.timeline)
                 implementation(projects.ui.common)
+                implementation(projects.ui.welcome)
             }
         }
     }
