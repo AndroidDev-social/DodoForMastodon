@@ -39,7 +39,7 @@ fun WelcomeScreen(
     navigateToSignUp: () -> Unit,
     appIcon: @Composable () -> Unit = {
         AsyncImage(
-            load = { loadImageIntoPainter(url = "https://picsum.photos/200") },
+            load = { loadImageIntoPainter(url = "https://via.placeholder.com/200x200/6FA4DE/010041?text=MastodonX") },
             painterFor = { remember { it } },
             contentDescription = "App Logo",
             modifier = Modifier
