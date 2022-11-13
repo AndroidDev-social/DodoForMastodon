@@ -12,7 +12,7 @@ class NotificationTests {
     // TODO: fix loading json from resources
     @Ignore
     @Test
-    fun `deserialize required fields should succeed`() = runBlocking {
+    fun `deserialize required fields should succeed`() {
         // given
         // val json: String = javaClass.classLoader.getResource("response_notification_required.json").readText()
         val json: String = ""

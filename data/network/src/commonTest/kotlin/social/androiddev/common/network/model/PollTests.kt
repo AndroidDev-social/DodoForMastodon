@@ -9,7 +9,7 @@ import kotlinx.serialization.json.Json
 
 class PollTests {
     @Test
-    fun `deserialize required fields should succeed`() = runBlocking {
+    fun `deserialize required fields should succeed`() {
         // given
         val json = """
         {
