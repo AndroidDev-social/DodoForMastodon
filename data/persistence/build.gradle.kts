@@ -1,7 +1,7 @@
 plugins {
     id("kotlin-multiplatform")
     id("com.android.library")
-    id("com.squareup.sqldelight")
+//    id("com.squareup.sqldelight")
 }
 
 val targetSDKVersion: Int by rootProject.extra
