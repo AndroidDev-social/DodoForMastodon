@@ -13,11 +13,11 @@ val Green = Color(0xff69f0ae)
 val darkColors =
     darkColors(
         primary = Blue,
-        onPrimary = Color.Gray,
+        onPrimary = Color.White,
         secondary = Green,
         onSecondary = LightBlue,
         surface = DarkGrey,
-        onSurface = Color(0xFFFFFFFF)
+        onSurface = Color.White
     )
 
 val lightColors = lightColors(

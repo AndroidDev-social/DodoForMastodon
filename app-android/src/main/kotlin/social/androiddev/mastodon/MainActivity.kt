@@ -14,7 +14,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             MastodonTheme {
-                WelcomeScreen(modifier = Modifier.fillMaxSize())
+                WelcomeScreen(
+                    modifier = Modifier.fillMaxSize(),
+                    navigateToSignUp = {},
+                    navigateToLogin = {},
+                )
             }
         }
     }
