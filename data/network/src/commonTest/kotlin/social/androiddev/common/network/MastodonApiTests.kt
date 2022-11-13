@@ -18,11 +18,15 @@ import kotlin.test.assertTrue
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.json.Json
 import kotlin.test.Test
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runTest
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class MastodonApiTests {
     // TODO: fix loading json from resources
-    // @Test
-    fun `Instance request should fail with invalid response`() = runBlocking {
+    @Test
+    @Ignore
+    fun `Instance request should fail with invalid response`() = runTest {
         // given
         // val content: String = javaClass.classLoader.getResource("response_instance_invalid.json").readText()
         val content: String = ""
@@ -41,8 +45,9 @@ class MastodonApiTests {
     }
 
     // TODO: fix loading json from resources
-    //@Test
-    fun `Instance request should succeed with required field response`() = runBlocking {
+    @Test
+    @Ignore
+    fun `Instance request should succeed with required field response`() = runTest {
         // given
         // val content: String = javaClass.classLoader.getResource("response_instance_valid.json").readText()
         val content: String = ""

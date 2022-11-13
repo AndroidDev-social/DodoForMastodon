@@ -9,7 +9,7 @@ import kotlinx.serialization.json.Json
 
 class AttachmentTests {
     @Test
-    fun `deserialize image example should succeed`() = runBlocking {
+    fun `deserialize image example should succeed`() {
         // given
         val json = """
         {
