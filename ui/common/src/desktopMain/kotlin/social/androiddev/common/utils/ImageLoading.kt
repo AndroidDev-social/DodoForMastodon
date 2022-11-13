@@ -8,7 +8,7 @@ import java.io.ByteArrayInputStream
 import social.androiddev.common.network.urlStream
 
 actual suspend fun loadImageIntoPainter(url: String): Painter {
-    val inputStream: ByteArrayInputStream = urlStream(url)
+    val inputStream: ByteArrayInputStream = urlStream(url).inputStream()
     val imageBitmap: ImageBitmap = loadImageBitmap(inputStream = inputStream)
 
     return BitmapPainter(imageBitmap)
