@@ -2,6 +2,15 @@ plugins {
     id("kotlin-multiplatform")
     id("com.android.library")
 //    id("com.squareup.sqldelight")
+    id("com.diffplug.spotless") version "6.11.0"
+}
+
+spotless {
+    kotlin {
+        target("src/*/kotlin/**/*.kt")
+        ktlint("0.43.2")
+        licenseHeaderFile(rootProject.file("copyright.kt"))
+    }
 }
 
 val targetSDKVersion: Int by rootProject.extra
