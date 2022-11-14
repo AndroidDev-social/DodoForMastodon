@@ -1,16 +1,27 @@
+/*
+ * This file is part of MastodonX.
+ *
+ * MastodonX is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+ *
+ * MastodonX is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with MastodonX. If not, see <https://www.gnu.org/licenses/>.
+ */
 package social.androiddev.common.composables.buttons
 
-//import androidx.compose.desktop.ui.tooling.preview.Preview
+// import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.material.Button
 import androidx.compose.material.ButtonColors
 import androidx.compose.material.ContentAlpha
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
+import androidx.compose.material.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.State
@@ -18,11 +29,9 @@ import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.compositeOver
 import androidx.compose.ui.unit.dp
 import social.androiddev.common.theme.MastodonTheme
-import androidx.compose.material.Button
-import androidx.compose.material.contentColorFor
-import androidx.compose.ui.graphics.compositeOver
 
 @Composable
 fun MastodonButton(
@@ -110,7 +119,7 @@ private class DefaultButtonColors(
 
 // skip preview to work with multiplatform
 // https://github.com/JetBrains/compose-jb/issues/1603
-//@Preview
+// @Preview
 @Composable
 private fun PreviewButtonLight() {
     MastodonTheme(
@@ -126,7 +135,7 @@ private fun PreviewButtonLight() {
 
 // skip preview to work with multiplatform
 // https://github.com/JetBrains/compose-jb/issues/1603
-//@Preview
+// @Preview
 @Composable
 private fun PreviewButtonDark() {
     MastodonTheme(
