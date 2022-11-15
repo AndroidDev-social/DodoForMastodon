@@ -7,6 +7,7 @@ buildscript {
     repositories {
         google()
         mavenCentral()
+        gradlePluginPortal()
     }
 
     dependencies {
@@ -15,6 +16,7 @@ buildscript {
         classpath(libs.com.android.tools.build.gradle)
         classpath(libs.org.jetbrains.kotlin.serialization)
         classpath(libs.com.squareup.sqldelight.gradle.plugin)
+        classpath(libs.dev.icerock.moko.resources.generator)
     }
 }
 

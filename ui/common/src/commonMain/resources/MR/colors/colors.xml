@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- format: #RRGGBB[AA] or 0xRRGGBB[AA] or RRGGBB[AA] where [AA] - optional -->
+    <color name="valueColor">#B02743FF</color>
+    <color name="referenceColor">@color/valueColor</color>
+    <color name="themedColor">
+        <light>0xB92743FF</light>
+        <dark>7CCFEEFF</dark>
+    </color>
+    <color name="themedReferenceColor">
+        <light>@color/valueColor</light>
+        <dark>@color/referenceColor</dark>
+    </color>
+</resources>

@@ -9,38 +9,34 @@
  */
 package social.androiddev.common.network
 
-import io.ktor.client.HttpClient
-import io.ktor.client.engine.mock.MockEngine
-import io.ktor.client.engine.mock.respond
-import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
-import io.ktor.http.ContentType
-import io.ktor.http.HttpHeaders
-import io.ktor.http.HttpStatusCode
-import io.ktor.http.headersOf
-import io.ktor.serialization.kotlinx.json.json
-import io.ktor.utils.io.ByteReadChannel
+import io.ktor.client.*
+import io.ktor.client.engine.mock.*
+import io.ktor.client.plugins.contentnegotiation.*
+import io.ktor.http.*
+import io.ktor.serialization.kotlinx.json.*
+import io.ktor.utils.io.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import kotlinx.serialization.json.Json
-import kotlin.test.Ignore
-import kotlin.test.Test
-import kotlin.test.assertFalse
-import kotlin.test.assertNotNull
-import kotlin.test.assertNull
-import kotlin.test.assertTrue
+import kotlin.test.*
 
+/**
+ * I was unable to read a .json file from commonTest, and so API tests must be done from
+ * desktopTest, androidTest, and/or iosTest.
+ */
 @OptIn(ExperimentalCoroutinesApi::class)
 class MastodonApiTests {
-    // TODO: fix loading json from resources
+
     @Test
-    @Ignore
     fun `Instance request should fail with invalid response`() = runTest {
         // given
-        // val content: String = javaClass.classLoader.getResource("response_instance_invalid.json").readText()
-        val content: String = ""
+
+        // given
+        val content = MR.files.response_account_required.readText()
         val mastodonApi = MastodonApiImpl(
             httpClient = createMockClient(
-                statusCode = HttpStatusCode.Unauthorized, content = ByteReadChannel(text = content)
+                statusCode = HttpStatusCode.Unauthorized,
+                content = ByteReadChannel(text = content)
             )
         )
 
@@ -52,14 +48,10 @@ class MastodonApiTests {
         assertNull(actual = result.getOrNull()?.uri)
     }
 
-    // TODO: fix loading json from resources
     @Test
-    @Ignore
     fun `Instance request should succeed with required field response`() = runTest {
         // given
-        // val content: String = javaClass.classLoader.getResource("response_instance_valid.json").readText()
-        val content: String = ""
-
+        val content = MR.files.response_instance_valid.readText()
         val mastodonApi = MastodonApiImpl(
             httpClient = createMockClient(
                 statusCode = HttpStatusCode.Unauthorized, content = ByteReadChannel(text = content)
@@ -72,6 +64,7 @@ class MastodonApiTests {
         // then
         assertTrue(actual = result.isSuccess)
         assertNotNull(actual = result.getOrNull()?.uri)
+
     }
 
     private fun createMockClient(
@@ -97,4 +90,5 @@ class MastodonApiTests {
             }
         }
     }
+
 }

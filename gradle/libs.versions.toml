@@ -14,6 +14,7 @@ androidx-appcompat = "1.5.1"
 androidx-activity = "1.6.1"
 androidx-compose-foundation = "1.2.1"
 com-arkivanov-decompose = "1.0.0-alpha-05"
+dev-icerock-moko-resources = "0.20.1"
 
 
 [libraries]
@@ -23,6 +24,7 @@ org-jetbrains-kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gra
 com-android-tools-build-gradle = { module = "com.android.tools.build:gradle", version.ref = "com-android-tools-build" }
 org-jetbrains-kotlin-serialization = { module = "org.jetbrains.kotlin:kotlin-serialization", version.ref = "org-jetbrains-kotlin" }
 com-squareup-sqldelight-gradle-plugin = { module = "com.squareup.sqldelight:gradle-plugin", version.ref = "com-squareup-sqldelight" }
+dev-icerock-moko-resources-generator = { module = "dev.icerock.moko:resources-generator", version.ref = "dev-icerock-moko-resources"}
 
 # libraries
 io-ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "io-ktor" }
@@ -40,6 +42,10 @@ org-jetbrains-kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kot
 org-jetbrains-kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "org-jetbrains-kotlin" }
 org-jetbrains-kotlin-test-common = { module = "org.jetbrains.kotlin:kotlin-test-common", version.ref = "org-jetbrains-kotlin" }
 org-jetbrains-kotlin-test-annotations-common = { module = "org.jetbrains.kotlin:kotlin-test-annotations-common", version.ref = "org-jetbrains-kotlin" }
+
+dev-icerock-moko-resources-common = { module = "dev.icerock.moko:resources", version.ref = "dev-icerock-moko-resources"}
+dev-icerock-moko-resources-jvm = { module = "dev.icerock.moko:resources-compose", version.ref = "dev-icerock-moko-resources"}
+dev-icerock-moko-resources-test = { module = "dev.icerock.moko:resources-test", version.ref = "dev-icerock-moko-resources"}
 
 com-squareup-sqldelight-android-driver = { module = "com.squareup.sqldelight:android-driver", version.ref = "com-squareup-sqldelight" }
 com-squareup-sqldelight-native-driver = { module = "com.squareup.sqldelight:native-driver", version.ref = "com-squareup-sqldelight" }
