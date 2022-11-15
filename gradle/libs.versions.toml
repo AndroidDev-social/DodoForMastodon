@@ -2,6 +2,7 @@
 # plugins
 org-jetbrains-compose = "1.2.1"
 org-jetbrains-kotlin = "1.7.20"
+org-jetbrains-kotlinx-coroutines = "1.6.4"
 com-android-tools-build = "7.2.2"
 com-squareup-sqldelight = "1.5.3"
 # libraries
@@ -35,6 +36,7 @@ io-ktor-client-mock-jvm = { module = "io.ktor:ktor-client-mock-jvm", version.ref
 io-ktor-client-mock = { module = "io.ktor:ktor-client-mock", version.ref = "io-ktor" }
 io-ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "io-ktor" }
 
+org-jetbrains-kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "org-jetbrains-kotlinx-coroutines"}
 org-jetbrains-kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "org-jetbrains-kotlinx" }
 
 org-jetbrains-kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "org-jetbrains-kotlin" }

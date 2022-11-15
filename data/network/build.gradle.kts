@@ -2,7 +2,16 @@ plugins {
     id("kotlin-multiplatform")
     id("com.android.library")
     kotlin("plugin.serialization")
+    id("com.diffplug.spotless") version "6.11.0"
     id("dev.icerock.mobile.multiplatform-resources")
+}
+
+spotless {
+    kotlin {
+        target("src/*/kotlin/**/*.kt")
+        ktlint("0.43.2")
+        licenseHeaderFile(rootProject.file("copyright.kt"))
+    }
 }
 
 val targetSDKVersion: Int by rootProject.extra
@@ -107,6 +116,7 @@ kotlin {
                 implementation(libs.io.ktor.client.mock)
                 implementation(libs.org.jetbrains.kotlin.test.common)
                 implementation(libs.org.jetbrains.kotlin.test.annotations.common)
+                implementation(libs.org.jetbrains.kotlinx.coroutines.test)
                 implementation(libs.dev.icerock.moko.resources.test)
             }
         }

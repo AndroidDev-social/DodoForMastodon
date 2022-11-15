@@ -1,6 +1,6 @@
-# Mastodon compose client
+# MastodonX
 [![CC-BY license](https://img.shields.io/badge/License-CC--BY-blue.svg)](https://creativecommons.org/licenses/by-nd/4.0)
-![CI](https://github.com/thebino/MastodonCompose/workflows/CI/badge.svg)
+![CI](https://github.com/AndroidDev-social/MastodonCompose/actions/workflows/continuous-delivery-pipeline.yml/badge.svg)
 
 A multiplatform Mastodon client written in [Kotlin](kotlinlang.org) for the amazing [androiddev.social](https://androiddev.social) community and everyone else who enjoys #Fediverse
 
@@ -46,6 +46,8 @@ Alternatively, there can be contributions made that aren't code related.
 
 ## License
 
-Some community friendly license, not decided which one :)
+MastodonX is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 
-See the [License discussion](https://github.com/AndroidDev-social/MastodonCompose/discussions/23)
+MastodonX is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with MastodonX. If not, see <https://www.gnu.org/licenses/>.

@@ -7,25 +7,13 @@
  *
  * You should have received a copy of the GNU General Public License along with MastodonX. If not, see <https://www.gnu.org/licenses/>.
  */
-package social.androiddev.common.network.model
+package social.androiddev.common.network
 
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
+import io.ktor.client.HttpClient
+import io.ktor.client.call.body
+import io.ktor.client.request.get
+import io.ktor.utils.io.core.use
 
-/**
- * https://docs.joinmastodon.org/entities/source/
- */
-@Serializable
-data class Source(
-    // base attributes
-    @SerialName("note") val note: String,
-    @SerialName("fields") val fields: List<Field>,
-
-    // optional attributes
-    @SerialName("privacy") val privacy: Privacy,
-    @SerialName("sensitive") val sensitive: Boolean,
-    @SerialName("language") val language: String,
-    @SerialName("follow_requests_count") val followRequestsCount: Int,
-)
-
-enum class Privacy { public, unlisted, private, direct }
+actual suspend fun urlStream(url: String): ByteArray = HttpClient().use {
+    it.get(urlString = url).body()
+}

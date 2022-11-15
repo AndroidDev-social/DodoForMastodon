@@ -1,14 +1,23 @@
+/*
+ * This file is part of MastodonX.
+ *
+ * MastodonX is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+ *
+ * MastodonX is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with MastodonX. If not, see <https://www.gnu.org/licenses/>.
+ */
 package social.androiddev.common.network.model
 
-import kotlin.test.assertEquals
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class CardTests {
     @Test
-    fun `deserialize video card should succeed`() = runBlocking {
+    fun `deserialize video card should succeed`() {
         // given
         val json = """
         {
@@ -46,7 +55,7 @@ class CardTests {
         assertEquals(expected = 270, actual = card.height)
         assertEquals(expected = "https://files.mastodon.social/preview_cards/images/014/179/145/original/9cf4b7cf5567b569.jpeg", actual = card.image)
         assertEquals(expected = "", actual = card.embedUrl)
-        assertEquals(expected = "UvK0HNkV,:s9xBR%njog0fo2W=WBS5ozofV@" , actual = card.blurhash)
+        assertEquals(expected = "UvK0HNkV,:s9xBR%njog0fo2W=WBS5ozofV@", actual = card.blurhash)
     }
 
     @Test
@@ -88,7 +97,7 @@ class CardTests {
         assertEquals(expected = 427, actual = card.height)
         assertEquals(expected = "https://files.mastodon.social/preview_cards/images/014/287/139/original/651b1c6976817824.jpeg", actual = card.image)
         assertEquals(expected = "https://live.staticflickr.com/65535/49088768431_6a4322b3bb_b.jpg", actual = card.embedUrl)
-        assertEquals(expected = "UnE{@jt6M_oIAhjYs+ayT2WBf9ayRkkDXAj[" , actual = card.blurhash)
+        assertEquals(expected = "UnE{@jt6M_oIAhjYs+ayT2WBf9ayRkkDXAj[", actual = card.blurhash)
     }
 
     @Test
