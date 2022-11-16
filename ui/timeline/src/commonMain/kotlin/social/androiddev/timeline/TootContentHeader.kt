@@ -20,6 +20,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import social.androiddev.common.composables.MediumSpacer
 import social.androiddev.common.theme.MastodonTheme
 
 @Composable
@@ -43,9 +44,7 @@ fun TootContentHeader(
             text = userAddress,
             style = MaterialTheme.typography.caption
         )
-
-        HorizontalSpacer()
-
+        MediumSpacer()
         Text(
             text = date,
             fontWeight = FontWeight.SemiBold,

@@ -10,14 +10,7 @@
 package social.androiddev.timeline
 
 // import androidx.compose.desktop.ui.tooling.preview.Preview
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
@@ -28,6 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import social.androiddev.common.composables.MediumSpacer
 import social.androiddev.common.composables.UserAvatar
 import social.androiddev.common.theme.MastodonTheme
 
@@ -92,9 +86,7 @@ fun TimelineCard(
                     .clip(CircleShape),
                 url = userAvatarUrl
             )
-
-            HorizontalSpacer()
-
+            MediumSpacer()
             TootContent(
                 modifier = Modifier.weight(1f).wrapContentHeight(),
                 username = username,

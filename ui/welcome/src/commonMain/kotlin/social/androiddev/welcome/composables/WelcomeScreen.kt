@@ -8,16 +8,7 @@
  * You should have received a copy of the GNU General Public License along with MastodonX. If not, see <https://www.gnu.org/licenses/>.
  */
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.widthIn
-import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -32,6 +23,9 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import social.androiddev.common.composables.DefaultSpacer
+import social.androiddev.common.composables.MediumSpacer
+import social.androiddev.common.composables.XXLargeSpacer
 import social.androiddev.common.composables.buttons.MastodonButton
 import social.androiddev.common.composables.buttons.MastodonOutlinedButton
 import social.androiddev.common.theme.Blue
@@ -86,8 +80,7 @@ fun WelcomeScreen(
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 appIcon()
-
-                Spacer(Modifier.height(32.dp))
+                XXLargeSpacer()
             }
 
             Text(
@@ -98,7 +91,7 @@ fun WelcomeScreen(
                 modifier = Modifier.padding(horizontal = 24.dp)
             )
 
-            Spacer(Modifier.height(12.dp))
+            MediumSpacer()
 
             Text(
                 text = "Welcome to a completely free and decentralized social media.",
@@ -118,7 +111,7 @@ fun WelcomeScreen(
                 text = "Log In"
             )
 
-            Spacer(Modifier.height(8.dp))
+            DefaultSpacer()
 
             MastodonOutlinedButton(
                 modifier = Modifier

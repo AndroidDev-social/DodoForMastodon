@@ -18,6 +18,7 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import social.androiddev.common.composables.DefaultSpacer
 import social.androiddev.common.theme.MastodonTheme
 
 @Composable
@@ -39,7 +40,7 @@ fun TootContent(
             userAddress = userAddress,
             date = date,
         )
-        VerticalSpacer()
+        DefaultSpacer()
         // TODO Add support for video + multiple images rendering
         // for now just show message from toot
         if (message != null) {
@@ -48,7 +49,7 @@ fun TootContent(
                 text = message,
                 style = MaterialTheme.typography.caption
             )
-            VerticalSpacer()
+            DefaultSpacer()
         }
     }
 }
