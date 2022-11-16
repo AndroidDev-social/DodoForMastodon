@@ -18,12 +18,14 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class Application(
     // required attributes
+    @SerialName("id") val id: String,
     @SerialName("name") val name: String,
+
+    // client attributes
+    @SerialName("client_id") val clientId: String,
+    @SerialName("client_secret") val clientSecret: String,
+
     // optional attributes
     @SerialName("website") val website: String? = null,
     @SerialName("vapid_key") val vapidKey: String? = null,
-
-    // client attributes
-    @SerialName("client_id") val clientId: String? = null,
-    @SerialName("client_secret") val clientSecret: String? = null
 )

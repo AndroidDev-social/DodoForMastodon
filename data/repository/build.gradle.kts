@@ -17,7 +17,7 @@ val minSDKVersion: Int by rootProject.extra
 val compileSDKVersion: Int by rootProject.extra
 
 android {
-    namespace = "social.androiddev.domain.timeline"
+    namespace = "social.androiddev.common.repository"
     compileSdk = compileSDKVersion
 
     defaultConfig {
@@ -41,14 +41,19 @@ android {
 kotlin {
     jvm("desktop")
     android()
+    iosX64()
+    iosArm64()
+    iosSimulatorArm64()
 
     sourceSets {
         // shared
-
         val commonMain by getting {
-            dependencies {}
+            dependencies {
+                implementation(projects.data.network)
+                implementation(projects.data.persistence)
+                implementation(projects.domain.authentication)
+            }
         }
-
 
         // android
         getByName("androidMain") {
@@ -61,6 +66,23 @@ kotlin {
         getByName("desktopMain") {
             dependencies {}
         }
+
+
+        // iOS
+        val iosX64Main by getting
+        val iosArm64Main by getting
+        val iosSimulatorArm64Main by getting
+        val iosMain by creating {
+            dependsOn(getByName("commonMain"))
+
+            iosX64Main.dependsOn(this)
+            iosArm64Main.dependsOn(this)
+            iosSimulatorArm64Main.dependsOn(this)
+
+            dependencies {}
+        }
+
+
         // testing
         named("commonTest") {
             dependencies {

@@ -17,7 +17,7 @@ val minSDKVersion: Int by rootProject.extra
 val compileSDKVersion: Int by rootProject.extra
 
 android {
-    namespace = "social.androiddev.domain.timeline"
+    namespace = "social.androiddev.domain.authentication"
     compileSdk = compileSDKVersion
 
     defaultConfig {

@@ -62,7 +62,8 @@ class MastodonApiTests {
 
         val mastodonApi = MastodonApiImpl(
             httpClient = createMockClient(
-                statusCode = HttpStatusCode.Unauthorized, content = ByteReadChannel(text = content)
+                statusCode = HttpStatusCode.Unauthorized,
+                content = ByteReadChannel(text = content)
             )
         )
 
@@ -74,6 +75,60 @@ class MastodonApiTests {
         assertNotNull(actual = result.getOrNull()?.uri)
     }
 
+    // TODO: fix loading json from resources
+    @Test
+    @Ignore
+    fun `create application request should fail with invalid response`() = runTest {
+        // TODO: Add test json
+        val content: String = ""
+        val mastodonApi = MastodonApiImpl(
+            httpClient = createMockClient(
+                statusCode = HttpStatusCode.Unauthorized,
+                content = ByteReadChannel(text = content)
+            )
+        )
+
+        val result = mastodonApi.createApplication(
+            clientName = "",
+            redirectUris = "",
+            scopes = "",
+            website = null
+        )
+
+        assertFalse(actual = result.isSuccess)
+        assertNull(actual = result.getOrNull())
+    }
+
+    // TODO: fix loading json from resources
+    @Test
+    @Ignore
+    fun `create application should succeed with required field response`() = runTest {
+
+        // TODO: Add test json
+        val content: String = ""
+        val mastodonApi = MastodonApiImpl(
+            httpClient = createMockClient(
+                statusCode = HttpStatusCode.Unauthorized,
+                content = ByteReadChannel(text = content)
+            )
+        )
+
+        val result = mastodonApi.createApplication(
+            clientName = "",
+            redirectUris = "",
+            scopes = "",
+            website = null
+        )
+
+        assertTrue(actual = result.isSuccess)
+        assertNotNull(actual = result.getOrNull()?.id)
+        assertNotNull(actual = result.getOrNull()?.name)
+        assertNotNull(actual = result.getOrNull()?.clientId)
+        assertNotNull(actual = result.getOrNull()?.clientSecret)
+        assertNull(actual = result.getOrNull()?.website)
+        assertNull(actual = result.getOrNull()?.vapidKey)
+    }
+
     private fun createMockClient(
         statusCode: HttpStatusCode = HttpStatusCode.OK,
         content: ByteReadChannel
@@ -81,7 +136,9 @@ class MastodonApiTests {
         return HttpClient(
             MockEngine {
                 respond(
-                    content = content, status = statusCode, headers = headersOf(HttpHeaders.ContentType, "application/json")
+                    content = content,
+                    status = statusCode,
+                    headers = headersOf(HttpHeaders.ContentType, "application/json")
                 )
             }
         ) {
