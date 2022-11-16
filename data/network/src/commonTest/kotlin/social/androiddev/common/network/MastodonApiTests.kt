@@ -28,19 +28,17 @@ import kotlin.test.assertFalse
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
 import kotlin.test.assertTrue
+import social.androiddev.common.readBinaryResource
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class MastodonApiTests {
-    // TODO: fix loading json from resources
     @Test
-    @Ignore
     fun `Instance request should fail with invalid response`() = runTest {
         // given
-        // val content: String = javaClass.classLoader.getResource("response_instance_invalid.json").readText()
-        val content: String = ""
+        val byteArray: ByteArray = readBinaryResource("response_instance_invalid.json")
         val mastodonApi = MastodonApiImpl(
             httpClient = createMockClient(
-                statusCode = HttpStatusCode.Unauthorized, content = ByteReadChannel(text = content)
+                statusCode = HttpStatusCode.Unauthorized, content = ByteReadChannel(content = byteArray)
             )
         )
 

@@ -108,6 +108,19 @@ kotlin {
                 implementation(libs.org.jetbrains.kotlin.test.junit)
             }
         }
+        val iosX64Test by getting
+        val iosArm64Test by getting
+        val iosSimulatorArm64Test by getting
+        val iosTest by creating {
+            dependsOn(getByName("commonTest"))
+
+            iosX64Test.dependsOn(this)
+            iosArm64Test.dependsOn(this)
+            iosSimulatorArm64Test.dependsOn(this)
+            dependencies {
+                implementation(libs.org.jetbrains.kotlinx.coroutines.test)
+            }
+        }
         named("commonTest") {
             dependencies {
                 implementation(kotlin("test"))
