@@ -22,8 +22,7 @@ import social.androiddev.common.network.util.runCatchingIgnoreCancelled
 
 class MastodonApiImpl(
     private val httpClient: HttpClient,
-
-    ) : MastodonApi {
+) : MastodonApi {
     override suspend fun getInstance(domain: String?): Result<Instance> {
         return try {
             Result.success(
