@@ -16,10 +16,10 @@ import platform.Foundation.NSData
 import platform.Foundation.dataWithContentsOfFile
 import platform.posix.memcpy
 
-actual fun readBinaryResource(resourceName: String): ByteArray {
+actual fun readBinaryResource(resourcePath: String): ByteArray {
     // split based on "." and "/". We want to strip the leading ./ and
     // split the extension
-    val pathParts = resourceName.split("[.|/]".toRegex())
+    val pathParts = resourcePath.split("[.|/]".toRegex())
     // pathParts looks like
     // [, , test_case_input_one, bin]
     val path = NSBundle.mainBundle

@@ -13,6 +13,7 @@ import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.ResponseException
 import io.ktor.client.request.get
+import io.ktor.serialization.JsonConvertException
 import kotlinx.serialization.SerializationException
 import social.androiddev.common.network.model.Instance
 
@@ -30,6 +31,8 @@ class MastodonApiImpl(
                 }.body()
             )
         } catch (exception: SerializationException) {
+            Result.failure(exception = exception)
+        } catch (exception: JsonConvertException) {
             Result.failure(exception = exception)
         } catch (exception: ResponseException) {
             Result.failure(exception = exception)

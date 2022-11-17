@@ -9,4 +9,9 @@
  */
 package social.androiddev.common
 
-expect fun readBinaryResource(resourceName: String): ByteArray
+/**
+ * the resourcePath is based on the module
+ *
+ * e.g.: "src/commonTest/resources/resource_name.json"
+ */
+expect fun readBinaryResource(resourcePath: String): ByteArray

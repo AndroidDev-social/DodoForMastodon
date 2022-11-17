@@ -15,15 +15,14 @@ import kotlin.test.Ignore
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
+import social.androiddev.common.readBinaryResource
 
 class NotificationTests {
-    // TODO: fix loading json from resources
-    @Ignore
     @Test
     fun `deserialize required fields should succeed`() {
         // given
-        // val json: String = javaClass.classLoader.getResource("response_notification_required.json").readText()
-        val json: String = ""
+        val byteArray: ByteArray = readBinaryResource("src/commonTest/resources/response_notification_required.json")
+        val json: String = byteArray.decodeToString()
 
         // when
         val notification = Json.decodeFromString<Notification>(json)

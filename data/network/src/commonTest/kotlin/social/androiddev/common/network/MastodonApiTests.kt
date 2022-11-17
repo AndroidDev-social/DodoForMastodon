@@ -19,6 +19,7 @@ import io.ktor.http.HttpStatusCode
 import io.ktor.http.headersOf
 import io.ktor.serialization.kotlinx.json.json
 import io.ktor.utils.io.ByteReadChannel
+import io.ktor.utils.io.charsets.Charsets
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import kotlinx.serialization.json.Json
@@ -35,10 +36,12 @@ class MastodonApiTests {
     @Test
     fun `Instance request should fail with invalid response`() = runTest {
         // given
-        val byteArray: ByteArray = readBinaryResource("response_instance_invalid.json")
+        val byteArray: ByteArray = readBinaryResource("src/commonTest/resources/response_instance_invalid.json")
+        println(byteArray.decodeToString())
+
         val mastodonApi = MastodonApiImpl(
             httpClient = createMockClient(
-                statusCode = HttpStatusCode.Unauthorized, content = ByteReadChannel(content = byteArray)
+                statusCode = HttpStatusCode.Unauthorized, content = ByteReadChannel(text = byteArray.decodeToString())
             )
         )
 
@@ -50,17 +53,15 @@ class MastodonApiTests {
         assertNull(actual = result.getOrNull()?.uri)
     }
 
-    // TODO: fix loading json from resources
     @Test
-    @Ignore
     fun `Instance request should succeed with required field response`() = runTest {
         // given
-        // val content: String = javaClass.classLoader.getResource("response_instance_valid.json").readText()
-        val content: String = ""
+        val byteArray: ByteArray = readBinaryResource("src/commonTest/resources/response_instance_valid.json")
+        println(byteArray.decodeToString())
 
         val mastodonApi = MastodonApiImpl(
             httpClient = createMockClient(
-                statusCode = HttpStatusCode.Unauthorized, content = ByteReadChannel(text = content)
+                statusCode = HttpStatusCode.Unauthorized, content = ByteReadChannel(text = byteArray.decodeToString())
             )
         )
 

@@ -9,6 +9,8 @@
  */
 package social.androiddev.common
 
-actual fun readBinaryResource(resourceName: String): ByteArray {
-    return ClassLoader.getSystemResourceAsStream(resourceName)!!.readBytes()
+import java.io.File
+
+actual fun readBinaryResource(resourcePath: String): ByteArray {
+    return File(resourcePath).readBytes()
 }
