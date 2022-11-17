@@ -291,7 +291,7 @@ private class DefaultTextFieldColors(
 
 private const val AnimationDuration = 150
 
-//@androidx.compose.desktop.ui.tooling.preview.Preview
+// @androidx.compose.desktop.ui.tooling.preview.Preview
 @Composable
 fun PreviewTextField() {
     MastodonTheme {
