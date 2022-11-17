@@ -11,10 +11,9 @@ package social.androiddev.common.network.model
 
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
-import kotlin.test.Ignore
+import social.androiddev.common.readBinaryResource
 import kotlin.test.Test
 import kotlin.test.assertEquals
-import social.androiddev.common.readBinaryResource
 
 class AccountTests {
     @Test

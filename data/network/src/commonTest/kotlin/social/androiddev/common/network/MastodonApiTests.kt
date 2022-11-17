@@ -19,17 +19,15 @@ import io.ktor.http.HttpStatusCode
 import io.ktor.http.headersOf
 import io.ktor.serialization.kotlinx.json.json
 import io.ktor.utils.io.ByteReadChannel
-import io.ktor.utils.io.charsets.Charsets
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import kotlinx.serialization.json.Json
-import kotlin.test.Ignore
+import social.androiddev.common.readBinaryResource
 import kotlin.test.Test
 import kotlin.test.assertFalse
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
 import kotlin.test.assertTrue
-import social.androiddev.common.readBinaryResource
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class MastodonApiTests {
