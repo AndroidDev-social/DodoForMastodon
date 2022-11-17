@@ -20,8 +20,10 @@ import platform.posix.memcpy
 actual fun readBinaryResource(resourcePath: String): ByteArray {
     val path = resourcePath.substringBeforeLast(".")
     val fileType = resourcePath.substringAfterLast(".")
+    println("resourcePath=$resourcePath, path=$path, fileType=$fileType")
 
     val absolutePath = NSBundle.mainBundle.pathForResource(path, fileType)
+    println("absolutePath=$absolutePath")
 
     return NSData.dataWithContentsOfFile(absolutePath!!, NSUTF8StringEncoding, null)!!.toByteArray()
 }
