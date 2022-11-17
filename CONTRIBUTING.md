@@ -53,8 +53,9 @@ Atomic commits will make it easier to track down regressions. Also, it enables t
 1. Fork it (https://github.com/AndroidDev-social/MastodonCompose/fork)
 2. Create a new feature branch (`git checkout -b feature/fooBar`)
 3. Commit your changes (`git commit -am 'Add some fooBar'`)
-4. Push to the branch (`git push origin feature/fooBar`)
-5. Create a new Pull Request
+4. Run `./gradlew detekt` and fix any code issues before pushing
+5. Push to the branch (`git push origin feature/fooBar`)
+6. Create a new Pull Request
 
 
 

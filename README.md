@@ -44,6 +44,15 @@ Alternatively, there can be contributions made that aren't code related.
 - General question, gotchas and other discussions [here](https://github.com/AndroidDev-social/MastodonCompose/discussions/categories/general)
 - Create new Issues/Features for post MVP. (e.g. Material You support, animations, V2 functionality, migrations, etc)
 
+
+### Detekt
+
+For code analysis and enforcing code guidelines. Run this before your open a PR
+
+1. Run for whole project: `./gradlew detekt`
+2. Run for specific module: `./gradlew module:detekt`
+
+
 ## License
 
 MastodonX is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
