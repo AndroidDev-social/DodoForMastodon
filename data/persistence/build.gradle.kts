@@ -1,7 +1,7 @@
 plugins {
     id("kotlin-multiplatform")
     id("com.android.library")
-//    id("com.squareup.sqldelight")
+    id("com.squareup.sqldelight")
     id("com.diffplug.spotless") version "6.11.0"
 }
 
@@ -10,6 +10,13 @@ spotless {
         target("src/*/kotlin/**/*.kt")
         ktlint("0.43.2")
         licenseHeaderFile(rootProject.file("copyright.kt"))
+    }
+}
+
+sqldelight {
+    database("AuthenticationDatabase") {
+        packageName = "social.androiddev.common.persistence"
+        sourceFolders = listOf("sqldelight")
     }
 }
 
@@ -90,8 +97,21 @@ kotlin {
 
 
         // testing
+        named("androidTest") {
+            dependencies {
+                implementation(kotlin("test"))
+                implementation(libs.org.jetbrains.kotlin.test.junit)
+            }
+        }
+        named("desktopTest") {
+            dependencies {
+                implementation(kotlin("test"))
+                implementation(libs.org.jetbrains.kotlin.test.junit)
+            }
+        }
         named("commonTest") {
             dependencies {
+                implementation(kotlin("test"))
                 implementation(libs.org.jetbrains.kotlin.test.common)
                 implementation(libs.org.jetbrains.kotlin.test.annotations.common)
             }
