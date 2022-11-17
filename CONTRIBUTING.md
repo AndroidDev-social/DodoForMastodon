@@ -53,8 +53,9 @@ Atomic commits will make it easier to track down regressions. Also, it enables t
 1. Fork it (https://github.com/AndroidDev-social/MastodonCompose/fork)
 2. Create a new feature branch (`git checkout -b feature/fooBar`)
 3. Commit your changes (`git commit -am 'Add some fooBar'`)
-4. Push to the branch (`git push origin feature/fooBar`)
-5. Create a new Pull Request
+4. Run `./gradlew detekt` and fix any code issues before pushing
+5. Push to the branch (`git push origin feature/fooBar`)
+6. Create a new Pull Request
 
 
 
@@ -154,4 +155,29 @@ $ ./gradlew :app-desktop:run
 To build and run the android app (emulator or real android device is needed)
 ```shell
 $ ./gradlew :app-android:installDebug
+```
+
+### 🔬 Verifications
+
+To verify important checks, run the following commands on your local machine
+
+#### General Check
+
+Run all configured checks for the project
+```shell
+$ ./gradlew check
+```
+
+#### Detekt
+
+For code analysis and enforcing code guidelines
+
+1. Run for whole project: 
+```shell
+$ ./gradlew detekt
+```
+
+2. Run for specific module:
+```shell
+$ ./gradlew module:detekt
 ```
