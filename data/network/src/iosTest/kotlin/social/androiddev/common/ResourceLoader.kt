@@ -13,19 +13,17 @@ import kotlinx.cinterop.addressOf
 import kotlinx.cinterop.usePinned
 import platform.Foundation.NSBundle
 import platform.Foundation.NSData
+import platform.Foundation.NSUTF8StringEncoding
 import platform.Foundation.dataWithContentsOfFile
 import platform.posix.memcpy
 
 actual fun readBinaryResource(resourcePath: String): ByteArray {
-    // split based on "." and "/". We want to strip the leading ./ and
-    // split the extension
-    val pathParts = resourcePath.split("[.|/]".toRegex())
-    // pathParts looks like
-    // [, , test_case_input_one, bin]
-    val path = NSBundle.mainBundle
-        .pathForResource("resources/${pathParts[2]}", pathParts[3])
-    val data = NSData.dataWithContentsOfFile(path!!)
-    return data!!.toByteArray()
+    val path = resourcePath.substringBeforeLast(".")
+    val fileType = resourcePath.substringAfterLast(".")
+
+    val absolutePath = NSBundle.mainBundle.pathForResource(path, fileType)
+
+    return NSData.dataWithContentsOfFile(absolutePath!!, NSUTF8StringEncoding, null)!!.toByteArray()
 }
 
 internal fun NSData.toByteArray(): ByteArray {
