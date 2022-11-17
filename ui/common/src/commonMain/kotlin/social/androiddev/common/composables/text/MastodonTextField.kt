@@ -9,7 +9,6 @@
  */
 package social.androiddev.common.composables.text
 
-//import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.interaction.InteractionSource
@@ -42,12 +41,12 @@ import social.androiddev.common.theme.MastodonTheme
 @Composable
 fun MastodonTextField(
     value: String,
+    onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     isError: Boolean = false,
     singleLine: Boolean = false,
     maxLines: Int = Int.MAX_VALUE,
-    onValueChange: (String) -> Unit,
     label: @Composable (() -> Unit)? = null,
     placeholder: @Composable (() -> Unit)? = null,
     leadingIcon: @Composable (() -> Unit)? = null,
@@ -292,7 +291,7 @@ private class DefaultTextFieldColors(
 
 private const val AnimationDuration = 150
 
-//@Preview
+@androidx.compose.desktop.ui.tooling.preview.Preview
 @Composable
 fun PreviewTextField() {
     MastodonTheme {
