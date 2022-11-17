@@ -13,6 +13,7 @@ import com.squareup.sqldelight.db.SqlDriver
 import com.squareup.sqldelight.sqlite.driver.JdbcSqliteDriver
 
 actual suspend fun provideDatabaseDriver(schema: SqlDriver.Schema): SqlDriver {
+    // TODO: replace with AndroidSqliteDriver and inject context
     return JdbcSqliteDriver(url = JdbcSqliteDriver.IN_MEMORY).also { driver ->
         schema.create(driver = driver)
     }

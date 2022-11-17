@@ -101,12 +101,31 @@ kotlin {
             dependencies {
                 implementation(kotlin("test"))
                 implementation(libs.org.jetbrains.kotlin.test.junit)
+                implementation(libs.com.squareup.sqldelight.android.driver)
+                implementation(libs.com.squareup.sqldelight.sqlite.driver)
+                implementation(libs.org.xerial.sqlite.jdbc)
             }
         }
         named("desktopTest") {
             dependencies {
                 implementation(kotlin("test"))
                 implementation(libs.org.jetbrains.kotlin.test.junit)
+                implementation(libs.com.squareup.sqldelight.sqlite.driver)
+                implementation(libs.org.xerial.sqlite.jdbc)
+            }
+        }
+        val iosX64Test by getting
+        val iosArm64Test by getting
+        val iosSimulatorArm64Test by getting
+        val iosTest by creating {
+            dependsOn(getByName("commonTest"))
+
+            iosX64Test.dependsOn(this)
+            iosArm64Test.dependsOn(this)
+            iosSimulatorArm64Test.dependsOn(this)
+            dependencies {
+                implementation(libs.org.jetbrains.kotlinx.coroutines.test)
+                implementation(libs.com.squareup.sqldelight.native.driver)
             }
         }
         named("commonTest") {
@@ -114,6 +133,8 @@ kotlin {
                 implementation(kotlin("test"))
                 implementation(libs.org.jetbrains.kotlin.test.common)
                 implementation(libs.org.jetbrains.kotlin.test.annotations.common)
+                implementation(libs.org.jetbrains.kotlinx.coroutines.test)
+                implementation(libs.org.xerial.sqlite.jdbc)
             }
         }
     }
