@@ -156,3 +156,28 @@ To build and run the android app (emulator or real android device is needed)
 ```shell
 $ ./gradlew :app-android:installDebug
 ```
+
+### 🔬 Verifications
+
+To verify important checks, run the following commands on your local machine
+
+#### General Check
+
+Run all configured checks for the project
+```shell
+$ ./gradlew check
+```
+
+#### Detekt
+
+For code analysis and enforcing code guidelines
+
+1. Run for whole project: 
+```shell
+$ ./gradlew detekt
+```
+
+2. Run for specific module:
+```shell
+$ ./gradlew module:detekt
+```
