@@ -7,7 +7,7 @@
  *
  * You should have received a copy of the GNU General Public License along with MastodonX. If not, see <https://www.gnu.org/licenses/>.
  */
-package social.androiddev.common
+package social.androiddev.common.repository
 
 import social.androiddev.common.network.MastodonApi
 import social.androiddev.domain.authentication.repository.AuthenticationRepository
