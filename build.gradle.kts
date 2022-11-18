@@ -100,11 +100,17 @@ fun Project.coreDetektSetup() {
             io.gitlab.arturbosch.detekt.extensions.DetektExtension.DEFAULT_TEST_SRC_DIR_KOTLIN,
             // Kotlin Multiplatform
             "src/commonMain/kotlin",
+            "src/commonTest/kotlin",
             "src/androidMain/kotlin",
+            "src/androidTest/kotlin",
             "src/iosMain/kotlin",
+            "src/iosTest/kotlin",
             "src/jvmMain/kotlin",
+            "src/jvmTest/kotlin",
             "src/desktopMain/kotlin",
+            "src/desktopTest/kotlin",
             "src/jsMain/kotlin",
+            "src/jsTest/kotlin",
         )
     }
 
