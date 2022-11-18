@@ -6,6 +6,7 @@
 echo "***** Run code formatting and tests ******"
 git stash -q --keep-index
 
+./gradlew spotlessApply
 ./gradlew check
 
 status=$?
