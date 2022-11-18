@@ -14,6 +14,7 @@ androidx-appcompat = "1.5.1"
 androidx-activity = "1.6.1"
 androidx-compose-foundation = "1.2.1"
 com-arkivanov-decompose = "1.0.0-alpha-05"
+org-xerial = "3.8.10.2"
 
 
 [libraries]
@@ -44,6 +45,7 @@ org-jetbrains-kotlin-test-annotations-common = { module = "org.jetbrains.kotlin:
 com-squareup-sqldelight-android-driver = { module = "com.squareup.sqldelight:android-driver", version.ref = "com-squareup-sqldelight" }
 com-squareup-sqldelight-native-driver = { module = "com.squareup.sqldelight:native-driver", version.ref = "com-squareup-sqldelight" }
 com-squareup-sqldelight-sqlite-driver = { module = "com.squareup.sqldelight:sqlite-driver", version.ref = "com-squareup-sqldelight" }
+org-xerial-sqlite-jdbc = { module = "org.xerial:sqlite-jdbc", version.ref = "org-xerial" }
 
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appcompat" }
