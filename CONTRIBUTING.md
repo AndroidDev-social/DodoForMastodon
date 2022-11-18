@@ -51,10 +51,11 @@ When you're happy with your changes, create Atomic commits on a **new feature br
 Atomic commits will make it easier to track down regressions. Also, it enables the ability to cherry-pick or revert a change if needed.
 
 1. Fork it (https://github.com/AndroidDev-social/MastodonCompose/fork)
-2. Create a new feature branch (`git checkout -b feature/fooBar`)
-3. Commit your changes (`git commit -am 'Add some fooBar'`)
-4. Push to the branch (`git push origin feature/fooBar`)
-5. Create a new Pull Request
+2. Install pre-commit hooks (`git config core.hooksPath .githooks`)
+3. Create a new feature branch (`git checkout -b feature/fooBar`)
+4. Commit your changes (`git commit -am 'Add some fooBar'`)
+5. Push to the branch (`git push origin feature/fooBar`)
+6. Create a new Pull Request
 
 
 
