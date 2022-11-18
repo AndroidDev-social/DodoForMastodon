@@ -20,7 +20,6 @@ interface MastodonApi {
      */
     suspend fun getInstance(domain: String? = null): Result<Instance>
 
-
     /**
      * Register client applications that can be used to obtain OAuth tokens.
      *

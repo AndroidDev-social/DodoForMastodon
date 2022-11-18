@@ -19,7 +19,6 @@ import kotlinx.serialization.SerializationException
 import social.androiddev.common.network.model.Application
 import social.androiddev.common.network.model.Instance
 import social.androiddev.common.network.util.runCatchingIgnoreCancelled
-
 class MastodonApiImpl(
     private val httpClient: HttpClient,
 ) : MastodonApi {
