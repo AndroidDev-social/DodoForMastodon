@@ -75,12 +75,20 @@ class MastodonApiTests {
         assertNotNull(actual = result.getOrNull()?.uri)
     }
 
-    // TODO: fix loading json from resources
     @Test
     @Ignore
     fun `create application request should fail with invalid response`() = runTest {
-        // TODO: Add test json
-        val content: String = ""
+        val content: String = """
+        {
+            "id": null,
+            "name": "test app",
+            "client_id": "bgorLrj8s1CeX_QghuI5NhVsestPXkTyyCBuaSCeYj4",
+            "client_secret": "lNmvmMA8_deuGdQOsuZ_dqE7zxQOoociwfTlHB-L1C0",
+            "website": null,
+            "vapid_key": "BCk-QqERU0q-CfYZjcuB6lnyyOYfJ2AifKqfeGIm7Z-HiTU5T9eTG5GxVA0_OH5mMlI4UkkDTpaZwozy0TzdZ2M="
+        }
+        """.trimIndent()
+
         val mastodonApi = MastodonApiImpl(
             httpClient = createMockClient(
                 statusCode = HttpStatusCode.Unauthorized,
@@ -99,13 +107,21 @@ class MastodonApiTests {
         assertNull(actual = result.getOrNull())
     }
 
-    // TODO: fix loading json from resources
     @Test
     @Ignore
     fun `create application should succeed with required field response`() = runTest {
 
-        // TODO: Add test json
-        val content: String = ""
+        val content: String = """
+        {
+            "id": "123",
+            "name": "test app",
+            "client_id": "bgorLrj8s1CeX_QghuI5NhVsestPXkTyyCBuaSCeYj4",
+            "client_secret": "lNmvmMA8_deuGdQOsuZ_dqE7zxQOoociwfTlHB-L1C0",
+            "website": null,
+            "vapid_key": "BCk-QqERU0q-CfYZjcuB6lnyyOYfJ2AifKqfeGIm7Z-HiTU5T9eTG5GxVA0_OH5mMlI4UkkDTpaZwozy0TzdZ2M="
+        }
+        """.trimIndent()
+
         val mastodonApi = MastodonApiImpl(
             httpClient = createMockClient(
                 statusCode = HttpStatusCode.Unauthorized,

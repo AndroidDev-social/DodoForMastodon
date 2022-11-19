@@ -1,6 +1,7 @@
 plugins {
     id("kotlin-multiplatform")
     id("com.android.library")
+    kotlin("plugin.serialization")
     id("com.diffplug.spotless") version "6.11.0"
 }
 
@@ -50,10 +51,10 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(projects.data.network)
-                implementation(projects.data.persistence)
                 implementation(projects.domain.authentication)
             }
         }
+
 
         // android
         getByName("androidMain") {
@@ -67,6 +68,7 @@ kotlin {
             dependencies {}
         }
 
+
         // iOS
         val iosX64Main by getting
         val iosArm64Main by getting
@@ -77,14 +79,29 @@ kotlin {
             iosX64Main.dependsOn(this)
             iosArm64Main.dependsOn(this)
             iosSimulatorArm64Main.dependsOn(this)
+
+            dependencies {}
         }
 
         // testing
+        named("androidTest") {
+            dependencies {
+                implementation(kotlin("test"))
+                implementation(libs.org.jetbrains.kotlin.test.junit)
+            }
+        }
+        named("desktopTest") {
+            dependencies {
+                implementation(kotlin("test"))
+                implementation(libs.org.jetbrains.kotlin.test.junit)
+            }
+        }
         named("commonTest") {
             dependencies {
                 implementation(kotlin("test"))
                 implementation(libs.org.jetbrains.kotlin.test.common)
                 implementation(libs.org.jetbrains.kotlin.test.annotations.common)
+                implementation(libs.org.jetbrains.kotlinx.coroutines.test)
             }
         }
     }

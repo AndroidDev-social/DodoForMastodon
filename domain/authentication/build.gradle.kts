@@ -41,14 +41,15 @@ android {
 kotlin {
     jvm("desktop")
     android()
+    iosX64()
+    iosArm64()
+    iosSimulatorArm64()
 
     sourceSets {
         // shared
-
         val commonMain by getting {
             dependencies {}
         }
-
 
         // android
         getByName("androidMain") {
@@ -56,11 +57,11 @@ kotlin {
             dependencies {}
         }
 
-
         // desktop
         getByName("desktopMain") {
             dependencies {}
         }
+
         // testing
         named("commonTest") {
             dependencies {
