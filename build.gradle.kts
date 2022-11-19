@@ -52,14 +52,14 @@ subprojects {
             // is the default test device for KMP
             // Will be fixed in 1.8
             // https://youtrack.jetbrains.com/issue/KT-54090/Take-an-Apple-test-device-from-the-device-list
-            listOf(
-                ext.iosX64(),
-                ext.iosSimulatorArm64()
-            ).forEach { target ->
-                target.testRuns.forEach { tr ->
-                    tr.deviceId = properties["iosSimulatorName"] as? String ?: "iPhone X"
-                }
-            }
+//            listOf(
+//                ext.iosX64(),
+//                ext.iosSimulatorArm64()
+//            ).forEach { target ->
+//                target.testRuns.forEach { tr ->
+//                    tr.deviceId = properties["iosSimulatorName"] as? String ?: "iPhone X"
+//                }
+//            }
         }
     }
 }
