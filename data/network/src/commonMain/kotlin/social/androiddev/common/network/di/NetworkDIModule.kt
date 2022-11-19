@@ -7,25 +7,23 @@
  *
  * You should have received a copy of the GNU General Public License along with MastodonX. If not, see <https://www.gnu.org/licenses/>.
  */
-package social.androiddev.common.network.model
+package social.androiddev.common.network.di
 
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
+import io.ktor.client.HttpClient
+import io.ktor.client.plugins.defaultRequest
+import io.ktor.http.URLProtocol
 
-/**
- * https://docs.joinmastodon.org/entities/application/
- */
-@Serializable
-data class Application(
-    // required attributes
-    val id: String,
-    val name: String,
+// TODO Update with Koin
+object NetworkDIModule {
 
-    // client attributes
-    @SerialName("client_id") val clientId: String,
-    @SerialName("client_secret") val clientSecret: String,
-
-    // optional attributes
-    val website: String? = null,
-    @SerialName("vapid_key") val vapidKey: String? = null,
-)
+    fun createHttpClient(domain: String): HttpClient {
+        return HttpClient {
+            defaultRequest {
+                url {
+                    protocol = URLProtocol.HTTPS
+                    host = domain
+                }
+            }
+        }
+    }
+}

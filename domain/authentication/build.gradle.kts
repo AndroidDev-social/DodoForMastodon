@@ -17,7 +17,7 @@ val minSDKVersion: Int by rootProject.extra
 val compileSDKVersion: Int by rootProject.extra
 
 android {
-    namespace = "social.androiddev.domain.timeline"
+    namespace = "social.androiddev.domain.authentication"
     compileSdk = compileSDKVersion
 
     defaultConfig {
@@ -41,6 +41,9 @@ android {
 kotlin {
     jvm("desktop")
     android()
+    iosX64()
+    iosArm64()
+    iosSimulatorArm64()
 
     sourceSets {
         // shared
