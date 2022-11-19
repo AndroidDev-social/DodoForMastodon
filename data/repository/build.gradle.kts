@@ -17,7 +17,7 @@ val minSDKVersion: Int by rootProject.extra
 val compileSDKVersion: Int by rootProject.extra
 
 android {
-    namespace = "social.androiddev.data.repository"
+    namespace = "social.androiddev.common.repository"
     compileSdk = compileSDKVersion
 
     defaultConfig {
@@ -61,6 +61,12 @@ kotlin {
             dependencies {}
         }
 
+
+        // desktop
+        getByName("desktopMain") {
+            dependencies {}
+        }
+
         // iOS
         val iosX64Main by getting
         val iosArm64Main by getting
@@ -71,20 +77,12 @@ kotlin {
             iosX64Main.dependsOn(this)
             iosArm64Main.dependsOn(this)
             iosSimulatorArm64Main.dependsOn(this)
-
-            dependencies {
-                implementation(libs.io.ktor.client.darwin)
-            }
-        }
-
-        // desktop
-        getByName("desktopMain") {
-            dependencies {}
         }
 
         // testing
         named("commonTest") {
             dependencies {
+                implementation(kotlin("test"))
                 implementation(libs.org.jetbrains.kotlin.test.common)
                 implementation(libs.org.jetbrains.kotlin.test.annotations.common)
             }
