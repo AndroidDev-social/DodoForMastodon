@@ -62,7 +62,8 @@ class MastodonApiTests {
 
         val mastodonApi = MastodonApiImpl(
             httpClient = createMockClient(
-                statusCode = HttpStatusCode.Unauthorized, content = ByteReadChannel(text = content)
+                statusCode = HttpStatusCode.Unauthorized,
+                content = ByteReadChannel(text = content)
             )
         )
 
@@ -74,6 +75,76 @@ class MastodonApiTests {
         assertNotNull(actual = result.getOrNull()?.uri)
     }
 
+    @Test
+    @Ignore
+    fun `create application request should fail with invalid response`() = runTest {
+        val content: String = """
+        {
+            "id": null,
+            "name": "test app",
+            "client_id": "bgorLrj8s1CeX_QghuI5NhVsestPXkTyyCBuaSCeYj4",
+            "client_secret": "lNmvmMA8_deuGdQOsuZ_dqE7zxQOoociwfTlHB-L1C0",
+            "website": null,
+            "vapid_key": "BCk-QqERU0q-CfYZjcuB6lnyyOYfJ2AifKqfeGIm7Z-HiTU5T9eTG5GxVA0_OH5mMlI4UkkDTpaZwozy0TzdZ2M="
+        }
+        """.trimIndent()
+
+        val mastodonApi = MastodonApiImpl(
+            httpClient = createMockClient(
+                statusCode = HttpStatusCode.Unauthorized,
+                content = ByteReadChannel(text = content)
+            )
+        )
+
+        val result = mastodonApi.createApplication(
+            clientName = "",
+            redirectUris = "",
+            scopes = "",
+            website = null
+        )
+
+        assertFalse(actual = result.isSuccess)
+        assertNull(actual = result.getOrNull())
+    }
+
+    @Test
+    @Ignore
+    fun `create application should succeed with required field response`() = runTest {
+
+        val content: String = """
+        {
+            "id": "123",
+            "name": "test app",
+            "client_id": "bgorLrj8s1CeX_QghuI5NhVsestPXkTyyCBuaSCeYj4",
+            "client_secret": "lNmvmMA8_deuGdQOsuZ_dqE7zxQOoociwfTlHB-L1C0",
+            "website": null,
+            "vapid_key": "BCk-QqERU0q-CfYZjcuB6lnyyOYfJ2AifKqfeGIm7Z-HiTU5T9eTG5GxVA0_OH5mMlI4UkkDTpaZwozy0TzdZ2M="
+        }
+        """.trimIndent()
+
+        val mastodonApi = MastodonApiImpl(
+            httpClient = createMockClient(
+                statusCode = HttpStatusCode.Unauthorized,
+                content = ByteReadChannel(text = content)
+            )
+        )
+
+        val result = mastodonApi.createApplication(
+            clientName = "",
+            redirectUris = "",
+            scopes = "",
+            website = null
+        )
+
+        assertTrue(actual = result.isSuccess)
+        assertNotNull(actual = result.getOrNull()?.id)
+        assertNotNull(actual = result.getOrNull()?.name)
+        assertNotNull(actual = result.getOrNull()?.clientId)
+        assertNotNull(actual = result.getOrNull()?.clientSecret)
+        assertNull(actual = result.getOrNull()?.website)
+        assertNull(actual = result.getOrNull()?.vapidKey)
+    }
+
     private fun createMockClient(
         statusCode: HttpStatusCode = HttpStatusCode.OK,
         content: ByteReadChannel
@@ -81,7 +152,9 @@ class MastodonApiTests {
         return HttpClient(
             MockEngine {
                 respond(
-                    content = content, status = statusCode, headers = headersOf(HttpHeaders.ContentType, "application/json")
+                    content = content,
+                    status = statusCode,
+                    headers = headersOf(HttpHeaders.ContentType, "application/json")
                 )
             }
         ) {
