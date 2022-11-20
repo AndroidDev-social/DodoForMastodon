@@ -1,6 +1,7 @@
-# Welcome to MastodonCompose
+# Welcome to MastodonCompose[^temporary]
+[^temporary]: This is just the working title for now.
 
-This is a free and open project and lives from contributions of the community. 
+This is a free and open Mastodon client and lives from contributions of the community. 
 
 There are many ways to contribute:
 
@@ -117,6 +118,7 @@ flowchart TD
     ui-timeline --> domain-timeline
 
     subgraph ui
+        ui-welcome
         ui-timeline
         ui-settings
         ui-messages
@@ -127,23 +129,26 @@ flowchart TD
     subgraph domain
         domain-timeline
         domain-welcome
+        domain-authenticating 
     end
     
     domain --> data
 
     subgraph data
+        data-repository
         data-network
         data-persistence
     end
 
-    data-network --> data-persistence[fa:fa-database data-persistence]
+    data-repository <--> data-network
+    data-repository <--> data-persistence[fa:fa-database data-persistence]
 
     data-network <--> Y[fa:fa-cloud MastodonAPI]
 ```
 
 
 
-### 💻 Build
+## 💻 Build
 
 To build the different apps, checkout the repository and run one of the following commands on your local machine
 
