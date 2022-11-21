@@ -55,9 +55,8 @@ Atomic commits will make it easier to track down regressions. Also, it enables t
 2. Install pre-commit hooks (`git config core.hooksPath .githooks`)
 3. Create a new feature branch (`git checkout -b feature/fooBar`)
 4. Commit your changes (`git commit -am 'Add some fooBar'`)
-5. Run `./gradlew detekt` and fix any code issues before pushing
-6. Push to the branch (`git push origin feature/fooBar`)
-7. Create a new Pull Request
+5. Push to the branch (`git push origin feature/fooBar`)
+6. Create a new Pull Request
 
 
 
