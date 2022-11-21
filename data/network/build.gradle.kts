@@ -116,7 +116,6 @@ kotlin {
                 implementation(libs.org.jetbrains.kotlin.test.common)
                 implementation(libs.org.jetbrains.kotlin.test.annotations.common)
                 implementation(libs.org.jetbrains.kotlinx.coroutines.test)
-                // TODO Add koin tests
                 implementation(libs.io.insert.koin.test)
             }
         }
