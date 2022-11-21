@@ -1,10 +1,8 @@
 plugins {
     id("kotlin-multiplatform")
     id("com.android.library")
-    kotlin("plugin.serialization")
     id("com.diffplug.spotless") version "6.11.0"
 }
-
 spotless {
     kotlin {
         target("src/*/kotlin/**/*.kt")
@@ -18,7 +16,7 @@ val minSDKVersion: Int by rootProject.extra
 val compileSDKVersion: Int by rootProject.extra
 
 android {
-    namespace = "social.androiddev.common.repository"
+    namespace = "social.androiddev.di"
     compileSdk = compileSDKVersion
 
     defaultConfig {
@@ -47,28 +45,22 @@ kotlin {
     iosSimulatorArm64()
 
     sourceSets {
-        // shared
-        val commonMain by getting {
+        named("commonMain") {
             dependencies {
                 implementation(projects.data.network)
-                implementation(projects.domain.authentication)
+                implementation(projects.data.persistence)
+                implementation(projects.data.repository)
                 implementation(libs.io.insert.koin.core)
             }
         }
 
-
-        // android
-        getByName("androidMain") {
-            dependsOn(commonMain)
+        named("androidMain") {
             dependencies {}
         }
 
-
-        // desktop
-        getByName("desktopMain") {
+        named("desktopMain") {
             dependencies {}
         }
-
 
         // iOS
         val iosX64Main by getting
@@ -83,27 +75,9 @@ kotlin {
 
             dependencies {}
         }
+    }
 
-        // testing
-        named("androidTest") {
-            dependencies {
-                implementation(kotlin("test"))
-                implementation(libs.org.jetbrains.kotlin.test.junit)
-            }
-        }
-        named("desktopTest") {
-            dependencies {
-                implementation(kotlin("test"))
-                implementation(libs.org.jetbrains.kotlin.test.junit)
-            }
-        }
-        named("commonTest") {
-            dependencies {
-                implementation(kotlin("test"))
-                implementation(libs.org.jetbrains.kotlin.test.common)
-                implementation(libs.org.jetbrains.kotlin.test.annotations.common)
-                implementation(libs.org.jetbrains.kotlinx.coroutines.test)
-            }
-        }
+    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+        kotlinOptions.jvmTarget = "11"
     }
 }

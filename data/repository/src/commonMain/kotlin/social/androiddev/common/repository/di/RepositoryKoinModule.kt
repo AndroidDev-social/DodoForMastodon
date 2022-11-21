@@ -7,23 +7,18 @@
  *
  * You should have received a copy of the GNU General Public License along with MastodonX. If not, see <https://www.gnu.org/licenses/>.
  */
-package social.androiddev.common.network.di
+package social.androiddev.common.repository.di
 
-import io.ktor.client.HttpClient
-import io.ktor.client.plugins.defaultRequest
-import io.ktor.http.URLProtocol
+import org.koin.core.module.Module
+import org.koin.dsl.module
+import social.androiddev.common.repository.AuthenticationRepositoryImpl
+import social.androiddev.domain.authentication.repository.AuthenticationRepository
 
-// TODO Update with Koin
-object NetworkDIModule {
+val repositoryModule: Module = module {
 
-    fun createHttpClient(domain: String): HttpClient {
-        return HttpClient {
-            defaultRequest {
-                url {
-                    protocol = URLProtocol.HTTPS
-                    host = domain
-                }
-            }
-        }
+    factory<AuthenticationRepository> {
+        AuthenticationRepositoryImpl(
+            mastodonApi = get(),
+        )
     }
 }

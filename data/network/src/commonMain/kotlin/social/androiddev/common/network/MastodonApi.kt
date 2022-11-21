@@ -13,6 +13,7 @@ import social.androiddev.common.network.model.Application
 import social.androiddev.common.network.model.Instance
 
 interface MastodonApi {
+
     /**
      * Fetch information about the server
      *
@@ -33,9 +34,10 @@ interface MastodonApi {
      * [website] An optional URL to the homepage of your app
      */
     suspend fun createApplication(
+        domain: String,
         clientName: String,
         redirectUris: String,
-        scopes: String = "read",
+        scopes: String,
         website: String?,
     ): Result<Application>
 }

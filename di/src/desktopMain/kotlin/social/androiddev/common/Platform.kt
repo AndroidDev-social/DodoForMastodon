@@ -7,25 +7,9 @@
  *
  * You should have received a copy of the GNU General Public License along with MastodonX. If not, see <https://www.gnu.org/licenses/>.
  */
-package social.androiddev.domain.authentication.usecase
+package social.androiddev.common
 
-import social.androiddev.domain.authentication.repository.AuthenticationRepository
-
-class AuthenticateClient(
-    private val authenticationRepository: AuthenticationRepository,
-) {
-
-    suspend operator fun invoke(
-        domain: String,
-        clientName: String,
-        redirectURIs: String,
-        scopes: String = "read write follow push",
-        website: String? = null,
-    ): Boolean = authenticationRepository.createApplicationClient(
-        domain = domain,
-        clientName = clientName,
-        redirectUris = redirectURIs,
-        scopes = scopes,
-        website = website
-    )
+actual class Platform actual constructor() {
+    actual val name: String
+        get() = TODO("Not yet implemented")
 }

@@ -12,17 +12,19 @@ package social.androiddev.common.repository
 import social.androiddev.common.network.MastodonApi
 import social.androiddev.domain.authentication.repository.AuthenticationRepository
 
-class AuthenticationRepositoryImpl(
+internal class AuthenticationRepositoryImpl(
     private val mastodonApi: MastodonApi
 ) : AuthenticationRepository {
 
     override suspend fun createApplicationClient(
+        domain: String,
         clientName: String,
         redirectUris: String,
         scopes: String,
         website: String?
     ): Boolean {
         val application = mastodonApi.createApplication(
+            domain = domain,
             clientName = clientName,
             redirectUris = redirectUris,
             scopes = scopes,
