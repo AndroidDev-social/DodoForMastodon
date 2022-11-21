@@ -1,12 +1,10 @@
 # MastodonX
-[![CC-BY license](https://img.shields.io/badge/License-CC--BY-blue.svg)](https://creativecommons.org/licenses/by-nd/4.0)
+[![GNU GPL-3.0](https://img.shields.io/github/license/thebino/MastodonCompose)](https://img.shields.io/github/license/thebino/MastodonCompose)
 ![CI](https://github.com/AndroidDev-social/MastodonCompose/actions/workflows/continuous-delivery-pipeline.yml/badge.svg)
 
 A multiplatform Mastodon client written in [Kotlin](kotlinlang.org) for the amazing [androiddev.social](https://androiddev.social) community and everyone else who enjoys #Fediverse
 
-[F-Droid]
-[Google Play]
-[Apple Appstore]
+[Join our Slack](https://join.slack.com/t/androiddev-social/shared_invite/zt-1jchjo9kz-_Q_I02QWeenpya10Is6trQ)
 
 ---
 
@@ -14,35 +12,33 @@ A multiplatform Mastodon client written in [Kotlin](kotlinlang.org) for the amaz
 
 The app is not published nor ready for use. Later on it will probably just be installed from any of the available sources.
 
+[F-Droid]
+[Google Play]
+[Apple Appstore]
+
 
 ## Contribution
 
+This is a free and open project and lives from contributions of the community.
+
 See our [Contribution Guidelines](CONTRIBUTING.md)
 
-## MVP Roadmap
 
-Building an MVP with base functionality for Desktop and Android
+## MVP 
 
-Progress of MVP can be found [here](https://github.com/AndroidDev-social/MastodonCompose/milestones)
+A MVP (Minimum viable product) is a similified version of a product with only some base funcionality. This is often used to prove a concept or set the baseline of a project.
 
- * Sign up
+### Roadmap
+
+ * *Sign up* a new account
    * Select an instance [joinmastodon servers](https://joinmastodon.org/de/servers)
- * Sign in with credentials
+ * *Sign in* with credentials
  * Browse *local* timeline
  * Create a Toot!
  * Log out
 
-## MVP contributions
+Check out [the Progress](https://github.com/AndroidDev-social/MastodonCompose/milestones)
 
-Before tons of developers pour in to start contributing, it would be nice to get the codebase into a stable working condition with some sort of consistent architecture and design. In order to do this it would be more optimal to limit the # of devs working on each task under the MVP roadmap. Each task can be picked up by a single dev who does the full end-to-end functionality. Or, 2-3 devs can split up the work by having one person pick up the data/api layer, one on android and one on desktop. This small group can act like it's own "sprint team" and collaborate closely to split up the work and coordinate efforts to avoid duplicating effort. Since only one person can be assigned an issue, that person can be the feature "lead" and the other 1-2 devs can add a comment to the issue as the other contributors.
-
-## Non-MVP contributions
-
-There is plenty of [other issues to work on outside of MVP](https://github.com/AndroidDev-social/MastodonCompose/issues) and these can be started by any contributor. Please assign the issue to yourself for visibility. 
-Alternatively, there can be contributions made that aren't code related.
-- Innovative ideas for possible features that don't exist in other existing clients that [require discussion here](https://github.com/AndroidDev-social/MastodonCompose/discussions/categories/ideas)
-- General question, gotchas and other discussions [here](https://github.com/AndroidDev-social/MastodonCompose/discussions/categories/general)
-- Create new Issues/Features for post MVP. (e.g. Material You support, animations, V2 functionality, migrations, etc)
 
 ## License
 

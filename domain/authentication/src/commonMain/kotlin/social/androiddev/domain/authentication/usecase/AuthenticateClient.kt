@@ -7,25 +7,23 @@
  *
  * You should have received a copy of the GNU General Public License along with MastodonX. If not, see <https://www.gnu.org/licenses/>.
  */
-package social.androiddev.common.network.model
+package social.androiddev.domain.authentication.usecase
 
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
+import social.androiddev.domain.authentication.repository.AuthenticationRepository
 
-/**
- * https://docs.joinmastodon.org/entities/application/
- */
-@Serializable
-data class Application(
-    // required attributes
-    val id: String,
-    val name: String,
+class AuthenticateClient(
+    private val authenticationRepository: AuthenticationRepository,
+) {
 
-    // client attributes
-    @SerialName("client_id") val clientId: String,
-    @SerialName("client_secret") val clientSecret: String,
-
-    // optional attributes
-    val website: String? = null,
-    @SerialName("vapid_key") val vapidKey: String? = null,
-)
+    suspend operator fun invoke(
+        clientName: String,
+        redirectURIs: String,
+        scopes: String = "read write follow push",
+        website: String? = null,
+    ): Boolean = authenticationRepository.createApplicationClient(
+        clientName = clientName,
+        redirectUris = redirectURIs,
+        scopes = scopes,
+        website = website
+    )
+}
