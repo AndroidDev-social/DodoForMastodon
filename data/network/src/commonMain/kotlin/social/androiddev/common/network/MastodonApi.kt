@@ -11,31 +11,45 @@ package social.androiddev.common.network
 
 import social.androiddev.common.network.model.Application
 import social.androiddev.common.network.model.Instance
+import social.androiddev.common.network.model.NewOauthApplication
 
 interface MastodonApi {
-    /**
-     * Fetch information about the server
-     *
-     * @see https://docs.joinmastodon.org/methods/instance/
-     */
-    suspend fun getInstance(domain: String? = null): Result<Instance>
-
     /**
      * Register client applications that can be used to obtain OAuth tokens.
      *
      * @see https://docs.joinmastodon.org/methods/apps/#create-an-application
      *
-     * [clientName] A name for your application
-     * [redirectUris] Where the user should be redirected after authorization.
+     * @param clientName A name for your application
+     * @param redirectUris Where the user should be redirected after authorization.
      * To display the authorization code to the user instead of redirecting to a web page,
      * use urn:ietf:wg:oauth:2.0:oob in this parameter.
-     * [scopes] Space separated list of scopes. If none is provided, defaults to read.
-     * [website] An optional URL to the homepage of your app
+     * @param scopes Space separated list of scopes. If none is provided, defaults to read.
+     * @param website An optional URL to the homepage of your app
+     *
+     * @return Application with `client_id` and `client_secret`
      */
     suspend fun createApplication(
         clientName: String,
         redirectUris: String,
         scopes: String = "read",
         website: String?,
-    ): Result<Application>
+    ): Result<NewOauthApplication>
+
+    /**
+     * Confirm that the app’s OAuth2 credentials work.
+     *
+     * @see https://docs.joinmastodon.org/methods/apps/#verify_credentials
+     *
+     * @return an `application` if a valid token was provides in the authorization header
+     */
+    suspend fun verifyApplication(): Result<Application>
+
+    /**
+     * Fetch general information about the server
+     *
+     * @see https://docs.joinmastodon.org/methods/instance/
+     *
+     * @return an instance entity
+     */
+    suspend fun getInstance(domain: String? = null): Result<Instance>
 }

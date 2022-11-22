@@ -11,40 +11,26 @@ package social.androiddev.common.network
 
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
-import io.ktor.client.plugins.ResponseException
 import io.ktor.client.request.forms.formData
 import io.ktor.client.request.get
+import io.ktor.client.request.headers
 import io.ktor.client.request.post
-import kotlinx.serialization.SerializationException
+import io.ktor.http.HttpHeaders
 import social.androiddev.common.network.model.Application
 import social.androiddev.common.network.model.Instance
+import social.androiddev.common.network.model.NewOauthApplication
 import social.androiddev.common.network.util.runCatchingIgnoreCancelled
 class MastodonApiImpl(
     private val httpClient: HttpClient,
 ) : MastodonApi {
-    override suspend fun getInstance(domain: String?): Result<Instance> {
-        return try {
-            Result.success(
-                httpClient.get("/api/v1/instance") {
-                    domain?.let {
-                        headers.append("domain", domain)
-                    }
-                }.body()
-            )
-        } catch (exception: SerializationException) {
-            Result.failure(exception = exception)
-        } catch (exception: ResponseException) {
-            Result.failure(exception = exception)
-        }
-    }
 
     override suspend fun createApplication(
         clientName: String,
         redirectUris: String,
         scopes: String,
         website: String?
-    ): Result<Application> {
-        return runCatchingIgnoreCancelled<Application> {
+    ): Result<NewOauthApplication> {
+        return runCatchingIgnoreCancelled {
             httpClient
                 .post("/api/v1/apps") {
                     formData {
@@ -56,6 +42,22 @@ class MastodonApiImpl(
                         }
                     }
                 }.body()
+        }
+    }
+
+    override suspend fun verifyApplication(): Result<Application> {
+        return runCatchingIgnoreCancelled<Application> {
+            httpClient.get("/api/v1/apps/verify_credentials") {
+                headers {
+                    append(HttpHeaders.Authorization, "testAuthorization")
+                }
+            }.body()
+        }
+    }
+
+    override suspend fun getInstance(domain: String?): Result<Instance> {
+        return runCatchingIgnoreCancelled<Instance> {
+            httpClient.get("$domain/api/v2/instance").body()
         }
     }
 }
