@@ -12,18 +12,31 @@ package social.androiddev.common.network.di
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.defaultRequest
 import io.ktor.http.URLProtocol
+import org.koin.core.module.Module
+import org.koin.core.module.dsl.singleOf
+import org.koin.dsl.module
+import social.androiddev.common.network.MastodonApi
+import social.androiddev.common.network.MastodonApiKtor
 
-// TODO Update with Koin
-object NetworkDIModule {
+/**
+ * Koin module containing all koin/bean definitions for
+ * network/api related classes
+ */
+val networkModule: Module = module {
 
-    fun createHttpClient(domain: String): HttpClient {
-        return HttpClient {
+    singleOf<HttpClient> {
+        HttpClient {
             defaultRequest {
                 url {
                     protocol = URLProtocol.HTTPS
-                    host = domain
                 }
             }
         }
+    }
+
+    single<MastodonApi> {
+        MastodonApiKtor(
+            httpClient = get(),
+        )
     }
 }

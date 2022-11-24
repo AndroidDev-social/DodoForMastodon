@@ -14,6 +14,7 @@ import social.androiddev.common.network.model.Instance
 import social.androiddev.common.network.model.NewOauthApplication
 
 interface MastodonApi {
+
     /**
      * Register client applications that can be used to obtain OAuth tokens.
      *
@@ -29,9 +30,10 @@ interface MastodonApi {
      * @return Application with `client_id` and `client_secret`
      */
     suspend fun createApplication(
+        domain: String,
         clientName: String,
         redirectUris: String,
-        scopes: String = "read",
+        scopes: String,
         website: String?,
     ): Result<NewOauthApplication>
 

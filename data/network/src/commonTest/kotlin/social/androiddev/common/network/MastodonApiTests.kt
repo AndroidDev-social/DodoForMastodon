@@ -38,7 +38,7 @@ class MastodonApiTests {
         // given
         val content: String = validApplicationCreation
 
-        val mastodonApi: MastodonApi = MastodonApiImpl(
+        val mastodonApi: MastodonApi = MastodonApiKtor(
             httpClient = createMockClient(
                 statusCode = HttpStatusCode.Unauthorized,
                 content = ByteReadChannel(text = content)
@@ -47,6 +47,7 @@ class MastodonApiTests {
 
         // when
         val result = mastodonApi.createApplication(
+            domain = "androiddev.social",
             clientName = "MastodonX",
             redirectUris = "https://androiddev.social/oauth",
             scopes = "read",
@@ -72,7 +73,7 @@ class MastodonApiTests {
     fun `create a new application with missing parameter should fail`() = runTest {
         // given
         val content = """"error": "Validation failed: Redirect URI must be an absolute URI.""""
-        val mastodonApi = MastodonApiImpl(
+        val mastodonApi = MastodonApiKtor(
             httpClient = createMockClient(
                 statusCode = HttpStatusCode.UnprocessableEntity, content = ByteReadChannel(text = content)
             )
@@ -80,6 +81,7 @@ class MastodonApiTests {
 
         // when
         val result = mastodonApi.createApplication(
+            domain = "androiddev.social",
             clientName = "MastodonX",
             redirectUris = "https://androiddev.social/oauth",
             scopes = "read",
@@ -98,7 +100,7 @@ class MastodonApiTests {
     fun `verify oauth credentials for new application should succeed`() = runTest {
         // given
         val content: String = applicationVerificationValid
-        val mastodonApi = MastodonApiImpl(
+        val mastodonApi = MastodonApiKtor(
             httpClient = createMockClient(
                 statusCode = HttpStatusCode.OK, content = ByteReadChannel(text = content)
             )
@@ -118,7 +120,7 @@ class MastodonApiTests {
     fun `verify oauth credentials for new application with invalid token should fail`() = runTest {
         // given
         val content: String = applicationVerificationFailed
-        val mastodonApi = MastodonApiImpl(
+        val mastodonApi = MastodonApiKtor(
             httpClient = createMockClient(
                 statusCode = HttpStatusCode.Unauthorized, content = ByteReadChannel(text = content)
             )
@@ -137,7 +139,7 @@ class MastodonApiTests {
     @Test
     fun `view server information should succeed`() = runTest {
         val content: String = serverInformationValid
-        val mastodonApi = MastodonApiImpl(
+        val mastodonApi = MastodonApiKtor(
             httpClient = createMockClient(
                 statusCode = HttpStatusCode.OK, content = ByteReadChannel(text = content)
             )

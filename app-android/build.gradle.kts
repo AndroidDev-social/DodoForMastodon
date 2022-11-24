@@ -45,4 +45,7 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.compose.foundation)
+    implementation(projects.di)
+    implementation(libs.io.insert.koin.core)
+    implementation(libs.io.insert.koin.android)
 }

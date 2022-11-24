@@ -2,6 +2,7 @@ enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 rootProject.name="MastodonCompose"
 
+include(":di")
 include(":app-android")
 include(":app-desktop")
 //include(":app-iOS")
