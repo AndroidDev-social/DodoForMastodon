@@ -20,7 +20,7 @@ val compileSDKVersion: Int by rootProject.extra
 
 android {
 
-    namespace = "social.androiddev.ui.welcome"
+    namespace = "social.androiddev.ui.splash"
 
     compileSdk = compileSDKVersion
 
@@ -49,7 +49,6 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-//                implementation(project(":domain:welcome"))
                 implementation(projects.ui.common)
                 implementation(compose.runtime)
                 implementation(compose.foundation)

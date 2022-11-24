@@ -14,6 +14,7 @@ include(":ui:welcome")
 //include(":ui:search")
 //include(":ui:settings")
 include(":ui:common")
+include(":ui:splash")
 
 include(":domain:timeline")
 include(":domain:authentication")

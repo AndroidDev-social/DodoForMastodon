@@ -3,6 +3,7 @@ plugins {
     id("org.jetbrains.compose")
     id("com.android.library")
     id("com.diffplug.spotless") version "6.11.0"
+    id("kotlin-parcelize")
 }
 spotless {
     kotlin {
@@ -49,8 +50,8 @@ kotlin {
                 implementation(compose.runtime)
                 implementation(compose.foundation)
                 implementation(compose.material)
-                implementation(libs.com.arkivanov.decompose)
-                implementation(libs.com.arkivanov.decompose.extensions.compose.jetbrains)
+                api(libs.com.arkivanov.decompose)
+                api(libs.com.arkivanov.decompose.extensions.compose.jetbrains)
             }
         }
 
