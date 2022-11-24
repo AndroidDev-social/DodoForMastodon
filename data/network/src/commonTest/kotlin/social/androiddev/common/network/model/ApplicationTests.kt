@@ -31,7 +31,7 @@ class ApplicationTests {
         """.trimIndent()
 
         // when
-        val application = Json.decodeFromString<Application>(json)
+        val application = Json.decodeFromString<NewOauthApplication>(json)
 
         // then
         assertEquals(expected = "test app", actual = application.name)
