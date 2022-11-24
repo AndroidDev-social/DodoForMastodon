@@ -13,6 +13,10 @@ import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 import social.androiddev.common.Platform
 
+/**
+ * Platform specific Koin module. All build targets must
+ * fulfill any platform required koin definitions specified.
+ */
 val platformModule = module {
     singleOf(::Platform)
 }

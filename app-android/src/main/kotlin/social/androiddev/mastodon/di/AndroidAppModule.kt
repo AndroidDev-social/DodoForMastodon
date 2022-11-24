@@ -11,4 +11,8 @@ package social.androiddev.mastodon.di
 
 import org.koin.dsl.module
 
+/**
+ * The MastodonX Android app Koin module holding koin definitions
+ * specific to the android app
+ */
 val androidModule = module { }

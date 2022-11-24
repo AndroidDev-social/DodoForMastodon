@@ -12,6 +12,9 @@ package social.androiddev.common.di
 import social.androiddev.common.network.di.networkModule
 import social.androiddev.common.repository.di.repositoryModule
 
+/**
+ * Base Koin module shared across all apps (android, iOS, Desktop)
+ */
 fun appModule() = listOf(
     platformModule,
     networkModule,
