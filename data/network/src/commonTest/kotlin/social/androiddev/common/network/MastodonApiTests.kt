@@ -38,7 +38,7 @@ class MastodonApiTests {
         // given
         // val content: String = javaClass.classLoader.getResource("response_instance_invalid.json").readText()
         val content: String = ""
-        val mastodonApi = MastodonApiImpl(
+        val mastodonApi = MastodonApiKtor(
             httpClient = createMockClient(
                 statusCode = HttpStatusCode.Unauthorized, content = ByteReadChannel(text = content)
             )
@@ -60,7 +60,7 @@ class MastodonApiTests {
         // val content: String = javaClass.classLoader.getResource("response_instance_valid.json").readText()
         val content: String = ""
 
-        val mastodonApi = MastodonApiImpl(
+        val mastodonApi = MastodonApiKtor(
             httpClient = createMockClient(
                 statusCode = HttpStatusCode.Unauthorized,
                 content = ByteReadChannel(text = content)
@@ -89,7 +89,7 @@ class MastodonApiTests {
         }
         """.trimIndent()
 
-        val mastodonApi = MastodonApiImpl(
+        val mastodonApi = MastodonApiKtor(
             httpClient = createMockClient(
                 statusCode = HttpStatusCode.Unauthorized,
                 content = ByteReadChannel(text = content)
@@ -97,6 +97,7 @@ class MastodonApiTests {
         )
 
         val result = mastodonApi.createApplication(
+            domain = "",
             clientName = "",
             redirectUris = "",
             scopes = "",
@@ -122,7 +123,7 @@ class MastodonApiTests {
         }
         """.trimIndent()
 
-        val mastodonApi = MastodonApiImpl(
+        val mastodonApi = MastodonApiKtor(
             httpClient = createMockClient(
                 statusCode = HttpStatusCode.Unauthorized,
                 content = ByteReadChannel(text = content)
@@ -130,6 +131,7 @@ class MastodonApiTests {
         )
 
         val result = mastodonApi.createApplication(
+            domain = "",
             clientName = "",
             redirectUris = "",
             scopes = "",

@@ -55,6 +55,7 @@ kotlin {
                 implementation(libs.io.ktor.serialization.kotlinx.json)
                 implementation(libs.io.ktor.client.content.negotiation)
                 implementation(libs.org.jetbrains.kotlinx.serialization.json)
+                implementation(libs.io.insert.koin.core)
             }
         }
 
@@ -115,6 +116,7 @@ kotlin {
                 implementation(libs.org.jetbrains.kotlin.test.common)
                 implementation(libs.org.jetbrains.kotlin.test.annotations.common)
                 implementation(libs.org.jetbrains.kotlinx.coroutines.test)
+                implementation(libs.io.insert.koin.test)
             }
         }
     }

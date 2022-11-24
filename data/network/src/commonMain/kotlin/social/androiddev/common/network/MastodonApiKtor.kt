@@ -15,11 +15,14 @@ import io.ktor.client.plugins.ResponseException
 import io.ktor.client.request.forms.formData
 import io.ktor.client.request.get
 import io.ktor.client.request.post
+import io.ktor.http.URLProtocol
+import io.ktor.http.path
 import kotlinx.serialization.SerializationException
 import social.androiddev.common.network.model.Application
 import social.androiddev.common.network.model.Instance
 import social.androiddev.common.network.util.runCatchingIgnoreCancelled
-class MastodonApiImpl(
+
+internal class MastodonApiKtor(
     private val httpClient: HttpClient,
 ) : MastodonApi {
     override suspend fun getInstance(domain: String?): Result<Instance> {
@@ -39,6 +42,7 @@ class MastodonApiImpl(
     }
 
     override suspend fun createApplication(
+        domain: String,
         clientName: String,
         redirectUris: String,
         scopes: String,
@@ -46,7 +50,12 @@ class MastodonApiImpl(
     ): Result<Application> {
         return runCatchingIgnoreCancelled<Application> {
             httpClient
-                .post("/api/v1/apps") {
+                .post {
+                    url {
+                        protocol = URLProtocol.HTTPS
+                        host = domain
+                        path("/api/v1/apps")
+                    }
                     formData {
                         append("client_name", clientName)
                         append("redirect_uris", redirectUris)

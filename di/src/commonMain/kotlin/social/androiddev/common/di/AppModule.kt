@@ -7,25 +7,16 @@
  *
  * You should have received a copy of the GNU General Public License along with MastodonX. If not, see <https://www.gnu.org/licenses/>.
  */
-package social.androiddev.domain.authentication.usecase
+package social.androiddev.common.di
 
-import social.androiddev.domain.authentication.repository.AuthenticationRepository
+import social.androiddev.common.network.di.networkModule
+import social.androiddev.common.repository.di.repositoryModule
 
-class AuthenticateClient(
-    private val authenticationRepository: AuthenticationRepository,
-) {
-
-    suspend operator fun invoke(
-        domain: String,
-        clientName: String,
-        redirectURIs: String,
-        scopes: String = "read write follow push",
-        website: String? = null,
-    ): Boolean = authenticationRepository.createApplicationClient(
-        domain = domain,
-        clientName = clientName,
-        redirectUris = redirectURIs,
-        scopes = scopes,
-        website = website
-    )
-}
+/**
+ * Base Koin module shared across all apps (android, iOS, Desktop)
+ */
+fun appModule() = listOf(
+    platformModule,
+    networkModule,
+    repositoryModule,
+)
