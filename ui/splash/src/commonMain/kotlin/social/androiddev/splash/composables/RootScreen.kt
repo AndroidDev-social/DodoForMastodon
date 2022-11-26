@@ -1,8 +1,11 @@
 package social.androiddev.splash.composables
 
+import WelcomeScreen
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.extensions.compose.jetbrains.stack.Children
 import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
@@ -16,22 +19,32 @@ fun RootScreen(
     val childStack by component.childStack.subscribeAsState()
     val activeComponent = childStack.active.instance
 
-    Children(
-        stack = childStack,
-        modifier = Modifier.fillMaxSize()
-    ) { createdChild ->
-        when (val child = createdChild.instance) {
-            is RootComponent.Child.SplashScreenChild -> {
-                SplashScreen(
-                    modifier = Modifier.fillMaxSize(),
-                    component = child.component
-                )
-            }
-            RootComponent.Child.LoggedOutChild -> {
-//                WelcomeScreen()
-            }
-            RootComponent.Child.TimelineChild -> {
+    Box(
+        modifier = modifier,
+        contentAlignment = Alignment.Center
+    ) {
+
+        Children(
+            stack = childStack,
+            modifier = Modifier.fillMaxSize()
+        ) { createdChild ->
+            when (val child = createdChild.instance) {
+                is RootComponent.Child.SplashScreenChild -> {
+                    SplashScreen(
+                        modifier = Modifier.fillMaxSize(),
+                        component = child.component
+                    )
+                }
+
+                RootComponent.Child.LoggedOutChild -> {
+                    WelcomeScreen(
+                        modifier = Modifier.fillMaxSize(),
+                    )
+                }
+
+                RootComponent.Child.TimelineChild -> {
 //                TimelineScreen()
+                }
             }
         }
     }
