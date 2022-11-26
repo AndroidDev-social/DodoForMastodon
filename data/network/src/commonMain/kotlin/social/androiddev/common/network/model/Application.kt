@@ -17,9 +17,19 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class Application(
-    // required attributes
     val id: String,
     val name: String,
+    @SerialName("vapid_key") val vapidKey: String,
+
+    // optional attributes
+    val website: String? = null,
+)
+
+@Serializable
+data class NewOauthApplication(
+    val id: String,
+    val name: String,
+    @SerialName("vapid_key") val vapidKey: String,
 
     // client attributes
     @SerialName("client_id") val clientId: String,
@@ -27,5 +37,4 @@ data class Application(
 
     // optional attributes
     val website: String? = null,
-    @SerialName("vapid_key") val vapidKey: String? = null,
 )
