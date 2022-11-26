@@ -18,16 +18,16 @@ interface WelcomeScreenComponent {
             navigateToEnterDomain: () -> Unit,
         ): WelcomeScreenComponent = DefaultSplashComponent(
             componentContext = componentContext,
-            navigateToEnterDomain = navigateToEnterDomain,
+            onGetStartedClickedInternal = navigateToEnterDomain,
         )
     }
 }
 
 private class DefaultSplashComponent(
     private val componentContext: ComponentContext,
-    private val navigateToEnterDomain: () -> Unit,
+    private val onGetStartedClickedInternal: () -> Unit,
 ) : WelcomeScreenComponent, ComponentContext by componentContext {
     override fun onGetStartedClicked() {
-        navigateToEnterDomain()
+        onGetStartedClickedInternal()
     }
 }

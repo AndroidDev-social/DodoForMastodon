@@ -24,23 +24,23 @@ interface SplashComponent {
             navigateToTimeline: () -> Unit,
         ): SplashComponent = DefaultSplashComponent(
             componentContext = componentContext,
-            navigateToTimelineScreen = navigateToTimeline,
-            navigateToWelcomeScreen = navigateToWelcome,
+            navigateToTimelineScreenInternal = navigateToTimeline,
+            navigateToWelcomeScreenInternal = navigateToWelcome,
         )
     }
 }
 
 private class DefaultSplashComponent(
     private val componentContext: ComponentContext,
-    private val navigateToWelcomeScreen: () -> Unit,
-    private val navigateToTimelineScreen: () -> Unit,
+    private val navigateToWelcomeScreenInternal: () -> Unit,
+    private val navigateToTimelineScreenInternal: () -> Unit,
 ) : SplashComponent, ComponentContext by componentContext {
 
     override fun navigateToTimeline() {
-        navigateToTimelineScreen()
+        navigateToTimelineScreenInternal()
     }
 
     override fun navigateToWelcome() {
-        navigateToWelcomeScreen()
+        navigateToWelcomeScreenInternal()
     }
 }
