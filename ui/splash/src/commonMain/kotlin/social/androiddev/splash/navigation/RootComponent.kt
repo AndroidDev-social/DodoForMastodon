@@ -18,6 +18,10 @@ interface RootComponent {
     // Store a stack of components and their configurations in this root graph
     val childStack: Value<ChildStack<*, Child>>
 
+    /**
+     * Supported "Child"s in this navigation stack. These are created from a configuration that
+     * contains any arguments for this particular child in the navigation stack.
+     */
     sealed class Child {
         data class SplashScreenChild(val component: SplashComponent) : Child()
 
@@ -28,11 +32,15 @@ interface RootComponent {
         object SelectServerScreenChild : Child()
     }
 
+    /**
+     * Supported deep links for this root graph
+     */
     sealed interface DeepLink {
         object None : DeepLink
     }
 
     companion object {
+
         fun createDefaultComponent(
             componentContext: ComponentContext,
             deepLink: DeepLink = DeepLink.None,
@@ -63,12 +71,8 @@ private class DefaultRootComponent(
 
     private fun createChild(config: Config, componentContext: ComponentContext): RootComponent.Child =
         when (config) {
-            Config.SplashScreen -> {
-                RootComponent.Child.SplashScreenChild(createSplashComponent(componentContext))
-            }
-            Config.WelcomeScreen -> {
-                RootComponent.Child.WelcomeScreenChild(createWelcomeComponent(componentContext))
-            }
+            Config.SplashScreen -> RootComponent.Child.SplashScreenChild(createSplashComponent(componentContext))
+            Config.WelcomeScreen -> RootComponent.Child.WelcomeScreenChild(createWelcomeComponent(componentContext))
             Config.TimelineGraph -> RootComponent.Child.TimelineScreenChild
             Config.SelectServerScreen -> RootComponent.Child.SelectServerScreenChild
         }
@@ -99,6 +103,18 @@ private class DefaultRootComponent(
             is RootComponent.DeepLink.None -> listOf(Config.SplashScreen)
         }
 
+    /**
+     * Supported configurations for all children in this root.
+     * A "configuration" represents a child component
+     * and contains all it's arguments.
+     * These configurations are persisted and restored on events like
+     * configuration changes, process death etc...
+     *
+     * All Configurations must:
+     * 1) Be immutable
+     * 2) Implement `equals()` and `hashCode()`
+     * 3) Implement Parcelable
+     */
     private sealed interface Config : Parcelable {
 
         @Parcelize
