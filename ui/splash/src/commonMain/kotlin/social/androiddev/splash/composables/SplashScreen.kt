@@ -8,6 +8,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import social.androiddev.splash.navigation.SplashComponent
 
+/**
+ * Stateful SplashScreen composable using [SplashComponent] for
+ * decompose navigation.
+ */
 @Composable
 fun SplashScreen(
     modifier: Modifier,
@@ -24,7 +28,10 @@ fun SplashScreen(
     )
 }
 
-
+/**
+ * Stateless composable for rendering a simple Splash Screen
+ * upon app launch.
+ */
 @Composable
 fun SplashScreen(
     modifier: Modifier,
@@ -38,6 +45,7 @@ fun SplashScreen(
         Text("Loading")
 
         LaunchedEffect(Unit) {
+            // TODO: Hook up to a DI ViewModel
             if (true) {
                 navigateToWelcome()
             } else {
