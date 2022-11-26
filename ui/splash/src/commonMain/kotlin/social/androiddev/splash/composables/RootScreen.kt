@@ -10,6 +10,8 @@ import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.extensions.compose.jetbrains.stack.Children
 import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
 import social.androiddev.splash.navigation.RootComponent
+import social.androiddev.splash.navigation.SplashComponent
+import social.androiddev.welcome.navigation.WelcomeScreenComponent
 
 @Composable
 fun RootScreen(
@@ -29,18 +31,9 @@ fun RootScreen(
             modifier = Modifier.fillMaxSize()
         ) { createdChild ->
             when (val child = createdChild.instance) {
-                is RootComponent.Child.SplashScreenChild -> {
-                    SplashScreen(
-                        modifier = Modifier.fillMaxSize(),
-                        component = child.component
-                    )
-                }
-
+                is RootComponent.Child.SplashScreenChild -> SplashScreenNode(child.component)
                 is RootComponent.Child.WelcomeScreenChild -> {
-                    WelcomeScreen(
-                        modifier = Modifier.fillMaxSize(),
-                        component = child.component
-                    )
+                    WelcomeScreenNode(child.component)
                 }
                 RootComponent.Child.TimelineScreenChild -> {
 //                    TODO: TimelineScreen()
@@ -51,4 +44,20 @@ fun RootScreen(
             }
         }
     }
+}
+
+@Composable
+private fun WelcomeScreenNode(component: WelcomeScreenComponent) {
+    WelcomeScreen(
+        modifier = Modifier.fillMaxSize(),
+        component = component
+    )
+}
+
+@Composable
+private fun SplashScreenNode(component: SplashComponent) {
+    SplashScreen(
+        modifier = Modifier.fillMaxSize(),
+        component = component
+    )
 }
