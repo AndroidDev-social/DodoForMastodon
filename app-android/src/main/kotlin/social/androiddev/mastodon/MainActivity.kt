@@ -15,7 +15,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.defaultComponentContext
-
 import social.androiddev.common.theme.MastodonTheme
 import social.androiddev.splash.composables.RootScreen
 import social.androiddev.splash.navigation.RootComponent
