@@ -20,7 +20,7 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import java.io.IOException
+import social.androiddev.common.network.util.runCatchingIgnoreCancelled
 
 /**
  * Use this helper until we switch to a image loading library which supports multiplatform
@@ -36,12 +36,15 @@ fun <T> AsyncImage(
 ) {
     val image: T? by produceState<T?>(null) {
         value = withContext(Dispatchers.IO) {
-            try {
+            runCatchingIgnoreCancelled {
                 load()
-            } catch (e: IOException) {
-                e.printStackTrace()
-                null
-            }
+            }.fold(
+                onSuccess = { it },
+                onFailure = { t ->
+                    t.printStackTrace()
+                    null
+                }
+            )
         }
     }
 
