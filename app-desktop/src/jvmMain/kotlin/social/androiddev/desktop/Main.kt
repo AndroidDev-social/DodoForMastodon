@@ -32,7 +32,7 @@ fun main() {
     application {
         val windowState = rememberWindowState()
 
-        // Bind the registry to the life cycle of the window
+        // Bind the registry to the lifecycle of the window
         LifecycleController(lifecycle, windowState)
 
         Window(
