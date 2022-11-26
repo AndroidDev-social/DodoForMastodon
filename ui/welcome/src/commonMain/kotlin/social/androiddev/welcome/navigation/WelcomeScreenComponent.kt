@@ -27,6 +27,7 @@ private class DefaultSplashComponent(
     private val componentContext: ComponentContext,
     private val onGetStartedClickedInternal: () -> Unit,
 ) : WelcomeScreenComponent, ComponentContext by componentContext {
+
     override fun onGetStartedClicked() {
         onGetStartedClickedInternal()
     }
