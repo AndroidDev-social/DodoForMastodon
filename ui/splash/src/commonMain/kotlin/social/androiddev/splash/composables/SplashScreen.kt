@@ -16,10 +16,10 @@ fun SplashScreen(
     SplashScreen(
         modifier = modifier,
         navigateToWelcome = {
-            component.isUserLoggedIn(false)
+            component.navigateToWelcome()
         },
         navigateToTimeline = {
-            component.isUserLoggedIn(true)
+            component.navigateToTimeline()
         }
     )
 }

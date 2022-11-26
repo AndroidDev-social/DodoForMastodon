@@ -8,15 +8,24 @@ import com.arkivanov.decompose.router.stack.push
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
+import social.androiddev.welcome.navigation.WelcomeScreenComponent
 
+/**
+ * The base component describing all business logic needed for the root entry point
+ */
 interface RootComponent {
 
+    // Store a stack of components and their configurations in this root graph
     val childStack: Value<ChildStack<*, Child>>
 
     sealed class Child {
         data class SplashScreenChild(val component: SplashComponent) : Child()
-        object LoggedOutChild : Child()
-        object TimelineChild : Child()
+
+        data class WelcomeScreenChild(val component: WelcomeScreenComponent) : Child()
+
+        object TimelineScreenChild : Child()
+
+        object SelectServerScreenChild : Child()
     }
 
     sealed interface DeepLink {
@@ -34,7 +43,7 @@ interface RootComponent {
     }
 }
 
-internal class DefaultRootComponent(
+private class DefaultRootComponent(
     componentContext: ComponentContext,
     deepLink: RootComponent.DeepLink = RootComponent.DeepLink.None,
 ) : RootComponent, ComponentContext by componentContext {
@@ -57,20 +66,31 @@ internal class DefaultRootComponent(
             Config.SplashScreen -> {
                 RootComponent.Child.SplashScreenChild(createSplashComponent(componentContext))
             }
-
-            Config.LoggedOut -> RootComponent.Child.LoggedOutChild
-            Config.Timeline -> RootComponent.Child.TimelineChild
+            Config.WelcomeScreen -> {
+                RootComponent.Child.WelcomeScreenChild(createWelcomeComponent(componentContext))
+            }
+            Config.TimelineGraph -> RootComponent.Child.TimelineScreenChild
+            Config.SelectServerScreen -> RootComponent.Child.SelectServerScreenChild
         }
+
+    private fun createWelcomeComponent(
+        componentContext: ComponentContext
+    ) = WelcomeScreenComponent.createDefaultComponent(
+        componentContext = componentContext,
+        navigateToEnterDomain = {
+            navigation.push(Config.SelectServerScreen)
+        }
+    )
 
     private fun createSplashComponent(
         componentContext: ComponentContext
     ) = SplashComponent.createDefaultComponent(
         componentContext = componentContext,
         navigateToTimeline = {
-            navigation.push(Config.Timeline)
+            navigation.push(Config.TimelineGraph)
         },
         navigateToWelcome = {
-            navigation.push(Config.LoggedOut)
+            navigation.push(Config.WelcomeScreen)
         }
     )
 
@@ -85,9 +105,12 @@ internal class DefaultRootComponent(
         object SplashScreen : Config
 
         @Parcelize
-        object LoggedOut : Config
+        object WelcomeScreen : Config
 
         @Parcelize
-        object Timeline : Config
+        object SelectServerScreen : Config
+
+        @Parcelize
+        object TimelineGraph : Config
     }
 }

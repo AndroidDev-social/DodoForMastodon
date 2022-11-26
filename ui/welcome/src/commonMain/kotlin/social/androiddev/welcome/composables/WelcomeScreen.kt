@@ -33,17 +33,40 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import social.androiddev.common.composables.buttons.MastodonButton
-import social.androiddev.common.composables.buttons.MastodonOutlinedButton
 import social.androiddev.common.theme.Blue
 import social.androiddev.common.theme.MastodonTheme
 import social.androiddev.common.utils.AsyncImage
 import social.androiddev.common.utils.loadImageIntoPainter
+import social.androiddev.welcome.navigation.WelcomeScreenComponent
+
+@Composable
+fun WelcomeScreen(
+    component: WelcomeScreenComponent,
+    modifier: Modifier = Modifier,
+    appIcon: @Composable () -> Unit = {
+        AsyncImage(
+            load = { loadImageIntoPainter(url = "https://via.placeholder.com/200x200/6FA4DE/010041?text=MastodonX") },
+            painterFor = { remember { it } },
+            contentDescription = "App Logo",
+            modifier = Modifier
+                .padding(horizontal = 48.dp)
+                .size(240.dp)
+                .clip(CircleShape),
+            contentScale = ContentScale.Crop,
+        )
+    },
+) {
+    WelcomeScreen(
+        modifier = modifier,
+        onGetStartedClicked = component::onGetStartedClicked,
+        appIcon = appIcon
+    )
+}
 
 @Composable
 fun WelcomeScreen(
     modifier: Modifier = Modifier,
-    navigateToLogin: () -> Unit,
-    navigateToSignUp: () -> Unit,
+    onGetStartedClicked: () -> Unit,
     appIcon: @Composable () -> Unit = {
         AsyncImage(
             load = { loadImageIntoPainter(url = "https://via.placeholder.com/200x200/6FA4DE/010041?text=MastodonX") },
@@ -114,18 +137,8 @@ fun WelcomeScreen(
                 modifier = Modifier
                     .widthIn(min = 240.dp)
                     .padding(horizontal = 24.dp),
-                onClick = navigateToLogin,
-                text = "Log In"
-            )
-
-            Spacer(Modifier.height(8.dp))
-
-            MastodonOutlinedButton(
-                modifier = Modifier
-                    .widthIn(min = 240.dp)
-                    .padding(horizontal = 24.dp),
-                onClick = navigateToSignUp,
-                text = "Sign Up"
+                onClick = onGetStartedClicked,
+                text = "Get Started"
             )
         }
     }
@@ -136,8 +149,7 @@ fun WelcomeScreen(
 private fun PreviewWelcomeScreen() {
     MastodonTheme(true) {
         WelcomeScreen(
-            navigateToLogin = {},
-            navigateToSignUp = {},
+            onGetStartedClicked = {}
         )
     }
 }

@@ -36,14 +36,17 @@ fun RootScreen(
                     )
                 }
 
-                RootComponent.Child.LoggedOutChild -> {
+                is RootComponent.Child.WelcomeScreenChild -> {
                     WelcomeScreen(
                         modifier = Modifier.fillMaxSize(),
+                        component = child.component
                     )
                 }
-
-                RootComponent.Child.TimelineChild -> {
-//                TimelineScreen()
+                RootComponent.Child.TimelineScreenChild -> {
+//                    TODO: TimelineScreen()
+                }
+                RootComponent.Child.SelectServerScreenChild -> {
+//                    TODO: SelectServerScreen()
                 }
             }
         }

@@ -23,9 +23,10 @@ kotlin {
         named("jvmMain") {
             dependencies {
                 implementation(compose.desktop.currentOs)
-                implementation(projects.ui.timeline)
+                implementation(projects.ui.splash)
                 implementation(projects.ui.common)
-                implementation(projects.ui.welcome)
+                implementation(libs.com.arkivanov.decompose)
+                implementation(libs.com.arkivanov.decompose.extensions.compose.jetbrains)
             }
         }
     }
