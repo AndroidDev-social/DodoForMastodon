@@ -14,6 +14,7 @@ import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.decompose.router.stack.push
+import com.arkivanov.decompose.router.stack.replaceCurrent
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
@@ -100,10 +101,10 @@ private class DefaultRootComponent(
     ) = SplashComponent.createDefaultComponent(
         componentContext = componentContext,
         navigateToTimeline = {
-            navigation.push(Config.TimelineGraph)
+            navigation.replaceCurrent(Config.WelcomeScreen)
         },
         navigateToWelcome = {
-            navigation.push(Config.WelcomeScreen)
+            navigation.replaceCurrent(Config.WelcomeScreen)
         }
     )
 

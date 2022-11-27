@@ -40,7 +40,9 @@ fun RootScreen(
             modifier = Modifier.fillMaxSize()
         ) { createdChild ->
             when (val child = createdChild.instance) {
-                is RootComponent.Child.SplashScreenChild -> SplashScreenNode(child.component)
+                is RootComponent.Child.SplashScreenChild -> {
+                    SplashScreenNode(child.component)
+                }
                 is RootComponent.Child.WelcomeScreenChild -> {
                     WelcomeScreenNode(child.component)
                 }
@@ -48,7 +50,7 @@ fun RootScreen(
 //                    TODO: TimelineScreen()
                 }
                 RootComponent.Child.SelectServerScreenChild -> {
-//                    TODO: SelectServerScreen()
+                    SelectServerScreen()
                 }
             }
         }
