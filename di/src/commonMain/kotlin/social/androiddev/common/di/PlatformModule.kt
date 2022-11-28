@@ -7,10 +7,16 @@
  *
  * You should have received a copy of the GNU General Public License along with MastodonX. If not, see <https://www.gnu.org/licenses/>.
  */
-package social.androiddev.common.network
+package social.androiddev.common.di
 
-import kotlinx.coroutines.flow.Flow
+import org.koin.core.module.dsl.singleOf
+import org.koin.dsl.module
+import social.androiddev.common.Platform
 
-interface NetworkMonitor {
-    val isOnline: Flow<Boolean>
+/**
+ * Platform specific Koin module. All build targets must
+ * fulfill any platform required koin definitions specified.
+ */
+val platformModule = module {
+    singleOf(::Platform)
 }

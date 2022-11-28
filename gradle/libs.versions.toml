@@ -17,6 +17,7 @@ androidx-compose-foundation = "1.2.1"
 com-arkivanov-decompose = "1.0.0-alpha-05"
 com-twitter-compose-rules = "0.0.22"
 org-xerial = "3.8.10.2"
+io-insert-koin = "3.2.0"
 
 
 [libraries]
@@ -36,6 +37,9 @@ io-ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-neg
 io-ktor-client-mock-jvm = { module = "io.ktor:ktor-client-mock-jvm", version.ref = "io-ktor" }
 io-ktor-client-mock = { module = "io.ktor:ktor-client-mock", version.ref = "io-ktor" }
 io-ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "io-ktor" }
+io-insert-koin-core = { module = "io.insert-koin:koin-core", version.ref = "io-insert-koin" }
+io-insert-koin-test = { module = "io.insert-koin:koin-test", version.ref = "io-insert-koin" }
+io-insert-koin-android = { module = "io.insert-koin:koin-android", version.ref = "io-insert-koin" }
 
 org-jetbrains-kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "org-jetbrains-kotlinx-coroutines"}
 org-jetbrains-kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "org-jetbrains-kotlinx" }

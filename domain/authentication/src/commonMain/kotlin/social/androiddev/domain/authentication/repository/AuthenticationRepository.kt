@@ -12,6 +12,7 @@ package social.androiddev.domain.authentication.repository
 interface AuthenticationRepository {
 
     suspend fun createApplicationClient(
+        domain: String,
         clientName: String,
         redirectUris: String,
         scopes: String,
