@@ -46,24 +46,20 @@ kotlin {
         // shared
 
         val commonMain by getting {
-            dependencies {
-                implementation(projects.data.network)
-            }
+            dependencies {}
         }
 
 
         // android
         getByName("androidMain") {
             dependsOn(commonMain)
-            dependencies {
-            }
+            dependencies {}
         }
 
 
         // desktop
         getByName("desktopMain") {
-            dependencies {
-            }
+            dependencies {}
         }
         // testing
         named("commonTest") {

@@ -1,6 +1,7 @@
-# Welcome to MastodonCompose
+# Welcome to MastodonCompose[^temporary]
+[^temporary]: This is just the working title for now.
 
-This is a free and open project and lives from contributions of the community. 
+This is a free and open Mastodon client and lives from contributions of the community. 
 
 There are many ways to contribute:
 
@@ -51,10 +52,11 @@ When you're happy with your changes, create Atomic commits on a **new feature br
 Atomic commits will make it easier to track down regressions. Also, it enables the ability to cherry-pick or revert a change if needed.
 
 1. Fork it (https://github.com/AndroidDev-social/MastodonCompose/fork)
-2. Create a new feature branch (`git checkout -b feature/fooBar`)
-3. Commit your changes (`git commit -am 'Add some fooBar'`)
-4. Push to the branch (`git push origin feature/fooBar`)
-5. Create a new Pull Request
+2. Install pre-commit hooks (`git config core.hooksPath .githooks`)
+3. Create a new feature branch (`git checkout -b feature/fooBar`)
+4. Commit your changes (`git commit -am 'Add some fooBar'`)
+5. Push to the branch (`git push origin feature/fooBar`)
+6. Create a new Pull Request
 
 
 
@@ -116,6 +118,7 @@ flowchart TD
     ui-timeline --> domain-timeline
 
     subgraph ui
+        ui-welcome
         ui-timeline
         ui-settings
         ui-messages
@@ -126,23 +129,26 @@ flowchart TD
     subgraph domain
         domain-timeline
         domain-welcome
+        domain-authenticating 
     end
     
     domain --> data
 
     subgraph data
+        data-repository
         data-network
         data-persistence
     end
 
-    data-network --> data-persistence[fa:fa-database data-persistence]
+    data-repository <--> data-network
+    data-repository <--> data-persistence[fa:fa-database data-persistence]
 
     data-network <--> Y[fa:fa-cloud MastodonAPI]
 ```
 
 
 
-### 💻 Build
+## 💻 Build
 
 To build the different apps, checkout the repository and run one of the following commands on your local machine
 

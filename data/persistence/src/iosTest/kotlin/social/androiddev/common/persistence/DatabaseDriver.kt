@@ -7,10 +7,11 @@
  *
  * You should have received a copy of the GNU General Public License along with MastodonX. If not, see <https://www.gnu.org/licenses/>.
  */
-package social.androiddev.common.network
+package social.androiddev.common.persistence
 
-import kotlinx.coroutines.flow.Flow
+import com.squareup.sqldelight.db.SqlDriver
+import com.squareup.sqldelight.drivers.native.NativeSqliteDriver
 
-interface NetworkMonitor {
-    val isOnline: Flow<Boolean>
+actual suspend fun provideTestSqlDriver(schema: SqlDriver.Schema): SqlDriver {
+    return NativeSqliteDriver(schema = schema, name = "authentication.db")
 }

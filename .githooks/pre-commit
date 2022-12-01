@@ -1,0 +1,18 @@
+#!/bin/sh
+#
+# hook script to verify code formatting and runs tests for all modules
+# also it will try to format code and add missing license headers to every kotlin file.
+
+echo "***** Run code formatting and tests ******"
+git stash -q --keep-index
+
+./gradlew spotlessApply
+./gradlew check
+
+status=$?
+
+git stash pop -q
+
+echo "***** Done with code formatting and tests ******"
+
+exit $status

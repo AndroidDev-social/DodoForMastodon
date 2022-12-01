@@ -14,6 +14,8 @@ androidx-appcompat = "1.5.1"
 androidx-activity = "1.6.1"
 androidx-compose-foundation = "1.2.1"
 com-arkivanov-decompose = "1.0.0-alpha-05"
+org-xerial = "3.8.10.2"
+io-insert-koin = "3.2.0"
 
 
 [libraries]
@@ -33,6 +35,9 @@ io-ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-neg
 io-ktor-client-mock-jvm = { module = "io.ktor:ktor-client-mock-jvm", version.ref = "io-ktor" }
 io-ktor-client-mock = { module = "io.ktor:ktor-client-mock", version.ref = "io-ktor" }
 io-ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "io-ktor" }
+io-insert-koin-core = { module = "io.insert-koin:koin-core", version.ref = "io-insert-koin" }
+io-insert-koin-test = { module = "io.insert-koin:koin-test", version.ref = "io-insert-koin" }
+io-insert-koin-android = { module = "io.insert-koin:koin-android", version.ref = "io-insert-koin" }
 
 org-jetbrains-kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "org-jetbrains-kotlinx-coroutines"}
 org-jetbrains-kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "org-jetbrains-kotlinx" }
@@ -44,6 +49,7 @@ org-jetbrains-kotlin-test-annotations-common = { module = "org.jetbrains.kotlin:
 com-squareup-sqldelight-android-driver = { module = "com.squareup.sqldelight:android-driver", version.ref = "com-squareup-sqldelight" }
 com-squareup-sqldelight-native-driver = { module = "com.squareup.sqldelight:native-driver", version.ref = "com-squareup-sqldelight" }
 com-squareup-sqldelight-sqlite-driver = { module = "com.squareup.sqldelight:sqlite-driver", version.ref = "com-squareup-sqldelight" }
+org-xerial-sqlite-jdbc = { module = "org.xerial:sqlite-jdbc", version.ref = "org-xerial" }
 
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appcompat" }
