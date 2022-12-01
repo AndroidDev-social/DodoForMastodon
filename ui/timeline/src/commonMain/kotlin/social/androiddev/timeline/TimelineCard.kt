@@ -28,7 +28,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import social.androiddev.common.composables.MediumSpacer
+import social.androiddev.common.composables.Spacers
 import social.androiddev.common.composables.UserAvatar
 import social.androiddev.common.theme.MastodonTheme
 
@@ -93,7 +93,7 @@ fun TimelineCard(
                     .clip(CircleShape),
                 url = userAvatarUrl
             )
-            MediumSpacer()
+            Spacers.Medium()
             TootContent(
                 modifier = Modifier.weight(1f).wrapContentHeight(),
                 username = username,

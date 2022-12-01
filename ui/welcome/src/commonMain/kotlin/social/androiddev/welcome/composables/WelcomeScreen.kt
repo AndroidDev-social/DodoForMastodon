@@ -32,9 +32,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import social.androiddev.common.composables.DefaultSpacer
-import social.androiddev.common.composables.MediumSpacer
-import social.androiddev.common.composables.XXLargeSpacer
+import social.androiddev.common.composables.Spacers
 import social.androiddev.common.composables.buttons.MastodonButton
 import social.androiddev.common.composables.buttons.MastodonOutlinedButton
 import social.androiddev.common.theme.Blue
@@ -89,7 +87,7 @@ fun WelcomeScreen(
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 appIcon()
-                XXLargeSpacer()
+                Spacers.XXLarge()
             }
 
             Text(
@@ -100,7 +98,7 @@ fun WelcomeScreen(
                 modifier = Modifier.padding(horizontal = 24.dp)
             )
 
-            MediumSpacer()
+            Spacers.Medium()
 
             Text(
                 text = "Welcome to a completely free and decentralized social media.",
@@ -120,7 +118,7 @@ fun WelcomeScreen(
                 text = "Log In"
             )
 
-            DefaultSpacer()
+            Spacers.Default()
 
             MastodonOutlinedButton(
                 modifier = Modifier
