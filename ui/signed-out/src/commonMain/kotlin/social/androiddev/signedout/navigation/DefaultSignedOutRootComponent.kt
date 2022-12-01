@@ -13,13 +13,15 @@ import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.childStack
+import com.arkivanov.decompose.router.stack.pop
 import com.arkivanov.decompose.router.stack.push
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
 
 class DefaultSignedOutRootComponent(
-    componentContext: ComponentContext
+    componentContext: ComponentContext,
+    private val navigateToTimeLine: () -> Unit,
 ) : SignedOutRootComponent, ComponentContext by componentContext {
 
     // StackNavigation accepts navigation commands and forwards them to all subscribed observers.
@@ -35,14 +37,27 @@ class DefaultSignedOutRootComponent(
 
     override val childStack: Value<ChildStack<*, SignedOutRootComponent.Child>> = stack
 
-    private fun createChild(config: Config, componentContext: ComponentContext): SignedOutRootComponent.Child =
+    private fun createChild(
+        config: Config,
+        componentContext: ComponentContext
+    ): SignedOutRootComponent.Child =
         when (config) {
             Config.Landing -> {
                 SignedOutRootComponent.Child.Landing(createLandingComponent(componentContext))
             }
+
             Config.SelectServer -> {
-                SignedOutRootComponent.Child.SelectServer(createSelectServerComponent(componentContext))
+                SignedOutRootComponent.Child.SelectServer(
+                    createSelectServerComponent(
+                        componentContext
+                    )
+                )
             }
+
+            is Config.SignIn -> SignedOutRootComponent.Child.SignIn(
+                server = config.server,
+                createSignInComponent(componentContext)
+            )
         }
 
     private fun createLandingComponent(
@@ -59,9 +74,24 @@ class DefaultSignedOutRootComponent(
     ) = DefaultSelectServerComponent(
         componentContext = componentContext,
         launchOAuth = { server ->
-            // TODO: Launch WebView with selected server
+            navigation.push(Config.SignIn(server = server))
         }
     )
+
+    private fun createSignInComponent(
+        componentContext: ComponentContext
+    ) =
+        DefaultSignInComponent(
+
+            componentContext = componentContext,
+            onSignUpSignInSucceedInternal = {
+                navigateToTimeLine()
+            },
+            onCloseClickedInternal = {
+                navigation.pop()
+            }
+
+        )
 
     /**
      * Supported configurations for all children in this root.
@@ -82,5 +112,8 @@ class DefaultSignedOutRootComponent(
 
         @Parcelize
         object SelectServer : Config
+
+        @Parcelize
+        data class SignIn(val server: String) : Config
     }
 }

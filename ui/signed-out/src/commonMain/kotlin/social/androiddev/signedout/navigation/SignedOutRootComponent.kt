@@ -29,5 +29,7 @@ interface SignedOutRootComponent {
         data class Landing(val component: LandingComponent) : Child()
 
         data class SelectServer(val component: SelectServerComponent) : Child()
+
+        data class SignIn(val server: String, val component: SignInComponent) : Child()
     }
 }

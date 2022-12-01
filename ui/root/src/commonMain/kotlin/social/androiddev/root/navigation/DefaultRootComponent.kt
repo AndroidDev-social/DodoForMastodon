@@ -54,6 +54,9 @@ class DefaultRootComponent(
         componentContext: ComponentContext,
     ) = DefaultSignedOutRootComponent(
         componentContext = componentContext,
+        navigateToTimeLine = {
+            navigation.replaceCurrent(Config.SignedIn)
+        }
     )
 
     private fun createSignedInComponent(
