@@ -1,6 +1,6 @@
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
-rootProject.name="MastodonCompose"
+rootProject.name="DodoForMastodon"
 
 include(":di")
 include(":app-android")

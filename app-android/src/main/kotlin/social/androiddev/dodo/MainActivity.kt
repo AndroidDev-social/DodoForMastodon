@@ -7,7 +7,7 @@
  *
  * You should have received a copy of the GNU General Public License along with Dodo. If not, see <https://www.gnu.org/licenses/>.
  */
-package social.androiddev.mastodon
+package social.androiddev.dodo
 
 import android.os.Bundle
 import androidx.activity.compose.setContent
