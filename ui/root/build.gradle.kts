@@ -2,16 +2,8 @@ plugins {
     id("kotlin-multiplatform")
     id("org.jetbrains.compose")
     id("com.android.library")
-    id("com.diffplug.spotless") version "6.11.0"
+    id("social.androiddev.code-quality")
     id("kotlin-parcelize")
-}
-
-spotless {
-    kotlin {
-        target("src/*/kotlin/**/*.kt")
-        ktlint("0.43.2")
-        licenseHeaderFile(rootProject.file("copyright.kt"))
-    }
 }
 
 val targetSDKVersion: Int by rootProject.extra
