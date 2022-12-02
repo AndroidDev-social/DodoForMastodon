@@ -23,6 +23,10 @@ import androidx.compose.ui.unit.dp
 import social.androiddev.common.theme.MastodonTheme
 import social.androiddev.timeline.navigation.TimelineComponent
 
+/**
+ * Timeline view that delegates business/navigation logic to [TimelineComponent]
+ * for when a user wants to view their Timeline
+ */
 @Composable
 fun TimelineContent(
     component: TimelineComponent,

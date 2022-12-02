@@ -9,4 +9,7 @@
  */
 package social.androiddev.timeline.navigation
 
+/**
+ * The base component describing all business logic needed for the timeline view
+ */
 interface TimelineComponent

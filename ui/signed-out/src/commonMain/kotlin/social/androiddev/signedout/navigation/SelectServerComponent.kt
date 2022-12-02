@@ -9,6 +9,9 @@
  */
 package social.androiddev.signedout.navigation
 
+/**
+ * The base component describing all business logic needed for the select server screen
+ */
 interface SelectServerComponent {
 
     fun onServerSelected(server: String)

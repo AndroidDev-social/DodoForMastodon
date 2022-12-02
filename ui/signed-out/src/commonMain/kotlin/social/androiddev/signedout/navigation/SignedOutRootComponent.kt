@@ -12,10 +12,18 @@ package social.androiddev.signedout.navigation
 import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.value.Value
 
+/**
+ * The base component describing all business logic needed for the signed-out root entry point
+ */
 interface SignedOutRootComponent {
 
+    // Store a stack of components and their configurations in this root graph
     val childStack: Value<ChildStack<*, Child>>
 
+    /**
+     * Supported "Child"s in this navigation stack. These are created from a configuration that
+     * contains any arguments for this particular child in the navigation stack.
+     */
     sealed class Child {
 
         data class Landing(val component: LandingComponent) : Child()
