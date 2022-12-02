@@ -1,6 +1,6 @@
 # Dodo
 [![GNU GPL-3.0](https://img.shields.io/github/license/thebino/MastodonCompose)](https://img.shields.io/github/license/thebino/MastodonCompose)
-![CI](https://github.com/AndroidDev-social/MastodonCompose/actions/workflows/continuous-delivery-pipeline.yml/badge.svg)
+![CI](https://github.com/AndroidDev-social/DodoForMastodon/actions/workflows/continuous-delivery-pipeline.yml/badge.svg)
 
 A multiplatform Mastodon client written in [Kotlin](kotlinlang.org) for the amazing [androiddev.social](https://androiddev.social) community and everyone else who enjoys #Fediverse
 
@@ -37,7 +37,7 @@ A MVP (Minimum viable product) is a similified version of a product with only so
  * Create a Toot!
  * Log out
 
-Check out [the Progress](https://github.com/AndroidDev-social/MastodonCompose/milestones)
+Check out [the Progress](https://github.com/AndroidDev-social/DodoForMastodon/milestones)
 
 
 ## License

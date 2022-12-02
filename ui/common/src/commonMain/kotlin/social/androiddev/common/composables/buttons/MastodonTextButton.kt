@@ -31,7 +31,7 @@ import androidx.compose.ui.unit.dp
 import social.androiddev.common.theme.DodoTheme
 
 @Composable
-fun MastodonTextButton(
+fun DodoTextButton(
     text: String,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
@@ -119,7 +119,7 @@ private fun PreviewTextButtonLight() {
     DodoTheme(
         useDarkTheme = false,
     ) {
-        MastodonTextButton(
+        DodoTextButton(
             modifier = Modifier.wrapContentSize(),
             text = "Action",
             onClick = {}
@@ -143,19 +143,19 @@ private fun PreviewTextButtonDark() {
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
 
-            MastodonTextButton(
+            DodoTextButton(
                 modifier = Modifier.fillMaxWidth(),
                 text = "This is a long button",
                 onClick = {}
             )
 
-            MastodonTextButton(
+            DodoTextButton(
                 modifier = Modifier.wrapContentSize(),
                 text = "Action",
                 onClick = {}
             )
 
-            MastodonTextButton(
+            DodoTextButton(
                 modifier = Modifier.wrapContentSize(),
                 text = "Disabled",
                 onClick = {}

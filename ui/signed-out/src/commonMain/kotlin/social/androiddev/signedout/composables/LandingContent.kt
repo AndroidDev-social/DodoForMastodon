@@ -34,7 +34,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import social.androiddev.common.composables.buttons.MastodonButton
+import social.androiddev.common.composables.buttons.DodoButton
 import social.androiddev.common.theme.Blue
 import social.androiddev.common.theme.DodoTheme
 import social.androiddev.common.utils.AsyncImage
@@ -138,7 +138,7 @@ fun LandingContent(
 
             Spacer(Modifier.height(42.dp))
 
-            MastodonButton(
+            DodoButton(
                 modifier = Modifier
                     .widthIn(min = 240.dp)
                     .padding(horizontal = 24.dp),

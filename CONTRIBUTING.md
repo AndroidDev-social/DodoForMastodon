@@ -1,4 +1,4 @@
-# Welcome to MastodonCompose[^temporary]
+# Welcome to Dodo for Mastodon[^temporary]
 [^temporary]: This is just the working title for now.
 
 This is a free and open Mastodon client and lives from contributions of the community. 
@@ -7,9 +7,9 @@ There are many ways to contribute:
 
  * 📣 Spread the project or its apps to the world
  * ✍️ Writing tutorials and blog posts
- * 📝 Create or update [the documentation](https://github.com/AndroidDev-social/MastodonCompose/wiki)
- * 🐛 Submit [bug reports](https://github.com/AndroidDev-social/MastodonCompose/issues)
- * 💡 Adding ideas and feature requests to [Discussions](https://github.com/AndroidDev-social/MastodonCompose/discussions)
+ * 📝 Create or update [the documentation](https://github.com/AndroidDev-social/DodoForMastodon/wiki)
+ * 🐛 Submit [bug reports](https://github.com/AndroidDev-social/DodoForMastodon/issues)
+ * 💡 Adding ideas and feature requests to [Discussions](https://github.com/AndroidDev-social/DodoForMastodon/discussions)
  * 👩‍🎨 Create designs or UX flows
  * 🧑‍💻 Contribute code or review PRs
 
@@ -51,7 +51,7 @@ When you're happy with your changes, create Atomic commits on a **new feature br
 
 Atomic commits will make it easier to track down regressions. Also, it enables the ability to cherry-pick or revert a change if needed.
 
-1. Fork it (https://github.com/AndroidDev-social/MastodonCompose/fork)
+1. Fork it (https://github.com/AndroidDev-social/DodoForMastodon/fork)
 2. Install pre-commit hooks (`git config core.hooksPath .githooks`)
 3. Create a new feature branch (`git checkout -b feature/fooBar`)
 4. Commit your changes (`git commit -am 'Add some fooBar'`)
@@ -64,19 +64,19 @@ Atomic commits will make it easier to track down regressions. Also, it enables t
 
 > If you find a security vulnerability, do NOT open an issue. Email [webmaster@stuermer-benjamin.de] instead.
 
-1. Open the [issues tab](https://github.com/AndroidDev-social/MastodonCompose/issues) on github
-2. Click on [New issue](https://github.com/AndroidDev-social/MastodonCompose/issues/new/choose)
+1. Open the [issues tab](https://github.com/AndroidDev-social/DodoForMastodon/issues) on github
+2. Click on [New issue](https://github.com/AndroidDev-social/DodoForMastodon/issues/new/choose)
 3. Choose the bug report 🐛 template and fill out all required fields
 
 
 
 ## 💡 How to suggest a feature or enhancement
 
-Check [open issues](https://github.com/AndroidDev-social/MastodonCompose/issues) and [ongoing discussions](https://github.com/AndroidDev-social/MastodonCompose/discussions) for a list of proposed features.
+Check [open issues](https://github.com/AndroidDev-social/DodoForMastodon/issues) and [ongoing discussions](https://github.com/AndroidDev-social/MastodonCompose/discussions) for a list of proposed features.
 
-If your suggestion can not be found already, see if it is already covered by our [Roadmap](https://github.com/AndroidDev-social/MastodonCompose#roadmap).
+If your suggestion can not be found already, see if it is already covered by our [Roadmap](https://github.com/AndroidDev-social/DodoForMastodon#roadmap).
 
-Otherwise, start a new [Discussion](https://github.com/AndroidDev-social/MastodonCompose/discussions) and see what other users and contributors think.
+Otherwise, start a new [Discussion](https://github.com/AndroidDev-social/DodoForMastodon/discussions) and see what other users and contributors think.
 
 
 

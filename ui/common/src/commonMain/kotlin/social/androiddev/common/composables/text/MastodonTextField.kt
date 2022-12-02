@@ -39,7 +39,7 @@ import androidx.compose.ui.unit.dp
 import social.androiddev.common.theme.DodoTheme
 
 @Composable
-fun MastodonTextField(
+fun DodoTextField(
     value: String,
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
@@ -297,7 +297,7 @@ fun PreviewTextField() {
     DodoTheme {
         Surface {
             var text by remember { mutableStateOf("Hello World") }
-            MastodonTextField(
+            DodoTextField(
                 value = text,
                 onValueChange = { text = it },
                 modifier = Modifier

@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">MastodonCompose</string>
+    <string name="app_name">Dodo</string>
+    <string name="app_name_fullname">Dodo for Mastodon</string>
 </resources>

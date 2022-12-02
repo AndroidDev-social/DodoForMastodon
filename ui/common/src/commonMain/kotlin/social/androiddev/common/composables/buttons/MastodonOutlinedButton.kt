@@ -32,7 +32,7 @@ import androidx.compose.ui.unit.dp
 import social.androiddev.common.theme.DodoTheme
 
 @Composable
-fun MastodonOutlinedButton(
+fun DodoOutlinedButton(
     text: String,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
@@ -121,7 +121,7 @@ private fun PreviewOutlineButtonLight() {
     DodoTheme(
         useDarkTheme = false,
     ) {
-        MastodonOutlinedButton(
+        DodoOutlinedButton(
             modifier = Modifier.wrapContentSize(),
             text = "Action",
             onClick = {}
@@ -146,19 +146,19 @@ private fun PreviewOutlineButtonDark() {
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
 
-                MastodonOutlinedButton(
+                DodoOutlinedButton(
                     modifier = Modifier.fillMaxWidth(),
                     text = "This is a long button",
                     onClick = {}
                 )
 
-                MastodonOutlinedButton(
+                DodoOutlinedButton(
                     modifier = Modifier.wrapContentSize(),
                     text = "Action",
                     onClick = {}
                 )
 
-                MastodonOutlinedButton(
+                DodoOutlinedButton(
                     modifier = Modifier.wrapContentSize(),
                     text = "Disabled",
                     onClick = {}

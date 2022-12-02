@@ -7,12 +7,22 @@
  *
  * You should have received a copy of the GNU General Public License along with Dodo. If not, see <https://www.gnu.org/licenses/>.
  */
-package social.androiddev.mastodon.di
+package social.androiddev.dodo
 
-import org.koin.dsl.module
+import android.app.Application
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.koin.core.context.startKoin
+import social.androiddev.common.di.appModule
+import social.androiddev.dodo.di.androidModule
 
-/**
- * The Dodo Android app Koin module holding koin definitions
- * specific to the android app
- */
-val androidModule = module { }
+class DodoApplication : Application() {
+    override fun onCreate() {
+        super.onCreate()
+        startKoin {
+            androidContext(this@DodoApplication)
+            androidLogger()
+            modules(appModule() + androidModule)
+        }
+    }
+}

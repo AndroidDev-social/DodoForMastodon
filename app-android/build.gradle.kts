@@ -19,7 +19,7 @@ val minSDKVersion: Int by rootProject.extra
 val compileSDKVersion: Int by rootProject.extra
 
 android {
-    namespace = "social.androiddev.mastodon"
+    namespace = "social.androiddev.dodo"
     compileSdk = compileSDKVersion
 
     defaultConfig {

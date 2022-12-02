@@ -22,8 +22,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import social.androiddev.common.composables.buttons.MastodonButton
-import social.androiddev.common.composables.text.MastodonTextField
+import social.androiddev.common.composables.buttons.DodoButton
+import social.androiddev.common.composables.text.DodoTextField
 import social.androiddev.common.theme.DodoTheme
 import social.androiddev.signedout.navigation.SelectServerComponent
 
@@ -55,7 +55,7 @@ fun SelectServerContent(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
 
-        MastodonTextField(
+        DodoTextField(
             value = server,
             onValueChange = { v ->
                 server = v
@@ -64,7 +64,7 @@ fun SelectServerContent(
 
         Spacer(Modifier.height(24.dp))
 
-        MastodonButton(
+        DodoButton(
             text = "Select",
             onClick = {
                 onServerSelected(server)
