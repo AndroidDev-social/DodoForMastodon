@@ -1,11 +1,11 @@
 /*
- * This file is part of MastodonX.
+ * This file is part of Dodo.
  *
- * MastodonX is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+ * Dodo is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  *
- * MastodonX is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ * Dodo is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License along with MastodonX. If not, see <https://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with Dodo. If not, see <https://www.gnu.org/licenses/>.
  */
 package social.androiddev.timeline
 
@@ -29,7 +29,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import social.androiddev.common.composables.UserAvatar
-import social.androiddev.common.theme.MastodonTheme
+import social.androiddev.common.theme.DodoTheme
 
 /**
  * Stateful
@@ -133,7 +133,7 @@ val dummyFeedItem = FeedItemState(
 // @Preview
 @Composable
 private fun PreviewFeedCardLight() {
-    MastodonTheme(useDarkTheme = false) {
+    DodoTheme(useDarkTheme = false) {
         Box(Modifier.padding(12.dp)) {
             TimelineCard(
                 state = dummyFeedItem,
@@ -146,7 +146,7 @@ private fun PreviewFeedCardLight() {
 // @Preview
 @Composable
 private fun PreviewFeedCardDark() {
-    MastodonTheme(useDarkTheme = true) {
+    DodoTheme(useDarkTheme = true) {
         Box(Modifier.padding(12.dp)) {
             TimelineCard(
                 state = dummyFeedItem,

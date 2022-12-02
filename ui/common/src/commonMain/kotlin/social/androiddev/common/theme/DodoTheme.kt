@@ -7,14 +7,23 @@
  *
  * You should have received a copy of the GNU General Public License along with Dodo. If not, see <https://www.gnu.org/licenses/>.
  */
-package social.androiddev.common.network
+package social.androiddev.common.theme
 
-import io.ktor.client.HttpClient
-import io.ktor.client.call.body
-import io.ktor.client.engine.cio.CIO
-import io.ktor.client.request.get
-import java.io.ByteArrayInputStream
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material.MaterialTheme
+import androidx.compose.runtime.Composable
 
-actual suspend fun urlStream(url: String): ByteArray = HttpClient(CIO).use {
-    ByteArrayInputStream(it.get(url).body()).readBytes()
+@Composable
+fun DodoTheme(
+    useDarkTheme: Boolean = isSystemInDarkTheme(),
+    content: @Composable() () -> Unit
+) {
+    MaterialTheme(
+        colors = if (useDarkTheme) {
+            darkColors
+        } else {
+            lightColors
+        },
+        typography = MastodonTypography, content = content
+    )
 }
