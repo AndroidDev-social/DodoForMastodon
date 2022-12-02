@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.sp
  * The type scale is a combination of thirteen styles that are supported by the type system.
  * It contains reusable categories of text, each with an intended application and meaning.
  */
-val MastodonTypography = Typography(
+val DodoTypography = Typography(
 
     /** the default FontFamily to be used for TextStyles below */
     defaultFontFamily = FontFamily.Default,

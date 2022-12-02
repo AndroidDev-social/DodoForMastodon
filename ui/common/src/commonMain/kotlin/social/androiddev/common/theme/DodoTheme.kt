@@ -24,6 +24,6 @@ fun DodoTheme(
         } else {
             lightColors
         },
-        typography = MastodonTypography, content = content
+        typography = DodoTypography, content = content
     )
 }
