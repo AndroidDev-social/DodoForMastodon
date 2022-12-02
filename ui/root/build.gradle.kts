@@ -3,6 +3,7 @@ plugins {
     id("org.jetbrains.compose")
     id("com.android.library")
     id("com.diffplug.spotless") version "6.11.0"
+    id("kotlin-parcelize")
 }
 
 spotless {
@@ -19,7 +20,7 @@ val compileSDKVersion: Int by rootProject.extra
 
 android {
 
-    namespace = "social.androiddev.ui.welcome"
+    namespace = "social.androiddev.ui.root"
 
     compileSdk = compileSDKVersion
 
@@ -48,8 +49,9 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-//                implementation(project(":domain:welcome"))
                 implementation(projects.ui.common)
+                implementation(projects.ui.signedIn)
+                implementation(projects.ui.signedOut)
                 implementation(compose.runtime)
                 implementation(compose.foundation)
                 implementation(compose.material)

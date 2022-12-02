@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     kotlin("android")
     id("org.jetbrains.compose")
+    id("kotlin-parcelize")
     id("com.diffplug.spotless") version "6.11.0"
 }
 
@@ -39,7 +40,7 @@ android {
 }
 
 dependencies {
-    implementation(projects.ui.welcome)
+    implementation(projects.ui.root)
     implementation(projects.ui.common)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -48,4 +49,6 @@ dependencies {
     implementation(projects.di)
     implementation(libs.io.insert.koin.core)
     implementation(libs.io.insert.koin.android)
+    implementation(libs.com.arkivanov.decompose)
+    implementation(libs.com.arkivanov.decompose.extensions.compose.jetbrains)
 }

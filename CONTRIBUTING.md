@@ -102,7 +102,7 @@ Underneath it is using these frameworks:
 
 ## 🗄️ Structure
 
-The project is structured in **features and layers**
+The project is structured in **layers with tree-structured feature modules**
 
 ```mermaid
 flowchart TD
@@ -114,22 +114,33 @@ flowchart TD
     desktop --> ui
     ios --> ui
 
-    ui-welcome --> domain-welcome
     ui-timeline --> domain-timeline
+    select-server --> domain-authentication
 
     subgraph ui
-        ui-welcome
+        ui-root
+        ui-signedIn
+        ui-signedOut
         ui-timeline
-        ui-settings
-        ui-messages
+        ui-profile
         ui-notifications
-        ui-search
+        landing
+        select-server
+        oauth/sign-up/log-in
     end
+    
+    ui-root --> ui-signedIn
+    ui-root --> ui-signedOut
+    ui-signedOut --> landing
+    ui-signedOut --> select-server
+    ui-signedOut --> oauth/sign-up/log-in
+    ui-signedIn --> ui-timeline
+    ui-signedIn --> ui-profile
+    ui-signedIn --> ui-notifications
     
     subgraph domain
         domain-timeline
-        domain-welcome
-        domain-authenticating 
+        domain-authentication 
     end
     
     domain --> data

@@ -21,9 +21,26 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import social.androiddev.common.theme.MastodonTheme
+import social.androiddev.timeline.navigation.TimelineComponent
+
+/**
+ * Timeline view that delegates business/navigation logic to [TimelineComponent]
+ * for when a user wants to view their Timeline
+ */
+@Composable
+fun TimelineContent(
+    component: TimelineComponent,
+    modifier: Modifier = Modifier,
+) {
+    // TODO: Hook up to View Model for fetching timeline items
+    TimelineContent(
+        items = emptyList(),
+        modifier = modifier,
+    )
+}
 
 @Composable
-fun TimelineScreen(
+fun TimelineContent(
     items: List<FeedItemState>,
     modifier: Modifier = Modifier,
 ) {
@@ -50,6 +67,6 @@ fun TimelineScreen(
 @Composable
 private fun TimelinePreview() {
     MastodonTheme {
-        TimelineScreen(listOf(dummyFeedItem))
+        TimelineContent(listOf(dummyFeedItem))
     }
 }

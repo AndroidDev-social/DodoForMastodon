@@ -204,7 +204,6 @@ class MastodonApiTests {
             "domain_count": 11834
           },
           "user_count": 415526,
-
           "thumbnail": "https://files.mastodon.social/site_uploads/files/000/000/001/original/vlcsnap-2018-08-27-16h43m11s127.png",
           "contact_account":
           {

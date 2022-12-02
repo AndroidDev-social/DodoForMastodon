@@ -9,24 +9,29 @@
  */
 package social.androiddev.mastodon
 
-import WelcomeScreen
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.ui.Modifier
+import com.arkivanov.decompose.defaultComponentContext
 import social.androiddev.common.theme.MastodonTheme
+import social.androiddev.root.composables.RootContent
+import social.androiddev.root.navigation.DefaultRootComponent
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Create the root component before starting Compose
+        val root = DefaultRootComponent(componentContext = defaultComponentContext())
+
         setContent {
             MastodonTheme {
-                WelcomeScreen(
+                RootContent(
+                    component = root,
                     modifier = Modifier.fillMaxSize(),
-                    navigateToSignUp = {},
-                    navigateToLogin = {},
                 )
             }
         }

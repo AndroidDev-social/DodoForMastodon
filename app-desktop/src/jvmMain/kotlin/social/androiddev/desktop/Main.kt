@@ -9,17 +9,31 @@
  */
 package social.androiddev.desktop
 
-import WelcomeScreen
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
+import com.arkivanov.decompose.DefaultComponentContext
+import com.arkivanov.decompose.extensions.compose.jetbrains.lifecycle.LifecycleController
+import com.arkivanov.essenty.lifecycle.LifecycleRegistry
 import social.androiddev.common.theme.MastodonTheme
+import social.androiddev.root.composables.RootContent
+import social.androiddev.root.navigation.DefaultRootComponent
 
 fun main() {
+
+    val lifecycle = LifecycleRegistry()
+    // Create the root component before starting Compose
+    val root = DefaultRootComponent(
+        componentContext = DefaultComponentContext(lifecycle)
+    )
+
     application {
         val windowState = rememberWindowState()
+
+        // Bind the registry to the lifecycle of the window
+        LifecycleController(lifecycle, windowState)
 
         Window(
             onCloseRequest = ::exitApplication,
@@ -27,10 +41,9 @@ fun main() {
             title = "MastodonX"
         ) {
             MastodonTheme {
-                WelcomeScreen(
+                RootContent(
+                    component = root,
                     modifier = Modifier.fillMaxSize(),
-                    navigateToSignUp = {},
-                    navigateToLogin = {},
                 )
             }
         }

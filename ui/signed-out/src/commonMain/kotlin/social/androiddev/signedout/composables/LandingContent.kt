@@ -7,6 +7,8 @@
  *
  * You should have received a copy of the GNU General Public License along with MastodonX. If not, see <https://www.gnu.org/licenses/>.
  */
+package social.androiddev.signedout.composables
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -33,17 +35,43 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import social.androiddev.common.composables.buttons.MastodonButton
-import social.androiddev.common.composables.buttons.MastodonOutlinedButton
 import social.androiddev.common.theme.Blue
 import social.androiddev.common.theme.MastodonTheme
 import social.androiddev.common.utils.AsyncImage
 import social.androiddev.common.utils.loadImageIntoPainter
+import social.androiddev.signedout.navigation.LandingComponent
+
+/**
+ * Landing view that delegates business logic to [LandingContent]
+ */
+@Composable
+fun LandingContent(
+    component: LandingComponent,
+    modifier: Modifier = Modifier,
+    appIcon: @Composable () -> Unit = {
+        AsyncImage(
+            load = { loadImageIntoPainter(url = "https://via.placeholder.com/200x200/6FA4DE/010041?text=MastodonX") },
+            painterFor = { remember { it } },
+            contentDescription = "App Logo",
+            modifier = Modifier
+                .padding(horizontal = 48.dp)
+                .size(240.dp)
+                .clip(CircleShape),
+            contentScale = ContentScale.Crop,
+        )
+    },
+) {
+    LandingContent(
+        modifier = modifier,
+        onGetStartedClicked = component::onGetStartedClicked,
+        appIcon = appIcon,
+    )
+}
 
 @Composable
-fun WelcomeScreen(
+fun LandingContent(
     modifier: Modifier = Modifier,
-    navigateToLogin: () -> Unit,
-    navigateToSignUp: () -> Unit,
+    onGetStartedClicked: () -> Unit,
     appIcon: @Composable () -> Unit = {
         AsyncImage(
             load = { loadImageIntoPainter(url = "https://via.placeholder.com/200x200/6FA4DE/010041?text=MastodonX") },
@@ -95,7 +123,7 @@ fun WelcomeScreen(
                 style = MaterialTheme.typography.h3,
                 textAlign = TextAlign.Center,
                 fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(horizontal = 24.dp)
+                modifier = Modifier.padding(horizontal = 24.dp),
             )
 
             Spacer(Modifier.height(12.dp))
@@ -105,7 +133,7 @@ fun WelcomeScreen(
                 style = MaterialTheme.typography.h6,
                 textAlign = TextAlign.Center,
                 fontWeight = FontWeight.SemiBold,
-                modifier = Modifier.padding(horizontal = 24.dp)
+                modifier = Modifier.padding(horizontal = 24.dp),
             )
 
             Spacer(Modifier.height(42.dp))
@@ -114,18 +142,8 @@ fun WelcomeScreen(
                 modifier = Modifier
                     .widthIn(min = 240.dp)
                     .padding(horizontal = 24.dp),
-                onClick = navigateToLogin,
-                text = "Log In"
-            )
-
-            Spacer(Modifier.height(8.dp))
-
-            MastodonOutlinedButton(
-                modifier = Modifier
-                    .widthIn(min = 240.dp)
-                    .padding(horizontal = 24.dp),
-                onClick = navigateToSignUp,
-                text = "Sign Up"
+                onClick = onGetStartedClicked,
+                text = "Get Started",
             )
         }
     }
@@ -133,11 +151,10 @@ fun WelcomeScreen(
 
 // @Preview
 @Composable
-private fun PreviewWelcomeScreen() {
+private fun PreviewLandingContent() {
     MastodonTheme(true) {
-        WelcomeScreen(
-            navigateToLogin = {},
-            navigateToSignUp = {},
+        LandingContent(
+            onGetStartedClicked = {},
         )
     }
 }

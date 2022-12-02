@@ -5,6 +5,7 @@ plugins {
     id("com.diffplug.spotless") version "6.11.0"
     id("kotlin-parcelize")
 }
+
 spotless {
     kotlin {
         target("src/*/kotlin/**/*.kt")
@@ -18,7 +19,9 @@ val minSDKVersion: Int by rootProject.extra
 val compileSDKVersion: Int by rootProject.extra
 
 android {
-    namespace = "social.androiddev.common"
+
+    namespace = "social.androiddev.ui.signed_out"
+
     compileSdk = compileSDKVersion
 
     defaultConfig {
@@ -44,14 +47,12 @@ kotlin {
     android()
 
     sourceSets {
-        named("commonMain") {
+        val commonMain by getting {
             dependencies {
-                implementation(projects.data.network)
+                implementation(projects.ui.common)
                 implementation(compose.runtime)
                 implementation(compose.foundation)
                 implementation(compose.material)
-                api(libs.com.arkivanov.decompose)
-                api(libs.com.arkivanov.decompose.extensions.compose.jetbrains)
             }
         }
 
@@ -59,11 +60,14 @@ kotlin {
             dependencies {
                 // Workaround for https://github.com/JetBrains/compose-jb/issues/2340
                 implementation(libs.androidx.compose.foundation)
+                implementation(libs.androidx.appcompat)
+                implementation(libs.androidx.core.ktx)
             }
         }
 
         named("desktopMain") {
             dependencies {
+//                dependsOn(commonMain)
                 implementation(compose.desktop.common)
             }
         }
