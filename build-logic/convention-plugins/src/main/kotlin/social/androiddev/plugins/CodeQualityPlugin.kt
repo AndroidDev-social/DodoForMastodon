@@ -14,7 +14,7 @@ class CodeQualityPlugin : Plugin<Project> {
             kotlin {
                 target("src/*/kotlin/**/*.kt")
                 ktlint("0.43.2")
-                licenseHeaderFile(File(rootDir, "copyright.kt"))
+                licenseHeaderFile(File(rootDir, "copyright.txt"))
             }
         }
     }
