@@ -41,6 +41,9 @@ import social.androiddev.common.utils.AsyncImage
 import social.androiddev.common.utils.loadImageIntoPainter
 import social.androiddev.signedout.navigation.LandingComponent
 
+/**
+ * Landing view that delegates business logic to [LandingContent]
+ */
 @Composable
 fun LandingContent(
     component: LandingComponent,
@@ -61,7 +64,7 @@ fun LandingContent(
     LandingContent(
         modifier = modifier,
         onGetStartedClicked = component::onGetStartedClicked,
-        appIcon = appIcon
+        appIcon = appIcon,
     )
 }
 
@@ -120,7 +123,7 @@ fun LandingContent(
                 style = MaterialTheme.typography.h3,
                 textAlign = TextAlign.Center,
                 fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(horizontal = 24.dp)
+                modifier = Modifier.padding(horizontal = 24.dp),
             )
 
             Spacer(Modifier.height(12.dp))
@@ -130,7 +133,7 @@ fun LandingContent(
                 style = MaterialTheme.typography.h6,
                 textAlign = TextAlign.Center,
                 fontWeight = FontWeight.SemiBold,
-                modifier = Modifier.padding(horizontal = 24.dp)
+                modifier = Modifier.padding(horizontal = 24.dp),
             )
 
             Spacer(Modifier.height(42.dp))
@@ -140,7 +143,7 @@ fun LandingContent(
                     .widthIn(min = 240.dp)
                     .padding(horizontal = 24.dp),
                 onClick = onGetStartedClicked,
-                text = "Get Started"
+                text = "Get Started",
             )
         }
     }
@@ -151,7 +154,7 @@ fun LandingContent(
 private fun PreviewLandingContent() {
     MastodonTheme(true) {
         LandingContent(
-            onGetStartedClicked = {}
+            onGetStartedClicked = {},
         )
     }
 }

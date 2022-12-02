@@ -19,6 +19,11 @@ import com.arkivanov.decompose.extensions.compose.jetbrains.stack.Children
 import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
 import social.androiddev.signedout.navigation.SignedOutRootComponent
 
+/**
+ * The root composable for when the user launches the app and is
+ * currently signed out.
+ * Business logic and decompose navigation is delegated to [SignedOutRootComponent].
+ */
 @Composable
 fun SignedOutRootContent(
     component: SignedOutRootComponent,
@@ -28,12 +33,12 @@ fun SignedOutRootContent(
 
     Box(
         modifier = modifier,
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
 
         Children(
             stack = childStack,
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier.fillMaxSize(),
         ) { createdChild ->
             when (val child = createdChild.instance) {
                 is SignedOutRootComponent.Child.Landing -> {

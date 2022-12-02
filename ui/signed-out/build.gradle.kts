@@ -50,8 +50,6 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(projects.ui.common)
-//                implementation(projects.ui.welcome)
-//                implementation(projects.ui.timeline)
                 implementation(compose.runtime)
                 implementation(compose.foundation)
                 implementation(compose.material)

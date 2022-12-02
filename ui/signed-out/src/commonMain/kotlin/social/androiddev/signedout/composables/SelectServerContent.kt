@@ -12,6 +12,7 @@ package social.androiddev.signedout.composables
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -23,8 +24,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import social.androiddev.common.composables.buttons.MastodonButton
 import social.androiddev.common.composables.text.MastodonTextField
+import social.androiddev.common.theme.MastodonTheme
 import social.androiddev.signedout.navigation.SelectServerComponent
 
+/**
+ * Select Server view that delegates business/navigation logic to [SelectServerComponent]
+ * for when a user wants to select their mastodon domain/server
+ */
 @Composable
 fun SelectServerContent(
     modifier: Modifier,
@@ -32,7 +38,7 @@ fun SelectServerContent(
 ) {
     SelectServerContent(
         modifier = modifier,
-        onServerSelected = component::onServerSelected
+        onServerSelected = component::onServerSelected,
     )
 }
 
@@ -62,7 +68,18 @@ fun SelectServerContent(
             text = "Select",
             onClick = {
                 onServerSelected(server)
-            }
+            },
+        )
+    }
+}
+
+// @Preview
+@Composable
+private fun PreviewLandingContent() {
+    MastodonTheme(true) {
+        SelectServerContent(
+            modifier = Modifier.fillMaxSize(),
+            onServerSelected = {},
         )
     }
 }
