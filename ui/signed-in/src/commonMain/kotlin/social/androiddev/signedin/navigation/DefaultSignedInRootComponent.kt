@@ -18,6 +18,11 @@ import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
 import social.androiddev.timeline.navigation.DefaultTimelineComponent
 
+/**
+ * Default impl of the [SignedInRootComponent] that manages the navigation stack for the
+ * main tabbed "scopes". Timeline, Profile, and Notifications etc.
+ * See [Config] and [SignedInRootComponent.Child] for more details.
+ */
 class DefaultSignedInRootComponent(
     private val componentContext: ComponentContext
 ) : SignedInRootComponent, ComponentContext by componentContext {

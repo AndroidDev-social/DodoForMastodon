@@ -21,6 +21,11 @@ import social.androiddev.signedin.navigation.SignedInRootComponent
 import social.androiddev.timeline.TimelineContent
 import social.androiddev.timeline.navigation.TimelineComponent
 
+/**
+ * The root composable for when the user launches the app and is
+ * currently signed in.
+ * Business logic and decompose navigation is delegated to [SignedInRootComponent].
+ */
 @Composable
 fun SignedInRootContent(
     component: SignedInRootComponent,
