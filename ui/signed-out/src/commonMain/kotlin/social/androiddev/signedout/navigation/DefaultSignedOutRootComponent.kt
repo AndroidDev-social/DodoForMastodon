@@ -63,6 +63,18 @@ class DefaultSignedOutRootComponent(
         }
     )
 
+    /**
+     * Supported configurations for all children in this root.
+     * A "configuration" represents a child component
+     * and contains all it's arguments.
+     * These configurations are persisted and restored on events like
+     * configuration changes, process death etc...
+     *
+     * All Configurations must:
+     * 1) Be immutable
+     * 2) Implement `equals()` and `hashCode()`
+     * 3) Implement Parcelable
+     */
     private sealed interface Config : Parcelable {
 
         @Parcelize

@@ -20,6 +20,11 @@ import com.arkivanov.essenty.parcelable.Parcelize
 import social.androiddev.signedin.navigation.DefaultSignedInRootComponent
 import social.androiddev.signedout.navigation.DefaultSignedOutRootComponent
 
+/**
+ * Default impl of the [RootComponent] that manages the navigation stack for the
+ * 3 main "scopes". Loading/Splash screen, Logged out flow, and Logged in flow.
+ * See [Config] and [RootComponent.Child] for more details.
+ */
 class DefaultRootComponent(
     componentContext: ComponentContext,
     deepLink: RootComponent.DeepLink = RootComponent.DeepLink.None,
@@ -33,7 +38,7 @@ class DefaultRootComponent(
         source = navigation,
         initialStack = { getInitialStack(deepLink) },
         handleBackButton = true, // Pop the back stack on back button press
-        childFactory = ::createChild
+        childFactory = ::createChild,
     )
 
     override val childStack: Value<ChildStack<*, RootComponent.Child>> = stack
@@ -46,19 +51,19 @@ class DefaultRootComponent(
         }
 
     private fun createSignedOutComponent(
-        componentContext: ComponentContext
+        componentContext: ComponentContext,
     ) = DefaultSignedOutRootComponent(
-        componentContext = componentContext
+        componentContext = componentContext,
     )
 
     private fun createSignedInComponent(
-        componentContext: ComponentContext
+        componentContext: ComponentContext,
     ) = DefaultSignedInRootComponent(
-        componentContext = componentContext
+        componentContext = componentContext,
     )
 
     private fun createSplashComponent(
-        componentContext: ComponentContext
+        componentContext: ComponentContext,
     ) = DefaultSplashComponent(
         componentContext = componentContext,
         navigateToTimelineInternal = {
@@ -66,10 +71,12 @@ class DefaultRootComponent(
         },
         navigateToLandingInternal = {
             navigation.replaceCurrent(Config.SignedOut)
-        }
+        },
     )
 
-    private fun getInitialStack(deepLink: RootComponent.DeepLink): List<Config> =
+    private fun getInitialStack(
+        deepLink: RootComponent.DeepLink,
+    ): List<Config> =
         when (deepLink) {
             is RootComponent.DeepLink.None -> listOf(Config.Splash)
         }
