@@ -1,11 +1,11 @@
 /*
- * This file is part of MastodonX.
+ * This file is part of Dodo.
  *
- * MastodonX is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+ * Dodo is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  *
- * MastodonX is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ * Dodo is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License along with MastodonX. If not, see <https://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with Dodo. If not, see <https://www.gnu.org/licenses/>.
  */
 package social.androiddev.signedout.composables
 
@@ -36,7 +36,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import social.androiddev.common.composables.buttons.MastodonButton
 import social.androiddev.common.theme.Blue
-import social.androiddev.common.theme.MastodonTheme
+import social.androiddev.common.theme.DodoTheme
 import social.androiddev.common.utils.AsyncImage
 import social.androiddev.common.utils.loadImageIntoPainter
 import social.androiddev.signedout.navigation.LandingComponent
@@ -50,7 +50,7 @@ fun LandingContent(
     modifier: Modifier = Modifier,
     appIcon: @Composable () -> Unit = {
         AsyncImage(
-            load = { loadImageIntoPainter(url = "https://via.placeholder.com/200x200/6FA4DE/010041?text=MastodonX") },
+            load = { loadImageIntoPainter(url = "https://via.placeholder.com/200x200/6FA4DE/010041?text=Dodo") },
             painterFor = { remember { it } },
             contentDescription = "App Logo",
             modifier = Modifier
@@ -74,7 +74,7 @@ fun LandingContent(
     onGetStartedClicked: () -> Unit,
     appIcon: @Composable () -> Unit = {
         AsyncImage(
-            load = { loadImageIntoPainter(url = "https://via.placeholder.com/200x200/6FA4DE/010041?text=MastodonX") },
+            load = { loadImageIntoPainter(url = "https://via.placeholder.com/200x200/6FA4DE/010041?text=Dodo") },
             painterFor = { remember { it } },
             contentDescription = "App Logo",
             modifier = Modifier
@@ -119,7 +119,7 @@ fun LandingContent(
             }
 
             Text(
-                text = "MastodonX",
+                text = "Dodo",
                 style = MaterialTheme.typography.h3,
                 textAlign = TextAlign.Center,
                 fontWeight = FontWeight.Bold,
@@ -152,7 +152,7 @@ fun LandingContent(
 // @Preview
 @Composable
 private fun PreviewLandingContent() {
-    MastodonTheme(true) {
+    DodoTheme(true) {
         LandingContent(
             onGetStartedClicked = {},
         )

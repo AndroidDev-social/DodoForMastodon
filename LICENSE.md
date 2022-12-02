@@ -630,7 +630,7 @@ attach them to the start of each source file to most effectively state
 the exclusion of warranty; and each file should have at least the
 "copyright" line and a pointer to where the full notice is found.
 
-        MastodonX is a multiplatform client for the Fediverse, built by
+        Dodo is a multiplatform client for the Fediverse, built by
         multiple people from the Fediverse.
         Copyright (C) 2022  Androiddev.social Developers
 
@@ -653,7 +653,7 @@ mail.
 If the program does terminal interaction, make it output a short
 notice like this when it starts in an interactive mode:
 
-        MastodonX  Copyright (C) 2022  Androiddev.social Developers
+        Dodo  Copyright (C) 2022  Androiddev.social Developers
         This program comes with ABSOLUTELY NO WARRANTY; for details type `show w'.
         This is free software, and you are welcome to redistribute it
         under certain conditions; type `show c' for details.

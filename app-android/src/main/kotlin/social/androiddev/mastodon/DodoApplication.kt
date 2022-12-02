@@ -7,14 +7,22 @@
  *
  * You should have received a copy of the GNU General Public License along with Dodo. If not, see <https://www.gnu.org/licenses/>.
  */
-package social.androiddev.common.network
+package social.androiddev.mastodon
 
-import io.ktor.client.HttpClient
-import io.ktor.client.call.body
-import io.ktor.client.engine.cio.CIO
-import io.ktor.client.request.get
-import java.io.ByteArrayInputStream
+import android.app.Application
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.koin.core.context.startKoin
+import social.androiddev.common.di.appModule
+import social.androiddev.mastodon.di.androidModule
 
-actual suspend fun urlStream(url: String): ByteArray = HttpClient(CIO).use {
-    ByteArrayInputStream(it.get(url).body()).readBytes()
+class DodoApplication : Application() {
+    override fun onCreate() {
+        super.onCreate()
+        startKoin {
+            androidContext(this@DodoApplication)
+            androidLogger()
+            modules(appModule() + androidModule)
+        }
+    }
 }
