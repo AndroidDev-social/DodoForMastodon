@@ -19,12 +19,12 @@ import social.androiddev.root.navigation.SplashComponent
 
 /**
  * Stateful SplashScreen composable using [SplashComponent] for
- * decompose navigation.
+ * decompose navigation and business logic.
  */
 @Composable
 fun SplashContent(
     modifier: Modifier,
-    component: SplashComponent
+    component: SplashComponent,
 ) {
     SplashContent(
         modifier = modifier,
@@ -33,7 +33,7 @@ fun SplashContent(
         },
         navigateToTimeline = {
             component.navigateToTimeline()
-        }
+        },
     )
 }
 
@@ -49,7 +49,7 @@ fun SplashContent(
 ) {
     Box(
         modifier = modifier,
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         Text("Loading")
 
