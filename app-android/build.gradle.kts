@@ -40,7 +40,7 @@ android {
 }
 
 dependencies {
-    implementation(projects.ui.splash)
+    implementation(projects.ui.root)
     implementation(projects.ui.common)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

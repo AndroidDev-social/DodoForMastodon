@@ -16,8 +16,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.defaultComponentContext
 import social.androiddev.common.theme.MastodonTheme
-import social.androiddev.splash.composables.RootScreen
-import social.androiddev.splash.navigation.RootComponent
+import social.androiddev.root.composables.RootContent
+import social.androiddev.root.navigation.DefaultRootComponent
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,11 +25,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         // Create the root component before starting Compose
-        val root = RootComponent.createDefaultComponent(componentContext = defaultComponentContext())
+        val root = DefaultRootComponent(componentContext = defaultComponentContext())
 
         setContent {
             MastodonTheme {
-                RootScreen(
+                RootContent(
                     component = root,
                     modifier = Modifier.fillMaxSize(),
                 )

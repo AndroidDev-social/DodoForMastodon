@@ -18,14 +18,14 @@ import com.arkivanov.decompose.DefaultComponentContext
 import com.arkivanov.decompose.extensions.compose.jetbrains.lifecycle.LifecycleController
 import com.arkivanov.essenty.lifecycle.LifecycleRegistry
 import social.androiddev.common.theme.MastodonTheme
-import social.androiddev.splash.composables.RootScreen
-import social.androiddev.splash.navigation.RootComponent
+import social.androiddev.root.composables.RootContent
+import social.androiddev.root.navigation.DefaultRootComponent
 
 fun main() {
 
     val lifecycle = LifecycleRegistry()
     // Create the root component before starting Compose
-    val root = RootComponent.createDefaultComponent(
+    val root = DefaultRootComponent(
         componentContext = DefaultComponentContext(lifecycle)
     )
 
@@ -41,7 +41,7 @@ fun main() {
             title = "MastodonX"
         ) {
             MastodonTheme {
-                RootScreen(
+                RootContent(
                     component = root,
                     modifier = Modifier.fillMaxSize(),
                 )
