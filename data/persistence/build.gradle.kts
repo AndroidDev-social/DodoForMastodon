@@ -2,16 +2,9 @@ plugins {
     id("kotlin-multiplatform")
     id("com.android.library")
     id("com.squareup.sqldelight")
-    id("com.diffplug.spotless") version "6.11.0"
+    id("social.androiddev.code-quality")
 }
 
-spotless {
-    kotlin {
-        target("src/*/kotlin/**/*.kt")
-        ktlint("0.43.2")
-        licenseHeaderFile(rootProject.file("copyright.kt"))
-    }
-}
 
 sqldelight {
     database("AuthenticationDatabase") {

@@ -5,6 +5,7 @@ org-jetbrains-kotlin = "1.7.20"
 org-jetbrains-kotlinx-coroutines = "1.6.4"
 com-android-tools-build = "7.2.2"
 com-squareup-sqldelight = "1.5.3"
+com-diffplug-spotless = "6.11.0"
 # libraries
 io-ktor = "2.1.3"
 com-google-truth = "1.1.3"
@@ -25,6 +26,7 @@ org-jetbrains-kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gra
 com-android-tools-build-gradle = { module = "com.android.tools.build:gradle", version.ref = "com-android-tools-build" }
 org-jetbrains-kotlin-serialization = { module = "org.jetbrains.kotlin:kotlin-serialization", version.ref = "org-jetbrains-kotlin" }
 com-squareup-sqldelight-gradle-plugin = { module = "com.squareup.sqldelight:gradle-plugin", version.ref = "com-squareup-sqldelight" }
+com-diffplug-spotless-gradle-plugin = { module = "com.diffplug.spotless:spotless-plugin-gradle", version.ref = "com-diffplug-spotless" }
 
 # libraries
 io-ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "io-ktor" }
@@ -39,7 +41,7 @@ io-insert-koin-core = { module = "io.insert-koin:koin-core", version.ref = "io-i
 io-insert-koin-test = { module = "io.insert-koin:koin-test", version.ref = "io-insert-koin" }
 io-insert-koin-android = { module = "io.insert-koin:koin-android", version.ref = "io-insert-koin" }
 
-org-jetbrains-kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "org-jetbrains-kotlinx-coroutines"}
+org-jetbrains-kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "org-jetbrains-kotlinx-coroutines" }
 org-jetbrains-kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "org-jetbrains-kotlinx" }
 
 org-jetbrains-kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "org-jetbrains-kotlin" }

@@ -2,16 +2,9 @@ plugins {
     id("kotlin-multiplatform")
     id("com.android.library")
     kotlin("plugin.serialization")
-    id("com.diffplug.spotless") version "6.11.0"
+    id("social.androiddev.code-quality")
 }
 
-spotless {
-    kotlin {
-        target("src/*/kotlin/**/*.kt")
-        ktlint("0.43.2")
-        licenseHeaderFile(rootProject.file("copyright.kt"))
-    }
-}
 
 val targetSDKVersion: Int by rootProject.extra
 val minSDKVersion: Int by rootProject.extra

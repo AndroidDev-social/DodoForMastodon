@@ -18,15 +18,6 @@ buildscript {
     }
 }
 
-allprojects {
-    repositories {
-        google()
-        mavenCentral()
-        mavenLocal()
-        maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
-    }
-}
-
 // Workaround for:
 //
 // The Kotlin source set androidAndroidTestRelease was configured but not added to any

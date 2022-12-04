@@ -3,15 +3,7 @@ import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 plugins {
     kotlin("multiplatform") // kotlin("jvm") doesn't work well in IDEA/AndroidStudio (https://github.com/JetBrains/compose-jb/issues/22)
     id("org.jetbrains.compose")
-    id("com.diffplug.spotless") version "6.11.0"
-}
-
-spotless {
-    kotlin {
-        target("src/*/kotlin/**/*.kt")
-        ktlint("0.43.2")
-        licenseHeaderFile(rootProject.file("copyright.kt"))
-    }
+    id("social.androiddev.code-quality")
 }
 
 kotlin {
