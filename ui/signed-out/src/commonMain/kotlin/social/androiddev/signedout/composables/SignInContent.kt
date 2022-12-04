@@ -97,7 +97,7 @@ fun SignInContent(
         }
         SignInWebView(
             server = server,
-            onSingedIn = { component.onSignInSucceed() },
+            onSignedIn = { component.onSignInSucceed() },
             onFailed = { errorVisibilityState = true }
         )
     }

@@ -21,25 +21,25 @@ class SignInViewModel(
         // TODO
         //  Use the right client id and redirect url and get them from a secure location
         //  build url with an url builder my be using Ktor !!
-        return "https://$server/oauth/authorize?client_id=$CLIENT_ID&redirect_uri=https://dodomastodon.com&response_type=code&scope=$OAUTH_SCOPES"
+        return "https://$server/oauth/authorize?client_id=$CLIENT_ID&scope=$OAUTH_SCOPES&redirect_uri=https://dodomastodon.com&response_type=code"
     }
 
     fun resolveSignInStatusFromUrl(
         url: String,
-        onSingedIn: () -> Unit,
+        onSignedIn: () -> Unit,
         onFailed: (error: String) -> Unit
     ) {
         val uri = URI(url)
         if (isOauthUrl(uri)) {
+            // TODO enhance the impl to extract uri query params
+            // see Uri.getQueryParameter in Android sdk
             if (uri.query.contains("error")) {
                 val error = uri.query.replace("error=", "")
-                println("error =$error")
                 onFailed(error)
             } else {
-                val code = uri.query.replace("code=", "")
                 // TODO save code in the user session
-                println("code =$code")
-                onSingedIn()
+                val code = uri.query.replace("code=", "")
+                onSignedIn()
             }
         }
     }
@@ -48,9 +48,10 @@ class SignInViewModel(
         uri.scheme == REDIRECT_URL_SCHEME && uri.host == REDIRECT_URL_HOST
 
     companion object {
-        const val REDIRECT_URL_HOST = "dodomastodon.com"
-        const val REDIRECT_URL_SCHEME = "https"
-        const val CLIENT_ID = "TODO"
-        private const val OAUTH_SCOPES = "read"
+        // TODO Use the right redirect url host and scheme get them from a secure location
+        private const val REDIRECT_URL_HOST = "dodomastodon.com"
+        private const val REDIRECT_URL_SCHEME = "https"
+        private const val CLIENT_ID = "TODO"
+        private const val OAUTH_SCOPES = "read+write+follow+push"
     }
 }

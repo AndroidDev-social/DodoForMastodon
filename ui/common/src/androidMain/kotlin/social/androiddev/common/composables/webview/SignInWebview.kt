@@ -9,7 +9,6 @@
  */
 package social.androiddev.common.composables.webview
 
-import android.annotation.SuppressLint
 import android.graphics.Color
 import android.webkit.WebResourceError
 import android.webkit.WebResourceRequest
@@ -24,7 +23,7 @@ import androidx.compose.ui.viewinterop.AndroidView
 @Composable
 actual fun SignInWebView(
     server: String,
-    onSingedIn: () -> Unit,
+    onSignedIn: () -> Unit,
     onFailed: (error: String) -> Unit
 ) {
 
@@ -33,6 +32,9 @@ actual fun SignInWebView(
     AndroidView(
         factory = {
             WebView(it).apply {
+                // TODO : Clearing the user session from the web view ( remove data and AllCookies)
+                // https://github.com/AndroidDev-social/DodoForMastodon/pull/90#discussion_r1038897643
+
                 setBackgroundColor(Color.TRANSPARENT)
                 webViewClient = object : WebViewClient() {
                     override fun onPageFinished(view: WebView?, url: String?) {
@@ -59,15 +61,17 @@ actual fun SignInWebView(
                         view: WebView?,
                         urlString: String?
                     ): Boolean {
-                        if (urlString == null) return false
-                        return shouldOverrideUrlLoading(urlString)
+                        return if (urlString == null) {
+                            false
+                        } else {
+                            shouldOverrideUrlLoading(urlString)
+                        }
                     }
 
                     fun shouldOverrideUrlLoading(url: String): Boolean {
                         signInViewModel.resolveSignInStatusFromUrl(
-
                             url = url,
-                            onSingedIn = onSingedIn,
+                            onSignedIn = onSignedIn,
                             onFailed = onFailed
                         )
                         return false
@@ -75,7 +79,6 @@ actual fun SignInWebView(
                 }
 
                 // JavaScript needs to be enabled because otherwise 2FA does not work in some instances
-                @SuppressLint("SetJavaScriptEnabled")
                 settings.javaScriptEnabled = true
 
                 loadUrl(signInViewModel.getSignInUrl())

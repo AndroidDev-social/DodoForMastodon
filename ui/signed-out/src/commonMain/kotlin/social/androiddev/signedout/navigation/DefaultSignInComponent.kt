@@ -13,12 +13,12 @@ import com.arkivanov.decompose.ComponentContext
 
 class DefaultSignInComponent(
     private val componentContext: ComponentContext,
-    private val onSignUpSignInSucceedInternal: () -> Unit,
+    private val onSignInSucceedInternal: () -> Unit,
     private val onCloseClickedInternal: () -> Unit,
 ) : SignInComponent, ComponentContext by componentContext {
 
     override fun onSignInSucceed() {
-        onSignUpSignInSucceedInternal()
+        onSignInSucceedInternal()
     }
 
     override fun onCloseClicked() {

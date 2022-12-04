@@ -19,7 +19,7 @@ import androidx.compose.ui.awt.SwingPanel
 @Composable
 actual fun SignInWebView(
     server: String,
-    onSingedIn: () -> Unit,
+    onSignedIn: () -> Unit,
     onFailed: (error: String) -> Unit
 ) {
     val signInViewModel = remember(server) { SignInViewModel(server) }
@@ -32,7 +32,7 @@ actual fun SignInWebView(
                 onUrlOfCurrentPageChanged = {
                     signInViewModel.resolveSignInStatusFromUrl(
                         url = it,
-                        onSingedIn = onSingedIn,
+                        onSignedIn = onSignedIn,
                         onFailed = onFailed
                     )
                 },

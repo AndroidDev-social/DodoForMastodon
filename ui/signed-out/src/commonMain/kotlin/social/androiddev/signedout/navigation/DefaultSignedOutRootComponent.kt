@@ -48,16 +48,16 @@ class DefaultSignedOutRootComponent(
 
             Config.SelectServer -> {
                 SignedOutRootComponent.Child.SelectServer(
-                    createSelectServerComponent(
-                        componentContext
-                    )
+                    component = createSelectServerComponent(componentContext)
                 )
             }
 
-            is Config.SignIn -> SignedOutRootComponent.Child.SignIn(
-                server = config.server,
-                createSignInComponent(componentContext)
-            )
+            is Config.SignIn -> {
+                SignedOutRootComponent.Child.SignIn(
+                    server = config.server,
+                    component = createSignInComponent(componentContext)
+                )
+            }
         }
 
     private fun createLandingComponent(
@@ -80,18 +80,11 @@ class DefaultSignedOutRootComponent(
 
     private fun createSignInComponent(
         componentContext: ComponentContext
-    ) =
-        DefaultSignInComponent(
-
-            componentContext = componentContext,
-            onSignUpSignInSucceedInternal = {
-                navigateToTimeLine()
-            },
-            onCloseClickedInternal = {
-                navigation.pop()
-            }
-
-        )
+    ) = DefaultSignInComponent(
+        componentContext = componentContext,
+        onSignInSucceedInternal = navigateToTimeLine,
+        onCloseClickedInternal = navigation::pop,
+    )
 
     /**
      * Supported configurations for all children in this root.
