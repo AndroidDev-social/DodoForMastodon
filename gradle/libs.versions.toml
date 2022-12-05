@@ -6,6 +6,7 @@ org-jetbrains-kotlinx-coroutines = "1.6.4"
 com-android-tools-build = "7.2.2"
 com-squareup-sqldelight = "1.5.3"
 com-diffplug-spotless = "6.11.0"
+com-google-osdetector = "1.7.1"
 # libraries
 io-ktor = "2.1.3"
 com-google-truth = "1.1.3"
@@ -27,6 +28,7 @@ com-android-tools-build-gradle = { module = "com.android.tools.build:gradle", ve
 org-jetbrains-kotlin-serialization = { module = "org.jetbrains.kotlin:kotlin-serialization", version.ref = "org-jetbrains-kotlin" }
 com-squareup-sqldelight-gradle-plugin = { module = "com.squareup.sqldelight:gradle-plugin", version.ref = "com-squareup-sqldelight" }
 com-diffplug-spotless-gradle-plugin = { module = "com.diffplug.spotless:spotless-plugin-gradle", version.ref = "com-diffplug-spotless" }
+com-google-osdetector-gradle-plugin = { module = "com.google.gradle:osdetector-gradle-plugin", version.ref = "com-google-osdetector" }
 
 # libraries
 io-ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "io-ktor" }

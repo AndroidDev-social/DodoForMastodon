@@ -4,7 +4,7 @@ plugins {
     id("com.android.library")
     id("social.androiddev.code-quality")
     id("kotlin-parcelize")
-    id("com.google.osdetector") version "1.7.1"
+    id("com.google.osdetector")
 }
 
 val targetSDKVersion: Int by rootProject.extra
