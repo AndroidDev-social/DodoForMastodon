@@ -7,7 +7,7 @@
  *
  * You should have received a copy of the GNU General Public License along with Dodo. If not, see <https://www.gnu.org/licenses/>.
  */
-package social.androiddev.common.composables.webview
+package social.androiddev.signedout.signin
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme

@@ -7,7 +7,7 @@
  *
  * You should have received a copy of the GNU General Public License along with Dodo. If not, see <https://www.gnu.org/licenses/>.
  */
-package social.androiddev.signedout.composables
+package social.androiddev.signedout.signin
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.BorderStroke
@@ -35,7 +35,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
-import social.androiddev.common.composables.webview.SignInWebView
 import social.androiddev.signedout.navigation.SignInComponent
 
 @Composable

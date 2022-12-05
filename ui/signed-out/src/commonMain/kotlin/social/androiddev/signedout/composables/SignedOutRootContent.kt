@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.extensions.compose.jetbrains.stack.Children
 import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
 import social.androiddev.signedout.navigation.SignedOutRootComponent
+import social.androiddev.signedout.signin.SignInContent
 
 /**
  * The root composable for when the user launches the app and is
