@@ -1,0 +1,16 @@
+#!/bin/sh
+#
+# hook script to verify code formatting and runs tests for all modules
+
+echo "***** Run verifying and tests ******"
+git stash -q --keep-index
+
+./gradlew check
+
+status=$?
+
+git stash pop -q
+
+echo "***** Done with verifying and tests ******"
+
+exit $status
