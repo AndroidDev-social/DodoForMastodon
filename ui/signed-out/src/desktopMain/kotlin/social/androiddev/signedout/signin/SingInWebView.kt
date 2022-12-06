@@ -9,7 +9,6 @@
  */
 package social.androiddev.signedout.signin
 
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -19,9 +18,11 @@ import androidx.compose.ui.awt.SwingPanel
 @Composable
 actual fun SignInWebView(
     server: String,
+    modifier: Modifier,
     onSignedIn: () -> Unit,
-    onFailed: (error: String) -> Unit
+    onFailed: (error: String) -> Unit,
 ) {
+    // TODO inject the viewModel via DI
     val signInViewModel = remember(server) { SignInViewModel(server) }
 
     SwingPanel(
@@ -38,6 +39,6 @@ actual fun SignInWebView(
                 },
             )
         },
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier,
     )
 }

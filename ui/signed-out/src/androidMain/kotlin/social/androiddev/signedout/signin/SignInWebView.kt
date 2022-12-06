@@ -14,7 +14,6 @@ import android.webkit.WebResourceError
 import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -23,13 +22,16 @@ import androidx.compose.ui.viewinterop.AndroidView
 @Composable
 actual fun SignInWebView(
     server: String,
+    modifier: Modifier,
     onSignedIn: () -> Unit,
     onFailed: (error: String) -> Unit
 ) {
 
+    // TODO inject the viewModel via DI
     val signInViewModel = remember(server) { SignInViewModel(server) }
 
     AndroidView(
+        modifier = modifier,
         factory = {
             WebView(it).apply {
                 // TODO : Clearing the user session from the web view ( remove data and AllCookies)
@@ -83,7 +85,7 @@ actual fun SignInWebView(
 
                 loadUrl(signInViewModel.getSignInUrl())
             }
-        },
-        modifier = Modifier.fillMaxSize()
+        }
+
     )
 }

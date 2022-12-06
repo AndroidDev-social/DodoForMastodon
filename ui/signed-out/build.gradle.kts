@@ -74,7 +74,6 @@ kotlin {
                     else -> throw IllegalStateException("Unknown OS: ${osdetector.classifier}")
                 }
 
-                // Replace "compileOnly" with "implementation" for a non-library project
                 implementation("org.openjfx:javafx-base:19:${fxSuffix}")
                 implementation("org.openjfx:javafx-graphics:19:${fxSuffix}")
                 implementation("org.openjfx:javafx-controls:19:${fxSuffix}")

@@ -10,10 +10,12 @@
 package social.androiddev.signedout.signin
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 
 @Composable
 expect fun SignInWebView(
     server: String,
+    modifier: Modifier,
     onSignedIn: () -> Unit,
     onFailed: (error: String) -> Unit
 )
