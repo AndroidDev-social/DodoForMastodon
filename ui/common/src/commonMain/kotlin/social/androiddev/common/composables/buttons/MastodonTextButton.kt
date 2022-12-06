@@ -1,11 +1,11 @@
 /*
- * This file is part of MastodonX.
+ * This file is part of Dodo.
  *
- * MastodonX is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+ * Dodo is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  *
- * MastodonX is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ * Dodo is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License along with MastodonX. If not, see <https://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with Dodo. If not, see <https://www.gnu.org/licenses/>.
  */
 package social.androiddev.common.composables.buttons
 
@@ -28,10 +28,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import social.androiddev.common.theme.MastodonTheme
+import social.androiddev.common.theme.DodoTheme
 
 @Composable
-fun MastodonTextButton(
+fun DodoTextButton(
     text: String,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
@@ -116,10 +116,10 @@ private class DefaultTextButtonColors(
 // @Preview
 @Composable
 private fun PreviewTextButtonLight() {
-    MastodonTheme(
+    DodoTheme(
         useDarkTheme = false,
     ) {
-        MastodonTextButton(
+        DodoTextButton(
             modifier = Modifier.wrapContentSize(),
             text = "Action",
             onClick = {}
@@ -132,7 +132,7 @@ private fun PreviewTextButtonLight() {
 // @Preview
 @Composable
 private fun PreviewTextButtonDark() {
-    MastodonTheme(
+    DodoTheme(
         useDarkTheme = true,
     ) {
         Column(
@@ -143,19 +143,19 @@ private fun PreviewTextButtonDark() {
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
 
-            MastodonTextButton(
+            DodoTextButton(
                 modifier = Modifier.fillMaxWidth(),
                 text = "This is a long button",
                 onClick = {}
             )
 
-            MastodonTextButton(
+            DodoTextButton(
                 modifier = Modifier.wrapContentSize(),
                 text = "Action",
                 onClick = {}
             )
 
-            MastodonTextButton(
+            DodoTextButton(
                 modifier = Modifier.wrapContentSize(),
                 text = "Disabled",
                 onClick = {}

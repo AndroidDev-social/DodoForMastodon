@@ -1,15 +1,7 @@
 plugins {
     id("kotlin-multiplatform")
     id("com.android.library")
-    id("com.diffplug.spotless") version "6.11.0"
-}
-
-spotless {
-    kotlin {
-        target("src/*/kotlin/**/*.kt")
-        ktlint("0.43.2")
-        licenseHeaderFile(rootProject.file("copyright.kt"))
-    }
+    id("social.androiddev.code-quality")
 }
 
 val targetSDKVersion: Int by rootProject.extra
@@ -46,24 +38,20 @@ kotlin {
         // shared
 
         val commonMain by getting {
-            dependencies {
-                implementation(projects.data.network)
-            }
+            dependencies {}
         }
 
 
         // android
         getByName("androidMain") {
             dependsOn(commonMain)
-            dependencies {
-            }
+            dependencies {}
         }
 
 
         // desktop
         getByName("desktopMain") {
-            dependencies {
-            }
+            dependencies {}
         }
         // testing
         named("commonTest") {

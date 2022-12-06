@@ -2,14 +2,8 @@ plugins {
     id("kotlin-multiplatform")
     id("org.jetbrains.compose")
     id("com.android.library")
-    id("com.diffplug.spotless") version "6.11.0"
-}
-spotless {
-    kotlin {
-        target("src/*/kotlin/**/*.kt")
-        ktlint("0.43.2")
-        licenseHeaderFile(rootProject.file("copyright.kt"))
-    }
+    id("social.androiddev.code-quality")
+    id("kotlin-parcelize")
 }
 
 val targetSDKVersion: Int by rootProject.extra
@@ -49,8 +43,8 @@ kotlin {
                 implementation(compose.runtime)
                 implementation(compose.foundation)
                 implementation(compose.material)
-                implementation(libs.com.arkivanov.decompose)
-                implementation(libs.com.arkivanov.decompose.extensions.compose.jetbrains)
+                api(libs.com.arkivanov.decompose)
+                api(libs.com.arkivanov.decompose.extensions.compose.jetbrains)
             }
         }
 

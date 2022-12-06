@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
+            android:name="social.androiddev.dodo.DodoApplication"
             android:allowBackup="true"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
@@ -9,7 +10,7 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity
                 android:exported="true"
-                android:name="MainActivity">
+                android:name="social.androiddev.dodo.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

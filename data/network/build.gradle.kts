@@ -2,15 +2,7 @@ plugins {
     id("kotlin-multiplatform")
     id("com.android.library")
     kotlin("plugin.serialization")
-    id("com.diffplug.spotless") version "6.11.0"
-}
-
-spotless {
-    kotlin {
-        target("src/*/kotlin/**/*.kt")
-        ktlint("0.43.2")
-        licenseHeaderFile(rootProject.file("copyright.kt"))
-    }
+    id("social.androiddev.code-quality")
 }
 
 val targetSDKVersion: Int by rootProject.extra
@@ -55,6 +47,7 @@ kotlin {
                 implementation(libs.io.ktor.serialization.kotlinx.json)
                 implementation(libs.io.ktor.client.content.negotiation)
                 implementation(libs.org.jetbrains.kotlinx.serialization.json)
+                implementation(libs.io.insert.koin.core)
             }
         }
 
@@ -128,6 +121,7 @@ kotlin {
                 implementation(libs.org.jetbrains.kotlin.test.common)
                 implementation(libs.org.jetbrains.kotlin.test.annotations.common)
                 implementation(libs.org.jetbrains.kotlinx.coroutines.test)
+                implementation(libs.io.insert.koin.test)
             }
         }
     }

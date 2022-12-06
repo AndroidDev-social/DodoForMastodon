@@ -2,15 +2,8 @@ plugins {
     id("com.android.application")
     kotlin("android")
     id("org.jetbrains.compose")
-    id("com.diffplug.spotless") version "6.11.0"
-}
-
-spotless {
-    kotlin {
-        target("src/*/kotlin/**/*.kt")
-        ktlint("0.43.2")
-        licenseHeaderFile(rootProject.file("copyright.kt"))
-    }
+    id("kotlin-parcelize")
+    id("social.androiddev.code-quality")
 }
 
 val targetSDKVersion: Int by rootProject.extra
@@ -18,7 +11,7 @@ val minSDKVersion: Int by rootProject.extra
 val compileSDKVersion: Int by rootProject.extra
 
 android {
-    namespace = "social.androiddev.mastodon"
+    namespace = "social.androiddev.dodo"
     compileSdk = compileSDKVersion
 
     defaultConfig {
@@ -39,10 +32,15 @@ android {
 }
 
 dependencies {
-    implementation(projects.ui.welcome)
+    implementation(projects.ui.root)
     implementation(projects.ui.common)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.compose.foundation)
+    implementation(projects.di)
+    implementation(libs.io.insert.koin.core)
+    implementation(libs.io.insert.koin.android)
+    implementation(libs.com.arkivanov.decompose)
+    implementation(libs.com.arkivanov.decompose.extensions.compose.jetbrains)
 }
