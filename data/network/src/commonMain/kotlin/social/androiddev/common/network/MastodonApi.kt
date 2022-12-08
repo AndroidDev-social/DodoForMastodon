@@ -10,10 +10,18 @@
 package social.androiddev.common.network
 
 import social.androiddev.common.network.model.Application
+import social.androiddev.common.network.model.AvailableInstance
 import social.androiddev.common.network.model.Instance
 import social.androiddev.common.network.model.NewOauthApplication
 
 interface MastodonApi {
+
+    /**
+     * List available an registered Instances which can be joined by the user
+     *
+     * @return Instances committed to the Mastodon Server Covenant and listed at joinmastodon.org
+     */
+    suspend fun listInstances(): Result<List<AvailableInstance>>
 
     /**
      * Register client applications that can be used to obtain OAuth tokens.
