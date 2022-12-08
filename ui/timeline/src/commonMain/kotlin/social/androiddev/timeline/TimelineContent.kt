@@ -34,7 +34,7 @@ fun TimelineContent(
 ) {
     // TODO: Hook up to View Model for fetching timeline items
     TimelineContent(
-        items = emptyList(),
+        items = listOf(dummyFeedItem),
         modifier = modifier,
     )
 }

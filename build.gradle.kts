@@ -15,6 +15,7 @@ buildscript {
         classpath(libs.com.android.tools.build.gradle)
         classpath(libs.org.jetbrains.kotlin.serialization)
         classpath(libs.com.squareup.sqldelight.gradle.plugin)
+        classpath(libs.com.google.osdetector.gradle.plugin)
     }
 }
 

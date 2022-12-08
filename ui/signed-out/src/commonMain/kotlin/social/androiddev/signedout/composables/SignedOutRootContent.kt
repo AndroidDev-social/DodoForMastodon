@@ -9,15 +9,15 @@
  */
 package social.androiddev.signedout.composables
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.extensions.compose.jetbrains.stack.Children
 import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
 import social.androiddev.signedout.navigation.SignedOutRootComponent
+import social.androiddev.signedout.signin.SignInContent
 
 /**
  * The root composable for when the user launches the app and is
@@ -31,9 +31,8 @@ fun SignedOutRootContent(
 ) {
     val childStack by component.childStack.subscribeAsState()
 
-    Box(
+    Surface(
         modifier = modifier,
-        contentAlignment = Alignment.Center,
     ) {
 
         Children(
@@ -52,6 +51,14 @@ fun SignedOutRootContent(
                     SelectServerContent(
                         modifier = Modifier.fillMaxSize(),
                         component = child.component,
+                    )
+                }
+
+                is SignedOutRootComponent.Child.SignIn -> {
+                    SignInContent(
+                        modifier = Modifier.fillMaxSize(),
+                        server = child.server,
+                        component = child.component
                     )
                 }
             }
