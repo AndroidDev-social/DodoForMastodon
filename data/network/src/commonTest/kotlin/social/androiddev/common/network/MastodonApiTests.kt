@@ -30,6 +30,69 @@ import kotlin.test.assertTrue
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class MastodonApiTests {
+
+    @Test
+    fun `instance list should be parsed correctly`() = runTest {
+        // given
+        val content = """
+        [
+            {
+                "domain": "androiddev.social",
+                "version": "4.0.2",
+                "description": "Public Mastodon server for Android Community.",
+                "languages":
+                [
+                    "en"
+                ],
+                "region": "",
+                "categories":
+                [
+                    "general"
+                ],
+                "proxied_thumbnail": "https://proxy.joinmastodon.org/86c214c46591d5e5bc7d14cda56fb5193383c524/68747470733a2f2f73332e65752d63656e7472616c2d322e7761736162697379732e636f6d2f6d6173746f646f6e776f726c642f736974655f75706c6f6164732f66696c65732f3030302f3030302f3030342f4031782f316365303634373033633836626231632e706e67",
+                "total_users": 1800,
+                "last_week_users": 1700,
+                "approval_required": true,
+                "language": "en",
+                "category": "general"
+            },
+            {
+                "domain": "mstdn.social",
+                "version": "4.0.2",
+                "description": "Explore and discover the fediverse together with your online family on mstdn!",
+                "languages":
+                [
+                    "en"
+                ],
+                "region": "",
+                "categories":
+                [
+                    "general"
+                ],
+                "proxied_thumbnail": "https://proxy.joinmastodon.org/0044bc3b6ca4a01574250244c81cd30950f0c67f/68747470733a2f2f6d656469612e6d7374646e2e736f6369616c2f736974655f75706c6f6164732f66696c65732f3030302f3030302f3030342f4031782f633131613264616239626235336162632e706e67",
+                "total_users": 150652,
+                "last_week_users": 38432,
+                "approval_required": false,
+                "language": "en",
+                "category": "general"
+            }
+        ]
+        """.trimIndent()
+        val mastodonApi = MastodonApiKtor(
+            httpClient = createMockClient(
+                statusCode = HttpStatusCode.UnprocessableEntity, content = ByteReadChannel(text = content)
+            )
+        )
+
+        // val when
+        val result = mastodonApi.listInstances()
+
+        // then
+        assertTrue(actual = result.isSuccess)
+        assertNotNull(actual = result.getOrNull())
+        assertEquals(actual = result.getOrNull()?.get(0)?.domain, expected = "androiddev.social")
+    }
+
     /**
      * @see https://docs.joinmastodon.org/methods/apps/#200-ok
      */
