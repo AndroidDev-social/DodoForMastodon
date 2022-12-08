@@ -21,6 +21,7 @@ import io.ktor.http.URLProtocol
 import io.ktor.http.path
 import kotlinx.serialization.SerializationException
 import social.androiddev.common.network.model.Application
+import social.androiddev.common.network.model.AvailableInstance
 import social.androiddev.common.network.model.Instance
 import social.androiddev.common.network.model.NewOauthApplication
 import social.androiddev.common.network.util.runCatchingIgnoreCancelled
@@ -28,6 +29,12 @@ import social.androiddev.common.network.util.runCatchingIgnoreCancelled
 internal class MastodonApiKtor(
     private val httpClient: HttpClient,
 ) : MastodonApi {
+
+    override suspend fun listInstances(): Result<List<AvailableInstance>> {
+        return runCatchingIgnoreCancelled {
+            httpClient.get("https://api.joinmastodon.org/servers").body()
+        }
+    }
 
     override suspend fun createApplication(
         domain: String,
