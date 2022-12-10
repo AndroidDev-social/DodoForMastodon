@@ -10,13 +10,48 @@
 package social.androiddev.signedout.navigation
 
 import com.arkivanov.decompose.ComponentContext
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
+import social.androiddev.domain.authentication.usecase.AuthenticateClient
 
 class DefaultSelectServerComponent(
     private val componentContext: ComponentContext,
     private val launchOAuth: (server: String) -> Unit,
-) : SelectServerComponent, ComponentContext by componentContext {
+) : KoinComponent, SelectServerComponent, ComponentContext by componentContext {
+
+    private val authenticClient: AuthenticateClient by inject()
+    private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
+    private val _state = MutableStateFlow(SelectServerComponent.State())
+    override val state: StateFlow<SelectServerComponent.State> = _state
 
     override fun onServerSelected(server: String) {
-        launchOAuth(server)
+        _state.update { it.copy(selectButtonEnabled = false) }
+        scope.launch {
+            val success = authenticClient(
+                domain = server,
+                clientName = "Dodo",
+                redirectURIs = REDIRECT_URIS,
+                scopes = OAUTH_SCOPES,
+                website = null,
+            )
+
+            if (success) {
+                launchOAuth(server)
+            } else {
+                _state.update { it.copy(selectButtonEnabled = true) }
+            }
+        }
+    }
+
+    companion object {
+        private const val OAUTH_SCOPES = "read write follow push"
+        private const val REDIRECT_URIS = "redirect_uris=urn:ietf:wg:oauth:2.0:oob"
     }
 }

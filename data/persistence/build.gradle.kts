@@ -50,6 +50,7 @@ kotlin {
         // shared
         val commonMain by getting {
             dependencies {
+                implementation(libs.com.russhwolf.multiplatform.settings)
             }
         }
 

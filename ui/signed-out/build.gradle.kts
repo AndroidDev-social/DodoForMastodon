@@ -43,6 +43,8 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(projects.ui.common)
+                implementation(projects.domain.authentication)
+                implementation(libs.io.insert.koin.core)
                 implementation(compose.runtime)
                 implementation(compose.foundation)
                 implementation(compose.material)

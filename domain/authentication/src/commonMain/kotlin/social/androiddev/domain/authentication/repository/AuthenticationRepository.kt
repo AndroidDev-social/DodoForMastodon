@@ -9,6 +9,8 @@
  */
 package social.androiddev.domain.authentication.repository
 
+import social.androiddev.domain.authentication.model.NewAppOAuthToken
+
 interface AuthenticationRepository {
 
     suspend fun createApplicationClient(
@@ -17,5 +19,5 @@ interface AuthenticationRepository {
         redirectUris: String,
         scopes: String,
         website: String?
-    ): Boolean
+    ): NewAppOAuthToken?
 }

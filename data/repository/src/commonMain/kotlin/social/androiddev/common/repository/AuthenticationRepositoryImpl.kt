@@ -10,6 +10,7 @@
 package social.androiddev.common.repository
 
 import social.androiddev.common.network.MastodonApi
+import social.androiddev.domain.authentication.model.NewAppOAuthToken
 import social.androiddev.domain.authentication.repository.AuthenticationRepository
 
 internal class AuthenticationRepositoryImpl(
@@ -22,7 +23,7 @@ internal class AuthenticationRepositoryImpl(
         redirectUris: String,
         scopes: String,
         website: String?
-    ): Boolean {
+    ): NewAppOAuthToken? {
         val application = mastodonApi.createApplication(
             domain = domain,
             clientName = clientName,
@@ -31,13 +32,11 @@ internal class AuthenticationRepositoryImpl(
             website = website
         ).getOrNull()
 
-        return if (application == null) {
-            false
-        } else {
-            // TODO store in cache for later use
-            val clientId = application.clientId
-            val clientSecret = application.clientSecret
-            true
+        return application?.let { application ->
+            NewAppOAuthToken(
+                clientId = application.clientId,
+                clientSecret = application.clientSecret,
+            )
         }
     }
 }

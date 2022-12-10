@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -36,8 +37,11 @@ fun SelectServerContent(
     modifier: Modifier,
     component: SelectServerComponent,
 ) {
+    val state by component.state.collectAsState()
+
     SelectServerContent(
         modifier = modifier,
+        btnEnabled = state.selectButtonEnabled,
         onServerSelected = component::onServerSelected,
     )
 }
@@ -45,6 +49,7 @@ fun SelectServerContent(
 @Composable
 fun SelectServerContent(
     modifier: Modifier,
+    btnEnabled: Boolean,
     onServerSelected: (String) -> Unit,
 ) {
 
@@ -57,18 +62,15 @@ fun SelectServerContent(
 
         DodoTextField(
             value = server,
-            onValueChange = { v ->
-                server = v
-            },
+            onValueChange = { v -> server = v },
         )
 
         Spacer(Modifier.height(24.dp))
 
         DodoButton(
             text = "Select",
-            onClick = {
-                onServerSelected(server)
-            },
+            enabled = btnEnabled,
+            onClick = { onServerSelected(server) },
         )
     }
 }
@@ -79,6 +81,7 @@ private fun PreviewLandingContent() {
     DodoTheme(true) {
         SelectServerContent(
             modifier = Modifier.fillMaxSize(),
+            btnEnabled = true,
             onServerSelected = {},
         )
     }

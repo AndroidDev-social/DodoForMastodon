@@ -9,10 +9,18 @@
  */
 package social.androiddev.signedout.navigation
 
+import kotlinx.coroutines.flow.StateFlow
+
 /**
  * The base component describing all business logic needed for the select server screen
  */
 interface SelectServerComponent {
 
+    val state: StateFlow<State>
+
     fun onServerSelected(server: String)
+
+    data class State(
+        val selectButtonEnabled: Boolean = true,
+    )
 }

@@ -18,7 +18,7 @@ androidx-compose-foundation = "1.2.1"
 com-arkivanov-decompose = "1.0.0-alpha-07"
 org-xerial = "3.8.10.2"
 io-insert-koin = "3.2.0"
-
+com-russhwolf = "1.0.0-RC"
 
 [libraries]
 # plugins
@@ -63,5 +63,6 @@ androidx-compose-foundation = { module = "androidx.compose.foundation:foundation
 com-arkivanov-decompose = { module = "com.arkivanov.decompose:decompose", version.ref = "com-arkivanov-decompose" }
 com-arkivanov-decompose-extensions-compose-jetbrains = { module = "com.arkivanov.decompose:extensions-compose-jetbrains", version.ref = "com-arkivanov-decompose" }
 com-arkivanov-decompose-extensions-compose-jetpack = { module = "com.arkivanov.decompose:extensions-compose-jetpack", version.ref = "com-arkivanov-decompose" }
+com-russhwolf-multiplatform-settings = { module = "com.russhwolf:multiplatform-settings", version.ref = "com-russhwolf" }
 
 [plugins]
