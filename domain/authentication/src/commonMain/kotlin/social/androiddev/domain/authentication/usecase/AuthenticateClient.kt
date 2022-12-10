@@ -32,9 +32,10 @@ class AuthenticateClient(
         )
 
         return if (creds != null) {
-            // TODO Save to KMP Storage
-            creds.clientId
-            creds.clientSecret
+            authenticationRepository.saveApplication(
+                token = creds,
+                domain = domain,
+            )
             true
         } else {
             false

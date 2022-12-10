@@ -20,4 +20,9 @@ interface AuthenticationRepository {
         scopes: String,
         website: String?
     ): NewAppOAuthToken?
+
+    suspend fun saveApplication(
+        token: NewAppOAuthToken,
+        domain: String,
+    )
 }

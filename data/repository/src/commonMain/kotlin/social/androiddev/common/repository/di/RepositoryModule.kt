@@ -11,6 +11,7 @@ package social.androiddev.common.repository.di
 
 import org.koin.core.module.Module
 import org.koin.dsl.module
+import social.androiddev.common.persistence.localstorage.DodoLocalStorage
 import social.androiddev.common.repository.AuthenticationRepositoryImpl
 import social.androiddev.domain.authentication.repository.AuthenticationRepository
 
@@ -24,6 +25,10 @@ val repositoryModule: Module = module {
     factory<AuthenticationRepository> {
         AuthenticationRepositoryImpl(
             mastodonApi = get(),
+
+            // TODO Create Koin module for persistance module and add
+            // bean definition for storage and remove inlining constructor
+            localStorage = DodoLocalStorage()
         )
     }
 }

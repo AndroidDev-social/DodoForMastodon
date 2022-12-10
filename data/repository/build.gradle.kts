@@ -44,6 +44,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(projects.data.network)
+                implementation(projects.data.persistence)
                 implementation(projects.domain.authentication)
                 implementation(libs.io.insert.koin.core)
             }
