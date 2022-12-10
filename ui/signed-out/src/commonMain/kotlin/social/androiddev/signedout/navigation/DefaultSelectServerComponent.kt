@@ -28,7 +28,11 @@ class DefaultSelectServerComponent(
     private val launchOAuth: (server: String) -> Unit,
 ) : KoinComponent, SelectServerComponent, ComponentContext by componentContext {
 
-    private val authenticClient: AuthenticateClient by inject()
+    private val authenticateClient: AuthenticateClient by inject()
+
+    // TODO: There is support through Decompose for proper state handling
+    // and adding lifecycle aware components. We should hook into this so we can
+    // properly cancel the coroutineScope (similar to viewModelScope extension)
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
     private val _state = MutableStateFlow(SelectServerComponent.State())
     override val state: StateFlow<SelectServerComponent.State> = _state
@@ -36,7 +40,7 @@ class DefaultSelectServerComponent(
     override fun onServerSelected(server: String) {
         _state.update { it.copy(selectButtonEnabled = false) }
         scope.launch {
-            val success = authenticClient(
+            val success = authenticateClient(
                 domain = server,
                 clientName = "Dodo",
                 redirectURIs = REDIRECT_URIS,
