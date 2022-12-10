@@ -9,4 +9,5 @@ import org.koin.dsl.module
  */
 val domainModule: Module = module {
 
+    // TODO Add use cases
 }

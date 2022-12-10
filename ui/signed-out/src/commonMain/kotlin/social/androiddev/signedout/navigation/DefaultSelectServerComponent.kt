@@ -23,6 +23,8 @@ import social.androiddev.domain.authentication.usecase.AuthenticateClient
 
 class DefaultSelectServerComponent(
     private val componentContext: ComponentContext,
+    // TODO Remove passing up server since we will be storing it and can retrieve from storage
+    // in view model
     private val launchOAuth: (server: String) -> Unit,
 ) : KoinComponent, SelectServerComponent, ComponentContext by componentContext {
 
