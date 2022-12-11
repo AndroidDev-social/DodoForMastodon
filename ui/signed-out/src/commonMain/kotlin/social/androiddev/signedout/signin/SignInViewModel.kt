@@ -24,7 +24,6 @@ import social.androiddev.domain.authentication.usecase.CreateAccessToken
 import social.androiddev.domain.authentication.usecase.GetSelectedApplicationOAuthToken
 import social.androiddev.signedout.util.encode
 import java.net.URI
-import java.net.URLEncoder
 import kotlin.coroutines.CoroutineContext
 
 // TODO Add tests
@@ -61,7 +60,7 @@ internal class SignInViewModel(
         val b = StringBuilder().apply {
             append("https://${token.server}")
             append("/oauth/authorize?client_id=${token.clientId}")
-            append("&scope=${URLEncoder.encode("read write follow push", "UTF-8")}")
+            append("&scope=${"read write follow push".encode()}")
             append("&redirect_uri=${token.redirectUri.encode()}")
             append("&response_type=code")
         }
