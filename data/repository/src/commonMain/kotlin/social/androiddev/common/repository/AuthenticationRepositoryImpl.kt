@@ -11,14 +11,14 @@ package social.androiddev.common.repository
 
 import social.androiddev.common.network.MastodonApi
 import social.androiddev.common.persistence.AuthenticationDatabase
-import social.androiddev.common.persistence.localstorage.DodoKeyValueStorage
+import social.androiddev.common.persistence.localstorage.DodoStorageSettings
 import social.androiddev.domain.authentication.model.NewAppOAuthToken
 import social.androiddev.domain.authentication.repository.AuthenticationRepository
 
 internal class AuthenticationRepositoryImpl(
     private val mastodonApi: MastodonApi,
     private val database: AuthenticationDatabase,
-    private val keyValueStorage: DodoKeyValueStorage,
+    private val keyValueStorage: DodoStorageSettings,
 ) : AuthenticationRepository {
 
     override suspend fun saveApplication(token: NewAppOAuthToken, domain: String) {
