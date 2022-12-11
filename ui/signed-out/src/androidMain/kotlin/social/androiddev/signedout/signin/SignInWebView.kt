@@ -35,6 +35,7 @@ actual fun SignInWebView(
 
                 setBackgroundColor(Color.TRANSPARENT)
                 webViewClient = object : WebViewClient() {
+
                     override fun onPageFinished(view: WebView?, url: String?) {
                     }
 

@@ -77,22 +77,18 @@ internal class SignInViewModel(
     }
 
     private fun displayErrorWithDuration(error: String) {
-        _state.update { it.copy(error = error) }
+        _state.update { it.copy(error = error, showOAuthFlow = false) }
         scope.launch {
             delay(3_000)
-            _state.update { it.copy(error = null) }
+            _state.update { it.copy(error = null, showOAuthFlow = false) }
         }
     }
 
     fun parseResultFromUrl(url: String) {
         val uri = URI(url)
-        val oAuthUri = URI(_state.value.oauthAuthorizeUrl)
-        if (oAuthUri.host == uri.host && oAuthUri.scheme == uri.scheme) {
+        if (url.contains(_state.value.redirectUri)) {
             val isCreatingToken = _state.value.showSpinner
             val query = uri.query
-//            println("~!~! $url")
-//            println("!!OMID: $query")
-//            println("~~OMID isCreatingToken=$isCreatingToken")
             if (!query.isNullOrEmpty() && !isCreatingToken) {
                 when {
                     query.contains("error=") -> {
