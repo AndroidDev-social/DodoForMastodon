@@ -15,6 +15,11 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.cancel
 import kotlin.coroutines.CoroutineContext
 
+/**
+ * Create a lifecycle aware [CoroutineScope] using a [CoroutineContext] and Decompose [Lifecycle].
+ * The [CoroutineScope] will properly cancel any running work when the lifecycle of the
+ * component is destroyed.
+ */
 fun CoroutineScope(context: CoroutineContext, lifecycle: Lifecycle): CoroutineScope {
     val scope = CoroutineScope(context)
     lifecycle.doOnDestroy(scope::cancel)

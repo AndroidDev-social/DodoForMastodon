@@ -47,12 +47,15 @@ internal class AuthenticationRepositoryImpl(
     }
 
     override suspend fun saveApplication(token: NewAppOAuthToken, domain: String) {
+        // save our new application oauth token to our DB
         database.applicationQueries.insertApplication(
             instance = domain,
             client_id = token.clientId,
             client_secret = token.clientSecret,
             redirect_uri = token.redirectUri,
         )
+
+        // Update what server the user is currently on
         settings.currentDomain = domain
     }
 
@@ -71,7 +74,12 @@ internal class AuthenticationRepositoryImpl(
             }
     }
 
-    override suspend fun createAccessToken(authCode: String, server: String, scope: String): String? {
+    override suspend fun createAccessToken(
+        authCode: String,
+        server: String,
+        scope: String,
+        grantType: String,
+    ): String? {
         return getApplicationOAuthToken(server)?.let { oAuthToken ->
             mastodonApi
                 .createAccessToken(
@@ -79,9 +87,9 @@ internal class AuthenticationRepositoryImpl(
                     clientId = oAuthToken.clientId,
                     clientSecret = oAuthToken.clientSecret,
                     redirectUri = oAuthToken.redirectUri,
-                    grantType = "authorization_code",
+                    grantType = grantType,
                     code = authCode,
-                    scope = "read write follow push",
+                    scope = scope,
                 )
                 .getOrNull()
                 ?.accessToken

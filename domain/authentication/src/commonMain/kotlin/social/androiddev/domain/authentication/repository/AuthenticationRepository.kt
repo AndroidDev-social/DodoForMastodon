@@ -31,6 +31,7 @@ interface AuthenticationRepository {
         authCode: String,
         server: String,
         scope: String,
+        grantType: String,
     ): String?
     fun saveAccessToken(server: String, token: String)
 

@@ -13,5 +13,8 @@ import com.arkivanov.essenty.lifecycle.LifecycleOwner
 import kotlinx.coroutines.CoroutineScope
 import kotlin.coroutines.CoroutineContext
 
+/**
+ * Create a lifecycle aware [CoroutineScope] from a Decompose [LifecycleOwner].
+ */
 fun LifecycleOwner.coroutineScope(context: CoroutineContext): CoroutineScope =
     CoroutineScope(context, lifecycle)
