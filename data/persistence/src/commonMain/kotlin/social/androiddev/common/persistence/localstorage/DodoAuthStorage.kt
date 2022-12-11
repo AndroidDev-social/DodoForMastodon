@@ -9,10 +9,25 @@
  */
 package social.androiddev.common.persistence.localstorage
 
+/**
+ * Contract for key => value storage for any authentication related data
+ */
 interface DodoAuthStorage {
+
+    /**
+     * The current domain/server the user is logged into.
+     * This is used to query the right account info since
+     * the user can have multiple accounts
+     */
     var currentDomain: String?
 
+    /**
+     * Save the @param token keyed by @param server
+     */
     fun saveAccessToken(server: String, token: String)
 
+    /**
+     * Get the Access token for @param server
+     */
     fun getAccessToken(server: String): String?
 }

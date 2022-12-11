@@ -19,8 +19,7 @@ import social.androiddev.common.persistence.localstorage.DodoAuthStorage
 import social.androiddev.common.persistence.localstorage.DodoAuthStorageImpl
 
 /**
- * Koin module containing all koin/bean definitions for
- * persistent storage related classes
+ * Koin DI module for all desktop specific persistence dependencies
  */
 actual val persistenceModule: Module = module {
     single<DodoAuthStorage> {

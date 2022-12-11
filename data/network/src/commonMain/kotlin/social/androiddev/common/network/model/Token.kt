@@ -14,8 +14,9 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Token(
+    val scope: String,
     @SerialName("access_token") val accessToken: String,
     @SerialName("token_type") val tokenType: String,
+    // Not needed for now
 //    @SerialName("created_at") val createdAt: Date,
-    val scope: String,
 )

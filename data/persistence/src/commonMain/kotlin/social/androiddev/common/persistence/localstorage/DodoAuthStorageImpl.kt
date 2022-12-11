@@ -27,6 +27,10 @@ internal class DodoAuthStorageImpl(
             settings[KEY_DOMAIN_CACHE] = value
         }
 
+    /**
+     * The user can set up multiple accounts on their device. So we
+     * key the AccessToken by the unique server/domain
+     */
     private var diskCache: Map<String, AccessToken>
         get() {
             return settings

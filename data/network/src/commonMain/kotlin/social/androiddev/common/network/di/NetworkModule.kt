@@ -29,6 +29,7 @@ val networkModule: Module = module {
 
     singleOf<HttpClient> {
         HttpClient {
+            // install plugin so we can use type-safe data models for serialization in ktor
             install(ContentNegotiation) {
                 json(
                     Json {
