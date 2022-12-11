@@ -15,6 +15,7 @@ import social.androiddev.common.persistence.AuthenticationDatabase
 import social.androiddev.common.persistence.provideTestSqlDriver
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertNotNull
 
 @OptIn(ExperimentalCoroutinesApi::class)
 internal class AuthenticationDatabaseTests {
@@ -31,11 +32,17 @@ internal class AuthenticationDatabaseTests {
             instance = "androiddev.social",
             client_id = "test_client_id",
             client_secret = "test_client_secret",
-
+            redirect_uri = "redirect_uri"
         )
 
-        // then
-        val list = database.applicationQueries.selectAll().executeAsList()
-        assertEquals(expected = 1, list.size)
+        val result = database
+            .applicationQueries
+            .selectByServer("androiddev.social")
+            .executeAsOneOrNull()
+
+        assertNotNull(result)
+        assertEquals("test_client_id", result.client_id)
+        assertEquals("test_client_secret", result.client_secret)
+        assertEquals("redirect_uri", result.redirect_uri)
     }
 }

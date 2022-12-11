@@ -6,7 +6,8 @@ CREATE TABLE Application (
 );
 
 insertApplication:
-INSERT OR REPLACE INTO Application(instance, client_id, client_secret, redirect_uri)VALUES(?,?,?,?);
+INSERT OR REPLACE INTO Application(instance, client_id, client_secret, redirect_uri)
+VALUES(?,?,?,?);
 
 selectAll:
 SELECT * FROM Application;

@@ -12,6 +12,6 @@ package social.androiddev.common.persistence
 import com.squareup.sqldelight.db.SqlDriver
 import com.squareup.sqldelight.drivers.native.NativeSqliteDriver
 
-actual suspend fun provideTestSqlDriver(schema: SqlDriver.Schema): SqlDriver {
+actual fun provideTestSqlDriver(schema: SqlDriver.Schema): SqlDriver {
     return NativeSqliteDriver(schema = schema, name = "authentication.db")
 }

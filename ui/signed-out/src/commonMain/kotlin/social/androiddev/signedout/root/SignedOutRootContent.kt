@@ -14,6 +14,7 @@ import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import com.arkivanov.decompose.ExperimentalDecomposeApi
 import com.arkivanov.decompose.extensions.compose.jetbrains.stack.Children
 import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
 import social.androiddev.signedout.landing.LandingContent
@@ -25,6 +26,7 @@ import social.androiddev.signedout.signin.SignInContent
  * currently signed out.
  * Business logic and decompose navigation is delegated to [SignedOutRootComponent].
  */
+@OptIn(ExperimentalDecomposeApi::class)
 @Composable
 fun SignedOutRootContent(
     component: SignedOutRootComponent,
