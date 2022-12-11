@@ -15,7 +15,7 @@ import social.androiddev.domain.authentication.usecase.AuthenticateClient
 
 /**
  * Koin module containing all koin/bean definitions for
- * network/api related classes
+ * domain related classes for authentication
  */
 val domainAuthModule: Module = module {
 
