@@ -2,7 +2,7 @@ CREATE TABLE Application (
   instance Text NOT NULL PRIMARY KEY,
   client_id Text NOT NULL,
   client_secret TEXT NOT NULL,
-  redirect_uri TEXT NOT NULL,
+  redirect_uri TEXT NOT NULL
 );
 
 insertApplication:
