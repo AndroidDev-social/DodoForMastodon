@@ -23,7 +23,7 @@ actual val persistenceModule: Module = module {
         DodoAuthStorageImpl(
             settings = NSUserDefaultsSettings
                 .Factory()
-                .create("DodoSettings"),
+                .create("DodoAuthSettings"),
             json = Json {
                 ignoreUnknownKeys = true
                 encodeDefaults = false

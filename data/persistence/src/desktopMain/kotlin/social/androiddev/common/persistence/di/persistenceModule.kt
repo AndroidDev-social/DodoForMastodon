@@ -27,7 +27,7 @@ actual val persistenceModule: Module = module {
         DodoAuthStorageImpl(
             settings = PreferencesSettings
                 .Factory()
-                .create("DodoSettings"),
+                .create("DodoAuthSettings"),
             json = Json {
                 ignoreUnknownKeys = true
                 encodeDefaults = false
