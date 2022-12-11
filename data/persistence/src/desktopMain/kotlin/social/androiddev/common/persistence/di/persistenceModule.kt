@@ -10,13 +10,13 @@
 package social.androiddev.common.persistence.di
 
 import com.russhwolf.settings.PreferencesSettings
+import com.squareup.sqldelight.sqlite.driver.JdbcSqliteDriver
 import kotlinx.serialization.json.Json
 import org.koin.core.module.Module
 import org.koin.dsl.module
 import social.androiddev.common.persistence.AuthenticationDatabase
 import social.androiddev.common.persistence.localstorage.DodoAuthStorage
 import social.androiddev.common.persistence.localstorage.DodoAuthStorageImpl
-import social.androiddev.common.persistence.provideDatabaseDriver
 
 /**
  * Koin module containing all koin/bean definitions for
@@ -36,7 +36,9 @@ actual val persistenceModule: Module = module {
     }
 
     single {
-        val driver = provideDatabaseDriver(AuthenticationDatabase.Schema)
+        val driver = JdbcSqliteDriver(url = JdbcSqliteDriver.IN_MEMORY).also { driver ->
+            AuthenticationDatabase.Schema.create(driver = driver)
+        }
         AuthenticationDatabase(driver)
     }
 }

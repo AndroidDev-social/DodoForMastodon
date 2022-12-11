@@ -23,6 +23,7 @@ import social.androiddev.domain.authentication.model.ApplicationOAuthToken
 import social.androiddev.domain.authentication.usecase.CreateAccessToken
 import social.androiddev.domain.authentication.usecase.GetSelectedApplicationOAuthToken
 import java.net.URI
+import java.net.URLEncoder
 import kotlin.coroutines.CoroutineContext
 
 // Add tests
@@ -46,7 +47,11 @@ internal class SignInViewModel(
         scope.launch {
             val token = getSelectedApplicationOAuthToken()
             _state.update {
-                it.copy(oauthAuthorizeUrl = createOAuthAuthorizeUrl(token))
+                it.copy(
+                    server = token.server,
+                    redirectUri = token.redirectUri,
+                    oauthAuthorizeUrl = createOAuthAuthorizeUrl(token)
+                )
             }
         }
     }
@@ -55,8 +60,12 @@ internal class SignInViewModel(
         val b = StringBuilder().apply {
             append("https://${token.server}")
             append("/oauth/authorize?client_id=${token.clientId}")
-            append("&scope=read+write+follow+push")
-            append("&redirect_uri=${token.redirectUri}")
+            append("&scope=${URLEncoder.encode("read write follow push", "UTF-8")}")
+            val tokens = token.redirectUri.split("://")
+            val scheme = tokens[0]
+            val domain = tokens[1]
+            append("&redirect_uri=$scheme${URLEncoder.encode("://", "UTF-8")}")
+            append("$domain${URLEncoder.encode("/", "UTF-8")}")
             append("&response_type=code")
         }
         return b.toString()
@@ -76,28 +85,32 @@ internal class SignInViewModel(
 
     fun parseResultFromUrl(url: String) {
         val uri = URI(url)
-        if (isOauthUrl(uri)) {
-            // TODO enhance the impl to extract uri query params
-            // see Uri.getQueryParameter in Android sdk
-            if (uri.query.contains("error")) {
-                val error = uri.query.replace("error=", "")
-                displayErrorWithDuration(error)
-            } else {
-                val code = uri.query.replace("code=", "")
-                scope.launch {
-                    val success = createAccessToken(
-                        authCode = code,
-                        server = _state.value.server
-                    )
-                    if (success) {
-                        onSignedIn()
+        val oAuthUri = URI(_state.value.oauthAuthorizeUrl)
+        if (oAuthUri.host == uri.host && oAuthUri.scheme == uri.scheme) {
+            val query = uri.query
+            if (!query.isNullOrEmpty()) {
+                when {
+                    query.contains("error=") -> {
+                        val error = query.replace("error=", "")
+                        displayErrorWithDuration(error)
+                    }
+
+                    query.contains("code=") -> {
+                        val code = query.replace("code=", "")
+                        scope.launch {
+                            val success = createAccessToken(
+                                authCode = code,
+                                server = _state.value.server
+                            )
+                            if (success) {
+                                onSignedIn()
+                            }
+                        }
                     }
                 }
             }
         }
     }
-
-    private fun isOauthUrl(uri: URI) = uri.toString().startsWith(_state.value.redirectUri)
 
     override fun onDestroy() {
         scope.cancel() // Cancel the scope when the instance is destroyed

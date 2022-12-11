@@ -10,13 +10,13 @@
 package social.androiddev.common.persistence.di
 
 import com.russhwolf.settings.NSUserDefaultsSettings
+import com.squareup.sqldelight.drivers.native.NativeSqliteDriver
 import kotlinx.serialization.json.Json
 import org.koin.core.module.Module
 import org.koin.dsl.module
 import social.androiddev.common.persistence.AuthenticationDatabase
 import social.androiddev.common.persistence.localstorage.DodoAuthStorage
 import social.androiddev.common.persistence.localstorage.DodoAuthStorageImpl
-import social.androiddev.common.persistence.provideDatabaseDriver
 
 actual val persistenceModule: Module = module {
     single<DodoAuthStorage> {
@@ -32,7 +32,7 @@ actual val persistenceModule: Module = module {
     }
 
     single {
-        val driver = provideDatabaseDriver(AuthenticationDatabase.Schema)
+        val driver = NativeSqliteDriver(schema = AuthenticationDatabase.Schema, name = "authentication.db")
         AuthenticationDatabase(driver)
     }
 }

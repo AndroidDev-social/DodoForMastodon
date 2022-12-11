@@ -66,7 +66,7 @@ internal class AuthenticationRepositoryImpl(
                     server = it.instance,
                     clientId = it.client_id,
                     clientSecret = it.client_secret,
-                    redirectUri = it.client_secret // TODO fix
+                    redirectUri = it.redirect_uri,
                 )
             }
     }
