@@ -50,7 +50,8 @@ internal class SignInViewModel(
                 it.copy(
                     server = token.server,
                     redirectUri = token.redirectUri,
-                    oauthAuthorizeUrl = createOAuthAuthorizeUrl(token)
+                    oauthAuthorizeUrl = createOAuthAuthorizeUrl(token),
+                    showOAuthFlow = true,
                 )
             }
         }
@@ -87,8 +88,12 @@ internal class SignInViewModel(
         val uri = URI(url)
         val oAuthUri = URI(_state.value.oauthAuthorizeUrl)
         if (oAuthUri.host == uri.host && oAuthUri.scheme == uri.scheme) {
+            val isCreatingToken = _state.value.showSpinner
             val query = uri.query
-            if (!query.isNullOrEmpty()) {
+//            println("~!~! $url")
+//            println("!!OMID: $query")
+//            println("~~OMID isCreatingToken=$isCreatingToken")
+            if (!query.isNullOrEmpty() && !isCreatingToken) {
                 when {
                     query.contains("error=") -> {
                         val error = query.replace("error=", "")
@@ -96,6 +101,7 @@ internal class SignInViewModel(
                     }
 
                     query.contains("code=") -> {
+                        _state.update { it.copy(showSpinner = true, showOAuthFlow = false) }
                         val code = query.replace("code=", "")
                         scope.launch {
                             val success = createAccessToken(
@@ -104,6 +110,8 @@ internal class SignInViewModel(
                             )
                             if (success) {
                                 onSignedIn()
+                            } else {
+                                _state.update { it.copy(showSpinner = false, showOAuthFlow = true) }
                             }
                         }
                     }

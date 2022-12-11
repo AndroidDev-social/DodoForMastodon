@@ -12,18 +12,12 @@ package social.androiddev.common.network
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.ResponseException
-import io.ktor.client.request.forms.formData
-import io.ktor.client.request.forms.submitForm
 import io.ktor.client.request.get
-import io.ktor.client.request.header
 import io.ktor.client.request.headers
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
-import io.ktor.client.statement.bodyAsText
 import io.ktor.http.ContentType
 import io.ktor.http.HttpHeaders
-import io.ktor.http.Parameters
-import io.ktor.http.URLProtocol
 import io.ktor.http.contentType
 import io.ktor.http.path
 import kotlinx.serialization.SerialName
@@ -46,6 +40,16 @@ internal class MastodonApiKtor(
         }
     }
 
+    @Serializable
+    private data class CreateAccessTokenBody(
+        val scope: String,
+        val code: String,
+        @SerialName("client_id") val clientId: String,
+        @SerialName("client_secret") val clientSecret: String,
+        @SerialName("redirect_uri") val redirectUri: String,
+        @SerialName("grant_type") val grantType: String,
+    )
+
     override suspend fun createAccessToken(
         domain: String,
         clientId: String,
@@ -55,22 +59,26 @@ internal class MastodonApiKtor(
         code: String,
         scope: String
     ): Result<Token> {
-        return runCatchingIgnoreCancelled {
+        return runCatchingIgnoreCancelled<Token> {
             httpClient.post {
                 url {
-                    protocol = URLProtocol.HTTPS
                     host = domain
                     path("/oauth/token")
                 }
-                formData {
-                    append("client_id", clientId)
-                    append("client_secret", clientSecret)
-                    append("redirect_uri", redirectUri)
-                    append("grant_type", grantType)
-                    append("code", code)
-                    append("scope", scope)
-                }
+                contentType(ContentType.Application.Json)
+                setBody(
+                    CreateAccessTokenBody(
+                        scope = scope,
+                        code = code,
+                        clientId = clientId,
+                        clientSecret = clientSecret,
+                        redirectUri = redirectUri,
+                        grantType = grantType,
+                    )
+                )
             }.body()
+        }.onFailure { t ->
+            t.printStackTrace()
         }
     }
 
@@ -82,32 +90,12 @@ internal class MastodonApiKtor(
         website: String?
     ): Result<NewOauthApplication> {
         return runCatchingIgnoreCancelled<NewOauthApplication> {
-//            val s = httpClient.submitForm(
-//                formParameters = Parameters.build {
-//                    append("client_name", clientName)
-//                    append("redirect_uris", redirectUris)
-//                    append("scopes", scopes)
-//                    if (website != null) {
-//                        append("website", website)
-//                    }
-//                },
-//            ) {
-//                url {
-//                    protocol = URLProtocol.HTTPS
-//                    host = domain
-//                    path("/api/v1/apps")
-//                }
-//            }
-//            println("OMID~~~: ${s.bodyAsText()}")
-//            s.body()
-
             httpClient.post {
                 url {
                     host = domain
                     path("/api/v1/apps")
                 }
                 contentType(ContentType.Application.Json)
-//                header(HttpHeaders.ContentType, ContentType.Application.Json)
                 setBody(
                     CreateApplicationBody(
                         scopes = scopes,
@@ -115,14 +103,6 @@ internal class MastodonApiKtor(
                         redirectUris = redirectUris
                     )
                 )
-//                formData {
-//                    append("client_name", clientName)
-//                    append("redirect_uris", redirectUris)
-//                    append("scopes", scopes)
-//                    if (website != null) {
-//                        append("website", website)
-//                    }
-//                }
             }.body()
         }.onFailure { t ->
             t.printStackTrace()

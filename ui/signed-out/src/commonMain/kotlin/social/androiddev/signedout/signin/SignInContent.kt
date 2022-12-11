@@ -85,7 +85,7 @@ fun SignInContent(
                 )
             }
         }
-        if (state.oauthAuthorizeUrl.isNotEmpty()) {
+        if (state.oauthAuthorizeUrl.isNotEmpty() && state.showOAuthFlow) {
             SignInWebView(
                 url = state.oauthAuthorizeUrl,
                 modifier = Modifier.fillMaxSize(),

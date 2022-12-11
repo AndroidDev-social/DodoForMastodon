@@ -29,5 +29,7 @@ interface SignInComponent {
         val oauthAuthorizeUrl: String,
         val redirectUri: String,
         val error: String? = null,
+        val showOAuthFlow: Boolean = false,
+        val showSpinner: Boolean = false,
     )
 }
