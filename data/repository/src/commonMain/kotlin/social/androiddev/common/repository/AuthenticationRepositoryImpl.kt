@@ -10,17 +10,24 @@
 package social.androiddev.common.repository
 
 import social.androiddev.common.network.MastodonApi
-import social.androiddev.common.persistence.localstorage.DodoLocalStorage
+import social.androiddev.common.persistence.AuthenticationDatabase
+import social.androiddev.common.persistence.localstorage.DodoKeyValueStorage
 import social.androiddev.domain.authentication.model.NewAppOAuthToken
 import social.androiddev.domain.authentication.repository.AuthenticationRepository
 
 internal class AuthenticationRepositoryImpl(
     private val mastodonApi: MastodonApi,
-    private val localStorage: DodoLocalStorage,
+    private val database: AuthenticationDatabase,
+    private val keyValueStorage: DodoKeyValueStorage,
 ) : AuthenticationRepository {
 
     override suspend fun saveApplication(token: NewAppOAuthToken, domain: String) {
-        // TODO: Save metadata to Multiplatform Storage
+        database.applicationQueries.insertApplication(
+            instance = domain,
+            client_id = token.clientId,
+            client_secret = token.clientSecret,
+        )
+        keyValueStorage.currentDomain = domain
     }
 
     override suspend fun createApplicationClient(
