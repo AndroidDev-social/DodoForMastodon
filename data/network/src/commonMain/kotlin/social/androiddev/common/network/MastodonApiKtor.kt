@@ -20,14 +20,14 @@ import io.ktor.http.ContentType
 import io.ktor.http.HttpHeaders
 import io.ktor.http.contentType
 import io.ktor.http.path
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerializationException
 import social.androiddev.common.network.model.Application
 import social.androiddev.common.network.model.AvailableInstance
 import social.androiddev.common.network.model.Instance
 import social.androiddev.common.network.model.NewOauthApplication
 import social.androiddev.common.network.model.Token
+import social.androiddev.common.network.model.request.CreateAccessTokenBody
+import social.androiddev.common.network.model.request.CreateApplicationBody
 import social.androiddev.common.network.util.runCatchingIgnoreCancelled
 
 internal class MastodonApiKtor(
@@ -39,16 +39,6 @@ internal class MastodonApiKtor(
             httpClient.get("https://api.joinmastodon.org/servers").body()
         }
     }
-
-    @Serializable
-    private data class CreateAccessTokenBody(
-        val scope: String,
-        val code: String,
-        @SerialName("client_id") val clientId: String,
-        @SerialName("client_secret") val clientSecret: String,
-        @SerialName("redirect_uri") val redirectUri: String,
-        @SerialName("grant_type") val grantType: String,
-    )
 
     override suspend fun createAccessToken(
         domain: String,
@@ -108,13 +98,6 @@ internal class MastodonApiKtor(
             t.printStackTrace()
         }
     }
-
-    @Serializable
-    private data class CreateApplicationBody(
-        val scopes: String,
-        @SerialName("client_name") val clientName: String,
-        @SerialName("redirect_uris") val redirectUris: String,
-    )
 
     override suspend fun verifyApplication(): Result<Application> {
         return runCatchingIgnoreCancelled<Application> {
