@@ -11,12 +11,17 @@ package social.androiddev.domain.authentication.di
 
 import org.koin.core.module.Module
 import org.koin.dsl.module
+import social.androiddev.domain.authentication.usecase.AuthenticateClient
 
 /**
  * Koin module containing all koin/bean definitions for
  * network/api related classes
  */
-val domainModule: Module = module {
+val domainAuthModule: Module = module {
 
-    // TODO Add use cases
+    factory {
+        AuthenticateClient(
+            authenticationRepository = get(),
+        )
+    }
 }

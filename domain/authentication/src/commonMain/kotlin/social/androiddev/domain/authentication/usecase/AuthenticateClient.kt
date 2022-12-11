@@ -11,7 +11,6 @@ package social.androiddev.domain.authentication.usecase
 
 import social.androiddev.domain.authentication.repository.AuthenticationRepository
 
-// TODO Add to domain koin module
 class AuthenticateClient(
     private val authenticationRepository: AuthenticationRepository,
 ) {
@@ -23,7 +22,7 @@ class AuthenticateClient(
         scopes: String,
         website: String? = null,
     ): Boolean {
-        val creds = authenticationRepository.createApplicationClient(
+        val oAuthToken = authenticationRepository.createApplicationClient(
             domain = domain,
             clientName = clientName,
             redirectUris = redirectURIs,
@@ -31,9 +30,9 @@ class AuthenticateClient(
             website = website,
         )
 
-        return if (creds != null) {
+        return if (oAuthToken != null) {
             authenticationRepository.saveApplication(
-                token = creds,
+                token = oAuthToken,
                 domain = domain,
             )
             true
