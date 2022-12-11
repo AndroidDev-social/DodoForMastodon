@@ -33,22 +33,19 @@ internal class SelectServerViewModel(
 
     suspend fun validateServer(server: String): Boolean {
 
+        // TODO Sanitize and format the user entered server
+
         _state.update { it.copy(selectButtonEnabled = false) }
 
         val success = authenticateClient(
             domain = server,
             clientName = "Dodo",
-            redirectURIs = "oauth2redirect://$server",
+            redirectURIs = "$redirectScheme://$server/",
             scopes = OAUTH_SCOPES,
             website = "https://$server",
         )
-
-        return if (success) {
-            true
-        } else {
-            _state.update { it.copy(selectButtonEnabled = true) }
-            false
-        }
+        _state.update { it.copy(selectButtonEnabled = true) }
+        return success
     }
 
     override fun onDestroy() {

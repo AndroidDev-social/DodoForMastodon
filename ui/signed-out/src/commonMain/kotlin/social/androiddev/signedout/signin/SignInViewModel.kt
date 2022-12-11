@@ -22,6 +22,7 @@ import kotlinx.coroutines.launch
 import social.androiddev.domain.authentication.model.ApplicationOAuthToken
 import social.androiddev.domain.authentication.usecase.CreateAccessToken
 import social.androiddev.domain.authentication.usecase.GetSelectedApplicationOAuthToken
+import social.androiddev.signedout.util.encode
 import java.net.URI
 import java.net.URLEncoder
 import kotlin.coroutines.CoroutineContext
@@ -61,11 +62,7 @@ internal class SignInViewModel(
             append("https://${token.server}")
             append("/oauth/authorize?client_id=${token.clientId}")
             append("&scope=${URLEncoder.encode("read write follow push", "UTF-8")}")
-            val tokens = token.redirectUri.split("://")
-            val scheme = tokens[0]
-            val domain = tokens[1]
-            append("&redirect_uri=$scheme${URLEncoder.encode("://", "UTF-8")}")
-            append("$domain${URLEncoder.encode("/", "UTF-8")}")
+            append("&redirect_uri=${token.redirectUri.encode()}")
             append("&response_type=code")
         }
         return b.toString()
@@ -101,6 +98,7 @@ internal class SignInViewModel(
                 displayErrorWithDuration(error)
                 true
             }
+
             query.contains("code=") -> {
                 val code = query.replace("code=", "")
                 scope.launch {
@@ -116,6 +114,7 @@ internal class SignInViewModel(
                 }
                 true
             }
+
             else -> false
         }
     }
