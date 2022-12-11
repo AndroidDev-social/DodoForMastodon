@@ -18,7 +18,6 @@ import com.arkivanov.decompose.router.stack.replaceCurrent
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
-import kotlinx.coroutines.Dispatchers
 import social.androiddev.signedin.navigation.DefaultSignedInRootComponent
 import social.androiddev.signedout.root.DefaultSignedOutRootComponent
 import kotlin.coroutines.CoroutineContext
@@ -30,7 +29,7 @@ import kotlin.coroutines.CoroutineContext
  */
 class DefaultRootComponent(
     componentContext: ComponentContext,
-    private val mainContext: CoroutineContext = Dispatchers.Main,
+    private val mainContext: CoroutineContext,
     deepLink: RootComponent.DeepLink = RootComponent.DeepLink.None,
 ) : RootComponent, ComponentContext by componentContext {
 
