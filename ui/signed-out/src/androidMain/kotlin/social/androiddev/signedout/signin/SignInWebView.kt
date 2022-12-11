@@ -10,20 +10,23 @@
 package social.androiddev.signedout.signin
 
 import android.graphics.Color
+import android.webkit.CookieManager
 import android.webkit.WebResourceError
 import android.webkit.WebResourceRequest
+import android.webkit.WebStorage
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.AndroidView
 
 @Composable
 actual fun SignInWebView(
-    url: String,
     modifier: Modifier,
-    onFailed: (error: String) -> Unit,
-    onParseResponseFromUrl: (String) -> Unit,
+    url: String,
+    onWebError: (message: String) -> Unit,
+    shouldCancelLoadingUrl: (url: String) -> Boolean,
 ) {
 
     AndroidView(
@@ -34,6 +37,7 @@ actual fun SignInWebView(
                 // https://github.com/AndroidDev-social/DodoForMastodon/pull/90#discussion_r1038897643
 
                 setBackgroundColor(Color.TRANSPARENT)
+
                 webViewClient = object : WebViewClient() {
 
                     override fun onPageFinished(view: WebView?, url: String?) {
@@ -44,7 +48,7 @@ actual fun SignInWebView(
                         request: WebResourceRequest,
                         error: WebResourceError
                     ) {
-                        onFailed(error.toString())
+                        onWebError(error.toString())
                     }
 
                     override fun shouldOverrideUrlLoading(
@@ -68,17 +72,30 @@ actual fun SignInWebView(
                     }
 
                     fun shouldOverrideUrlLoading(url: String): Boolean {
-                        onParseResponseFromUrl(url)
-                        return false
+                        return shouldCancelLoadingUrl(url)
                     }
                 }
 
                 // JavaScript needs to be enabled because otherwise 2FA does not work in some instances
                 settings.javaScriptEnabled = true
+                settings.allowContentAccess = false
+                settings.allowFileAccess = false
+                settings.databaseEnabled = false
+                settings.displayZoomControls = false
+                settings.javaScriptCanOpenWindowsAutomatically = false
+                settings.userAgentString += " Dodo/1.0"
 
                 loadUrl(url)
+
+                DisposableEffect(Unit) {
+                    onDispose {
+                        println("OMID! onDispose")
+                        // Remove user session from WebView
+                        WebStorage.getInstance().deleteAllData()
+                        CookieManager.getInstance().removeAllCookies(null)
+                    }
+                }
             }
         }
-
     )
 }

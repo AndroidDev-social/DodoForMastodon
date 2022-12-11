@@ -46,7 +46,7 @@ class DefaultSignInComponent(
     override fun onErrorFromOAuth(error: String) {
         viewModel.onErrorFromOAuth(error)
     }
-    override fun onParseResponseFromUrl(url: String) {
-        viewModel.parseResultFromUrl(url)
+    override fun shouldCancelLoadingUrl(url: String): Boolean {
+        return viewModel.shouldCancelLoadingUrl(url)
     }
 }

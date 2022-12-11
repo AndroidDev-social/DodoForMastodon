@@ -16,10 +16,10 @@ import androidx.compose.ui.awt.SwingPanel
 
 @Composable
 actual fun SignInWebView(
-    url: String,
     modifier: Modifier,
-    onFailed: (error: String) -> Unit,
-    onParseResponseFromUrl: (String) -> Unit,
+    url: String,
+    onWebError: (message: String) -> Unit,
+    shouldCancelLoadingUrl: (url: String) -> Boolean,
 ) {
 
     SwingPanel(
@@ -28,7 +28,7 @@ actual fun SignInWebView(
             JFXWebView(
                 url = url,
                 onUrlOfCurrentPageChanged = { url ->
-                    onParseResponseFromUrl(url)
+                    shouldCancelLoadingUrl(url)
                 },
             )
         },

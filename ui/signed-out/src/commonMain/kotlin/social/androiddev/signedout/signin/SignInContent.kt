@@ -85,12 +85,12 @@ fun SignInContent(
                 )
             }
         }
-        if (state.oauthAuthorizeUrl.isNotEmpty() && state.showOAuthFlow) {
+        if (state.oauthAuthorizeUrl.isNotEmpty()) {
             SignInWebView(
                 url = state.oauthAuthorizeUrl,
                 modifier = Modifier.fillMaxSize(),
-                onParseResponseFromUrl = component::onParseResponseFromUrl,
-                onFailed = component::onErrorFromOAuth
+                shouldCancelLoadingUrl = component::shouldCancelLoadingUrl,
+                onWebError = component::onErrorFromOAuth
             )
         }
     }

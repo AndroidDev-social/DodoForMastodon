@@ -14,8 +14,8 @@ import androidx.compose.ui.Modifier
 
 @Composable
 expect fun SignInWebView(
-    url: String,
     modifier: Modifier,
-    onFailed: (error: String) -> Unit,
-    onParseResponseFromUrl: (String) -> Unit,
+    url: String,
+    onWebError: (message: String) -> Unit,
+    shouldCancelLoadingUrl: (url: String) -> Boolean,
 )

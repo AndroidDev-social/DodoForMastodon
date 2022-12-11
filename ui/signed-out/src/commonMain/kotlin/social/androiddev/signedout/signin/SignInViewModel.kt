@@ -26,7 +26,7 @@ import java.net.URI
 import java.net.URLEncoder
 import kotlin.coroutines.CoroutineContext
 
-// Add tests
+// TODO Add tests
 internal class SignInViewModel(
     mainContext: CoroutineContext,
     private val getSelectedApplicationOAuthToken: GetSelectedApplicationOAuthToken,
@@ -51,7 +51,6 @@ internal class SignInViewModel(
                     server = token.server,
                     redirectUri = token.redirectUri,
                     oauthAuthorizeUrl = createOAuthAuthorizeUrl(token),
-                    showOAuthFlow = true,
                 )
             }
         }
@@ -77,42 +76,47 @@ internal class SignInViewModel(
     }
 
     private fun displayErrorWithDuration(error: String) {
-        _state.update { it.copy(error = error, showOAuthFlow = false) }
+        _state.update { it.copy(error = error) }
         scope.launch {
             delay(3_000)
-            _state.update { it.copy(error = null, showOAuthFlow = false) }
+            _state.update { it.copy(error = null) }
         }
     }
 
-    fun parseResultFromUrl(url: String) {
+    fun shouldCancelLoadingUrl(url: String): Boolean {
         val uri = URI(url)
-        if (url.contains(_state.value.redirectUri)) {
-            val isCreatingToken = _state.value.showSpinner
-            val query = uri.query
-            if (!query.isNullOrEmpty() && !isCreatingToken) {
-                when {
-                    query.contains("error=") -> {
-                        val error = query.replace("error=", "")
-                        displayErrorWithDuration(error)
-                    }
+        val query = uri.query
 
-                    query.contains("code=") -> {
-                        _state.update { it.copy(showSpinner = true, showOAuthFlow = false) }
-                        val code = query.replace("code=", "")
-                        scope.launch {
-                            val success = createAccessToken(
-                                authCode = code,
-                                server = _state.value.server
-                            )
-                            if (success) {
-                                onSignedIn()
-                            } else {
-                                _state.update { it.copy(showSpinner = false, showOAuthFlow = true) }
-                            }
-                        }
+        if (!url.contains(_state.value.redirectUri)) {
+            return false
+        }
+
+        if (query.isNullOrEmpty()) {
+            return false
+        }
+
+        return when {
+            query.contains("error=") -> {
+                val error = query.replace("error=", "")
+                displayErrorWithDuration(error)
+                true
+            }
+            query.contains("code=") -> {
+                val code = query.replace("code=", "")
+                scope.launch {
+                    val success = createAccessToken(
+                        authCode = code,
+                        server = _state.value.server
+                    )
+                    if (success) {
+                        onSignedIn()
+                    } else {
+                        displayErrorWithDuration("An error occurred.")
                     }
                 }
+                true
             }
+            else -> false
         }
     }
 

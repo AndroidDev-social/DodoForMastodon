@@ -18,7 +18,7 @@ interface SignInComponent {
 
     fun onCloseClicked()
 
-    fun onParseResponseFromUrl(url: String)
+    fun shouldCancelLoadingUrl(url: String): Boolean
 
     fun onErrorFromOAuth(error: String)
 
@@ -29,7 +29,5 @@ interface SignInComponent {
         val oauthAuthorizeUrl: String,
         val redirectUri: String,
         val error: String? = null,
-        val showOAuthFlow: Boolean = false,
-        val showSpinner: Boolean = false,
     )
 }
