@@ -21,15 +21,6 @@ internal class AuthenticationRepositoryImpl(
     private val keyValueStorage: DodoStorageSettings,
 ) : AuthenticationRepository {
 
-    override suspend fun saveApplication(token: NewAppOAuthToken, domain: String) {
-        database.applicationQueries.insertApplication(
-            instance = domain,
-            client_id = token.clientId,
-            client_secret = token.clientSecret,
-        )
-        keyValueStorage.currentDomain = domain
-    }
-
     override suspend fun createApplicationClient(
         domain: String,
         clientName: String,
@@ -45,11 +36,20 @@ internal class AuthenticationRepositoryImpl(
             website = website
         ).getOrNull()
 
-        return application?.let { application ->
+        return application?.let {
             NewAppOAuthToken(
-                clientId = application.clientId,
-                clientSecret = application.clientSecret,
+                clientId = it.clientId,
+                clientSecret = it.clientSecret,
             )
         }
+    }
+
+    override suspend fun saveApplication(token: NewAppOAuthToken, domain: String) {
+        database.applicationQueries.insertApplication(
+            instance = domain,
+            client_id = token.clientId,
+            client_secret = token.clientSecret,
+        )
+        keyValueStorage.currentDomain = domain
     }
 }
