@@ -41,6 +41,7 @@ internal class AuthenticationRepositoryImpl(
             NewAppOAuthToken(
                 clientId = it.clientId,
                 clientSecret = it.clientSecret,
+                redirectUri = redirectUris,
             )
         }
     }
@@ -50,6 +51,7 @@ internal class AuthenticationRepositoryImpl(
             instance = domain,
             client_id = token.clientId,
             client_secret = token.clientSecret,
+            redirect_uri = token.redirectUri,
         )
         settings.currentDomain = domain
     }
