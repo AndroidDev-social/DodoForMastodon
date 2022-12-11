@@ -39,7 +39,6 @@ import social.androiddev.common.theme.Blue
 import social.androiddev.common.theme.DodoTheme
 import social.androiddev.common.utils.AsyncImage
 import social.androiddev.common.utils.loadImageIntoPainter
-import social.androiddev.signedout.landing.LandingComponent
 
 /**
  * Landing view that delegates business logic to [LandingContent]

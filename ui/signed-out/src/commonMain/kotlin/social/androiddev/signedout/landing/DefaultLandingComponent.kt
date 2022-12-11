@@ -10,7 +10,6 @@
 package social.androiddev.signedout.landing
 
 import com.arkivanov.decompose.ComponentContext
-import social.androiddev.signedout.landing.LandingComponent
 
 class DefaultLandingComponent(
     private val componentContext: ComponentContext,
