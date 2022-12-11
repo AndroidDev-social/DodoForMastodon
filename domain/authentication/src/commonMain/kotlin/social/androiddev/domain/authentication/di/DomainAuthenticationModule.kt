@@ -12,6 +12,7 @@ package social.androiddev.domain.authentication.di
 import org.koin.core.module.Module
 import org.koin.dsl.module
 import social.androiddev.domain.authentication.usecase.AuthenticateClient
+import social.androiddev.domain.authentication.usecase.CreateAccessToken
 import social.androiddev.domain.authentication.usecase.GetSelectedApplicationOAuthToken
 
 /**
@@ -28,6 +29,12 @@ val domainAuthModule: Module = module {
 
     factory {
         GetSelectedApplicationOAuthToken(
+            authenticationRepository = get(),
+        )
+    }
+
+    factory {
+        CreateAccessToken(
             authenticationRepository = get(),
         )
     }
