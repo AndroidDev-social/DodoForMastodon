@@ -7,7 +7,7 @@
  *
  * You should have received a copy of the GNU General Public License along with Dodo. If not, see <https://www.gnu.org/licenses/>.
  */
-package social.androiddev.signedout.composables
+package social.androiddev.signedout.root
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Surface
@@ -16,7 +16,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.extensions.compose.jetbrains.stack.Children
 import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
-import social.androiddev.signedout.navigation.SignedOutRootComponent
+import social.androiddev.signedout.landing.LandingContent
+import social.androiddev.signedout.selectserver.SelectServerContent
 import social.androiddev.signedout.signin.SignInContent
 
 /**
@@ -57,7 +58,6 @@ fun SignedOutRootContent(
                 is SignedOutRootComponent.Child.SignIn -> {
                     SignInContent(
                         modifier = Modifier.fillMaxSize(),
-                        server = child.server,
                         component = child.component
                     )
                 }

@@ -18,8 +18,10 @@ import com.arkivanov.decompose.router.stack.replaceCurrent
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
+import kotlinx.coroutines.Dispatchers
 import social.androiddev.signedin.navigation.DefaultSignedInRootComponent
-import social.androiddev.signedout.navigation.DefaultSignedOutRootComponent
+import social.androiddev.signedout.root.DefaultSignedOutRootComponent
+import kotlin.coroutines.CoroutineContext
 
 /**
  * Default impl of the [RootComponent] that manages the navigation stack for the
@@ -28,6 +30,7 @@ import social.androiddev.signedout.navigation.DefaultSignedOutRootComponent
  */
 class DefaultRootComponent(
     componentContext: ComponentContext,
+    private val mainContext: CoroutineContext = Dispatchers.Main,
     deepLink: RootComponent.DeepLink = RootComponent.DeepLink.None,
 ) : RootComponent, ComponentContext by componentContext {
 
@@ -55,6 +58,7 @@ class DefaultRootComponent(
         componentContext: ComponentContext,
     ) = DefaultSignedOutRootComponent(
         componentContext = componentContext,
+        mainContext = mainContext,
         navigateToTimeLine = {
             navigation.replaceAll(Config.SignedIn)
         },

@@ -7,21 +7,22 @@
  *
  * You should have received a copy of the GNU General Public License along with Dodo. If not, see <https://www.gnu.org/licenses/>.
  */
-package social.androiddev.signedout.navigation
+package social.androiddev.signedout.signin
 
-import com.arkivanov.decompose.ComponentContext
+import kotlinx.coroutines.flow.StateFlow
 
-class DefaultSignInComponent(
-    private val componentContext: ComponentContext,
-    private val onSignInSucceedInternal: () -> Unit,
-    private val onCloseClickedInternal: () -> Unit,
-) : SignInComponent, ComponentContext by componentContext {
+/**
+ * The base component describing all business logic needed for the sign up or sign in screen
+ */
+interface SignInComponent {
 
-    override fun onSignInSucceed() {
-        onSignInSucceedInternal()
-    }
+    fun onSignInSucceed()
 
-    override fun onCloseClicked() {
-        onCloseClickedInternal()
-    }
+    fun onCloseClicked()
+
+    val state: StateFlow<State>
+
+    data class State(
+        val server: String
+    )
 }

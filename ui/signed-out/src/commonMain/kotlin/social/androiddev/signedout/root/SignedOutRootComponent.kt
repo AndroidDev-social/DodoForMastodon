@@ -7,10 +7,13 @@
  *
  * You should have received a copy of the GNU General Public License along with Dodo. If not, see <https://www.gnu.org/licenses/>.
  */
-package social.androiddev.signedout.navigation
+package social.androiddev.signedout.root
 
 import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.value.Value
+import social.androiddev.signedout.landing.LandingComponent
+import social.androiddev.signedout.selectserver.SelectServerComponent
+import social.androiddev.signedout.signin.SignInComponent
 
 /**
  * The base component describing all business logic needed for the signed-out root entry point
@@ -30,6 +33,6 @@ interface SignedOutRootComponent {
 
         data class SelectServer(val component: SelectServerComponent) : Child()
 
-        data class SignIn(val server: String, val component: SignInComponent) : Child()
+        data class SignIn(val component: SignInComponent) : Child()
     }
 }

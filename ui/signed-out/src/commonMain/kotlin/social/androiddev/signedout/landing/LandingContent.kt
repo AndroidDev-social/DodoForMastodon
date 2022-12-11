@@ -7,7 +7,7 @@
  *
  * You should have received a copy of the GNU General Public License along with Dodo. If not, see <https://www.gnu.org/licenses/>.
  */
-package social.androiddev.signedout.composables
+package social.androiddev.signedout.landing
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -39,7 +39,7 @@ import social.androiddev.common.theme.Blue
 import social.androiddev.common.theme.DodoTheme
 import social.androiddev.common.utils.AsyncImage
 import social.androiddev.common.utils.loadImageIntoPainter
-import social.androiddev.signedout.navigation.LandingComponent
+import social.androiddev.signedout.landing.LandingComponent
 
 /**
  * Landing view that delegates business logic to [LandingContent]

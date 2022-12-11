@@ -7,16 +7,15 @@
  *
  * You should have received a copy of the GNU General Public License along with Dodo. If not, see <https://www.gnu.org/licenses/>.
  */
-package social.androiddev.signedout.navigation
+package social.androiddev.signedout.landing
 
-import com.arkivanov.decompose.ComponentContext
+/**
+ * The base component describing all business logic needed for the welcome screen
+ */
+interface LandingComponent {
 
-class DefaultLandingComponent(
-    private val componentContext: ComponentContext,
-    private val onGetStartedClickedInternal: () -> Unit,
-) : LandingComponent, ComponentContext by componentContext {
-
-    override fun onGetStartedClicked() {
-        onGetStartedClickedInternal()
-    }
+    /**
+     * Callback invoked when user clicks the "Get Started" button in the Welcome Screen
+     */
+    fun onGetStartedClicked()
 }

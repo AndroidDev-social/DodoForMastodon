@@ -7,15 +7,20 @@
  *
  * You should have received a copy of the GNU General Public License along with Dodo. If not, see <https://www.gnu.org/licenses/>.
  */
-package social.androiddev.signedout.navigation
+package social.androiddev.signedout.selectserver
+
+import kotlinx.coroutines.flow.StateFlow
 
 /**
- * The base component describing all business logic needed for the welcome screen
+ * The base component describing all business logic needed for the select server screen
  */
-interface LandingComponent {
+interface SelectServerComponent {
 
-    /**
-     * Callback invoked when user clicks the "Get Started" button in the Welcome Screen
-     */
-    fun onGetStartedClicked()
+    val state: StateFlow<State>
+
+    fun onServerSelected(server: String)
+
+    data class State(
+        val selectButtonEnabled: Boolean = true,
+    )
 }

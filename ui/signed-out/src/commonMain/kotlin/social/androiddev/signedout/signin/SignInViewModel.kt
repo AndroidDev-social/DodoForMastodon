@@ -9,13 +9,27 @@
  */
 package social.androiddev.signedout.signin
 
+import com.arkivanov.essenty.instancekeeper.InstanceKeeper
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import java.net.URI
+import kotlin.coroutines.CoroutineContext
 
-// TODO USE DI
 // Add tests
-class SignInViewModel(
-    private val server: String
-) {
+internal class SignInViewModel(
+    private val server: String,
+    mainContext: CoroutineContext
+) : InstanceKeeper.Instance {
+
+    // The scope survives Android configuration changes
+    private val scope = CoroutineScope(mainContext + SupervisorJob())
+
+    private val _state = MutableStateFlow(SignInComponent.State(server))
+    val state: StateFlow<SignInComponent.State> = _state.asStateFlow()
 
     fun getSignInUrl(): String {
         // TODO
@@ -54,5 +68,9 @@ class SignInViewModel(
         private const val REDIRECT_URL_SCHEME = "https"
         private const val CLIENT_ID = "TODO"
         private const val OAUTH_SCOPES = "read+write+follow+push"
+    }
+
+    override fun onDestroy() {
+        scope.cancel() // Cancel the scope when the instance is destroyed
     }
 }

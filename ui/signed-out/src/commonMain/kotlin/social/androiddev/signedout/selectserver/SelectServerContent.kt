@@ -7,7 +7,7 @@
  *
  * You should have received a copy of the GNU General Public License along with Dodo. If not, see <https://www.gnu.org/licenses/>.
  */
-package social.androiddev.signedout.composables
+package social.androiddev.signedout.selectserver
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -26,7 +26,6 @@ import androidx.compose.ui.unit.dp
 import social.androiddev.common.composables.buttons.DodoButton
 import social.androiddev.common.composables.text.DodoTextField
 import social.androiddev.common.theme.DodoTheme
-import social.androiddev.signedout.navigation.SelectServerComponent
 
 /**
  * Select Server view that delegates business/navigation logic to [SelectServerComponent]

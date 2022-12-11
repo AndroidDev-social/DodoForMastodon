@@ -7,7 +7,7 @@
  *
  * You should have received a copy of the GNU General Public License along with Dodo. If not, see <https://www.gnu.org/licenses/>.
  */
-package social.androiddev.signedout.navigation
+package social.androiddev.signedout.root
 
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.router.stack.ChildStack
@@ -18,9 +18,14 @@ import com.arkivanov.decompose.router.stack.push
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
+import social.androiddev.signedout.landing.DefaultLandingComponent
+import social.androiddev.signedout.selectserver.DefaultSelectServerComponent
+import social.androiddev.signedout.signin.DefaultSignInComponent
+import kotlin.coroutines.CoroutineContext
 
 class DefaultSignedOutRootComponent(
     componentContext: ComponentContext,
+    private val mainContext: CoroutineContext,
     private val navigateToTimeLine: () -> Unit,
 ) : SignedOutRootComponent, ComponentContext by componentContext {
 
@@ -54,7 +59,6 @@ class DefaultSignedOutRootComponent(
 
             is Config.SignIn -> {
                 SignedOutRootComponent.Child.SignIn(
-                    server = config.server,
                     component = createSignInComponent(componentContext)
                 )
             }
@@ -73,14 +77,16 @@ class DefaultSignedOutRootComponent(
         componentContext: ComponentContext
     ) = DefaultSelectServerComponent(
         componentContext = componentContext,
-        launchOAuth = { server ->
-            navigation.push(Config.SignIn(server = server))
+        mainContext = mainContext,
+        launchOAuth = {
+            navigation.push(Config.SignIn)
         }
     )
 
     private fun createSignInComponent(
         componentContext: ComponentContext
     ) = DefaultSignInComponent(
+        mainContext = mainContext,
         componentContext = componentContext,
         onSignInSucceedInternal = navigateToTimeLine,
         onCloseClickedInternal = navigation::pop,
@@ -107,6 +113,6 @@ class DefaultSignedOutRootComponent(
         object SelectServer : Config
 
         @Parcelize
-        data class SignIn(val server: String) : Config
+        object SignIn : Config
     }
 }
