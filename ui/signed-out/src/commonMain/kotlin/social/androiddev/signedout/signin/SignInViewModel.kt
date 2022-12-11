@@ -20,8 +20,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import social.androiddev.domain.authentication.model.ApplicationOAuthToken
-import social.androiddev.domain.authentication.usecase.GetSelectedApplicationOAuthToken
 import social.androiddev.domain.authentication.usecase.CreateAccessToken
+import social.androiddev.domain.authentication.usecase.GetSelectedApplicationOAuthToken
 import java.net.URI
 import kotlin.coroutines.CoroutineContext
 
