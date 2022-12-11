@@ -31,7 +31,6 @@ actual fun SignInWebView(
 
     DisposableEffect(Unit) {
         onDispose {
-            println("OMID! onDispose")
             // Remove user session from WebView
             WebStorage.getInstance().deleteAllData()
             CookieManager.getInstance().removeAllCookies(null)
@@ -42,9 +41,6 @@ actual fun SignInWebView(
         modifier = modifier,
         factory = {
             WebView(it).apply {
-                // TODO : Clearing the user session from the web view ( remove data and AllCookies)
-                // https://github.com/AndroidDev-social/DodoForMastodon/pull/90#discussion_r1038897643
-
                 setBackgroundColor(Color.TRANSPARENT)
 
                 webViewClient = object : WebViewClient() {
