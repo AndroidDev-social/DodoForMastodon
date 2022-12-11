@@ -18,7 +18,7 @@ import social.androiddev.domain.authentication.repository.AuthenticationReposito
 internal class AuthenticationRepositoryImpl(
     private val mastodonApi: MastodonApi,
     private val database: AuthenticationDatabase,
-    private val keyValueStorage: DodoStorageSettings,
+    private val settings: DodoStorageSettings,
 ) : AuthenticationRepository {
 
     override suspend fun createApplicationClient(
@@ -50,6 +50,6 @@ internal class AuthenticationRepositoryImpl(
             client_id = token.clientId,
             client_secret = token.clientSecret,
         )
-        keyValueStorage.currentDomain = domain
+        settings.currentDomain = domain
     }
 }
