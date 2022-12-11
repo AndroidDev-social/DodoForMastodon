@@ -16,13 +16,18 @@ import kotlinx.coroutines.flow.StateFlow
  */
 interface SignInComponent {
 
-    fun onSignInSucceed()
-
     fun onCloseClicked()
+
+    fun onParseResponseFromUrl(url: String)
+
+    fun onErrorFromOAuth(error: String)
 
     val state: StateFlow<State>
 
     data class State(
-        val server: String
+        val server: String,
+        val oauthAuthorizeUrl: String,
+        val redirectUri: String,
+        val error: String? = null,
     )
 }

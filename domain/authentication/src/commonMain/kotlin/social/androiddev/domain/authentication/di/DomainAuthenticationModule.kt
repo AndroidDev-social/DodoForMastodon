@@ -12,6 +12,7 @@ package social.androiddev.domain.authentication.di
 import org.koin.core.module.Module
 import org.koin.dsl.module
 import social.androiddev.domain.authentication.usecase.AuthenticateClient
+import social.androiddev.domain.authentication.usecase.GetSelectedApplicationOAuthToken
 
 /**
  * Koin module containing all koin/bean definitions for
@@ -21,6 +22,12 @@ val domainAuthModule: Module = module {
 
     factory {
         AuthenticateClient(
+            authenticationRepository = get(),
+        )
+    }
+
+    factory {
+        GetSelectedApplicationOAuthToken(
             authenticationRepository = get(),
         )
     }

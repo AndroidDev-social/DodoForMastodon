@@ -29,9 +29,9 @@ internal class SelectServerViewModel(
         val success = authenticateClient(
             domain = server,
             clientName = "Dodo",
-            redirectURIs = REDIRECT_URIS,
+            redirectURIs = "oauth2redirect://$server",
             scopes = OAUTH_SCOPES,
-            website = null,
+            website = "https://$server",
         )
 
         return if (success) {
@@ -49,7 +49,6 @@ internal class SelectServerViewModel(
 
     companion object {
         private const val OAUTH_SCOPES = "read write follow push"
-        private const val REDIRECT_URIS = "redirect_uris=urn:ietf:wg:oauth:2.0:oob"
     }
 
 }

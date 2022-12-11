@@ -15,20 +15,16 @@ import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.AndroidView
 
 @Composable
 actual fun SignInWebView(
-    server: String,
+    url: String,
     modifier: Modifier,
-    onSignedIn: () -> Unit,
-    onFailed: (error: String) -> Unit
+    onFailed: (error: String) -> Unit,
+    onParseResponseFromUrl: (String) -> Unit,
 ) {
-
-    // TODO inject the viewModel via DI
-    val signInViewModel = remember(server) { SignInViewModel(server) }
 
     AndroidView(
         modifier = modifier,
@@ -71,11 +67,7 @@ actual fun SignInWebView(
                     }
 
                     fun shouldOverrideUrlLoading(url: String): Boolean {
-                        signInViewModel.resolveSignInStatusFromUrl(
-                            url = url,
-                            onSignedIn = onSignedIn,
-                            onFailed = onFailed
-                        )
+                        onParseResponseFromUrl(url)
                         return false
                     }
                 }
@@ -83,7 +75,7 @@ actual fun SignInWebView(
                 // JavaScript needs to be enabled because otherwise 2FA does not work in some instances
                 settings.javaScriptEnabled = true
 
-                loadUrl(signInViewModel.getSignInUrl())
+                loadUrl(url)
             }
         }
 

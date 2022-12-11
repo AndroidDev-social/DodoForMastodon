@@ -24,6 +24,7 @@ import social.androiddev.common.network.model.Application
 import social.androiddev.common.network.model.AvailableInstance
 import social.androiddev.common.network.model.Instance
 import social.androiddev.common.network.model.NewOauthApplication
+import social.androiddev.common.network.model.Token
 import social.androiddev.common.network.util.runCatchingIgnoreCancelled
 
 internal class MastodonApiKtor(
@@ -33,6 +34,34 @@ internal class MastodonApiKtor(
     override suspend fun listInstances(): Result<List<AvailableInstance>> {
         return runCatchingIgnoreCancelled {
             httpClient.get("https://api.joinmastodon.org/servers").body()
+        }
+    }
+
+    override suspend fun createAccessToken(
+        domain: String,
+        clientId: String,
+        clientSecret: String,
+        redirectUri: String,
+        grantType: String,
+        code: String,
+        scope: String
+    ): Result<Token> {
+        return runCatchingIgnoreCancelled {
+            httpClient.post {
+                url {
+                    protocol = URLProtocol.HTTPS
+                    host = domain
+                    path("/oauth/token")
+                }
+                formData {
+                    append("client_id", clientId)
+                    append("client_secret", clientSecret)
+                    append("redirect_uri", redirectUri)
+                    append("grant_type", grantType)
+                    append("code", code)
+                    append("scope", scope)
+                }
+            }.body()
         }
     }
 

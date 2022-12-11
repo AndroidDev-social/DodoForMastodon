@@ -30,7 +30,8 @@ internal class AuthenticationDatabaseTests {
         database.applicationQueries.insertApplication(
             instance = "androiddev.social",
             client_id = "test_client_id",
-            client_secret = "test_client_secret"
+            client_secret = "test_client_secret",
+
         )
 
         // then

@@ -14,13 +14,13 @@ import kotlinx.serialization.json.Json
 import org.koin.core.module.Module
 import org.koin.dsl.module
 import social.androiddev.common.persistence.AuthenticationDatabase
-import social.androiddev.common.persistence.localstorage.DodoStorageSettings
-import social.androiddev.common.persistence.localstorage.DodoStorageSettingsImpl
+import social.androiddev.common.persistence.localstorage.DodoAuthStorage
+import social.androiddev.common.persistence.localstorage.DodoAuthStorageImpl
 import social.androiddev.common.persistence.provideDatabaseDriver
 
 actual val persistenceModule: Module = module {
-    single<DodoStorageSettings> {
-        DodoStorageSettingsImpl(
+    single<DodoAuthStorage> {
+        DodoAuthStorageImpl(
             settings = NSUserDefaultsSettings
                 .Factory()
                 .create("DodoSettings"),

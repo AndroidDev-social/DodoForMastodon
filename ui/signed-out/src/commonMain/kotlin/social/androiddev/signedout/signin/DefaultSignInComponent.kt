@@ -12,6 +12,10 @@ package social.androiddev.signedout.signin
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.essenty.instancekeeper.getOrCreate
 import kotlinx.coroutines.flow.StateFlow
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
+import social.androiddev.domain.authentication.usecase.CreateAccessToken
+import social.androiddev.domain.authentication.usecase.GetSelectedApplicationOAuthToken
 import kotlin.coroutines.CoroutineContext
 
 class DefaultSignInComponent(
@@ -19,23 +23,30 @@ class DefaultSignInComponent(
     private val componentContext: ComponentContext,
     private val onSignInSucceedInternal: () -> Unit,
     private val onCloseClickedInternal: () -> Unit,
-) : SignInComponent, ComponentContext by componentContext {
+) : SignInComponent, KoinComponent, ComponentContext by componentContext {
 
-    // private val Get use case for sever
+    private val getSelectedApplicationOAuthToken: GetSelectedApplicationOAuthToken by inject()
+    private val createAccessToken: CreateAccessToken by inject()
+
     private val viewModel = instanceKeeper.getOrCreate {
         SignInViewModel(
             mainContext = mainContext,
-            server = "", // TODO get from pref
+            getSelectedApplicationOAuthToken = getSelectedApplicationOAuthToken,
+            createAccessToken = createAccessToken,
+            onSignedIn = onSignInSucceedInternal,
         )
     }
 
     override val state: StateFlow<SignInComponent.State> = viewModel.state
 
-    override fun onSignInSucceed() {
-        onSignInSucceedInternal()
-    }
-
     override fun onCloseClicked() {
         onCloseClickedInternal()
+    }
+
+    override fun onErrorFromOAuth(error: String) {
+        viewModel.onErrorFromOAuth(error)
+    }
+    override fun onParseResponseFromUrl(url: String) {
+        viewModel.parseResultFromUrl(url)
     }
 }

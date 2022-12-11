@@ -11,31 +11,24 @@ package social.androiddev.signedout.signin
 
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.awt.SwingPanel
 
 @Composable
 actual fun SignInWebView(
-    server: String,
+    url: String,
     modifier: Modifier,
-    onSignedIn: () -> Unit,
     onFailed: (error: String) -> Unit,
+    onParseResponseFromUrl: (String) -> Unit,
 ) {
-    // TODO inject the viewModel via DI
-    val signInViewModel = remember(server) { SignInViewModel(server) }
 
     SwingPanel(
         background = MaterialTheme.colors.surface,
         factory = {
             JFXWebView(
-                url = signInViewModel.getSignInUrl(),
-                onUrlOfCurrentPageChanged = {
-                    signInViewModel.resolveSignInStatusFromUrl(
-                        url = it,
-                        onSignedIn = onSignedIn,
-                        onFailed = onFailed
-                    )
+                url = url,
+                onUrlOfCurrentPageChanged = { url ->
+                    onParseResponseFromUrl(url)
                 },
             )
         },

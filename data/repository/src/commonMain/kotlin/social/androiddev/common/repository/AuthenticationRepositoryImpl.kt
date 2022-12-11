@@ -11,14 +11,15 @@ package social.androiddev.common.repository
 
 import social.androiddev.common.network.MastodonApi
 import social.androiddev.common.persistence.AuthenticationDatabase
-import social.androiddev.common.persistence.localstorage.DodoStorageSettings
+import social.androiddev.common.persistence.localstorage.DodoAuthStorage
+import social.androiddev.domain.authentication.model.ApplicationOAuthToken
 import social.androiddev.domain.authentication.model.NewAppOAuthToken
 import social.androiddev.domain.authentication.repository.AuthenticationRepository
 
 internal class AuthenticationRepositoryImpl(
     private val mastodonApi: MastodonApi,
     private val database: AuthenticationDatabase,
-    private val settings: DodoStorageSettings,
+    private val settings: DodoAuthStorage,
 ) : AuthenticationRepository {
 
     override suspend fun createApplicationClient(
@@ -52,4 +53,42 @@ internal class AuthenticationRepositoryImpl(
         )
         settings.currentDomain = domain
     }
+
+    override suspend fun getApplicationOAuthToken(server: String): ApplicationOAuthToken? {
+        return database
+            .applicationQueries
+            .selectByServer(server)
+            .executeAsOneOrNull()
+            ?.let {
+                ApplicationOAuthToken(
+                    server = it.instance,
+                    clientId = it.client_id,
+                    clientSecret = it.client_secret,
+                    redirectUri = it.client_secret // TODO fix
+                )
+            }
+    }
+
+    override suspend fun createAccessToken(authCode: String, server: String, scope: String): String? {
+        return getApplicationOAuthToken(server)?.let { oAuthToken ->
+            mastodonApi
+                .createAccessToken(
+                    domain = server,
+                    clientId = oAuthToken.clientId,
+                    clientSecret = oAuthToken.clientSecret,
+                    redirectUri = oAuthToken.redirectUri,
+                    grantType = "authorization_code",
+                    code = authCode,
+                    scope = "read write follow push",
+                )
+                .getOrNull()
+                ?.accessToken
+        }
+    }
+
+    override fun saveAccessToken(server: String, token: String) {
+        settings.saveAccessToken(server = server, token = token)
+    }
+
+    override val selectedServer: String? = settings.currentDomain
 }
