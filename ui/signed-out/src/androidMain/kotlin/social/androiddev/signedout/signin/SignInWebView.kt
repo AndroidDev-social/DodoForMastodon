@@ -29,6 +29,15 @@ actual fun SignInWebView(
     shouldCancelLoadingUrl: (url: String) -> Boolean,
 ) {
 
+    DisposableEffect(Unit) {
+        onDispose {
+            println("OMID! onDispose")
+            // Remove user session from WebView
+            WebStorage.getInstance().deleteAllData()
+            CookieManager.getInstance().removeAllCookies(null)
+        }
+    }
+
     AndroidView(
         modifier = modifier,
         factory = {
@@ -86,15 +95,6 @@ actual fun SignInWebView(
                 settings.userAgentString += " Dodo/1.0"
 
                 loadUrl(url)
-
-                DisposableEffect(Unit) {
-                    onDispose {
-                        println("OMID! onDispose")
-                        // Remove user session from WebView
-                        WebStorage.getInstance().deleteAllData()
-                        CookieManager.getInstance().removeAllCookies(null)
-                    }
-                }
             }
         }
     )
