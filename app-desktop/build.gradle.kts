@@ -19,6 +19,7 @@ kotlin {
                 implementation(projects.ui.common)
                 implementation(libs.com.arkivanov.decompose)
                 implementation(libs.com.arkivanov.decompose.extensions.compose.jetbrains)
+                implementation(libs.io.insert.koin.core)
             }
         }
     }

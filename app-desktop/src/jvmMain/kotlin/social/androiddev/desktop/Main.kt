@@ -22,7 +22,7 @@ import social.androiddev.common.theme.DodoTheme
 import social.androiddev.root.composables.RootContent
 import social.androiddev.root.navigation.DefaultRootComponent
 
-@OptIn(ExperimentalDecomposeApi::class)
+@OptIn(ExperimentalDecomposeApi::class) // Using LifecycleController
 fun main() {
 
     val lifecycle = LifecycleRegistry()
