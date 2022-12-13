@@ -15,18 +15,28 @@ import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
 import com.arkivanov.decompose.DefaultComponentContext
+import com.arkivanov.decompose.ExperimentalDecomposeApi
 import com.arkivanov.decompose.extensions.compose.jetbrains.lifecycle.LifecycleController
 import com.arkivanov.essenty.lifecycle.LifecycleRegistry
+import kotlinx.coroutines.Dispatchers
+import org.koin.core.context.startKoin
+import social.androiddev.common.di.appModule
 import social.androiddev.common.theme.DodoTheme
 import social.androiddev.root.composables.RootContent
 import social.androiddev.root.navigation.DefaultRootComponent
 
+@OptIn(ExperimentalDecomposeApi::class) // Using LifecycleController
 fun main() {
+
+    startKoin {
+        modules(appModule())
+    }
 
     val lifecycle = LifecycleRegistry()
     // Create the root component before starting Compose
     val root = DefaultRootComponent(
-        componentContext = DefaultComponentContext(lifecycle)
+        componentContext = DefaultComponentContext(lifecycle),
+        mainContext = Dispatchers.Main
     )
 
     application {

@@ -9,49 +9,116 @@
  */
 package social.androiddev.signedout.signin
 
+import com.arkivanov.essenty.instancekeeper.InstanceKeeper
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+import social.androiddev.domain.authentication.model.ApplicationOAuthToken
+import social.androiddev.domain.authentication.usecase.CreateAccessToken
+import social.androiddev.domain.authentication.usecase.GetSelectedApplicationOAuthToken
+import social.androiddev.signedout.util.encode
 import java.net.URI
+import kotlin.coroutines.CoroutineContext
 
-// TODO USE DI
-// Add tests
-class SignInViewModel(
-    private val server: String
-) {
+// TODO Add tests
+internal class SignInViewModel(
+    mainContext: CoroutineContext,
+    private val getSelectedApplicationOAuthToken: GetSelectedApplicationOAuthToken,
+    private val createAccessToken: CreateAccessToken,
+    private val onSignedIn: () -> Unit,
+) : InstanceKeeper.Instance {
 
-    fun getSignInUrl(): String {
-        // TODO
-        //  Use the right client id and redirect url and get them from a secure location
-        //  build url with an url builder my be using Ktor !!
-        return "https://$server/oauth/authorize?client_id=$CLIENT_ID&scope=$OAUTH_SCOPES&redirect_uri=https://dodomastodon.com&response_type=code"
-    }
+    // The scope survives Android configuration changes
+    private val scope = CoroutineScope(mainContext + SupervisorJob())
 
-    fun resolveSignInStatusFromUrl(
-        url: String,
-        onSignedIn: () -> Unit,
-        onFailed: (error: String) -> Unit
-    ) {
-        val uri = URI(url)
-        if (isOauthUrl(uri)) {
-            // TODO enhance the impl to extract uri query params
-            // see Uri.getQueryParameter in Android sdk
-            if (uri.query.contains("error")) {
-                val error = uri.query.replace("error=", "")
-                onFailed(error)
-            } else {
-                // TODO save code in the user session
-                val code = uri.query.replace("code=", "")
-                onSignedIn()
+    private val _state = MutableStateFlow(createInitialState())
+    val state: StateFlow<SignInComponent.State> = _state.asStateFlow()
+
+    private fun createInitialState() =
+        SignInComponent.State(oauthAuthorizeUrl = "", redirectUri = "", server = "")
+
+    init {
+        scope.launch {
+            val token = getSelectedApplicationOAuthToken()
+            _state.update {
+                it.copy(
+                    server = token.server,
+                    redirectUri = token.redirectUri,
+                    oauthAuthorizeUrl = createOAuthAuthorizeUrl(token),
+                )
             }
         }
     }
 
-    private fun isOauthUrl(uri: URI) =
-        uri.scheme == REDIRECT_URL_SCHEME && uri.host == REDIRECT_URL_HOST
+    private fun createOAuthAuthorizeUrl(token: ApplicationOAuthToken): String {
+        val b = StringBuilder().apply {
+            append("https://${token.server}")
+            append("/oauth/authorize?client_id=${token.clientId}")
+            append("&scope=${"read write follow push".encode()}")
+            append("&redirect_uri=${token.redirectUri.encode()}")
+            append("&response_type=code")
+        }
+        return b.toString()
+    }
 
-    companion object {
-        // TODO Use the right redirect url host and scheme get them from a secure location
-        private const val REDIRECT_URL_HOST = "dodomastodon.com"
-        private const val REDIRECT_URL_SCHEME = "https"
-        private const val CLIENT_ID = "TODO"
-        private const val OAUTH_SCOPES = "read+write+follow+push"
+    fun onErrorFromOAuth(error: String) {
+        displayErrorWithDuration(error)
+    }
+
+    private fun displayErrorWithDuration(error: String) {
+        _state.update { it.copy(error = error) }
+        scope.launch {
+            delay(3_000)
+            _state.update { it.copy(error = null) }
+        }
+    }
+
+    fun shouldCancelLoadingUrl(url: String): Boolean {
+        val uri = URI(url)
+        val query = uri.query
+
+        if (!url.contains(_state.value.redirectUri)) {
+            return false
+        }
+
+        if (query.isNullOrEmpty()) {
+            return false
+        }
+
+        return when {
+            query.contains("error=") -> {
+                val error = query.replace("error=", "")
+                displayErrorWithDuration(error)
+                true
+            }
+
+            query.contains("code=") -> {
+                val code = query.replace("code=", "")
+                scope.launch {
+                    val success = createAccessToken(
+                        authCode = code,
+                        server = _state.value.server
+                    )
+                    if (success) {
+                        onSignedIn()
+                    } else {
+                        displayErrorWithDuration("An error occurred.")
+                    }
+                }
+                true
+            }
+
+            else -> false
+        }
+    }
+
+    override fun onDestroy() {
+        scope.cancel() // Cancel the scope when the instance is destroyed
     }
 }

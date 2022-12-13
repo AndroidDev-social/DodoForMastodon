@@ -18,14 +18,15 @@ androidx-compose-foundation = "1.2.1"
 com-arkivanov-decompose = "1.0.0-alpha-07"
 org-xerial = "3.8.10.2"
 io-insert-koin = "3.2.0"
-
+com-russhwolf = "1.0.0-RC"
+kotlinx-serialization = "1.4.0"
 
 [libraries]
 # plugins
 org-jetbrains-compose-gradle-plugin = { module = "org.jetbrains.compose:compose-gradle-plugin", version.ref = "org-jetbrains-compose" }
 org-jetbrains-kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "org-jetbrains-kotlin" }
 com-android-tools-build-gradle = { module = "com.android.tools.build:gradle", version.ref = "com-android-tools-build" }
-org-jetbrains-kotlin-serialization = { module = "org.jetbrains.kotlin:kotlin-serialization", version.ref = "org-jetbrains-kotlin" }
+org-jetbrains-kotlin-serialization-plugin = { module = "org.jetbrains.kotlin:kotlin-serialization", version.ref = "org-jetbrains-kotlin" }
 com-squareup-sqldelight-gradle-plugin = { module = "com.squareup.sqldelight:gradle-plugin", version.ref = "com-squareup-sqldelight" }
 com-diffplug-spotless-gradle-plugin = { module = "com.diffplug.spotless:spotless-plugin-gradle", version.ref = "com-diffplug-spotless" }
 com-google-osdetector-gradle-plugin = { module = "com.google.gradle:osdetector-gradle-plugin", version.ref = "com-google-osdetector" }
@@ -43,6 +44,8 @@ io-insert-koin-core = { module = "io.insert-koin:koin-core", version.ref = "io-i
 io-insert-koin-test = { module = "io.insert-koin:koin-test", version.ref = "io-insert-koin" }
 io-insert-koin-android = { module = "io.insert-koin:koin-android", version.ref = "io-insert-koin" }
 
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "org-jetbrains-kotlinx-coroutines" }
+kotlinx-coroutines-javafx = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-javafx", version.ref = "org-jetbrains-kotlinx-coroutines" }
 org-jetbrains-kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "org-jetbrains-kotlinx-coroutines" }
 org-jetbrains-kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "org-jetbrains-kotlinx" }
 
@@ -63,5 +66,7 @@ androidx-compose-foundation = { module = "androidx.compose.foundation:foundation
 com-arkivanov-decompose = { module = "com.arkivanov.decompose:decompose", version.ref = "com-arkivanov-decompose" }
 com-arkivanov-decompose-extensions-compose-jetbrains = { module = "com.arkivanov.decompose:extensions-compose-jetbrains", version.ref = "com-arkivanov-decompose" }
 com-arkivanov-decompose-extensions-compose-jetpack = { module = "com.arkivanov.decompose:extensions-compose-jetpack", version.ref = "com-arkivanov-decompose" }
+multiplatform-settings = { module = "com.russhwolf:multiplatform-settings", version.ref = "com-russhwolf" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
 
 [plugins]

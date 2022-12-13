@@ -10,7 +10,9 @@
 package social.androiddev.common.di
 
 import social.androiddev.common.network.di.networkModule
+import social.androiddev.common.persistence.di.persistenceModule
 import social.androiddev.common.repository.di.repositoryModule
+import social.androiddev.domain.authentication.di.domainAuthModule
 
 /**
  * Base Koin module shared across all apps (android, iOS, Desktop)
@@ -18,5 +20,7 @@ import social.androiddev.common.repository.di.repositoryModule
 fun appModule() = listOf(
     platformModule,
     networkModule,
+    persistenceModule,
+    domainAuthModule,
     repositoryModule,
 )

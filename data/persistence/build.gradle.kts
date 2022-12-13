@@ -3,6 +3,7 @@ plugins {
     id("com.android.library")
     id("com.squareup.sqldelight")
     id("social.androiddev.code-quality")
+    kotlin("plugin.serialization")
 }
 
 
@@ -50,6 +51,9 @@ kotlin {
         // shared
         val commonMain by getting {
             dependencies {
+                implementation(libs.multiplatform.settings)
+                implementation(libs.kotlinx.serialization.json)
+                implementation(libs.io.insert.koin.core)
             }
         }
 

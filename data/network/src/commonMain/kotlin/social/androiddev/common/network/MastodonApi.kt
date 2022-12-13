@@ -13,6 +13,7 @@ import social.androiddev.common.network.model.Application
 import social.androiddev.common.network.model.AvailableInstance
 import social.androiddev.common.network.model.Instance
 import social.androiddev.common.network.model.NewOauthApplication
+import social.androiddev.common.network.model.Token
 
 interface MastodonApi {
 
@@ -44,6 +45,20 @@ interface MastodonApi {
         scopes: String,
         website: String?,
     ): Result<NewOauthApplication>
+
+    /**
+     * Obtain an access token that will authenticate our requests as the authorized user.
+     * @see https://docs.joinmastodon.org/client/authorized/#token
+     */
+    suspend fun createAccessToken(
+        domain: String,
+        clientId: String,
+        clientSecret: String,
+        redirectUri: String,
+        grantType: String,
+        code: String,
+        scope: String
+    ): Result<Token>
 
     /**
      * Confirm that the app’s OAuth2 credentials work.

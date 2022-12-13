@@ -11,4 +11,4 @@ package social.androiddev.common.persistence
 
 import com.squareup.sqldelight.db.SqlDriver
 
-expect suspend fun provideTestSqlDriver(schema: SqlDriver.Schema): SqlDriver
+expect fun provideTestSqlDriver(schema: SqlDriver.Schema): SqlDriver

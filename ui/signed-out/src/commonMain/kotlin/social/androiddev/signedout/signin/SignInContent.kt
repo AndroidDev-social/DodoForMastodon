@@ -27,23 +27,19 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import kotlinx.coroutines.delay
-import social.androiddev.signedout.navigation.SignInComponent
 
 @Composable
 fun SignInContent(
-    server: String,
     component: SignInComponent,
     modifier: Modifier = Modifier,
 ) {
+
+    val state by component.state.collectAsState()
 
     Column(
         modifier = modifier
@@ -64,8 +60,7 @@ fun SignInContent(
             }
         )
 
-        var errorVisibilityState by remember { mutableStateOf(false) }
-        AnimatedVisibility(errorVisibilityState) {
+        AnimatedVisibility(state.error != null) {
             Box(
                 modifier = Modifier.fillMaxWidth()
                     .wrapContentHeight()
@@ -89,17 +84,14 @@ fun SignInContent(
                     style = MaterialTheme.typography.subtitle2
                 )
             }
-
-            LaunchedEffect(errorVisibilityState) {
-                delay(3000)
-                errorVisibilityState = false
-            }
         }
-        SignInWebView(
-            server = server,
-            modifier = Modifier.fillMaxSize(),
-            onSignedIn = { component.onSignInSucceed() },
-            onFailed = { errorVisibilityState = true }
-        )
+        if (state.oauthAuthorizeUrl.isNotEmpty()) {
+            SignInWebView(
+                url = state.oauthAuthorizeUrl,
+                modifier = Modifier.fillMaxSize(),
+                shouldCancelLoadingUrl = component::shouldCancelLoadingUrl,
+                onWebError = component::onErrorFromOAuth
+            )
+        }
     }
 }

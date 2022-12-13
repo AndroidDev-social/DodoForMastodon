@@ -19,13 +19,25 @@ class AuthenticateClient(
         domain: String,
         clientName: String,
         redirectURIs: String,
-        scopes: String = "read write follow push",
+        scopes: String,
         website: String? = null,
-    ): Boolean = authenticationRepository.createApplicationClient(
-        domain = domain,
-        clientName = clientName,
-        redirectUris = redirectURIs,
-        scopes = scopes,
-        website = website
-    )
+    ): Boolean {
+        val oAuthToken = authenticationRepository.createApplicationClient(
+            domain = domain,
+            clientName = clientName,
+            redirectUris = redirectURIs,
+            scopes = scopes,
+            website = website,
+        )
+
+        return if (oAuthToken != null) {
+            authenticationRepository.saveApplication(
+                token = oAuthToken,
+                domain = domain,
+            )
+            true
+        } else {
+            false
+        }
+    }
 }

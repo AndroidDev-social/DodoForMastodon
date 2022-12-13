@@ -12,7 +12,7 @@ package social.androiddev.root.navigation
 import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.value.Value
 import social.androiddev.signedin.navigation.SignedInRootComponent
-import social.androiddev.signedout.navigation.SignedOutRootComponent
+import social.androiddev.signedout.root.SignedOutRootComponent
 
 /**
  * The base component describing all business logic needed for the root entry point

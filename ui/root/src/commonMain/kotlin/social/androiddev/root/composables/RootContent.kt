@@ -22,8 +22,8 @@ import social.androiddev.root.navigation.RootComponent
 import social.androiddev.root.navigation.SplashComponent
 import social.androiddev.signedin.composables.SignedInRootContent
 import social.androiddev.signedin.navigation.SignedInRootComponent
-import social.androiddev.signedout.composables.SignedOutRootContent
-import social.androiddev.signedout.navigation.SignedOutRootComponent
+import social.androiddev.signedout.root.SignedOutRootComponent
+import social.androiddev.signedout.root.SignedOutRootContent
 
 /**
  * App root composable that delegates business logic

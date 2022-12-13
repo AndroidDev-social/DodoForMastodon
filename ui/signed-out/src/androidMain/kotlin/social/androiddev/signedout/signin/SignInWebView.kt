@@ -10,35 +10,41 @@
 package social.androiddev.signedout.signin
 
 import android.graphics.Color
+import android.webkit.CookieManager
 import android.webkit.WebResourceError
 import android.webkit.WebResourceRequest
+import android.webkit.WebStorage
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.AndroidView
 
 @Composable
 actual fun SignInWebView(
-    server: String,
     modifier: Modifier,
-    onSignedIn: () -> Unit,
-    onFailed: (error: String) -> Unit
+    url: String,
+    onWebError: (message: String) -> Unit,
+    shouldCancelLoadingUrl: (url: String) -> Boolean,
 ) {
 
-    // TODO inject the viewModel via DI
-    val signInViewModel = remember(server) { SignInViewModel(server) }
+    DisposableEffect(Unit) {
+        onDispose {
+            // Remove user session from WebView
+            WebStorage.getInstance().deleteAllData()
+            CookieManager.getInstance().removeAllCookies(null)
+        }
+    }
 
     AndroidView(
         modifier = modifier,
         factory = {
             WebView(it).apply {
-                // TODO : Clearing the user session from the web view ( remove data and AllCookies)
-                // https://github.com/AndroidDev-social/DodoForMastodon/pull/90#discussion_r1038897643
-
                 setBackgroundColor(Color.TRANSPARENT)
+
                 webViewClient = object : WebViewClient() {
+
                     override fun onPageFinished(view: WebView?, url: String?) {
                     }
 
@@ -47,7 +53,7 @@ actual fun SignInWebView(
                         request: WebResourceRequest,
                         error: WebResourceError
                     ) {
-                        onFailed(error.toString())
+                        onWebError(error.toString())
                     }
 
                     override fun shouldOverrideUrlLoading(
@@ -71,21 +77,21 @@ actual fun SignInWebView(
                     }
 
                     fun shouldOverrideUrlLoading(url: String): Boolean {
-                        signInViewModel.resolveSignInStatusFromUrl(
-                            url = url,
-                            onSignedIn = onSignedIn,
-                            onFailed = onFailed
-                        )
-                        return false
+                        return shouldCancelLoadingUrl(url)
                     }
                 }
 
                 // JavaScript needs to be enabled because otherwise 2FA does not work in some instances
                 settings.javaScriptEnabled = true
+                settings.allowContentAccess = false
+                settings.allowFileAccess = false
+                settings.databaseEnabled = false
+                settings.displayZoomControls = false
+                settings.javaScriptCanOpenWindowsAutomatically = false
+                settings.userAgentString += " Dodo/1.0"
 
-                loadUrl(signInViewModel.getSignInUrl())
+                loadUrl(url)
             }
         }
-
     )
 }
