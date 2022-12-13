@@ -47,6 +47,7 @@ kotlin {
                 implementation(projects.data.persistence)
                 implementation(projects.domain.authentication)
                 implementation(libs.io.insert.koin.core)
+                implementation(libs.kotlinx.coroutines.core)
             }
         }
 

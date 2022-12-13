@@ -9,6 +9,7 @@
  */
 package social.androiddev.common.repository.di
 
+import kotlinx.coroutines.Dispatchers
 import org.koin.core.module.Module
 import org.koin.dsl.module
 import social.androiddev.common.repository.AuthenticationRepositoryImpl
@@ -26,6 +27,7 @@ val repositoryModule: Module = module {
             mastodonApi = get(),
             database = get(),
             settings = get(),
+            ioCoroutineContext = Dispatchers.Default
         )
     }
 }

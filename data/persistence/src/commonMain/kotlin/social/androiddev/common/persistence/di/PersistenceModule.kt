@@ -16,3 +16,6 @@ import org.koin.core.module.Module
  * bean definitions for persistent storage related classes
  */
 expect val persistenceModule: Module
+
+internal const val AUTH_DB_NAME = "authentication.db"
+internal const val AUTH_SETTINGS_NAME = "DodoAuthSettings"

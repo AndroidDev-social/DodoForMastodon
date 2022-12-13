@@ -33,7 +33,8 @@ interface AuthenticationRepository {
         scope: String,
         grantType: String,
     ): String?
-    fun saveAccessToken(server: String, token: String)
+
+    suspend fun saveAccessToken(server: String, token: String)
 
     val selectedServer: String?
 

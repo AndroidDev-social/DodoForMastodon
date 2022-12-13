@@ -28,7 +28,7 @@ actual val persistenceModule: Module = module {
                 .Factory(
                     context = get(),
                 )
-                .create("DodoAuthSettings"),
+                .create(AUTH_SETTINGS_NAME),
             json = Json {
                 ignoreUnknownKeys = true
                 encodeDefaults = false
@@ -40,7 +40,7 @@ actual val persistenceModule: Module = module {
         val driver = AndroidSqliteDriver(
             schema = AuthenticationDatabase.Schema,
             context = get(),
-            name = "authentication.db",
+            name = AUTH_DB_NAME,
         )
         AuthenticationDatabase(driver)
     }

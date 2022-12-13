@@ -24,7 +24,7 @@ interface DodoAuthStorage {
     /**
      * Save the @param token keyed by @param server
      */
-    fun saveAccessToken(server: String, token: String)
+    suspend fun saveAccessToken(server: String, token: String)
 
     /**
      * Get the Access token for @param server

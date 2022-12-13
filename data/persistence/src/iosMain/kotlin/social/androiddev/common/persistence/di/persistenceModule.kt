@@ -26,7 +26,7 @@ actual val persistenceModule: Module = module {
         DodoAuthStorageImpl(
             settings = NSUserDefaultsSettings
                 .Factory()
-                .create("DodoAuthSettings"),
+                .create(AUTH_SETTINGS_NAME),
             json = Json {
                 ignoreUnknownKeys = true
                 encodeDefaults = false
@@ -35,7 +35,7 @@ actual val persistenceModule: Module = module {
     }
 
     single {
-        val driver = NativeSqliteDriver(schema = AuthenticationDatabase.Schema, name = "authentication.db")
+        val driver = NativeSqliteDriver(schema = AuthenticationDatabase.Schema, name = AUTH_DB_NAME)
         AuthenticationDatabase(driver)
     }
 }

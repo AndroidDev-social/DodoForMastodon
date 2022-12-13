@@ -51,7 +51,7 @@ internal class DodoAuthStorageImpl(
 
     override fun getAccessToken(server: String): String? = memCache[server]?.token
 
-    override fun saveAccessToken(server: String, token: String) {
+    override suspend fun saveAccessToken(server: String, token: String) {
         memCache[server] = AccessToken(token = token, server = server)
         diskCache = memCache
     }

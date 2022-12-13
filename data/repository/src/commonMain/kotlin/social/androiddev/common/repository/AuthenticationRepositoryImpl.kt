@@ -9,17 +9,20 @@
  */
 package social.androiddev.common.repository
 
+import kotlinx.coroutines.withContext
 import social.androiddev.common.network.MastodonApi
 import social.androiddev.common.persistence.AuthenticationDatabase
 import social.androiddev.common.persistence.localstorage.DodoAuthStorage
 import social.androiddev.domain.authentication.model.ApplicationOAuthToken
 import social.androiddev.domain.authentication.model.NewAppOAuthToken
 import social.androiddev.domain.authentication.repository.AuthenticationRepository
+import kotlin.coroutines.CoroutineContext
 
 internal class AuthenticationRepositoryImpl(
     private val mastodonApi: MastodonApi,
     private val database: AuthenticationDatabase,
     private val settings: DodoAuthStorage,
+    private val ioCoroutineContext: CoroutineContext,
 ) : AuthenticationRepository {
 
     override suspend fun createApplicationClient(
@@ -96,8 +99,10 @@ internal class AuthenticationRepositoryImpl(
         }
     }
 
-    override fun saveAccessToken(server: String, token: String) {
-        settings.saveAccessToken(server = server, token = token)
+    override suspend fun saveAccessToken(server: String, token: String) {
+        withContext(ioCoroutineContext) {
+            settings.saveAccessToken(server = server, token = token)
+        }
     }
 
     override val selectedServer: String? = settings.currentDomain
