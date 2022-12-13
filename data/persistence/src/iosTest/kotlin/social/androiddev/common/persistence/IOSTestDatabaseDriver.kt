@@ -9,9 +9,23 @@
  */
 package social.androiddev.common.persistence
 
+import co.touchlab.sqliter.DatabaseConfiguration
 import com.squareup.sqldelight.db.SqlDriver
 import com.squareup.sqldelight.drivers.native.NativeSqliteDriver
+import com.squareup.sqldelight.drivers.native.wrapConnection
 
 actual fun provideTestSqlDriver(schema: SqlDriver.Schema): SqlDriver {
-    return NativeSqliteDriver(schema = schema, name = "authentication.db")
+    return NativeSqliteDriver(
+        DatabaseConfiguration(
+            name = "authentication.db",
+            version = schema.version,
+            create = { connection ->
+                wrapConnection(connection) { schema.create(it) }
+            },
+            upgrade = { connection, oldVersion, newVersion ->
+                wrapConnection(connection) { schema.migrate(it, oldVersion, newVersion) }
+            },
+            inMemory = true
+        )
+    )
 }
