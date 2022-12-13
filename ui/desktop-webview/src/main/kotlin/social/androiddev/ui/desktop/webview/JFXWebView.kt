@@ -7,7 +7,7 @@
  *
  * You should have received a copy of the GNU General Public License along with Dodo. If not, see <https://www.gnu.org/licenses/>.
  */
-package social.androiddev.signedout.signin
+package social.androiddev.ui.desktop.webview
 
 import javafx.application.Platform
 import javafx.embed.swing.JFXPanel
