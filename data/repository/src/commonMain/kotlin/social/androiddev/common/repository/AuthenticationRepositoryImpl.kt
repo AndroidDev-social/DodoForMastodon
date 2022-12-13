@@ -12,6 +12,7 @@ package social.androiddev.common.repository
 import kotlinx.coroutines.withContext
 import social.androiddev.common.network.MastodonApi
 import social.androiddev.common.persistence.AuthenticationDatabase
+import social.androiddev.common.persistence.authentication.Application
 import social.androiddev.common.persistence.localstorage.DodoAuthStorage
 import social.androiddev.domain.authentication.model.ApplicationOAuthToken
 import social.androiddev.domain.authentication.model.NewAppOAuthToken
@@ -52,10 +53,12 @@ internal class AuthenticationRepositoryImpl(
     override suspend fun saveApplication(token: NewAppOAuthToken, domain: String) {
         // save our new application oauth token to our DB
         database.applicationQueries.insertApplication(
-            instance = domain,
-            client_id = token.clientId,
-            client_secret = token.clientSecret,
-            redirect_uri = token.redirectUri,
+            Application(
+                instance = domain,
+                client_id = token.clientId,
+                client_secret = token.clientSecret,
+                redirect_uri = token.redirectUri,
+            )
         )
 
         // Update what server the user is currently on

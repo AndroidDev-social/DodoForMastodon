@@ -28,12 +28,13 @@ internal class AuthenticationDatabaseTests {
 
         // when
         database.applicationQueries.deleteAll()
-        database.applicationQueries.insertApplication(
+        val application = Application(
             instance = "androiddev.social",
             client_id = "test_client_id",
             client_secret = "test_client_secret",
             redirect_uri = "redirect_uri"
         )
+        database.applicationQueries.insertApplication(application)
 
         val result = database
             .applicationQueries
@@ -41,8 +42,8 @@ internal class AuthenticationDatabaseTests {
             .executeAsOneOrNull()
 
         assertNotNull(result)
-        assertEquals("test_client_id", result.client_id)
-        assertEquals("test_client_secret", result.client_secret)
-        assertEquals("redirect_uri", result.redirect_uri)
+        assertEquals(application.client_id, result.client_id)
+        assertEquals(application.client_secret, result.client_secret)
+        assertEquals(application.redirect_uri, result.redirect_uri)
     }
 }
