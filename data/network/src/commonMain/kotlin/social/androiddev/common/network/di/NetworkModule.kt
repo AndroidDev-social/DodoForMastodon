@@ -9,9 +9,14 @@
  */
 package social.androiddev.common.network.di
 
+import io.github.aakira.napier.DebugAntilog
+import io.github.aakira.napier.Napier
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.defaultRequest
+import io.ktor.client.plugins.logging.LogLevel
+import io.ktor.client.plugins.logging.Logger
+import io.ktor.client.plugins.logging.Logging
 import io.ktor.http.URLProtocol
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
@@ -26,9 +31,18 @@ import social.androiddev.common.network.MastodonApiKtor
  * network/api related classes
  */
 val networkModule: Module = module {
-
     singleOf<HttpClient> {
         HttpClient {
+            install(Logging) {
+                logger = object : Logger {
+                    override fun log(message: String) {
+                        Napier.v(message, null, "HttpClient")
+                    }
+                }
+                level = LogLevel.BODY
+                // todo: provide different antilog for release
+                Napier.base(DebugAntilog())
+            }
             // install plugin so we can use type-safe data models for serialization in ktor
             install(ContentNegotiation) {
                 json(
