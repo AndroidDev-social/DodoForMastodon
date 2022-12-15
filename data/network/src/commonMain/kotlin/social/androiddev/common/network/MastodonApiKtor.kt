@@ -127,19 +127,11 @@ internal class MastodonApiKtor(
     }
 
     override suspend fun getHomeFeed(domain: String, accessToken: String): Result<List<Status>> {
-        return try {
-            val url = "https://$domain/api/v1/timelines/home"
-            val body = httpClient.get(url) {
+        return runCatchingIgnoreCancelled<<List<Status>> {
+           httpClient.get("https://$domain/api/v1/timelines/home") {
                 headers {
                     append(HttpHeaders.Authorization, "Bearer $accessToken")
                 }
-            }.body<List<Status>>()
-            Result.success(
-                body
-            )
-        } catch (exception: SerializationException) {
-            Result.failure(exception = exception)
-        } catch (exception: ResponseException) {
-            Result.failure(exception = exception)
-        }    }
+            }.body()
+        }
 }
