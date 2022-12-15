@@ -68,7 +68,7 @@ class DefaultRootComponent(
         componentContext: ComponentContext,
     ) = DefaultSignedInRootComponent(
         componentContext = componentContext,
-        mainContext=mainContext
+        mainContext = mainContext
     )
 
     private fun createSplashComponent(
