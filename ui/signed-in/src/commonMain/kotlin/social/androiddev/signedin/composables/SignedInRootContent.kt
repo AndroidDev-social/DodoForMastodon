@@ -61,7 +61,7 @@ private fun TimelineTab(
     state: StateFlow<StoreResponse<List<StatusUI>>>
 ) {
     TimelineContent(
-        state=state,
+        state = state,
         modifier = Modifier.fillMaxSize(),
     )
 }
