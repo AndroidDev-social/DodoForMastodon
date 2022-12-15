@@ -22,7 +22,7 @@ org-xerial = "3.8.10.2"
 io-insert-koin = "3.2.0"
 com-russhwolf = "1.0.0-RC"
 kotlinx-serialization = "1.4.0"
-store = "5.0.0-alpha02"
+store = "0.0.1"
 io-github-aakira = "2.6.1"
 
 [libraries]

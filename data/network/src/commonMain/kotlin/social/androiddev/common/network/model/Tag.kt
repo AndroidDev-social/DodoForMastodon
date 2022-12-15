@@ -22,5 +22,5 @@ data class Tag(
     @SerialName("url") val url: String,
 
     // optional attributes
-    @SerialName("history") val history: List<History>,
+    @SerialName("history") val history: List<History>?= emptyList(),
 )
