@@ -1,0 +1,19 @@
+CREATE TABLE failedWrite (
+    key TEXT NOT NULL PRIMARY KEY,
+    datetime INTEGER AS Long
+);
+
+get:
+SELECT *
+FROM failedWrite
+WHERE key = ?;
+
+upsert:
+INSERT OR REPLACE INTO failedWrite VALUES ?;
+
+delete:
+DELETE FROM failedWrite
+WHERE key = ?;
+
+deleteAll:
+DELETE FROM failedWrite;

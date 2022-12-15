@@ -1,0 +1,17 @@
+CREATE TABLE TimelineItem (
+  statusId Text NOT NULL PRIMARY KEY,
+  type TEXT NOT NULL,
+  createdAt TEXT NOT NULL
+);
+
+insertFeedItem:
+INSERT OR REPLACE INTO TimelineItem
+VALUES ?;
+
+selectHomeItems:
+SELECT * FROM TimelineItem
+WHERE type = "HOME"
+ORDER BY createdAt;
+
+deleteAll:
+DELETE FROM TimelineItem;

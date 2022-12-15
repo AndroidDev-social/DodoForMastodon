@@ -6,6 +6,9 @@ plugins {
 android {
     namespace = "social.androiddev.ui.signed_in"
 }
+dependencies {
+    implementation(project(mapOf("path" to ":data:persistence")))
+}
 
 kotlin {
     sourceSets {
@@ -13,6 +16,9 @@ kotlin {
             dependencies {
                 implementation(projects.ui.common)
                 implementation(projects.ui.timeline)
+                implementation(projects.data.persistence)
+                implementation(projects.data.repository)
+                implementation(libs.io.insert.koin.core)
             }
         }
 

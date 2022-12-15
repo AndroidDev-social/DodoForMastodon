@@ -17,6 +17,8 @@ kotlin {
                 implementation(projects.domain.authentication)
                 implementation(libs.io.insert.koin.core)
                 implementation(libs.kotlinx.coroutines.core)
+                api(libs.store)
+                implementation ("com.squareup.sqldelight:coroutines-extensions:1.5.4")
             }
         }
 

@@ -10,6 +10,10 @@ sqldelight {
         packageName = "social.androiddev.common.persistence"
         sourceFolders = listOf("sqldelight")
     }
+    database("TimelineDatabase") {
+        packageName = "social.androiddev.common.timeline"
+        sourceFolders = listOf("sqldelightTimeline")
+    }
 }
 
 android {

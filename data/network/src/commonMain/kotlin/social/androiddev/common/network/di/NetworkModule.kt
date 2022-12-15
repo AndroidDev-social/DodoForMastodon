@@ -52,6 +52,14 @@ val networkModule: Module = module {
                     }
                 )
             }
+//            install(Auth) {
+//                bearer {
+//                    loadTokens {
+//                        // Load tokens from a local storage and return them as the 'BearerTokens' instance
+//                        BearerTokens("abc123", "xyz111")
+//                    }
+//                }
+//            }
             defaultRequest {
                 url {
                     protocol = URLProtocol.HTTPS
