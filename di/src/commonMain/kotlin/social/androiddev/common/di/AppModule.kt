@@ -12,6 +12,7 @@ package social.androiddev.common.di
 import social.androiddev.common.network.di.networkModule
 import social.androiddev.common.persistence.di.persistenceModule
 import social.androiddev.common.repository.di.repositoryModule
+import social.androiddev.common.repository.timeline.timelineRepoModule
 import social.androiddev.domain.authentication.di.domainAuthModule
 
 /**
@@ -23,4 +24,5 @@ fun appModule() = listOf(
     persistenceModule,
     domainAuthModule,
     repositoryModule,
+    timelineRepoModule
 )

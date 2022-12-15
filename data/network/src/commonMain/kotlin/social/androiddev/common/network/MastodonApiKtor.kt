@@ -25,6 +25,7 @@ import social.androiddev.common.network.model.Application
 import social.androiddev.common.network.model.AvailableInstance
 import social.androiddev.common.network.model.Instance
 import social.androiddev.common.network.model.NewOauthApplication
+import social.androiddev.common.network.model.Status
 import social.androiddev.common.network.model.Token
 import social.androiddev.common.network.model.request.CreateAccessTokenBody
 import social.androiddev.common.network.model.request.CreateApplicationBody
@@ -124,4 +125,21 @@ internal class MastodonApiKtor(
             Result.failure(exception = exception)
         }
     }
+
+    override suspend fun getHomeFeed(domain: String, accessToken: String): Result<List<Status>> {
+        return try {
+            val url = "https://$domain/api/v1/timelines/home"
+            val body = httpClient.get(url) {
+                headers {
+                    append(HttpHeaders.Authorization, "Bearer $accessToken")
+                }
+            }.body<List<Status>>()
+            Result.success(
+                body
+            )
+        } catch (exception: SerializationException) {
+            Result.failure(exception = exception)
+        } catch (exception: ResponseException) {
+            Result.failure(exception = exception)
+        }    }
 }

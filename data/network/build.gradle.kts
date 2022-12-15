@@ -46,6 +46,7 @@ kotlin {
                 implementation(libs.io.ktor.client.serialization)
                 implementation(libs.io.ktor.serialization.kotlinx.json)
                 implementation(libs.io.ktor.client.content.negotiation)
+                implementation(libs.io.ktor.client.auth)
                 implementation(libs.io.ktor.client.logging)
                 implementation(libs.org.jetbrains.kotlinx.serialization.json)
                 implementation(libs.io.insert.koin.core)
@@ -74,13 +75,11 @@ kotlin {
         // iOS
         val iosX64Main by getting
         val iosArm64Main by getting
-        val iosSimulatorArm64Main by getting
         val iosMain by creating {
             dependsOn(getByName("commonMain"))
 
             iosX64Main.dependsOn(this)
             iosArm64Main.dependsOn(this)
-            iosSimulatorArm64Main.dependsOn(this)
 
             dependencies {
                 implementation(libs.io.ktor.client.darwin)

@@ -18,6 +18,7 @@ import com.arkivanov.decompose.router.stack.replaceCurrent
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
+import social.androiddev.root.navigation.DefaultRootComponent.Config
 import social.androiddev.signedin.navigation.DefaultSignedInRootComponent
 import social.androiddev.signedout.root.DefaultSignedOutRootComponent
 import kotlin.coroutines.CoroutineContext
@@ -67,6 +68,7 @@ class DefaultRootComponent(
         componentContext: ComponentContext,
     ) = DefaultSignedInRootComponent(
         componentContext = componentContext,
+        mainContext=mainContext
     )
 
     private fun createSplashComponent(

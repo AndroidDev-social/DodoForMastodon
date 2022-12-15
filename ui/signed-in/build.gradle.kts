@@ -33,6 +33,9 @@ android {
         }
     }
 }
+dependencies {
+    implementation(project(mapOf("path" to ":data:persistence")))
+}
 
 kotlin {
     jvm("desktop")
@@ -46,6 +49,9 @@ kotlin {
                 implementation(compose.runtime)
                 implementation(compose.foundation)
                 implementation(compose.material)
+                implementation(projects.data.persistence)
+                implementation(projects.data.repository)
+                implementation(libs.io.insert.koin.core)
             }
         }
 

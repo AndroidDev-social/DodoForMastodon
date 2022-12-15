@@ -17,6 +17,7 @@ import org.koin.dsl.module
 import social.androiddev.common.persistence.AuthenticationDatabase
 import social.androiddev.common.persistence.localstorage.DodoAuthStorage
 import social.androiddev.common.persistence.localstorage.DodoAuthStorageImpl
+import social.androiddev.common.timeline.TimelineDatabase
 
 /**
  * Koin DI module for all android specific persistence dependencies
@@ -43,5 +44,14 @@ actual val persistenceModule: Module = module {
             name = AUTH_DB_NAME,
         )
         AuthenticationDatabase(driver)
+    }
+
+    single {
+        val driver = AndroidSqliteDriver(
+            schema = TimelineDatabase.Schema,
+            context = get(),
+            name = FEED_DB_NAME,
+        )
+        TimelineDatabase(driver)
     }
 }

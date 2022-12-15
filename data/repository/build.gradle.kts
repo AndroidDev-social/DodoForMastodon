@@ -33,11 +33,11 @@ android {
 }
 
 kotlin {
-    jvm("desktop")
     android()
     iosX64()
     iosArm64()
-    iosSimulatorArm64()
+//    iosSimulatorArm64()
+    jvm("desktop")
 
     sourceSets {
         // shared
@@ -48,6 +48,8 @@ kotlin {
                 implementation(projects.domain.authentication)
                 implementation(libs.io.insert.koin.core)
                 implementation(libs.kotlinx.coroutines.core)
+                api(libs.store)
+                implementation ("com.squareup.sqldelight:coroutines-extensions:1.5.4")
             }
         }
 
@@ -55,28 +57,34 @@ kotlin {
         // android
         getByName("androidMain") {
             dependsOn(commonMain)
-            dependencies {}
+            dependencies {
+                implementation(libs.store)
+            }
         }
 
 
         // desktop
         getByName("desktopMain") {
-            dependencies {}
+            dependencies {
+                implementation(libs.store)
+            }
         }
 
 
         // iOS
         val iosX64Main by getting
         val iosArm64Main by getting
-        val iosSimulatorArm64Main by getting
+//        val iosSimulatorArm64Main by getting
         val iosMain by creating {
             dependsOn(getByName("commonMain"))
 
             iosX64Main.dependsOn(this)
             iosArm64Main.dependsOn(this)
-            iosSimulatorArm64Main.dependsOn(this)
+//            iosSimulatorArm64Main.dependsOn(this)
 
-            dependencies {}
+            dependencies {
+//                implementation(libs.store)
+            }
         }
 
         // testing

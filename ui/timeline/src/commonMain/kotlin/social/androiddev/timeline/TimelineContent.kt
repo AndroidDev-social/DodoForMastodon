@@ -17,10 +17,14 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.flow.StateFlow
+import org.mobilenativefoundation.store.store5.MarketResponse
 import social.androiddev.common.theme.DodoTheme
+import social.androiddev.common.timeline.TimelineItem
 import social.androiddev.timeline.navigation.TimelineComponent
 
 /**
@@ -29,10 +33,37 @@ import social.androiddev.timeline.navigation.TimelineComponent
  */
 @Composable
 fun TimelineContent(
-    component: TimelineComponent,
+    state: StateFlow<MarketResponse<List<TimelineItem>>>,
     modifier: Modifier = Modifier,
 ) {
-    // TODO: Hook up to View Model for fetching timeline items
+   val items =  state.collectAsState()
+
+    when(val value = items.value){
+        is MarketResponse.Success->  {
+            val feedItems =  value.value.map {
+                dummyFeedItem.copy(
+                    id=it.statusId,
+                    date = it.createdAt
+                )
+            }
+
+            TimelineContent(
+                items = feedItems,
+                modifier = modifier,
+            )
+        }
+
+        is MarketResponse.Empty -> {
+            value
+        }
+        is MarketResponse.Failure -> {
+           val error =  value.error
+        }
+        is  MarketResponse.Loading -> {
+            value
+        }
+    }
+
     TimelineContent(
         items = listOf(dummyFeedItem),
         modifier = modifier,

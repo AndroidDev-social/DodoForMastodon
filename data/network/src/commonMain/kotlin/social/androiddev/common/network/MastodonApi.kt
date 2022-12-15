@@ -13,6 +13,7 @@ import social.androiddev.common.network.model.Application
 import social.androiddev.common.network.model.AvailableInstance
 import social.androiddev.common.network.model.Instance
 import social.androiddev.common.network.model.NewOauthApplication
+import social.androiddev.common.network.model.Status
 import social.androiddev.common.network.model.Token
 
 interface MastodonApi {
@@ -77,4 +78,11 @@ interface MastodonApi {
      * @return an instance entity
      */
     suspend fun getInstance(domain: String? = null): Result<Instance>
+
+    /**
+     * Fetch home feed for a particular user
+     * @param accessToken representing the user
+     * @return a list of [Status]
+     */
+    suspend fun getHomeFeed(domain: String, accessToken: String): Result<List<Status>>
 }

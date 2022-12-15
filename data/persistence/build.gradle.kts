@@ -12,6 +12,10 @@ sqldelight {
         packageName = "social.androiddev.common.persistence"
         sourceFolders = listOf("sqldelight")
     }
+    database("TimelineDatabase") {
+        packageName = "social.androiddev.common.timeline"
+        sourceFolders = listOf("sqldelightTimeline")
+    }
 }
 
 val targetSDKVersion: Int by rootProject.extra
@@ -79,13 +83,11 @@ kotlin {
         // iOS
         val iosX64Main by getting
         val iosArm64Main by getting
-        val iosSimulatorArm64Main by getting
         val iosMain by creating {
             dependsOn(getByName("commonMain"))
 
             iosX64Main.dependsOn(this)
             iosArm64Main.dependsOn(this)
-            iosSimulatorArm64Main.dependsOn(this)
 
             dependencies {
                 implementation(libs.com.squareup.sqldelight.native.driver)
