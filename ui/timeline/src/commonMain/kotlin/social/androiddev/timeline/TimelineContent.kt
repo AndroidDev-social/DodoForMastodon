@@ -40,7 +40,7 @@ fun TimelineContent(
 
    val feedItems =  when(val value = items.value){
         is StoreResponse.Data ->  {
-            val feedItems =  value.value.map {
+            val feedItems = value.value.map {
                FeedItemState(
                   id = it.remoteId,
                    userAvatarUrl = it.avatarUrl,
