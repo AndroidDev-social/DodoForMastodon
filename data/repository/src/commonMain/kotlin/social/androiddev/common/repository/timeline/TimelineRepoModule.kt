@@ -44,7 +44,7 @@ val timelineRepoModule: Module = module {
                         .selectHomeItems()
                         .asFlow()
                         .mapToList().map {
-                            it.ifEmpty { throw Exception("Empty list") }
+                            it.ifEmpty { return@map null }
                         }
                 }
 
