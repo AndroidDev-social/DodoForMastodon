@@ -20,9 +20,9 @@ import kotlinx.serialization.json.Json
 
 internal class DodoAuthStorageImpl(
     private val settings: Settings,
-    private val json: Json
+    private val json: Json,
+    private val lock: Mutex = Mutex()
 ) : DodoAuthStorage {
-    private val lock = Mutex()
     override var currentDomain: String?
         get() = settings[KEY_DOMAIN_CACHE]
         set(value) {
