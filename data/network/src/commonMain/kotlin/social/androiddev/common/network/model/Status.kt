@@ -21,12 +21,12 @@ data class Status(
     @SerialName("id") val id: String,
     @SerialName("uri") val uri: String,
     @SerialName("created_at") val createdAt: String,
-    @SerialName("account") val account: Account,
+    @SerialName("account") val account: Account? = null,
     @SerialName("content") val content: String,
     @SerialName("visibility") val visibility: Privacy,
     @SerialName("sensitive") val sensitive: Boolean,
     @SerialName("spoiler_text") val spoilerText: String,
-    @SerialName("media_attachments") val mediaAttachments: List<Attachment>,
+    @SerialName("media_attachments") val mediaAttachments: List<Attachment>?,
     @SerialName("application") val application: Application?=null,
 
     // rendering attributes

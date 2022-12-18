@@ -13,18 +13,19 @@ import com.squareup.sqldelight.runtime.coroutines.asFlow
 import com.squareup.sqldelight.runtime.coroutines.mapToList
 import kotlinx.coroutines.flow.map
 import org.koin.core.module.Module
+import org.koin.core.parameter.ParametersHolder
 import org.koin.dsl.module
-import org.mobilenativefoundation.store.store5.Bookkeeper
-import org.mobilenativefoundation.store.store5.Market
-import org.mobilenativefoundation.store.store5.NetworkFetcher
-import org.mobilenativefoundation.store.store5.NetworkUpdater
-import org.mobilenativefoundation.store.store5.OnNetworkCompletion
-import org.mobilenativefoundation.store.store5.Store
+import org.mobilenativefoundation.store.store5.Fetcher
+import org.mobilenativefoundation.store.store5.SourceOfTruth
+import org.mobilenativefoundation.store.store5.StoreBuilder
 import social.androiddev.common.network.MastodonApi
 import social.androiddev.common.network.model.Status
 import social.androiddev.common.persistence.localstorage.DodoAuthStorage
 import social.androiddev.common.timeline.TimelineDatabase
 import social.androiddev.common.timeline.TimelineItem
+import social.androiddev.domain.timeline.FeedType
+import social.androiddev.domain.timeline.HomeTimelineRepository
+import social.androiddev.domain.timeline.model.StatusUI
 
 /**
  * Koin module containing all koin/bean definitions for
@@ -34,92 +35,118 @@ val timelineRepoModule: Module = module {
 
     factory<HomeTimelineRepository> { RealHomeTimelineRepository(get()) }
 
-    factory<Store<FeedType, List<TimelineItem>, List<TimelineItem>>> {
+    factory<SourceOfTruth<FeedType, List<TimelineItem>, List<StatusUI>>> { it: ParametersHolder ->
         val database = get<TimelineDatabase>()
-        Store.by(
+
+        SourceOfTruth.of(
             reader = { key: FeedType ->
-                when(key){
-                    is FeedType.Home ->  get<TimelineDatabase>()
+                when (key) {
+                    is FeedType.Home -> get<TimelineDatabase>()
                         .timelineQueries
                         .selectHomeItems()
                         .asFlow()
-                        .mapToList().map {
-                            it.ifEmpty { return@map null }
+                        .mapToList()
+                        .map {
+                            it.ifEmpty {
+                                return@map null
+                            }
+                            it.map { item ->
+                                StatusUI(
+                                    remoteId = item.remoteId,
+                                    feedType = key,
+                                    createdAt = item.createdAt,
+                                    repliesCount = item.repliesCount,
+                                    reblogsCount = item.favouritesCount,
+                                    favoritesCount = item.favouritesCount,
+                                    content = item.content,
+                                    sensitive = item.sensitive ?: false,
+                                    spoilerText = item.spoilerText,
+                                    visibility = item.visibility,
+                                    avatarUrl = item.avatarUrl,
+                                    accountAddress =  item.accountAddress,
+                                    userName = item.userName
+                                )
+                            }
                         }
                 }
-
             },
-            writer = { _, input ->
-                input.forEach(database::tryWriteItem)
-                true
-            },
-            deleter = { TODO() },
-            clearer = { TODO() }
-        )
-    }
-    factory {
-        //Todo Add logic for conflict resolution handling for when we start posting toots
-        Bookkeeper.by(
-            read = { _: FeedType -> null },
-            write = { _, _ -> true },
-            delete = { TODO() },
-            deleteAll = { TODO() }
+            writer = { key, input ->
+                input.forEach { database.tryWriteItem(it, key) }
+            }
         )
     }
 
-    factory {
-        NetworkFetcher.by(
-            get = { key: FeedType ->
-                when(key) {
-                    is FeedType.Home -> {
-                        val authStorage = get<DodoAuthStorage>()
-                        get<MastodonApi>()
-                            .getHomeFeed(authStorage.currentDomain!!, authStorage.getAccessToken(authStorage.currentDomain!!)!!)
-                            .getOrThrow()
-                            .map(::timelineItem)
-                    }
+    factory<Fetcher<FeedType, List<TimelineItem>>> {
+        Fetcher.of { key: FeedType ->
+            when (key) {
+                is FeedType.Home -> {
+                    val authStorage = get<DodoAuthStorage>()
+                    get<MastodonApi>()
+                        .getHomeFeed(
+                            authStorage.currentDomain!!,
+                            authStorage.getAccessToken(authStorage.currentDomain!!)!!
+                        )
+                        .getOrThrow()
+                        .map(::timelineItem)
                 }
-            },
-            post = { key, item -> TODO() },
-            converter = { it }
-        )
+            }
+        }
     }
-
 
     factory {
-        NetworkUpdater.by(
-            post = { key: FeedType, _: List<Status> ->
-                get<MastodonApi>()
-                TODO()
-            },
-            onCompletion = OnNetworkCompletion(
-                onSuccess = {},
-                onFailure = {}
-            ),
-            converter = { TODO() }
-        )
-    }
-
-    factory<Market<FeedType, List<TimelineItem>, List<TimelineItem>>> {
-        Market.of<FeedType, List<TimelineItem>, List<TimelineItem>>(
-            stores = listOf(get()), //TODO MIKE: ADD memory cache
-            bookkeeper = get(),
-            fetcher = get(),
-            updater = get()
-        )
+        val fetcher = get<Fetcher<FeedType, List<TimelineItem>>>()
+        val sourceOfTruth = get<SourceOfTruth<FeedType, List<TimelineItem>, List<StatusUI>>>()
+        StoreBuilder
+            .from(
+                fetcher = fetcher,
+                sourceOfTruth = sourceOfTruth
+            )
+            .build()
     }
 }
 
 private fun timelineItem(it: Status) =
-    TimelineItem(it.id, FeedType.Home.type, it.createdAt)
+    TimelineItem(
+        type = FeedType.Home.type,
+        remoteId = it.id,
+        uri = it.uri,
+        createdAt = it.createdAt,
+        content = it.content,
+        accountId = it.account?.id,
+        visibility = it.visibility.name,
+        sensitive = it.sensitive,
+        spoilerText = it.spoilerText,
+        applicationName = it.application?.name ?: "",
+        repliesCount = it.repliesCount?.toLong(),
+        reblogsCount = it.reblogsCount?.toLong(),
+        favouritesCount = it.favouritesCount?.toLong(),
+        avatarUrl = it.account?.avatar?:"",
+        accountAddress = it.account?.acct?:"",
+        userName = it.account?.username?:" "
+    )
 
-fun TimelineDatabase.tryWriteItem(timelineItem: TimelineItem): Boolean = try {
-    timelineQueries.insertFeedItem(timelineItem)
+
+fun TimelineDatabase.tryWriteItem(it: TimelineItem, type: FeedType): Boolean = try {
+    timelineQueries.insertFeedItem(
+        type = type.type,
+        remoteId = it.remoteId,
+        uri = it.uri,
+        createdAt = it.createdAt,
+        content = it.content,
+        accountId = it.accountId,
+        visibility = it.visibility,
+        sensitive = it.sensitive,
+        spoilerText = it.spoilerText,
+        applicationName = it.applicationName,
+        repliesCount = it.repliesCount,
+        favouritesCount = it.favouritesCount,
+        reblogsCount = it.reblogsCount,
+        avatarUrl = it.avatarUrl,
+        accountAddress = it.accountAddress,
+        userName = it.userName
+    )
     true
 } catch (t: Throwable) {
     throw RuntimeException(t)
 }
 
-sealed class FeedType(val type:String){
-    object Home: FeedType("HOME")
-}

@@ -22,9 +22,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.flow.StateFlow
-import org.mobilenativefoundation.store.store5.MarketResponse
+import org.mobilenativefoundation.store.store5.StoreResponse
 import social.androiddev.common.theme.DodoTheme
-import social.androiddev.common.timeline.TimelineItem
+import social.androiddev.domain.timeline.model.StatusUI
 import social.androiddev.timeline.navigation.TimelineComponent
 
 /**
@@ -33,18 +33,24 @@ import social.androiddev.timeline.navigation.TimelineComponent
  */
 @Composable
 fun TimelineContent(
-    state: StateFlow<MarketResponse<List<TimelineItem>>>,
+    state: StateFlow<StoreResponse<List<StatusUI>>>,
     modifier: Modifier = Modifier,
 ) {
    val items =  state.collectAsState()
 
-    when(val value = items.value){
-        is MarketResponse.Success->  {
+   val feedItems =  when(val value = items.value){
+        is StoreResponse.Data->  {
             val feedItems =  value.value.map {
-                dummyFeedItem.copy(
-                    id=it.statusId,
-                    date = it.createdAt
-                )
+               FeedItemState(
+                  id= it.remoteId,
+                   userAvatarUrl = it.avatarUrl,
+                   date = it.createdAt,
+                   username = it.userName,
+                   acctAddress = it.accountAddress,
+                   message = it.content,
+                   images = emptyList(),
+                   videoUrl = null,
+               )
             }
 
             TimelineContent(
@@ -52,22 +58,10 @@ fun TimelineContent(
                 modifier = modifier,
             )
         }
+        else ->{
 
-        is MarketResponse.Empty -> {
-            value
-        }
-        is MarketResponse.Failure -> {
-           val error =  value.error
-        }
-        is  MarketResponse.Loading -> {
-            value
         }
     }
-
-    TimelineContent(
-        items = listOf(dummyFeedItem),
-        modifier = modifier,
-    )
 }
 
 @Composable

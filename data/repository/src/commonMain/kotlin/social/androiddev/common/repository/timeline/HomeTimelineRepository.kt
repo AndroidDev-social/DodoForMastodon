@@ -2,17 +2,16 @@ package social.androiddev.common.repository.timeline
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
-import org.mobilenativefoundation.store.store5.Market
-import org.mobilenativefoundation.store.store5.MarketResponse
-import org.mobilenativefoundation.store.store5.ReadRequest
-import social.androiddev.common.timeline.TimelineItem
+import org.mobilenativefoundation.store.store5.Store
+import org.mobilenativefoundation.store.store5.StoreRequest
+import org.mobilenativefoundation.store.store5.StoreResponse
+import social.androiddev.domain.timeline.FeedType
+import social.androiddev.domain.timeline.HomeTimelineRepository
+import social.androiddev.domain.timeline.model.StatusUI
 
-interface HomeTimelineRepository {
-    suspend fun read(): Flow<MarketResponse<List<TimelineItem>>>
-}
 
 class RealHomeTimelineRepository(
-    private val market:   Market<FeedType, List<TimelineItem>, List<TimelineItem>>
+    private val store: Store<FeedType, List<StatusUI>>
 ) : HomeTimelineRepository {
     /**
      * returns a flow of home feed items from a database
@@ -20,16 +19,12 @@ class RealHomeTimelineRepository(
      * on first return will also call network fetcher to get
      * latest from network and update local storage with it]
      */
-
-
-    override suspend fun read(): Flow<MarketResponse<List<TimelineItem>>> {
-        return market.read(ReadRequest.of(
-            FeedType.Home,
-            emptyList(),
-            null,
-            true))
-            .distinctUntilChanged()
-    }
+    override suspend fun read(
+        feedType: FeedType,
+        refresh: Boolean
+    ): Flow<StoreResponse<List<StatusUI>>> {
+        return store.stream(StoreRequest.cached(key = feedType, refresh = true))
+            .distinctUntilChanged()    }
 
 
 }

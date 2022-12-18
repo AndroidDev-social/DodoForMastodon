@@ -7,6 +7,21 @@ android {
 }
 
 kotlin {
+    jvm("desktop")
+    android()
+    iosX64()
+    iosArm64()
+
     sourceSets {
+        // shared
+
+        val commonMain by getting {
+            dependencies {
+                api(libs.store)
+            }
+        }
+
+
+
     }
 }
