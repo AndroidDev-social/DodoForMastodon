@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.flow.StateFlow
 import org.mobilenativefoundation.store.store5.StoreResponse
 import social.androiddev.common.theme.DodoTheme
-import social.androiddev.domain.timeline.model.StatusUI
+import social.androiddev.domain.timeline.model.StatusLocal
 import social.androiddev.timeline.navigation.TimelineComponent
 
 /**
@@ -33,7 +33,7 @@ import social.androiddev.timeline.navigation.TimelineComponent
  */
 @Composable
 fun TimelineContent(
-    state: StateFlow<StoreResponse<List<StatusUI>>>,
+    state: StateFlow<StoreResponse<List<StatusLocal>>>,
     modifier: Modifier = Modifier,
 ) {
    val items =  state.collectAsState()

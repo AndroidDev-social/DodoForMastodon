@@ -1,4 +1,4 @@
-CREATE TABLE TimelineItem (
+CREATE TABLE StatusDB (
   type TEXT NOT NULL,
   remoteId Text NOT NULL PRIMARY KEY,
   uri Text NOT NULL,
@@ -18,13 +18,13 @@ CREATE TABLE TimelineItem (
 );
 
 insertFeedItem:
-INSERT OR REPLACE INTO TimelineItem
+INSERT OR REPLACE INTO StatusDB
 VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);
 
 selectHomeItems:
-SELECT * FROM TimelineItem
+SELECT * FROM StatusDB
 WHERE type = "HOME"
 ORDER BY createdAt;
 
 deleteAll:
-DELETE FROM TimelineItem;
+DELETE FROM StatusDB;
