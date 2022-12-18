@@ -128,10 +128,11 @@ internal class MastodonApiKtor(
 
     override suspend fun getHomeFeed(domain: String, accessToken: String): Result<List<Status>> {
         return runCatchingIgnoreCancelled<List<Status>> {
-           httpClient.get("https://$domain/api/v1/timelines/home") {
+            httpClient.get("https://$domain/api/v1/timelines/home") {
                 headers {
                     append(HttpHeaders.Authorization, "Bearer $accessToken")
                 }
             }.body()
         }
+    }
 }

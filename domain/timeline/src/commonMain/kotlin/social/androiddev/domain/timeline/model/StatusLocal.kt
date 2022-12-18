@@ -11,7 +11,7 @@ package social.androiddev.domain.timeline.model
 
 import social.androiddev.domain.timeline.FeedType
 
-data class StatusUI(
+data class StatusLocal(
     val remoteId:String,
     val feedType: FeedType,
     val createdAt: String,

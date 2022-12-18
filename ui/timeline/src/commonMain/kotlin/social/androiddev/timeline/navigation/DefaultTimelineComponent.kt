@@ -16,7 +16,7 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import org.mobilenativefoundation.store.store5.StoreResponse
 import social.androiddev.domain.timeline.HomeTimelineRepository
-import social.androiddev.domain.timeline.model.StatusUI
+import social.androiddev.domain.timeline.model.StatusLocal
 import kotlin.coroutines.CoroutineContext
 
 
@@ -35,7 +35,7 @@ class DefaultTimelineComponent(
         )
     }
 
-    override val state: StateFlow<StoreResponse<List<StatusUI>>> = viewModel.state
+    override val state: StateFlow<StoreResponse<List<StatusLocal>>> = viewModel.state
 
 }
 

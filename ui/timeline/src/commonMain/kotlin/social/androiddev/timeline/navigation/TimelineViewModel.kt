@@ -12,7 +12,7 @@ import org.mobilenativefoundation.store.store5.ResponseOrigin
 import org.mobilenativefoundation.store.store5.StoreResponse
 import social.androiddev.domain.timeline.FeedType
 import social.androiddev.domain.timeline.HomeTimelineRepository
-import social.androiddev.domain.timeline.model.StatusUI
+import social.androiddev.domain.timeline.model.StatusLocal
 import kotlin.coroutines.CoroutineContext
 
 class TimelineViewModel(
@@ -20,8 +20,8 @@ class TimelineViewModel(
     private val homeTimelineRepository: HomeTimelineRepository
 ) : InstanceKeeper.Instance {
     private val scope = CoroutineScope(mainContext + SupervisorJob())
-    private val _state = MutableStateFlow<StoreResponse<List<StatusUI>>>(StoreResponse.Loading(ResponseOrigin.SourceOfTruth))
-    val state: StateFlow<StoreResponse<List<StatusUI>>> = _state.asStateFlow()
+    private val _state = MutableStateFlow<StoreResponse<List<StatusLocal>>>(StoreResponse.Loading(ResponseOrigin.SourceOfTruth))
+    val state: StateFlow<StoreResponse<List<StatusLocal>>> = _state.asStateFlow()
     init {
         scope.launch {
            try {
