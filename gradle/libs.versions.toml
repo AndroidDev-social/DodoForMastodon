@@ -20,7 +20,7 @@ org-xerial = "3.8.10.2"
 io-insert-koin = "3.2.0"
 com-russhwolf = "1.0.0-RC"
 kotlinx-serialization = "1.4.0"
-store = "5.0.0-alpha02"
+store = "5.0.0-SNAPSHOT"
 io-github-aakira = "2.6.1"
 
 [libraries]
@@ -60,6 +60,7 @@ org-jetbrains-kotlin-test-annotations-common = { module = "org.jetbrains.kotlin:
 com-squareup-sqldelight-android-driver = { module = "com.squareup.sqldelight:android-driver", version.ref = "com-squareup-sqldelight" }
 com-squareup-sqldelight-native-driver = { module = "com.squareup.sqldelight:native-driver", version.ref = "com-squareup-sqldelight" }
 com-squareup-sqldelight-sqlite-driver = { module = "com.squareup.sqldelight:sqlite-driver", version.ref = "com-squareup-sqldelight" }
+com-squareup-sqldelight-coroutines-extensions = { module = "com.squareup.sqldelight:coroutines-extensions", version.ref = "com-squareup-sqldelight" }
 org-xerial-sqlite-jdbc = { module = "org.xerial:sqlite-jdbc", version.ref = "org-xerial" }
 
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }

@@ -81,6 +81,7 @@ interface MastodonApi {
 
     /**
      * Fetch home feed for a particular user
+     * @see https://docs.joinmastodon.org/methods/timelines/#home
      * @param accessToken representing the user
      * @return a list of [Status]
      */

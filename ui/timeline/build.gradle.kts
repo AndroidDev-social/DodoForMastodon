@@ -39,8 +39,6 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(projects.domain.timeline)
-                implementation(projects.data.persistence)
-                implementation(projects.data.repository)
                 implementation(projects.ui.common)
                 implementation(compose.runtime)
                 implementation(compose.foundation)

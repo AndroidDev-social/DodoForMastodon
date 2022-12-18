@@ -19,8 +19,8 @@ import com.arkivanov.decompose.ExperimentalDecomposeApi
 import com.arkivanov.decompose.extensions.compose.jetbrains.stack.Children
 import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
 import kotlinx.coroutines.flow.StateFlow
-import org.mobilenativefoundation.store.store5.MarketResponse
-import social.androiddev.common.timeline.TimelineItem
+import org.mobilenativefoundation.store.store5.StoreResponse
+import social.androiddev.domain.timeline.model.StatusUI
 import social.androiddev.signedin.navigation.SignedInRootComponent
 import social.androiddev.timeline.TimelineContent
 
@@ -49,7 +49,6 @@ fun SignedInRootContent(
         ) { createdChild ->
             when (val child = createdChild.instance) {
                 is SignedInRootComponent.Child.Timeline -> {
-
                     TimelineTab(child.component.state)
                 }
             }
@@ -59,7 +58,7 @@ fun SignedInRootContent(
 
 @Composable
 private fun TimelineTab(
-    state: StateFlow<MarketResponse<List<TimelineItem>>>
+    state: StateFlow<StoreResponse<List<StatusUI>>>
 ) {
     TimelineContent(
         state=state,

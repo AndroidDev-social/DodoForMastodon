@@ -35,13 +35,15 @@ kotlin {
     android()
     iosX64()
     iosArm64()
-    iosSimulatorArm64()
+    //temp until Mike can recompile store
+//    iosSimulatorArm64()
 
     sourceSets {
         // shared
         val commonMain by getting {
             dependencies {
                 implementation(libs.io.insert.koin.core)
+
             }
         }
 

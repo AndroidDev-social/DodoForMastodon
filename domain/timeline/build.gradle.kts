@@ -33,14 +33,17 @@ android {
 kotlin {
     jvm("desktop")
     android()
+    iosX64()
+    iosArm64()
 
     sourceSets {
         // shared
 
         val commonMain by getting {
-            dependencies {}
+            dependencies {
+                api(libs.store)
+                implementation(libs.kotlinx.coroutines.core)            }
         }
-
 
         // android
         getByName("androidMain") {

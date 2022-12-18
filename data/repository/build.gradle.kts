@@ -46,10 +46,12 @@ kotlin {
                 implementation(projects.data.network)
                 implementation(projects.data.persistence)
                 implementation(projects.domain.authentication)
+                implementation(projects.domain.timeline)
                 implementation(libs.io.insert.koin.core)
                 implementation(libs.kotlinx.coroutines.core)
+                //temp until we map to UI models
                 api(libs.store)
-                implementation ("com.squareup.sqldelight:coroutines-extensions:1.5.4")
+                implementation(libs.com.squareup.sqldelight.coroutines.extensions)
             }
         }
 
@@ -58,7 +60,7 @@ kotlin {
         getByName("androidMain") {
             dependsOn(commonMain)
             dependencies {
-                implementation(libs.store)
+                api ("org.jetbrains.kotlinx:atomicfu:0.18.5")
             }
         }
 
@@ -66,7 +68,6 @@ kotlin {
         // desktop
         getByName("desktopMain") {
             dependencies {
-                implementation(libs.store)
             }
         }
 
@@ -83,7 +84,6 @@ kotlin {
 //            iosSimulatorArm64Main.dependsOn(this)
 
             dependencies {
-//                implementation(libs.store)
             }
         }
 
