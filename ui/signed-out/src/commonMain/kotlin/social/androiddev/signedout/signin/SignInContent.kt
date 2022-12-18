@@ -90,7 +90,8 @@ fun SignInContent(
                 url = state.oauthAuthorizeUrl,
                 modifier = Modifier.fillMaxSize(),
                 shouldCancelLoadingUrl = component::shouldCancelLoadingUrl,
-                onWebError = component::onErrorFromOAuth
+                onWebError = component::onErrorFromOAuth,
+                onCancel = component::onCloseClicked,
             )
         }
     }

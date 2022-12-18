@@ -57,6 +57,8 @@ kotlin {
                 implementation(libs.androidx.compose.foundation)
                 implementation(libs.androidx.appcompat)
                 implementation(libs.androidx.core.ktx)
+                implementation(libs.androidx.browser)
+                implementation(libs.androidx.activity.compose)
             }
         }
 
