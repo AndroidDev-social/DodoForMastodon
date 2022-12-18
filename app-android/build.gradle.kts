@@ -3,20 +3,16 @@ plugins {
     kotlin("android")
     id("org.jetbrains.compose")
     id("kotlin-parcelize")
-    id("social.androiddev.code-quality")
 }
-
-val targetSDKVersion: Int by rootProject.extra
-val minSDKVersion: Int by rootProject.extra
-val compileSDKVersion: Int by rootProject.extra
 
 android {
     namespace = "social.androiddev.dodo"
-    compileSdk = compileSDKVersion
+
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = minSDKVersion
-        targetSdk = targetSDKVersion
+        minSdk = libs.versions.android.minSdk.get().toInt()
+        targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1
         versionName = "1.0"
     }
