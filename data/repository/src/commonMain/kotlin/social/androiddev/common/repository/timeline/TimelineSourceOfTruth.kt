@@ -35,22 +35,7 @@ private fun TimelineQueries.homeItemsAsLocal(key: FeedType) = selectHomeItems()
 
 fun TimelineDatabase.tryWriteItem(it: StatusDB, type: FeedType): Boolean = try {
     timelineQueries.insertFeedItem(
-        type = type.type,
-        remoteId = it.remoteId,
-        uri = it.uri,
-        createdAt = it.createdAt,
-        content = it.content,
-        accountId = it.accountId,
-        visibility = it.visibility,
-        sensitive = it.sensitive,
-        spoilerText = it.spoilerText,
-        applicationName = it.applicationName,
-        repliesCount = it.repliesCount,
-        favouritesCount = it.favouritesCount,
-        reblogsCount = it.reblogsCount,
-        avatarUrl = it.avatarUrl,
-        accountAddress = it.accountAddress,
-        userName = it.userName
+       it.copy(type = type.type)
     )
     true
 } catch (t: Throwable) {

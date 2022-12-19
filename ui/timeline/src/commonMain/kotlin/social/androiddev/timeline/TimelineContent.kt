@@ -17,6 +17,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -33,33 +34,18 @@ import social.androiddev.timeline.navigation.TimelineComponent
  */
 @Composable
 fun TimelineContent(
-    state: StateFlow<StoreResponse<List<StatusLocal>>>,
+    state: StateFlow<StoreResponse<List<FeedItemState>>>,
     modifier: Modifier = Modifier,
 ) {
-   val items =  state.collectAsState()
-
-   val feedItems =  when(val value = items.value){
-        is StoreResponse.Data ->  {
-            val feedItems = value.value.map {
-               FeedItemState(
-                  id = it.remoteId,
-                   userAvatarUrl = it.avatarUrl,
-                   date = it.createdAt,
-                   username = it.userName,
-                   acctAddress = it.accountAddress,
-                   message = it.content,
-                   images = emptyList(),
-                   videoUrl = null,
-               )
-            }
-
+    when (val items = state.collectAsState().value) {
+        is StoreResponse.Data -> {
             TimelineContent(
-                items = feedItems,
+                items = items.value,
                 modifier = modifier,
             )
         }
-        else ->{
-
+        else -> {
+            //handle error/loading
         }
     }
 }
