@@ -15,8 +15,9 @@ import kotlinx.coroutines.flow.StateFlow
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import org.mobilenativefoundation.store.store5.StoreResponse
+import social.androiddev.domain.timeline.FeedType
 import social.androiddev.domain.timeline.HomeTimelineRepository
-import social.androiddev.domain.timeline.model.StatusLocal
+import social.androiddev.timeline.FeedItemState
 import kotlin.coroutines.CoroutineContext
 
 
@@ -31,11 +32,12 @@ class DefaultTimelineComponent(
     private val viewModel = instanceKeeper.getOrCreate {
         TimelineViewModel(
             mainContext = mainContext,
-            homeTimelineRepository
+            homeTimelineRepository,
+            FeedType.Home
         )
     }
 
-    override val state: StateFlow<StoreResponse<List<StatusLocal>>> = viewModel.state
+    override val state: StateFlow<StoreResponse<List<FeedItemState>>> = viewModel.state
 
 }
 

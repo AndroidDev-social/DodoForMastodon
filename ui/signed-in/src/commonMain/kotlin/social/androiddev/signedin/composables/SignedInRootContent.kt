@@ -22,6 +22,7 @@ import kotlinx.coroutines.flow.StateFlow
 import org.mobilenativefoundation.store.store5.StoreResponse
 import social.androiddev.domain.timeline.model.StatusLocal
 import social.androiddev.signedin.navigation.SignedInRootComponent
+import social.androiddev.timeline.FeedItemState
 import social.androiddev.timeline.TimelineContent
 
 /**
@@ -58,7 +59,7 @@ fun SignedInRootContent(
 
 @Composable
 private fun TimelineTab(
-    state: StateFlow<StoreResponse<List<StatusLocal>>>
+    state: StateFlow<StoreResponse<List<FeedItemState>>>
 ) {
     TimelineContent(
         state = state,

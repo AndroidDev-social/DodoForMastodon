@@ -19,7 +19,7 @@ CREATE TABLE StatusDB (
 
 insertFeedItem:
 INSERT OR REPLACE INTO StatusDB
-VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);
+VALUES ?;
 
 selectHomeItems:
 SELECT * FROM StatusDB
