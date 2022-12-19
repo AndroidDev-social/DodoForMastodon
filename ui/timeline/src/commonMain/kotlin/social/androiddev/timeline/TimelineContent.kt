@@ -17,7 +17,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -25,7 +24,6 @@ import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.flow.StateFlow
 import org.mobilenativefoundation.store.store5.StoreResponse
 import social.androiddev.common.theme.DodoTheme
-import social.androiddev.domain.timeline.model.StatusLocal
 import social.androiddev.timeline.navigation.TimelineComponent
 
 /**
@@ -44,6 +42,7 @@ fun TimelineContent(
                 modifier = modifier,
             )
         }
+
         else -> {
             //handle error/loading
         }
