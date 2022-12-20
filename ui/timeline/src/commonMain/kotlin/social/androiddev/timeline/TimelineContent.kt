@@ -1,11 +1,14 @@
 /*
  * This file is part of Dodo.
  *
- * Dodo is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+ * Dodo is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  *
- * Dodo is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ * Dodo is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License along with Dodo. If not, see <https://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with Dodo.
+ * If not, see <https://www.gnu.org/licenses/>.
  */
 package social.androiddev.timeline
 
@@ -34,14 +37,14 @@ fun TimelineContent(
 ) {
     // TODO: Hook up to View Model for fetching timeline items
     TimelineContent(
-        items = listOf(dummyFeedItem),
+        immutableListWrapper = ImmutableListWrapper(listOf(dummyFeedItem)),
         modifier = modifier,
     )
 }
 
 @Composable
 fun TimelineContent(
-    items: List<FeedItemState>,
+    immutableListWrapper: ImmutableListWrapper<FeedItemState>,
     modifier: Modifier = Modifier,
 ) {
     Surface(
@@ -51,7 +54,7 @@ fun TimelineContent(
             .fillMaxSize()
     ) {
         LazyColumn {
-            items(items, key = { item -> item.id }) { state ->
+            items(immutableListWrapper.items, key = { item -> item.id }) { state ->
                 TimelineCard(
                     state = state,
                     modifier = Modifier.wrapContentSize(),
@@ -67,6 +70,6 @@ fun TimelineContent(
 @Composable
 private fun TimelinePreview() {
     DodoTheme {
-        TimelineContent(listOf(dummyFeedItem))
+        TimelineContent(ImmutableListWrapper(listOf(dummyFeedItem)))
     }
 }
