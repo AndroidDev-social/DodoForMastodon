@@ -29,5 +29,5 @@ interface DodoAuthStorage {
     /**
      * Get the Access token for @param server
      */
-    suspend fun getAccessToken(server: String): String?
+    fun getAccessToken(server: String): String?
 }

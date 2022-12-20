@@ -12,8 +12,9 @@ package social.androiddev.common.persistence.localstorage
 import com.russhwolf.settings.Settings
 import com.russhwolf.settings.get
 import com.russhwolf.settings.set
-import kotlinx.coroutines.sync.Mutex
-import kotlinx.coroutines.sync.withLock
+import kotlinx.atomicfu.locks.ReentrantLock
+import kotlinx.atomicfu.locks.reentrantLock
+import kotlinx.atomicfu.locks.withLock
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.json.Json
@@ -21,7 +22,7 @@ import kotlinx.serialization.json.Json
 internal class DodoAuthStorageImpl(
     private val settings: Settings,
     private val json: Json,
-    private val lock: Mutex = Mutex()
+    private val lock: ReentrantLock = reentrantLock()
 ) : DodoAuthStorage {
     override var currentDomain: String?
         get() = settings[KEY_DOMAIN_CACHE]
@@ -50,7 +51,7 @@ internal class DodoAuthStorageImpl(
         }
     private val memCache: LinkedHashMap<String, AccessToken> by lazy { diskCache }
 
-    override suspend fun getAccessToken(server: String): String? =
+    override fun getAccessToken(server: String): String? =
         lock.withLock { memCache[server]?.token }
 
     override suspend fun saveAccessToken(server: String, token: String) {
