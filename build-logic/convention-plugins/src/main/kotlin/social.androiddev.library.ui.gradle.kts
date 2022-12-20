@@ -1,3 +1,7 @@
+/**
+ * Convention plugin for ui library modules. Includes compose dependencies. Currently does not
+ * support iOS.
+ */
 plugins {
     id("social.androiddev.library.common")
     id("org.jetbrains.compose")

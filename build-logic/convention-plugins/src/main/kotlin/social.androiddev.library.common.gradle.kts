@@ -1,41 +1,19 @@
+/**
+ * Convention plugin to apply common configurations for library modules. Instead of depending on
+ * this directly you should depend on `social.androiddev.library` or `social.androiddev.library.ui`.
+ */
 plugins {
     id("org.jetbrains.kotlin.multiplatform")
     id("com.android.library")
-    id("com.diffplug.spotless")
+    id("social.androiddev.android.common")
 }
 
-val libs = the<org.gradle.accessors.dm.LibrariesForLibs>()
-
 android {
-    compileSdk = libs.versions.android.compileSdk.get().toInt()
-
-    defaultConfig {
-        minSdk = libs.versions.android.minSdk.get().toInt()
-        targetSdk = libs.versions.android.targetSdk.get().toInt()
-    }
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-
     sourceSets {
         named("main") {
             manifest.srcFile("src/androidMain/AndroidManifest.xml")
             res.srcDirs("src/androidMain/res")
         }
-    }
-}
-
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-    kotlinOptions.jvmTarget = "11"
-}
-
-spotless {
-    kotlin {
-        target("src/*/kotlin/**/*.kt")
-        ktlint("0.43.2")
-        licenseHeaderFile(File(rootDir, "copyright.txt"))
     }
 }
 

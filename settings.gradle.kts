@@ -2,19 +2,18 @@ enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {
     repositories {
-        google()
-        mavenCentral()
         gradlePluginPortal()
+        mavenCentral()
+        google()
     }
     includeBuild("build-logic")
 }
 
 dependencyResolutionManagement {
     repositories {
-        google()
         mavenCentral()
+        google()
         mavenLocal()
-        maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
     }
 }
 

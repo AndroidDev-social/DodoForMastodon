@@ -1,5 +1,6 @@
 plugins {
     id("com.android.application")
+    id("social.androiddev.android.common")
     kotlin("android")
     id("org.jetbrains.compose")
     id("kotlin-parcelize")
@@ -8,22 +9,9 @@ plugins {
 android {
     namespace = "social.androiddev.dodo"
 
-    compileSdk = libs.versions.android.compileSdk.get().toInt()
-
     defaultConfig {
-        minSdk = libs.versions.android.minSdk.get().toInt()
-        targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1
         versionName = "1.0"
-    }
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-
-    kotlinOptions {
-        jvmTarget = "11"
     }
 }
 
