@@ -30,6 +30,11 @@ kotlin {
                 implementation(libs.org.jetbrains.kotlin.test.junit)
             }
         }
+        val androidMain by getting {
+            dependencies {
+                api (libs.org.jetbrains.kotlinx.atomicfu)
+            }
+        }
         val desktopTest by getting {
             dependencies {
                 implementation(kotlin("test"))

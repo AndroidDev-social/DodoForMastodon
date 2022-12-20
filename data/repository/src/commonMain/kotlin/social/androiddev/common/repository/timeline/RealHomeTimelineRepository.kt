@@ -27,7 +27,7 @@ class RealHomeTimelineRepository(
      * on first return will also call network fetcher to get
      * latest from network and update local storage with it]
      */
-    override suspend fun read(
+    override fun read(
         feedType: FeedType,
         refresh: Boolean
     ): Flow<StoreResponse<List<StatusLocal>>> {

@@ -14,7 +14,7 @@ import org.mobilenativefoundation.store.store5.StoreResponse
 import social.androiddev.domain.timeline.model.StatusLocal
 
 interface HomeTimelineRepository {
-    suspend fun read(
+    fun read(
         feedType: FeedType,
         refresh: Boolean = false
     ): Flow<StoreResponse<List<StatusLocal>>>
