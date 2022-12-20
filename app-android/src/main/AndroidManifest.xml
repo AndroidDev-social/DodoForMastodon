@@ -24,7 +24,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:scheme="socialandroiddevdodo" />
+                <data android:scheme="dodooauth2redirect" />
             </intent-filter>
         </activity>
     </application>

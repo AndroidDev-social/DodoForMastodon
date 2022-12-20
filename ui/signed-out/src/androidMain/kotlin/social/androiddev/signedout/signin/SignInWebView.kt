@@ -65,9 +65,10 @@ actual fun SignInWebView(
     }
 
     Box(Modifier.fillMaxSize()) {
-        CircularProgressIndicator(Modifier
-            .align(Alignment.Center)
-            .size(84.dp)
+        CircularProgressIndicator(
+            Modifier
+                .align(Alignment.Center)
+                .size(84.dp)
         )
     }
 
