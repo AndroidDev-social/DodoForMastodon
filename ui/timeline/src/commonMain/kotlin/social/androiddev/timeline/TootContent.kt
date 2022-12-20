@@ -18,10 +18,7 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.withStyle
 import social.androiddev.common.theme.DodoTheme
 
 @Composable
@@ -58,8 +55,6 @@ fun TootContent(
         }
     }
 }
-
-
 
 // @Preview
 @Composable

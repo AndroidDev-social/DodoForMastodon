@@ -20,8 +20,6 @@ import social.androiddev.domain.timeline.HomeTimelineRepository
 import social.androiddev.timeline.FeedItemState
 import kotlin.coroutines.CoroutineContext
 
-
-
 class DefaultTimelineComponent(
     mainContext: CoroutineContext,
     private val componentContext: ComponentContext,
@@ -38,6 +36,4 @@ class DefaultTimelineComponent(
     }
 
     override val state: StateFlow<StoreResponse<List<FeedItemState>>> = viewModel.state
-
 }
-

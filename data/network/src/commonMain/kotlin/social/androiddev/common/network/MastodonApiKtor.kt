@@ -128,7 +128,7 @@ internal class MastodonApiKtor(
 
     override suspend fun getHomeFeed(domain: String, accessToken: String): Result<List<Status>> {
         return runCatchingIgnoreCancelled {
-            httpClient.get{
+            httpClient.get {
                 url {
                     host = domain
                     path("/api/v1/timelines/home")

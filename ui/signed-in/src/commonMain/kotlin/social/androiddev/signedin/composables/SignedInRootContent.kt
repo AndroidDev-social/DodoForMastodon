@@ -20,7 +20,6 @@ import com.arkivanov.decompose.extensions.compose.jetbrains.stack.Children
 import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
 import kotlinx.coroutines.flow.StateFlow
 import org.mobilenativefoundation.store.store5.StoreResponse
-import social.androiddev.domain.timeline.model.StatusLocal
 import social.androiddev.signedin.navigation.SignedInRootComponent
 import social.androiddev.timeline.FeedItemState
 import social.androiddev.timeline.TimelineContent

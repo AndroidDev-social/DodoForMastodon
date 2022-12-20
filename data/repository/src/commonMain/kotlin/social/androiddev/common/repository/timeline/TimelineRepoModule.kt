@@ -33,17 +33,13 @@ val timelineRepoModule: Module = module {
 
     factory { get<MastodonApi>().timelineFetcher(authStorage = get()) }
 
-
     factory {
         val fetcher = get<Fetcher<FeedType, List<StatusDB>>>()
         val sourceOfTruth = get<SourceOfTruth<FeedType, List<StatusDB>, List<StatusLocal>>>()
         StoreBuilder.from(
-                fetcher = fetcher,
-                sourceOfTruth = sourceOfTruth
-            )
+            fetcher = fetcher,
+            sourceOfTruth = sourceOfTruth
+        )
             .build()
     }
 }
-
-
-
