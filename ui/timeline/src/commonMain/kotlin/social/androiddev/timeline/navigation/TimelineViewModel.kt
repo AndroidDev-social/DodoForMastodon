@@ -14,9 +14,11 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.mapLatest
+import kotlinx.coroutines.flow.stateIn
 import org.mobilenativefoundation.store.store5.ResponseOrigin
 import org.mobilenativefoundation.store.store5.StoreResponse
 import social.androiddev.domain.timeline.FeedType
@@ -33,35 +35,34 @@ class TimelineViewModel(
     private val scope = CoroutineScope(mainContext + SupervisorJob())
     private val _state =
         MutableStateFlow<StoreResponse<List<FeedItemState>>>(StoreResponse.Loading(ResponseOrigin.SourceOfTruth))
-    val state: StateFlow<StoreResponse<List<FeedItemState>>> = _state.asStateFlow()
+    val state: StateFlow<StoreResponse<List<FeedItemState>>> = homeTimelineRepository
+        .read(FeedType.Home, refresh = true)
+        .mapLatest(::render)
+        .stateIn(scope, SharingStarted.Eagerly, StoreResponse.Loading(ResponseOrigin.Cache))
 
-    init {
-        scope.launch {
-            homeTimelineRepository.read(refresh = true).collect {
-                when (val response: StoreResponse<List<StatusLocal>> = it) {
-                    is StoreResponse.Data -> {
-                        val result = StoreResponse.Data(
-                            response.value.map {
-                                FeedItemState(
-                                    id = it.remoteId,
-                                    userAvatarUrl = it.avatarUrl,
-                                    date = it.createdAt,
-                                    username = it.userName,
-                                    acctAddress = it.accountAddress,
-                                    message = it.content,
-                                    images = emptyList(),
-                                    videoUrl = null,
-                                )
-                            },
-                            response.origin
+    private fun render(it: StoreResponse<List<StatusLocal>>): StoreResponse.Data<List<FeedItemState>> {
+        return when (val response: StoreResponse<List<StatusLocal>> = it) {
+            is StoreResponse.Data -> {
+                val result = StoreResponse.Data(
+                    response.value.map {
+                        FeedItemState(
+                            id = it.remoteId,
+                            userAvatarUrl = it.avatarUrl,
+                            date = it.createdAt,
+                            username = it.userName,
+                            acctAddress = it.accountAddress,
+                            message = it.content,
+                            images = emptyList(),
+                            videoUrl = null,
                         )
-                        _state.value = result
-                    }
+                    },
+                    response.origin
+                )
+                result
+            }
 
-                    else -> {
-                        // TODO display error/loading
-                    }
-                }
+            else -> {
+                StoreResponse.Data(emptyList(), it.origin)
             }
         }
     }

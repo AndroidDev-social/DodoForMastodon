@@ -60,7 +60,7 @@ kotlin {
         getByName("androidMain") {
             dependsOn(commonMain)
             dependencies {
-                api ("org.jetbrains.kotlinx:atomicfu:0.18.5")
+                api (libs.org.jetbrains.kotlinx.atomicfu)
             }
         }
 

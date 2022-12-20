@@ -9,6 +9,8 @@
  */
 package social.androiddev.common.repository.timeline.fixtures
 
+import org.mobilenativefoundation.store.store5.ResponseOrigin
+import org.mobilenativefoundation.store.store5.StoreResponse
 import social.androiddev.common.network.MastodonApi
 import social.androiddev.common.network.model.Application
 import social.androiddev.common.network.model.AvailableInstance
@@ -18,6 +20,8 @@ import social.androiddev.common.network.model.Privacy
 import social.androiddev.common.network.model.Status
 import social.androiddev.common.network.model.Token
 import social.androiddev.common.persistence.localstorage.DodoAuthStorage
+import social.androiddev.domain.timeline.FeedType
+import social.androiddev.domain.timeline.model.StatusLocal
 
 val fakeStorage = object : DodoAuthStorage {
     override var currentDomain: String? = "androiddev.social"
@@ -28,6 +32,26 @@ val fakeStorage = object : DodoAuthStorage {
 
     override fun getAccessToken(server: String): String = "FakeToken"
 }
+
+val failureResponse = StoreResponse.Error.Message("We failed", ResponseOrigin.Cache)
+
+
+val fakeLocalStatus = StatusLocal(
+    "",
+    FeedType.Home,
+    "",
+    0,
+    0,
+    0,
+    "",
+    null,
+    false,
+    "",
+    "",
+    "",
+    "",
+    ""
+)
 
 val fakeStatus = Status(
     "",
