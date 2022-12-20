@@ -27,7 +27,7 @@ data class Status(
     @SerialName("sensitive") val sensitive: Boolean,
     @SerialName("spoiler_text") val spoilerText: String,
     @SerialName("media_attachments") val mediaAttachments: List<Attachment>? = emptyList(),
-    @SerialName("application") val application: Application?=null,
+    @SerialName("application") val application: Application? = null,
 
     // rendering attributes
     @SerialName("mentions") val mentions: List<Mention>? = null,

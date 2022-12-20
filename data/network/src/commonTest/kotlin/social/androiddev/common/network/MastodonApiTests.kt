@@ -30,7 +30,7 @@ import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
 @OptIn(ExperimentalCoroutinesApi::class)
-    class MastodonApiTests {
+class MastodonApiTests {
 
     @Test
     fun `instance list should be parsed correctly`() = runTest {
@@ -215,7 +215,7 @@ import kotlin.test.assertTrue
         // then
         assertTrue(actual = result.isSuccess)
     }
-    //TODO MIKE:  Harden tests to validate inputs
+    // TODO MIKE:  Harden tests to validate inputs
     @Test
     fun `view home feed should succeed`() = runTest {
         val mastodonApi = MastodonApiKtor(
@@ -225,7 +225,7 @@ import kotlin.test.assertTrue
         )
 
         // when
-        val result = mastodonApi.getHomeFeed("","")
+        val result = mastodonApi.getHomeFeed("", "")
 
         // then
         assertTrue(actual = result.isSuccess)

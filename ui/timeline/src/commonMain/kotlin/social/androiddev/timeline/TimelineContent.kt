@@ -44,7 +44,7 @@ fun TimelineContent(
         }
 
         else -> {
-            //handle error/loading
+            // handle error/loading
         }
     }
 }

@@ -28,7 +28,7 @@ import kotlin.coroutines.CoroutineContext
 class DefaultSignedInRootComponent(
     private val componentContext: ComponentContext,
     private val mainContext: CoroutineContext,
-    ) : SignedInRootComponent, ComponentContext by componentContext {
+) : SignedInRootComponent, ComponentContext by componentContext {
 
     // StackNavigation accepts navigation commands and forwards them to all subscribed observers.
     private val navigation = StackNavigation<Config>()

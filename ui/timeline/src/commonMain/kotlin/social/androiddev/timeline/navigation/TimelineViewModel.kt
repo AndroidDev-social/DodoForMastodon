@@ -1,3 +1,12 @@
+/*
+ * This file is part of Dodo.
+ *
+ * Dodo is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+ *
+ * Dodo is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with Dodo. If not, see <https://www.gnu.org/licenses/>.
+ */
 package social.androiddev.timeline.navigation
 
 import com.arkivanov.essenty.instancekeeper.InstanceKeeper
@@ -31,23 +40,26 @@ class TimelineViewModel(
             homeTimelineRepository.read(refresh = true).collect {
                 when (val response: StoreResponse<List<StatusLocal>> = it) {
                     is StoreResponse.Data -> {
-                        val result = StoreResponse.Data(response.value.map {
-                            FeedItemState(
-                                id = it.remoteId,
-                                userAvatarUrl = it.avatarUrl,
-                                date = it.createdAt,
-                                username = it.userName,
-                                acctAddress = it.accountAddress,
-                                message = it.content,
-                                images = emptyList(),
-                                videoUrl = null,
-                            )
-                        }, response.origin)
+                        val result = StoreResponse.Data(
+                            response.value.map {
+                                FeedItemState(
+                                    id = it.remoteId,
+                                    userAvatarUrl = it.avatarUrl,
+                                    date = it.createdAt,
+                                    username = it.userName,
+                                    acctAddress = it.accountAddress,
+                                    message = it.content,
+                                    images = emptyList(),
+                                    videoUrl = null,
+                                )
+                            },
+                            response.origin
+                        )
                         _state.value = result
                     }
 
                     else -> {
-                        //TODO display error/loading
+                        // TODO display error/loading
                     }
                 }
             }
@@ -57,5 +69,4 @@ class TimelineViewModel(
     override fun onDestroy() {
         scope.cancel() // Cancel the scope when the instance is destroyed
     }
-
 }
