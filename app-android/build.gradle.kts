@@ -26,6 +26,13 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
 
+    packagingOptions {
+        exclude ("META-INF/DEPENDENCIES")
+        exclude ("META-INF/NOTICE")
+        exclude ("mozilla/public-suffix-list.txt")
+
+    }
+
     kotlinOptions {
         jvmTarget = "11"
     }

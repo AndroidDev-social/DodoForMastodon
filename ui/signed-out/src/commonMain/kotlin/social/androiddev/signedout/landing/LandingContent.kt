@@ -17,7 +17,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.CircleShape
@@ -25,7 +25,6 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -38,7 +37,6 @@ import social.androiddev.common.composables.buttons.DodoButton
 import social.androiddev.common.theme.Blue
 import social.androiddev.common.theme.DodoTheme
 import social.androiddev.common.utils.AsyncImage
-import social.androiddev.common.utils.loadImageIntoPainter
 
 /**
  * Landing view that delegates business logic to [LandingContent]
@@ -49,12 +47,12 @@ fun LandingContent(
     modifier: Modifier = Modifier,
     appIcon: @Composable () -> Unit = {
         AsyncImage(
-            load = { loadImageIntoPainter(url = "https://via.placeholder.com/200x200/6FA4DE/010041?text=Dodo") },
-            painterFor = { remember { it } },
+            url = "https://via.placeholder.com/200x200/6FA4DE/010041?text=Dodo",
             contentDescription = "App Logo",
             modifier = Modifier
                 .padding(horizontal = 48.dp)
-                .size(240.dp)
+                .width(240.dp)
+                .height(240.dp)
                 .clip(CircleShape),
             contentScale = ContentScale.Crop,
         )
@@ -73,12 +71,12 @@ fun LandingContent(
     onGetStartedClicked: () -> Unit,
     appIcon: @Composable () -> Unit = {
         AsyncImage(
-            load = { loadImageIntoPainter(url = "https://via.placeholder.com/200x200/6FA4DE/010041?text=Dodo") },
-            painterFor = { remember { it } },
+            url = "https://via.placeholder.com/200x200/6FA4DE/010041?text=Dodo",
             contentDescription = "App Logo",
             modifier = Modifier
                 .padding(horizontal = 48.dp)
-                .size(240.dp)
+                .width(240.dp)
+                .height(240.dp)
                 .clip(CircleShape),
             contentScale = ContentScale.Crop,
         )

@@ -9,6 +9,7 @@
  */
 package social.androiddev.common.composables
 
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
@@ -26,10 +27,9 @@ fun UserAvatar(
     url: String
 ) {
     AsyncImage(
-        load = { loadImageIntoPainter(url = url) },
-        painterFor = { remember { it } },
+        url = url,
         contentDescription = "User avatar",
-        modifier = modifier.width(48.dp).clip(RoundedCornerShape(5.dp))
+        modifier = modifier.width(48.dp).height(48.dp).clip(RoundedCornerShape(5.dp))
     )
 }
 

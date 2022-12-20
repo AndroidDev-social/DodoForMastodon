@@ -18,6 +18,9 @@ android {
         minSdk = minSDKVersion
         targetSdk = targetSDKVersion
     }
+    packagingOptions {
+        exclude ("META-INF/DEPENDENCIES")
+    }
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
@@ -45,6 +48,9 @@ kotlin {
                 implementation(compose.material)
                 api(libs.com.arkivanov.decompose)
                 api(libs.com.arkivanov.decompose.extensions.compose.jetbrains)
+                implementation("com.alialbaali.kamel:kamel-image:0.4.0")
+                implementation("it.skrape:skrapeit:1.2.2")
+
             }
         }
 
