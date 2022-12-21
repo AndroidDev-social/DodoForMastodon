@@ -36,7 +36,6 @@ val fakeStorage = object : DodoAuthStorage {
 
 val failureResponse = StoreResponse.Error.Message("We failed", ResponseOrigin.Cache)
 
-
 val fakeLocalStatus = StatusLocal(
     "",
     FeedType.Home,
