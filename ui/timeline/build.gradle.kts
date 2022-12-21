@@ -12,6 +12,7 @@ kotlin {
             dependencies {
                 implementation(projects.domain.timeline)
                 implementation(projects.ui.common)
+                implementation(libs.io.insert.koin.core)
             }
         }
 

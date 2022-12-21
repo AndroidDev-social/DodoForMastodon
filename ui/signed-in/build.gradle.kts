@@ -13,6 +13,10 @@ kotlin {
             dependencies {
                 implementation(projects.ui.common)
                 implementation(projects.ui.timeline)
+                implementation(projects.data.persistence)
+                implementation(projects.data.repository)
+                implementation(projects.domain.timeline)
+                implementation(libs.io.insert.koin.core)
             }
         }
 

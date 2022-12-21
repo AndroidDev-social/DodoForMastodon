@@ -22,6 +22,7 @@ import io.ktor.utils.io.ByteReadChannel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import kotlinx.serialization.json.Json
+import social.androiddev.common.network.fixtures.homeFeed
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
@@ -213,6 +214,22 @@ class MastodonApiTests {
 
         // then
         assertTrue(actual = result.isSuccess)
+    }
+    // TODO MIKE:  Harden tests to validate inputs
+    @Test
+    fun `view home feed should succeed`() = runTest {
+        val mastodonApi = MastodonApiKtor(
+            httpClient = createMockClient(
+                statusCode = HttpStatusCode.OK, content = ByteReadChannel(text = homeFeed)
+            )
+        )
+
+        // when
+        val result = mastodonApi.getHomeFeed("", "")
+
+        // then
+        assertTrue(actual = result.isSuccess)
+        assertTrue { result.getOrThrow().isNotEmpty() }
     }
 
     private fun createMockClient(

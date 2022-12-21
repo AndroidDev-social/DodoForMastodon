@@ -10,6 +10,10 @@ sqldelight {
         packageName = "social.androiddev.common.persistence"
         sourceFolders = listOf("sqldelight")
     }
+    database("TimelineDatabase") {
+        packageName = "social.androiddev.common.timeline"
+        sourceFolders = listOf("sqldelightTimeline")
+    }
 }
 
 android {
@@ -24,6 +28,7 @@ kotlin {
                 implementation(libs.multiplatform.settings)
                 implementation(libs.kotlinx.serialization.json)
                 implementation(libs.io.insert.koin.core)
+                implementation(libs.store)
             }
         }
 

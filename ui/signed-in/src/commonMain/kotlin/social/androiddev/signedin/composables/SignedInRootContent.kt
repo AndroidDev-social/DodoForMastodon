@@ -18,9 +18,11 @@ import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.ExperimentalDecomposeApi
 import com.arkivanov.decompose.extensions.compose.jetbrains.stack.Children
 import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
+import kotlinx.coroutines.flow.StateFlow
+import org.mobilenativefoundation.store.store5.StoreResponse
 import social.androiddev.signedin.navigation.SignedInRootComponent
+import social.androiddev.timeline.FeedItemState
 import social.androiddev.timeline.TimelineContent
-import social.androiddev.timeline.navigation.TimelineComponent
 
 /**
  * The root composable for when the user launches the app and is
@@ -47,7 +49,7 @@ fun SignedInRootContent(
         ) { createdChild ->
             when (val child = createdChild.instance) {
                 is SignedInRootComponent.Child.Timeline -> {
-                    TimelineTab(child.component)
+                    TimelineTab(child.component.state)
                 }
             }
         }
@@ -56,10 +58,10 @@ fun SignedInRootContent(
 
 @Composable
 private fun TimelineTab(
-    component: TimelineComponent
+    state: StateFlow<StoreResponse<List<FeedItemState>>>
 ) {
     TimelineContent(
-        component = component,
+        state = state,
         modifier = Modifier.fillMaxSize(),
     )
 }

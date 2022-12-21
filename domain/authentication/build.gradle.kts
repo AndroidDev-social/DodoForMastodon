@@ -12,6 +12,14 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(libs.io.insert.koin.core)
+
+            }
+        }
+
+        val commonTest by getting {
+            dependencies {
+                implementation(libs.org.jetbrains.kotlin.test.common)
+                implementation(libs.org.jetbrains.kotlin.test.annotations.common)
             }
         }
     }

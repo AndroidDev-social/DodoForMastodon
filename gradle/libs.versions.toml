@@ -22,6 +22,8 @@ org-xerial = "3.8.10.2"
 io-insert-koin = "3.2.0"
 com-russhwolf = "1.0.0-RC"
 kotlinx-serialization = "1.4.0"
+store = "5.0.0-alpha03"
+atomic-fu="0.18.5"
 io-github-aakira = "2.6.1"
 
 [libraries]
@@ -40,6 +42,7 @@ io-ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "io-kto
 io-ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "io-ktor" }
 io-ktor-client-serialization = { module = "io.ktor:ktor-client-serialization", version.ref = "io-ktor" }
 io-ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "io-ktor" }
+io-ktor-client-auth = { module = "io.ktor:ktor-client-auth", version.ref = "io-ktor" }
 io-ktor-client-mock-jvm = { module = "io.ktor:ktor-client-mock-jvm", version.ref = "io-ktor" }
 io-ktor-client-mock = { module = "io.ktor:ktor-client-mock", version.ref = "io-ktor" }
 io-ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "io-ktor" }
@@ -52,6 +55,7 @@ kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-c
 kotlinx-coroutines-javafx = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-javafx", version.ref = "org-jetbrains-kotlinx-coroutines" }
 org-jetbrains-kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "org-jetbrains-kotlinx-coroutines" }
 org-jetbrains-kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "org-jetbrains-kotlinx-serialization" }
+org-jetbrains-kotlinx-atomicfu = { module = "org.jetbrains.kotlinx:atomicfu", version.ref = "atomic-fu" }
 
 org-jetbrains-kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "org-jetbrains-kotlin" }
 org-jetbrains-kotlin-test-common = { module = "org.jetbrains.kotlin:kotlin-test-common", version.ref = "org-jetbrains-kotlin" }
@@ -60,6 +64,7 @@ org-jetbrains-kotlin-test-annotations-common = { module = "org.jetbrains.kotlin:
 com-squareup-sqldelight-android-driver = { module = "com.squareup.sqldelight:android-driver", version.ref = "com-squareup-sqldelight" }
 com-squareup-sqldelight-native-driver = { module = "com.squareup.sqldelight:native-driver", version.ref = "com-squareup-sqldelight" }
 com-squareup-sqldelight-sqlite-driver = { module = "com.squareup.sqldelight:sqlite-driver", version.ref = "com-squareup-sqldelight" }
+com-squareup-sqldelight-coroutines-extensions = { module = "com.squareup.sqldelight:coroutines-extensions", version.ref = "com-squareup-sqldelight" }
 org-xerial-sqlite-jdbc = { module = "org.xerial:sqlite-jdbc", version.ref = "org-xerial" }
 
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
@@ -73,6 +78,6 @@ com-arkivanov-decompose-extensions-compose-jetbrains = { module = "com.arkivanov
 com-arkivanov-decompose-extensions-compose-jetpack = { module = "com.arkivanov.decompose:extensions-compose-jetpack", version.ref = "com-arkivanov-decompose" }
 multiplatform-settings = { module = "com.russhwolf:multiplatform-settings", version.ref = "com-russhwolf" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
+store = { module = "org.mobilenativefoundation.store:store5", version.ref = "store"}
 io-github-aakira-napier = { module = "io.github.aakira:napier", version.ref = "io-github-aakira" }
-
 [plugins]

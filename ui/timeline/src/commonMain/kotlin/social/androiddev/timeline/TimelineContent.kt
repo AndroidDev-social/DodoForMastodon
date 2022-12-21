@@ -17,9 +17,12 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.flow.StateFlow
+import org.mobilenativefoundation.store.store5.StoreResponse
 import social.androiddev.common.theme.DodoTheme
 import social.androiddev.timeline.navigation.TimelineComponent
 
@@ -29,14 +32,21 @@ import social.androiddev.timeline.navigation.TimelineComponent
  */
 @Composable
 fun TimelineContent(
-    component: TimelineComponent,
+    state: StateFlow<StoreResponse<List<FeedItemState>>>,
     modifier: Modifier = Modifier,
 ) {
-    // TODO: Hook up to View Model for fetching timeline items
-    TimelineContent(
-        items = listOf(dummyFeedItem),
-        modifier = modifier,
-    )
+    when (val items = state.collectAsState().value) {
+        is StoreResponse.Data -> {
+            TimelineContent(
+                items = items.value,
+                modifier = modifier,
+            )
+        }
+
+        else -> {
+            // handle error/loading
+        }
+    }
 }
 
 @Composable

@@ -1,0 +1,30 @@
+CREATE TABLE StatusDB (
+  type TEXT NOT NULL,
+  remoteId Text NOT NULL PRIMARY KEY,
+  uri Text NOT NULL,
+  createdAt Text NOT NULL,
+  content Text NOT NULL,
+  accountId Text,
+  visibility Text NOT NULL,
+  sensitive INTEGER AS Boolean DEFAULT 0,
+  spoilerText Text NOT NULL,
+  avatarUrl Text NOT NULL,
+  accountAddress Text NOT NULL,
+  applicationName Text NOT NULL,
+  userName Text NOT NULL,
+  repliesCount INTEGER,
+  favouritesCount INTEGER,
+  reblogsCount INTEGER
+);
+
+insertFeedItem:
+INSERT OR REPLACE INTO StatusDB
+VALUES ?;
+
+selectHomeItems:
+SELECT * FROM StatusDB
+WHERE type = "HOME"
+ORDER BY createdAt;
+
+deleteAll:
+DELETE FROM StatusDB;

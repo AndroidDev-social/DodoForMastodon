@@ -7,17 +7,19 @@
  *
  * You should have received a copy of the GNU General Public License along with Dodo. If not, see <https://www.gnu.org/licenses/>.
  */
-package social.androiddev.domain.timeline.model
+package social.androiddev.domain.timeline
 
-data class Status(
-    val id: String,
-    val createdAt: String,
-    val repliesCount: Int,
-    val reblogsCount: Int,
-    val favouritesCount: Int,
-    val content: String,
-    val account: Account,
-    val sensitive: Boolean = false,
-    val spoilerText: String? = null,
-    val visibility: Visibility = Visibility.PUBLIC
-)
+import kotlinx.coroutines.flow.Flow
+import org.mobilenativefoundation.store.store5.StoreResponse
+import social.androiddev.domain.timeline.model.StatusLocal
+
+interface HomeTimelineRepository {
+    fun read(
+        feedType: FeedType,
+        refresh: Boolean = false
+    ): Flow<StoreResponse<List<StatusLocal>>>
+}
+
+sealed class FeedType(val type: String) {
+    object Home : FeedType("HOME")
+}

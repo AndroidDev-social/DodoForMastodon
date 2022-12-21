@@ -16,7 +16,9 @@ import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
+import social.androiddev.signedin.navigation.DefaultSignedInRootComponent.Config
 import social.androiddev.timeline.navigation.DefaultTimelineComponent
+import kotlin.coroutines.CoroutineContext
 
 /**
  * Default impl of the [SignedInRootComponent] that manages the navigation stack for the
@@ -24,7 +26,8 @@ import social.androiddev.timeline.navigation.DefaultTimelineComponent
  * See [Config] and [SignedInRootComponent.Child] for more details.
  */
 class DefaultSignedInRootComponent(
-    private val componentContext: ComponentContext
+    private val componentContext: ComponentContext,
+    private val mainContext: CoroutineContext,
 ) : SignedInRootComponent, ComponentContext by componentContext {
 
     // StackNavigation accepts navigation commands and forwards them to all subscribed observers.
@@ -50,7 +53,8 @@ class DefaultSignedInRootComponent(
     private fun createTimelineComponent(
         componentContext: ComponentContext,
     ) = DefaultTimelineComponent(
-        componentContext = componentContext
+        componentContext = componentContext,
+        mainContext = mainContext
     )
 
     /**

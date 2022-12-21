@@ -7,20 +7,23 @@
  *
  * You should have received a copy of the GNU General Public License along with Dodo. If not, see <https://www.gnu.org/licenses/>.
  */
-package social.androiddev.common.network.model
+package social.androiddev.domain.timeline.model
 
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
+import social.androiddev.domain.timeline.FeedType
 
-/**
- * https://docs.joinmastodon.org/entities/tag/
- */
-@Serializable
-data class Tag(
-    // required attributes
-    @SerialName("name") val name: String,
-    @SerialName("url") val url: String,
-
-    // optional attributes
-    @SerialName("history") val history: List<History>? = emptyList(),
+data class StatusLocal(
+    val remoteId: String,
+    val feedType: FeedType,
+    val createdAt: String,
+    val repliesCount: Long = 0,
+    val reblogsCount: Long = 0,
+    val favoritesCount: Long = 0,
+    val content: String,
+    val account: Account? = null,
+    val sensitive: Boolean = false,
+    val spoilerText: String? = null,
+    val visibility: Visibility = Visibility.UNLISTED,
+    val avatarUrl: String = "",
+    val accountAddress: String = "",
+    val userName: String
 )
