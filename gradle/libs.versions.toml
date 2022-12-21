@@ -2,7 +2,10 @@
 # plugins
 org-jetbrains-compose = "1.2.1"
 org-jetbrains-kotlin = "1.7.20"
-org-jetbrains-kotlinx-coroutines = "1.6.4"
+
+# Need to match with kotlin version used: https://github.com/Kotlin/kotlinx-atomicfu/blob/0.18.5/gradle.properties
+org-jetbrains-kotlinx-atomicfu = "0.18.5"
+org-jetbrains-kotlinx-serialization = "1.4.1"
 com-android-tools-build = "7.2.2"
 com-squareup-sqldelight = "1.5.3"
 com-diffplug-spotless = "6.11.0"
@@ -11,7 +14,7 @@ io-gitlab-arturbosch-detekt = "1.22.0"
 # libraries
 io-ktor = "2.1.3"
 com-google-truth = "1.1.3"
-org-jetbrains-kotlinx = "1.4.1"
+org-jetbrains-kotlinx-coroutines = "1.6.4"
 androidx-core = "1.3.1"
 androidx-appcompat = "1.5.1"
 androidx-activity = "1.6.1"
@@ -30,6 +33,7 @@ org-jetbrains-compose-gradle-plugin = { module = "org.jetbrains.compose:compose-
 org-jetbrains-kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "org-jetbrains-kotlin" }
 com-android-tools-build-gradle = { module = "com.android.tools.build:gradle", version.ref = "com-android-tools-build" }
 org-jetbrains-kotlin-serialization-plugin = { module = "org.jetbrains.kotlin:kotlin-serialization", version.ref = "org-jetbrains-kotlin" }
+org-jetbrains-kotlinx-atomicfu-plugin = { module = "org.jetbrains.kotlinx:atomicfu-gradle-plugin", version.ref = "org-jetbrains-kotlinx-atomicfu" }
 com-squareup-sqldelight-gradle-plugin = { module = "com.squareup.sqldelight:gradle-plugin", version.ref = "com-squareup-sqldelight" }
 com-diffplug-spotless-gradle-plugin = { module = "com.diffplug.spotless:spotless-plugin-gradle", version.ref = "com-diffplug-spotless" }
 com-google-osdetector-gradle-plugin = { module = "com.google.gradle:osdetector-gradle-plugin", version.ref = "com-google-osdetector" }
@@ -51,7 +55,7 @@ io-insert-koin-android = { module = "io.insert-koin:koin-android", version.ref =
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "org-jetbrains-kotlinx-coroutines" }
 kotlinx-coroutines-javafx = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-javafx", version.ref = "org-jetbrains-kotlinx-coroutines" }
 org-jetbrains-kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "org-jetbrains-kotlinx-coroutines" }
-org-jetbrains-kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "org-jetbrains-kotlinx" }
+org-jetbrains-kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "org-jetbrains-kotlinx-serialization" }
 
 org-jetbrains-kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "org-jetbrains-kotlin" }
 org-jetbrains-kotlin-test-common = { module = "org.jetbrains.kotlin:kotlin-test-common", version.ref = "org-jetbrains-kotlin" }

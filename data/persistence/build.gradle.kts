@@ -4,6 +4,7 @@ plugins {
     id("com.squareup.sqldelight")
     id("social.androiddev.code-quality")
     kotlin("plugin.serialization")
+    id("kotlinx-atomicfu")
 }
 
 
