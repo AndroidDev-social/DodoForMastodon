@@ -22,5 +22,18 @@ kotlin {
 
             }
         }
+        val commonTest by getting {
+            dependencies {
+                implementation(kotlin("test"))
+                implementation(libs.org.jetbrains.kotlin.test.common)
+                implementation(libs.org.jetbrains.kotlin.test.annotations.common)
+            }
+        }
+        val androidTest by getting {
+            dependencies {
+                implementation(kotlin("test"))
+                implementation(libs.org.jetbrains.kotlin.test.junit)
+            }
+        }
     }
 }
