@@ -9,6 +9,9 @@
  */
 package social.androiddev.domain.authentication.repository
 
+import social.androiddev.domain.authentication.model.ApplicationOAuthToken
+import social.androiddev.domain.authentication.model.NewAppOAuthToken
+
 interface AuthenticationRepository {
 
     suspend fun createApplicationClient(
@@ -17,5 +20,23 @@ interface AuthenticationRepository {
         redirectUris: String,
         scopes: String,
         website: String?
-    ): Boolean
+    ): NewAppOAuthToken?
+
+    suspend fun saveApplication(
+        token: NewAppOAuthToken,
+        domain: String,
+    )
+
+    suspend fun createAccessToken(
+        authCode: String,
+        server: String,
+        scope: String,
+        grantType: String,
+    ): String?
+
+    suspend fun saveAccessToken(server: String, token: String)
+
+    val selectedServer: String?
+
+    suspend fun getApplicationOAuthToken(server: String): ApplicationOAuthToken?
 }

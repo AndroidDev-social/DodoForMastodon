@@ -10,10 +10,19 @@
 package social.androiddev.common.network
 
 import social.androiddev.common.network.model.Application
+import social.androiddev.common.network.model.AvailableInstance
 import social.androiddev.common.network.model.Instance
 import social.androiddev.common.network.model.NewOauthApplication
+import social.androiddev.common.network.model.Token
 
 interface MastodonApi {
+
+    /**
+     * List available an registered Instances which can be joined by the user
+     *
+     * @return Instances committed to the Mastodon Server Covenant and listed at joinmastodon.org
+     */
+    suspend fun listInstances(): Result<List<AvailableInstance>>
 
     /**
      * Register client applications that can be used to obtain OAuth tokens.
@@ -36,6 +45,20 @@ interface MastodonApi {
         scopes: String,
         website: String?,
     ): Result<NewOauthApplication>
+
+    /**
+     * Obtain an access token that will authenticate our requests as the authorized user.
+     * @see https://docs.joinmastodon.org/client/authorized/#token
+     */
+    suspend fun createAccessToken(
+        domain: String,
+        clientId: String,
+        clientSecret: String,
+        redirectUri: String,
+        grantType: String,
+        code: String,
+        scope: String
+    ): Result<Token>
 
     /**
      * Confirm that the app’s OAuth2 credentials work.

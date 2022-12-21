@@ -2,14 +2,18 @@
 # plugins
 org-jetbrains-compose = "1.2.1"
 org-jetbrains-kotlin = "1.7.20"
-org-jetbrains-kotlinx-coroutines = "1.6.4"
+
+# Need to match with kotlin version used: https://github.com/Kotlin/kotlinx-atomicfu/blob/0.18.5/gradle.properties
+org-jetbrains-kotlinx-atomicfu = "0.18.5"
+org-jetbrains-kotlinx-serialization = "1.4.1"
 com-android-tools-build = "7.2.2"
 com-squareup-sqldelight = "1.5.3"
 com-diffplug-spotless = "6.11.0"
+com-google-osdetector = "1.7.1"
 # libraries
 io-ktor = "2.1.3"
 com-google-truth = "1.1.3"
-org-jetbrains-kotlinx = "1.4.1"
+org-jetbrains-kotlinx-coroutines = "1.6.4"
 androidx-core = "1.3.1"
 androidx-appcompat = "1.5.1"
 androidx-activity = "1.6.1"
@@ -17,16 +21,20 @@ androidx-compose-foundation = "1.2.1"
 com-arkivanov-decompose = "1.0.0-alpha-07"
 org-xerial = "3.8.10.2"
 io-insert-koin = "3.2.0"
-
+com-russhwolf = "1.0.0-RC"
+kotlinx-serialization = "1.4.0"
+io-github-aakira = "2.6.1"
 
 [libraries]
 # plugins
 org-jetbrains-compose-gradle-plugin = { module = "org.jetbrains.compose:compose-gradle-plugin", version.ref = "org-jetbrains-compose" }
 org-jetbrains-kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "org-jetbrains-kotlin" }
 com-android-tools-build-gradle = { module = "com.android.tools.build:gradle", version.ref = "com-android-tools-build" }
-org-jetbrains-kotlin-serialization = { module = "org.jetbrains.kotlin:kotlin-serialization", version.ref = "org-jetbrains-kotlin" }
+org-jetbrains-kotlin-serialization-plugin = { module = "org.jetbrains.kotlin:kotlin-serialization", version.ref = "org-jetbrains-kotlin" }
+org-jetbrains-kotlinx-atomicfu-plugin = { module = "org.jetbrains.kotlinx:atomicfu-gradle-plugin", version.ref = "org-jetbrains-kotlinx-atomicfu" }
 com-squareup-sqldelight-gradle-plugin = { module = "com.squareup.sqldelight:gradle-plugin", version.ref = "com-squareup-sqldelight" }
 com-diffplug-spotless-gradle-plugin = { module = "com.diffplug.spotless:spotless-plugin-gradle", version.ref = "com-diffplug-spotless" }
+com-google-osdetector-gradle-plugin = { module = "com.google.gradle:osdetector-gradle-plugin", version.ref = "com-google-osdetector" }
 
 # libraries
 io-ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "io-ktor" }
@@ -37,12 +45,15 @@ io-ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-neg
 io-ktor-client-mock-jvm = { module = "io.ktor:ktor-client-mock-jvm", version.ref = "io-ktor" }
 io-ktor-client-mock = { module = "io.ktor:ktor-client-mock", version.ref = "io-ktor" }
 io-ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "io-ktor" }
+io-ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "io-ktor" }
 io-insert-koin-core = { module = "io.insert-koin:koin-core", version.ref = "io-insert-koin" }
 io-insert-koin-test = { module = "io.insert-koin:koin-test", version.ref = "io-insert-koin" }
 io-insert-koin-android = { module = "io.insert-koin:koin-android", version.ref = "io-insert-koin" }
 
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "org-jetbrains-kotlinx-coroutines" }
+kotlinx-coroutines-javafx = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-javafx", version.ref = "org-jetbrains-kotlinx-coroutines" }
 org-jetbrains-kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "org-jetbrains-kotlinx-coroutines" }
-org-jetbrains-kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "org-jetbrains-kotlinx" }
+org-jetbrains-kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "org-jetbrains-kotlinx-serialization" }
 
 org-jetbrains-kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "org-jetbrains-kotlin" }
 org-jetbrains-kotlin-test-common = { module = "org.jetbrains.kotlin:kotlin-test-common", version.ref = "org-jetbrains-kotlin" }
@@ -57,9 +68,13 @@ androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "androidx
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appcompat" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity" }
 androidx-compose-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "androidx-compose-foundation" }
+androidx-browser = { module = "androidx.browser:browser", version = "1.0.0" }
 
 com-arkivanov-decompose = { module = "com.arkivanov.decompose:decompose", version.ref = "com-arkivanov-decompose" }
 com-arkivanov-decompose-extensions-compose-jetbrains = { module = "com.arkivanov.decompose:extensions-compose-jetbrains", version.ref = "com-arkivanov-decompose" }
 com-arkivanov-decompose-extensions-compose-jetpack = { module = "com.arkivanov.decompose:extensions-compose-jetpack", version.ref = "com-arkivanov-decompose" }
+multiplatform-settings = { module = "com.russhwolf:multiplatform-settings", version.ref = "com-russhwolf" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
+io-github-aakira-napier = { module = "io.github.aakira:napier", version.ref = "io-github-aakira" }
 
 [plugins]

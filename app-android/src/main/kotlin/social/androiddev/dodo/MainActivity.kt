@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.defaultComponentContext
+import kotlinx.coroutines.Dispatchers
 import social.androiddev.common.theme.DodoTheme
 import social.androiddev.root.composables.RootContent
 import social.androiddev.root.navigation.DefaultRootComponent
@@ -25,7 +26,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         // Create the root component before starting Compose
-        val root = DefaultRootComponent(componentContext = defaultComponentContext())
+        val root = DefaultRootComponent(
+            componentContext = defaultComponentContext(),
+            mainContext = Dispatchers.Main,
+        )
 
         setContent {
             DodoTheme {

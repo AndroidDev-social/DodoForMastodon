@@ -40,7 +40,9 @@ kotlin {
     sourceSets {
         // shared
         val commonMain by getting {
-            dependencies {}
+            dependencies {
+                implementation(libs.io.insert.koin.core)
+            }
         }
 
         // android

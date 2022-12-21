@@ -46,8 +46,10 @@ kotlin {
                 implementation(libs.io.ktor.client.serialization)
                 implementation(libs.io.ktor.serialization.kotlinx.json)
                 implementation(libs.io.ktor.client.content.negotiation)
+                implementation(libs.io.ktor.client.logging)
                 implementation(libs.org.jetbrains.kotlinx.serialization.json)
                 implementation(libs.io.insert.koin.core)
+                implementation(libs.io.github.aakira.napier)
             }
         }
 

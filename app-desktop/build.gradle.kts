@@ -16,9 +16,13 @@ kotlin {
             dependencies {
                 implementation(compose.desktop.currentOs)
                 implementation(projects.ui.root)
+                implementation(projects.di)
                 implementation(projects.ui.common)
                 implementation(libs.com.arkivanov.decompose)
                 implementation(libs.com.arkivanov.decompose.extensions.compose.jetbrains)
+                implementation(libs.io.insert.koin.core)
+                implementation(libs.kotlinx.coroutines.javafx)
+                implementation(libs.kotlinx.coroutines.core)
             }
         }
     }

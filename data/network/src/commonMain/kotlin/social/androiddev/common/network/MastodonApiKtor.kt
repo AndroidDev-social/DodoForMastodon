@@ -12,23 +12,66 @@ package social.androiddev.common.network
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.ResponseException
-import io.ktor.client.request.forms.formData
 import io.ktor.client.request.get
 import io.ktor.client.request.headers
 import io.ktor.client.request.post
+import io.ktor.client.request.setBody
+import io.ktor.http.ContentType
 import io.ktor.http.HttpHeaders
-import io.ktor.http.URLProtocol
+import io.ktor.http.contentType
 import io.ktor.http.path
 import io.ktor.serialization.JsonConvertException
 import kotlinx.serialization.SerializationException
 import social.androiddev.common.network.model.Application
+import social.androiddev.common.network.model.AvailableInstance
 import social.androiddev.common.network.model.Instance
 import social.androiddev.common.network.model.NewOauthApplication
+import social.androiddev.common.network.model.Token
+import social.androiddev.common.network.model.request.CreateAccessTokenBody
+import social.androiddev.common.network.model.request.CreateApplicationBody
 import social.androiddev.common.network.util.runCatchingIgnoreCancelled
 
 internal class MastodonApiKtor(
     private val httpClient: HttpClient,
 ) : MastodonApi {
+
+    override suspend fun listInstances(): Result<List<AvailableInstance>> {
+        return runCatchingIgnoreCancelled {
+            httpClient.get("https://api.joinmastodon.org/servers").body()
+        }
+    }
+
+    override suspend fun createAccessToken(
+        domain: String,
+        clientId: String,
+        clientSecret: String,
+        redirectUri: String,
+        grantType: String,
+        code: String,
+        scope: String
+    ): Result<Token> {
+        return runCatchingIgnoreCancelled<Token> {
+            httpClient.post {
+                url {
+                    host = domain
+                    path("/oauth/token")
+                }
+                contentType(ContentType.Application.Json)
+                setBody(
+                    CreateAccessTokenBody(
+                        scope = scope,
+                        code = code,
+                        clientId = clientId,
+                        clientSecret = clientSecret,
+                        redirectUri = redirectUri,
+                        grantType = grantType,
+                    )
+                )
+            }.body()
+        }.onFailure { t ->
+            t.printStackTrace()
+        }
+    }
 
     override suspend fun createApplication(
         domain: String,
@@ -37,22 +80,23 @@ internal class MastodonApiKtor(
         scopes: String,
         website: String?
     ): Result<NewOauthApplication> {
-        return runCatchingIgnoreCancelled {
+        return runCatchingIgnoreCancelled<NewOauthApplication> {
             httpClient.post {
                 url {
-                    protocol = URLProtocol.HTTPS
                     host = domain
                     path("/api/v1/apps")
                 }
-                formData {
-                    append("client_name", clientName)
-                    append("redirect_uris", redirectUris)
-                    append("scopes", scopes)
-                    if (website != null) {
-                        append("website", website)
-                    }
-                }
+                contentType(ContentType.Application.Json)
+                setBody(
+                    CreateApplicationBody(
+                        scopes = scopes,
+                        clientName = clientName,
+                        redirectUris = redirectUris
+                    )
+                )
             }.body()
+        }.onFailure { t ->
+            t.printStackTrace()
         }
     }
 

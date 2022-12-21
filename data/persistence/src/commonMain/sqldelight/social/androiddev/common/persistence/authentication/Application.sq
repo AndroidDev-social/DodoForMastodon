@@ -1,14 +1,21 @@
 CREATE TABLE Application (
   instance Text NOT NULL PRIMARY KEY,
   client_id Text NOT NULL,
-  client_secret TEXT NOT NULL
+  client_secret TEXT NOT NULL,
+  redirect_uri TEXT NOT NULL
 );
 
 insertApplication:
-INSERT OR REPLACE INTO Application(instance, client_id, client_secret)VALUES(?,?,?);
+INSERT OR REPLACE INTO Application
+VALUES ?;
 
 selectAll:
 SELECT * FROM Application;
 
 deleteAll:
 DELETE FROM Application;
+
+selectByServer:
+SELECT *
+FROM Application
+WHERE instance = ?;

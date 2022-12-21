@@ -9,11 +9,21 @@
  */
 package social.androiddev.common.repository
 
+import kotlinx.coroutines.withContext
 import social.androiddev.common.network.MastodonApi
+import social.androiddev.common.persistence.AuthenticationDatabase
+import social.androiddev.common.persistence.authentication.Application
+import social.androiddev.common.persistence.localstorage.DodoAuthStorage
+import social.androiddev.domain.authentication.model.ApplicationOAuthToken
+import social.androiddev.domain.authentication.model.NewAppOAuthToken
 import social.androiddev.domain.authentication.repository.AuthenticationRepository
+import kotlin.coroutines.CoroutineContext
 
 internal class AuthenticationRepositoryImpl(
-    private val mastodonApi: MastodonApi
+    private val mastodonApi: MastodonApi,
+    private val database: AuthenticationDatabase,
+    private val settings: DodoAuthStorage,
+    private val ioCoroutineContext: CoroutineContext,
 ) : AuthenticationRepository {
 
     override suspend fun createApplicationClient(
@@ -22,7 +32,7 @@ internal class AuthenticationRepositoryImpl(
         redirectUris: String,
         scopes: String,
         website: String?
-    ): Boolean {
+    ): NewAppOAuthToken? {
         val application = mastodonApi.createApplication(
             domain = domain,
             clientName = clientName,
@@ -31,13 +41,72 @@ internal class AuthenticationRepositoryImpl(
             website = website
         ).getOrNull()
 
-        return if (application == null) {
-            false
-        } else {
-            // TODO store in cache for later use
-            val clientId = application.clientId
-            val clientSecret = application.clientSecret
-            true
+        return application?.let {
+            NewAppOAuthToken(
+                clientId = it.clientId,
+                clientSecret = it.clientSecret,
+                redirectUri = redirectUris,
+            )
         }
     }
+
+    override suspend fun saveApplication(token: NewAppOAuthToken, domain: String) {
+        // save our new application oauth token to our DB
+        database.applicationQueries.insertApplication(
+            Application(
+                instance = domain,
+                client_id = token.clientId,
+                client_secret = token.clientSecret,
+                redirect_uri = token.redirectUri,
+            )
+        )
+
+        // Update what server the user is currently on
+        settings.currentDomain = domain
+    }
+
+    override suspend fun getApplicationOAuthToken(server: String): ApplicationOAuthToken? {
+        return database
+            .applicationQueries
+            .selectByServer(server)
+            .executeAsOneOrNull()
+            ?.let {
+                ApplicationOAuthToken(
+                    server = it.instance,
+                    clientId = it.client_id,
+                    clientSecret = it.client_secret,
+                    redirectUri = it.redirect_uri,
+                )
+            }
+    }
+
+    override suspend fun createAccessToken(
+        authCode: String,
+        server: String,
+        scope: String,
+        grantType: String,
+    ): String? {
+        return getApplicationOAuthToken(server)?.let { oAuthToken ->
+            mastodonApi
+                .createAccessToken(
+                    domain = server,
+                    clientId = oAuthToken.clientId,
+                    clientSecret = oAuthToken.clientSecret,
+                    redirectUri = oAuthToken.redirectUri,
+                    grantType = grantType,
+                    code = authCode,
+                    scope = scope,
+                )
+                .getOrNull()
+                ?.accessToken
+        }
+    }
+
+    override suspend fun saveAccessToken(server: String, token: String) {
+        withContext(ioCoroutineContext) {
+            settings.saveAccessToken(server = server, token = token)
+        }
+    }
+
+    override val selectedServer: String? = settings.currentDomain
 }
