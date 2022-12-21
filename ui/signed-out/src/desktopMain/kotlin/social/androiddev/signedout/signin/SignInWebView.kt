@@ -19,6 +19,7 @@ actual fun SignInWebView(
     modifier: Modifier,
     url: String,
     onWebError: (message: String) -> Unit,
+    onCancel: () -> Unit,
     shouldCancelLoadingUrl: (url: String) -> Boolean,
 ) {
 
