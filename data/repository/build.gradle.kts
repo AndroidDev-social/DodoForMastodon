@@ -49,15 +49,5 @@ kotlin {
                 implementation(libs.org.jetbrains.kotlinx.coroutines.test)
             }
         }
-
-
-
-        // android
-        val androidMain by getting {
-            dependsOn(commonMain)
-            dependencies {
-                api ("org.jetbrains.kotlinx:atomicfu:0.18.5")
-            }
-        }
     }
 }

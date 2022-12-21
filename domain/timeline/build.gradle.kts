@@ -18,6 +18,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 api(libs.store)
+                implementation(libs.kotlinx.coroutines.core)
             }
         }
 
