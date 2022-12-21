@@ -20,6 +20,7 @@ import io.ktor.http.ContentType
 import io.ktor.http.HttpHeaders
 import io.ktor.http.contentType
 import io.ktor.http.path
+import io.ktor.serialization.JsonConvertException
 import kotlinx.serialization.SerializationException
 import social.androiddev.common.network.model.Application
 import social.androiddev.common.network.model.AvailableInstance
@@ -119,6 +120,8 @@ internal class MastodonApiKtor(
                 }.body()
             )
         } catch (exception: SerializationException) {
+            Result.failure(exception = exception)
+        } catch (exception: JsonConvertException) {
             Result.failure(exception = exception)
         } catch (exception: ResponseException) {
             Result.failure(exception = exception)

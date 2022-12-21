@@ -11,19 +11,17 @@ package social.androiddev.common.network.model
 
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
-import kotlin.test.Ignore
+import social.androiddev.common.readBinaryResource
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 
 class ConversationTests {
-    // TODO: fix loading json from resources
-    @Ignore
     @Test
     fun `deserialize required fields should succeed`() {
         // given
-        // val json: String = javaClass.classLoader.getResource("response_conversation_required.json").readText()
-        val json: String = ""
+        val byteArray: ByteArray = readBinaryResource("src/commonTest/resources/response_conversation_required.json")
+        val json: String = byteArray.decodeToString()
 
         // when
         val conversation = Json.decodeFromString<Conversation>(json)
