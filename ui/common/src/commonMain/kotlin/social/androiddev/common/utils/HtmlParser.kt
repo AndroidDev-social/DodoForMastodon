@@ -70,7 +70,6 @@ fun String.renderHtml(): AnnotatedString {
     }
 }
 
-
 private fun AnnotatedString.Builder.appendLink(linkText: String, linkUrl: String) {
     pushStringAnnotation(tag = linkUrl, annotation = linkUrl)
     append(linkText)
