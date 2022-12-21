@@ -66,6 +66,15 @@ kotlin {
                 implementation(compose.desktop.common)
             }
         }
+        named("commonTest") {
+            dependencies {
+                implementation(kotlin("test"))
+                implementation(libs.org.jetbrains.kotlin.test.common)
+                implementation(libs.org.jetbrains.kotlin.test.annotations.common)
+                implementation(libs.org.jetbrains.kotlinx.coroutines.test)
+            }
+        }
+
     }
 
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
