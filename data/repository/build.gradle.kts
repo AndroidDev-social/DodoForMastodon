@@ -18,7 +18,7 @@ kotlin {
                 implementation(projects.domain.timeline)
                 implementation(libs.io.insert.koin.core)
                 implementation(libs.kotlinx.coroutines.core)
-                //temp until we map to UI models
+                //TODO remove as api dependency once we can stop dependening on StoreResponse in UI
                 api(libs.store)
                 implementation(libs.com.squareup.sqldelight.coroutines.extensions)
             }

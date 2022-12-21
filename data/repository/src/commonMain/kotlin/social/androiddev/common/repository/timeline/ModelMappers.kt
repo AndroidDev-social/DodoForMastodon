@@ -13,6 +13,7 @@ import social.androiddev.common.network.model.Status
 import social.androiddev.common.timeline.StatusDB
 import social.androiddev.domain.timeline.FeedType
 import social.androiddev.domain.timeline.model.StatusLocal
+import social.androiddev.domain.timeline.model.Visibility
 
 fun StatusDB.toLocal(
     key: FeedType
@@ -26,7 +27,7 @@ fun StatusDB.toLocal(
     content = content,
     sensitive = sensitive ?: false,
     spoilerText = spoilerText,
-    visibility = visibility,
+    visibility = Visibility.valueOf(visibility),
     avatarUrl = avatarUrl,
     accountAddress = accountAddress,
     userName = userName

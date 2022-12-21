@@ -40,8 +40,8 @@ class TimelineViewModel(
         .mapLatest(::render)
         .stateIn(scope, SharingStarted.Eagerly, StoreResponse.Loading(ResponseOrigin.Cache))
 
-    private fun render(it: StoreResponse<List<StatusLocal>>): StoreResponse.Data<List<FeedItemState>> {
-        return when (val response: StoreResponse<List<StatusLocal>> = it) {
+    private fun render(response: StoreResponse<List<StatusLocal>>): StoreResponse.Data<List<FeedItemState>> {
+        return when (response) {
             is StoreResponse.Data -> {
                 val result = StoreResponse.Data(
                     response.value.map {
@@ -62,7 +62,7 @@ class TimelineViewModel(
             }
 
             else -> {
-                StoreResponse.Data(emptyList(), it.origin)
+                StoreResponse.Data(emptyList(), response.origin)
             }
         }
     }
