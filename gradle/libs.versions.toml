@@ -6,7 +6,7 @@ org-jetbrains-kotlin = "1.7.20"
 # Need to match with kotlin version used: https://github.com/Kotlin/kotlinx-atomicfu/blob/0.18.5/gradle.properties
 org-jetbrains-kotlinx-atomicfu = "0.18.5"
 org-jetbrains-kotlinx-serialization = "1.4.1"
-com-android-tools-build = "7.2.2"
+com-android-tools-build = "7.3.1"
 com-squareup-sqldelight = "1.5.3"
 com-diffplug-spotless = "6.11.0"
 com-google-osdetector = "1.7.1"

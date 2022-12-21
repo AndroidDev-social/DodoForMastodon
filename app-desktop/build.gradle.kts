@@ -1,9 +1,9 @@
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 
 plugins {
+    id("social.androiddev.codequality")
     kotlin("multiplatform") // kotlin("jvm") doesn't work well in IDEA/AndroidStudio (https://github.com/JetBrains/compose-jb/issues/22)
     id("org.jetbrains.compose")
-    id("social.androiddev.code-quality")
 }
 
 kotlin {
