@@ -7,16 +7,29 @@
  *
  * You should have received a copy of the GNU General Public License along with Dodo. If not, see <https://www.gnu.org/licenses/>.
  */
-package social.androiddev.signedout.signin
+package social.androiddev.ui.desktop.webview
 
+import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.awt.SwingPanel
 
 @Composable
-expect fun SignInWebView(
-    modifier: Modifier,
+fun JFXWebView(
     url: String,
-    onWebError: (message: String) -> Unit,
-    onCancel: () -> Unit,
     shouldCancelLoadingUrl: (url: String) -> Boolean,
-)
+    modifier: Modifier = Modifier
+) {
+    SwingPanel(
+        background = MaterialTheme.colors.surface,
+        factory = {
+            JFXWebView(
+                url = url,
+                onUrlOfCurrentPageChanged = { url ->
+                    shouldCancelLoadingUrl(url)
+                },
+            )
+        },
+        modifier = modifier,
+    )
+}

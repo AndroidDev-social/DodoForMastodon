@@ -22,6 +22,7 @@ import social.androiddev.common.network.model.Token
 import social.androiddev.common.persistence.localstorage.DodoAuthStorage
 import social.androiddev.domain.timeline.FeedType
 import social.androiddev.domain.timeline.model.StatusLocal
+import social.androiddev.domain.timeline.model.Visibility
 
 val fakeStorage = object : DodoAuthStorage {
     override var currentDomain: String? = "androiddev.social"
@@ -35,7 +36,6 @@ val fakeStorage = object : DodoAuthStorage {
 
 val failureResponse = StoreResponse.Error.Message("We failed", ResponseOrigin.Cache)
 
-
 val fakeLocalStatus = StatusLocal(
     "",
     FeedType.Home,
@@ -47,7 +47,7 @@ val fakeLocalStatus = StatusLocal(
     null,
     false,
     "",
-    "",
+    Visibility.UNLISTED,
     "",
     "",
     ""

@@ -13,12 +13,13 @@ package social.androiddev.timeline
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.buildAnnotatedString
 import social.androiddev.common.theme.DodoTheme
-import social.androiddev.common.utils.renderHtml
 
 @Composable
 fun TootContent(
@@ -43,7 +44,13 @@ fun TootContent(
         // TODO Add support for video + multiple images rendering
         // for now just show message from toot
         if (message != null) {
-            Text(message.renderHtml())
+            Text(
+                modifier = Modifier.fillMaxWidth(),
+                text = buildAnnotatedString {
+                    append(message)
+                },
+                style = MaterialTheme.typography.caption
+            )
             VerticalSpacer()
         }
     }
