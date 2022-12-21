@@ -21,7 +21,7 @@ import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.extensions.compose.jetbrains.stack.Children
 import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
 import social.androiddev.root.navigation.RootComponent
-import social.androiddev.root.navigation.SplashComponent
+import social.androiddev.root.splash.SplashComponent
 import social.androiddev.signedin.composables.SignedInRootContent
 import social.androiddev.signedin.navigation.SignedInRootComponent
 import social.androiddev.signedout.root.SignedOutRootComponent

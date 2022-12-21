@@ -10,7 +10,7 @@
  * You should have received a copy of the GNU General Public License along with Dodo.
  * If not, see <https://www.gnu.org/licenses/>.
  */
-package social.androiddev.root.composables
+package social.androiddev.root.splash
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.material.Text
@@ -18,7 +18,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import social.androiddev.root.navigation.SplashComponent
 
 /**
  * Stateful SplashScreen composable using [SplashComponent] for

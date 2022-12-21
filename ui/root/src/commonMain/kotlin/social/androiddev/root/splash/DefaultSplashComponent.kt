@@ -10,15 +10,22 @@
  * You should have received a copy of the GNU General Public License along with Dodo.
  * If not, see <https://www.gnu.org/licenses/>.
  */
-package social.androiddev.root.navigation
+package social.androiddev.root.splash
 
 import com.arkivanov.decompose.ComponentContext
+import kotlinx.coroutines.SupervisorJob
+import org.koin.core.component.KoinComponent
+import social.androiddev.common.decompose.coroutineScope
+import kotlin.coroutines.CoroutineContext
 
 class DefaultSplashComponent(
     private val componentContext: ComponentContext,
+    private val mainContext: CoroutineContext,
     private val navigateToLandingInternal: () -> Unit,
     private val navigateToTimelineInternal: () -> Unit,
-) : SplashComponent, ComponentContext by componentContext {
+) : SplashComponent, KoinComponent, ComponentContext by componentContext {
+
+    private val scope = coroutineScope(mainContext + SupervisorJob())
 
     override fun navigateToTimeline() {
         navigateToTimelineInternal()

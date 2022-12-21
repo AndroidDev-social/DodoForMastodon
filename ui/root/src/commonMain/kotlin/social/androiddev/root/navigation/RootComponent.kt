@@ -14,6 +14,7 @@ package social.androiddev.root.navigation
 
 import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.value.Value
+import social.androiddev.root.splash.SplashComponent
 import social.androiddev.signedin.navigation.SignedInRootComponent
 import social.androiddev.signedout.root.SignedOutRootComponent
 

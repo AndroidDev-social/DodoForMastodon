@@ -10,7 +10,7 @@
  * You should have received a copy of the GNU General Public License along with Dodo.
  * If not, see <https://www.gnu.org/licenses/>.
  */
-package social.androiddev.root.navigation
+package social.androiddev.root.splash
 
 /**
  * The base component describing all business logic needed for the splash screen
