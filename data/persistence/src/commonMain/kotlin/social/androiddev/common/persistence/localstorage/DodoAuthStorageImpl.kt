@@ -12,15 +12,18 @@ package social.androiddev.common.persistence.localstorage
 import com.russhwolf.settings.Settings
 import com.russhwolf.settings.get
 import com.russhwolf.settings.set
+import kotlinx.atomicfu.locks.ReentrantLock
+import kotlinx.atomicfu.locks.reentrantLock
+import kotlinx.atomicfu.locks.withLock
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.json.Json
 
 internal class DodoAuthStorageImpl(
     private val settings: Settings,
-    private val json: Json
+    private val json: Json,
+    private val lock: ReentrantLock = reentrantLock()
 ) : DodoAuthStorage {
-
     override var currentDomain: String?
         get() = settings[KEY_DOMAIN_CACHE]
         set(value) {
@@ -31,29 +34,31 @@ internal class DodoAuthStorageImpl(
      * The user can set up multiple accounts on their device. So we
      * key the AccessToken by the unique server/domain
      */
-    private var diskCache: Map<String, AccessToken>
+    private var diskCache: LinkedHashMap<String, AccessToken>
         get() {
             return settings
                 .getStringOrNull(KEY_ACCESS_TOKENS_CACHE)
                 ?.let { str ->
                     json.decodeFromString(ListSerializer(AccessToken.serializer()), str)
-                        .associateBy { it.server }
+                        .associateByTo(linkedMapOf()) { it.server }
                 }
-                ?: mutableMapOf()
+                ?: linkedMapOf()
         }
         set(value) {
             val list = value.map { it.value }
             settings[KEY_ACCESS_TOKENS_CACHE] =
                 json.encodeToString(ListSerializer(AccessToken.serializer()), list)
         }
+    private val memCache: LinkedHashMap<String, AccessToken> by lazy { diskCache }
 
-    private val memCache: MutableMap<String, AccessToken> by lazy { diskCache.toMutableMap() }
-
-    override fun getAccessToken(server: String): String? = memCache[server]?.token
+    override fun getAccessToken(server: String): String? =
+        lock.withLock { memCache[server]?.token }
 
     override suspend fun saveAccessToken(server: String, token: String) {
-        memCache[server] = AccessToken(token = token, server = server)
-        diskCache = memCache
+        lock.withLock {
+            memCache[server] = AccessToken(token = token, server = server)
+            diskCache = memCache
+        }
     }
 
     private companion object {
