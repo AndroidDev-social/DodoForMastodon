@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.wrapContentHeight
@@ -75,8 +76,7 @@ fun LandingContent(
             contentDescription = "App Logo",
             modifier = Modifier
                 .padding(horizontal = 48.dp)
-                .width(240.dp)
-                .height(240.dp)
+                .size(240.dp)
                 .clip(CircleShape),
             contentScale = ContentScale.Crop,
         )

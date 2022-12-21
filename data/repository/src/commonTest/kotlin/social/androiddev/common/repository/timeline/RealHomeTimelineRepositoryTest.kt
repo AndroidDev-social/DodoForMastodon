@@ -27,25 +27,22 @@ import kotlin.test.Test
 import kotlin.test.assertTrue
 import kotlin.test.fail
 
-
-class RealHomeTimelineRepositoryTest{
+class RealHomeTimelineRepositoryTest {
     @Test fun sucessTest(): TestResult {
-        return runTest{
+        return runTest {
             val testRepo = RealHomeTimelineRepository(fakeSuccessStore)
             val result = testRepo.read(FeedType.Home).first()
             assertTrue { result is StoreResponse.Data }
             assertTrue { result.requireData().first() == fakeLocalStatus }
-
         }
     }
 
     @Test fun failureTest(): TestResult {
-        return runTest{
+        return runTest {
             val testRepo = RealHomeTimelineRepository(fakeFailureStore)
             val result = testRepo.read(FeedType.Home).first()
             assertTrue { result is StoreResponse.Error.Message }
-            assertTrue { result.errorMessageOrNull() == failureResponse.message}
-
+            assertTrue { result.errorMessageOrNull() == failureResponse.message }
         }
     }
 }

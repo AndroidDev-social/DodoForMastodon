@@ -25,11 +25,11 @@ fun AsyncImage(
     modifier: Modifier = Modifier,
     alignment: Alignment = Alignment.Center,
     contentScale: ContentScale = ContentScale.Fit,
-    url:String
+    url: Any
 ) {
     KamelImage(
         resource = lazyPainterResource(data = url),
-        contentDescription =contentDescription,
+        contentDescription = contentDescription,
         modifier = modifier,
         alignment = alignment,
         contentScale = contentScale

@@ -27,6 +27,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.unit.dp
 import social.androiddev.common.composables.UserAvatar
 import social.androiddev.common.theme.DodoTheme
@@ -66,7 +67,7 @@ fun TimelineCard(
     date: String,
     username: String,
     userAddress: String,
-    toot: String?,
+    toot: AnnotatedString?,
     videoUrl: String?,
     images: List<String>,
     modifier: Modifier = Modifier,
@@ -114,7 +115,7 @@ data class FeedItemState(
     val date: String,
     val username: String,
     val acctAddress: String,
-    val message: String?,
+    val message: AnnotatedString?,
     val videoUrl: String?,
     val images: List<String>,
 )
@@ -125,7 +126,7 @@ val dummyFeedItem = FeedItemState(
     date = "1d",
     username = "Benjamin Stürmer",
     acctAddress = "@bino@mastodon.cloud",
-    message = "\uD83D\uDC4BHello #AndroidDev",
+    message = AnnotatedString("\uD83D\uDC4BHello #AndroidDev"),
     videoUrl = null,
     images = emptyList(),
 )
