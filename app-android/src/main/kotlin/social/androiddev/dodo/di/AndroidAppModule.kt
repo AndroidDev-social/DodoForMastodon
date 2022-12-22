@@ -10,9 +10,15 @@
 package social.androiddev.dodo.di
 
 import org.koin.dsl.module
+import social.androiddev.common.web.WebAuth
+import social.androiddev.dodo.web.CustomTabWebAuth
 
 /**
  * The Dodo Android app Koin module holding koin definitions
  * specific to the android app
  */
-val androidModule = module { }
+val androidModule = module {
+    factory<WebAuth> {
+        CustomTabWebAuth(activity = get())
+    }
+}

@@ -10,20 +10,29 @@
 package social.androiddev.dodo
 
 import android.os.Bundle
+import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.defaultComponentContext
 import kotlinx.coroutines.Dispatchers
+import org.koin.core.context.loadKoinModules
+import org.koin.core.context.unloadKoinModules
+import org.koin.dsl.module
 import social.androiddev.common.theme.DodoTheme
 import social.androiddev.root.composables.RootContent
 import social.androiddev.root.navigation.DefaultRootComponent
 
 class MainActivity : AppCompatActivity() {
 
+    private val activityModule = module {
+        factory<ComponentActivity> { this@MainActivity }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        loadKoinModules(activityModule)
 
         // Create the root component before starting Compose
         val root = DefaultRootComponent(
@@ -39,5 +48,10 @@ class MainActivity : AppCompatActivity() {
                 )
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        unloadKoinModules(activityModule)
     }
 }

@@ -12,17 +12,28 @@ package social.androiddev.signedout.selectserver
 import com.arkivanov.essenty.instancekeeper.InstanceKeeper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.async
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+import social.androiddev.common.web.WebAuth
+import social.androiddev.common.web.WebOpenExtras
+import social.androiddev.domain.authentication.model.ApplicationOAuthToken
 import social.androiddev.domain.authentication.usecase.AuthenticateClient
+import social.androiddev.domain.authentication.usecase.CreateAccessToken
+import social.androiddev.domain.authentication.usecase.GetSelectedApplicationOAuthToken
+import social.androiddev.signedout.util.encode
 import kotlin.coroutines.CoroutineContext
 
 internal class SelectServerViewModel(
     mainContext: CoroutineContext,
-    private val authenticateClient: AuthenticateClient
+    private val authenticateClient: AuthenticateClient,
+    private val getSelectedApplicationOAuthToken: GetSelectedApplicationOAuthToken,
+    private val createAccessToken: CreateAccessToken,
+    private val webAuth: WebAuth,
 ) : InstanceKeeper.Instance {
 
     // The scope survives Android configuration changes
@@ -31,21 +42,76 @@ internal class SelectServerViewModel(
     private val _state = MutableStateFlow(SelectServerComponent.State())
     val state: StateFlow<SelectServerComponent.State> = _state.asStateFlow()
 
-    suspend fun validateServer(server: String): Boolean {
+    private val _authenticated = MutableStateFlow(false)
+    val authenticated: StateFlow<Boolean> = _authenticated
 
+    private val redirectUri = scope.async { webAuth.start() }
+
+    init {
+        scope.launch {
+            webAuth.state.collect { state ->
+                when (state) {
+                    is WebAuth.State.Success -> {
+                        val success = createAccessToken(
+                            authCode = state.code,
+                            server = _state.value.server
+                        )
+                        if (success) {
+                            _authenticated.value = true
+                        } else {
+                            _state.update {
+                                it.copy(
+                                    loading = false,
+                                    error = "An error occurred."
+                                )
+                            }
+                        }
+                    }
+
+                    is WebAuth.State.Error -> {
+                        _state.update {
+                            it.copy(
+                                loading = false,
+                                error = state.error ?: "Something is Wrong!"
+                            )
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    suspend fun validateAndOpenServerAuth(server: String, extras: WebOpenExtras) {
         // TODO Sanitize and format the user entered server
 
-        _state.update { it.copy(selectButtonEnabled = false) }
+        _state.update {
+            it.copy(
+                server = server,
+                loading = true,
+                error = null
+            )
+        }
 
         val success = authenticateClient(
             domain = server,
             clientName = "Dodo",
-            redirectURIs = "$redirectScheme://$server/",
+            redirectURIs = redirectUri.await(),
             scopes = OAUTH_SCOPES,
             website = "https://$server",
         )
-        _state.update { it.copy(selectButtonEnabled = true) }
-        return success
+
+        if (success) {
+            val token = getSelectedApplicationOAuthToken()
+            webAuth.open(createOAuthAuthorizeUrl(token), extras)
+        } else {
+            _state.update { it.copy(loading = false) }
+        }
+    }
+
+    fun cancelServerAuth() {
+        _state.update {
+            it.copy(loading = false)
+        }
     }
 
     override fun onDestroy() {
@@ -54,5 +120,15 @@ internal class SelectServerViewModel(
 
     companion object {
         private const val OAUTH_SCOPES = "read write follow push"
+    }
+}
+
+private fun createOAuthAuthorizeUrl(token: ApplicationOAuthToken): String {
+    return buildString {
+        append("https://${token.server}")
+        append("/oauth/authorize?client_id=${token.clientId}")
+        append("&scope=${"read write follow push".encode()}")
+        append("&redirect_uri=${token.redirectUri.encode()}")
+        append("&response_type=code")
     }
 }

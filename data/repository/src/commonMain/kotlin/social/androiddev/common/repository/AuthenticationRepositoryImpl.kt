@@ -108,5 +108,5 @@ internal class AuthenticationRepositoryImpl(
         }
     }
 
-    override val selectedServer: String? = settings.currentDomain
+    override val selectedServer: String? get() = settings.currentDomain
 }

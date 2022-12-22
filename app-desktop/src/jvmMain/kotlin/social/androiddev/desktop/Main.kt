@@ -22,6 +22,7 @@ import kotlinx.coroutines.Dispatchers
 import org.koin.core.context.startKoin
 import social.androiddev.common.di.appModule
 import social.androiddev.common.theme.DodoTheme
+import social.androiddev.desktop.di.desktopModule
 import social.androiddev.root.composables.RootContent
 import social.androiddev.root.navigation.DefaultRootComponent
 
@@ -29,7 +30,7 @@ import social.androiddev.root.navigation.DefaultRootComponent
 fun main() {
 
     startKoin {
-        modules(appModule())
+        modules(appModule() + desktopModule)
     }
 
     val lifecycle = LifecycleRegistry()

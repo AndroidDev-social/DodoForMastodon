@@ -27,4 +27,5 @@ dependencies {
     implementation(libs.io.insert.koin.android)
     implementation(libs.com.arkivanov.decompose)
     implementation(libs.com.arkivanov.decompose.extensions.compose.jetbrains)
+    implementation(libs.androidx.browser)
 }
