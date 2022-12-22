@@ -12,28 +12,22 @@
  */
 package social.androiddev.signedout.signin
 
-import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.awt.SwingPanel
+import social.androiddev.ui.desktop.webview.JFXWebView
 
 @Composable
 actual fun SignInWebView(
     url: String,
     onWebError: (message: String) -> Unit,
+    onCancel: () -> Unit,
     shouldCancelLoadingUrl: (url: String) -> Boolean,
     modifier: Modifier,
 ) {
-    SwingPanel(
-        background = MaterialTheme.colors.surface,
-        factory = {
-            JFXWebView(
-                url = url,
-                onUrlOfCurrentPageChanged = { url ->
-                    shouldCancelLoadingUrl(url)
-                },
-            )
-        },
+
+    JFXWebView(
         modifier = modifier,
+        url = url,
+        shouldCancelLoadingUrl = shouldCancelLoadingUrl
     )
 }

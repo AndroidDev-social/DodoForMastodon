@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 expect fun SignInWebView(
     url: String,
     onWebError: (message: String) -> Unit,
+    onCancel: () -> Unit,
     shouldCancelLoadingUrl: (url: String) -> Boolean,
     modifier: Modifier = Modifier,
 )

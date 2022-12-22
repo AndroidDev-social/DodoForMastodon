@@ -10,10 +10,6 @@ plugins {
 
 buildscript {
 
-    extra["targetSDKVersion"] = 33
-    extra["compileSDKVersion"] = 33
-    extra["minSDKVersion"] = 23
-
     repositories {
         google()
         mavenCentral()
@@ -25,7 +21,7 @@ buildscript {
         classpath(libs.com.android.tools.build.gradle)
         classpath(libs.org.jetbrains.kotlin.serialization.plugin)
         classpath(libs.com.squareup.sqldelight.gradle.plugin)
-        classpath(libs.com.google.osdetector.gradle.plugin)
+        classpath(libs.org.jetbrains.kotlinx.atomicfu.plugin)
     }
 }
 

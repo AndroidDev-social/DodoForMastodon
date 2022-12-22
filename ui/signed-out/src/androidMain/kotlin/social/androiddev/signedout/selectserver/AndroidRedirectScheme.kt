@@ -12,4 +12,8 @@
  */
 package social.androiddev.signedout.selectserver
 
-actual val redirectScheme: String get() = "oauth2redirect"
+/**
+ * Note: this _must_ match the value in the manifest for deep linking back to the app to work
+ * correctly.
+ */
+actual val redirectScheme: String get() = "dodooauth2redirect"

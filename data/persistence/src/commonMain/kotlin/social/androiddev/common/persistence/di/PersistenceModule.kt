@@ -21,4 +21,5 @@ import org.koin.core.module.Module
 expect val persistenceModule: Module
 
 internal const val AUTH_DB_NAME = "authentication.db"
+internal const val FEED_DB_NAME = "feed.db"
 internal const val AUTH_SETTINGS_NAME = "DodoAuthSettings"

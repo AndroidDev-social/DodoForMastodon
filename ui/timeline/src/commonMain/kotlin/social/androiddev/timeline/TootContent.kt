@@ -21,6 +21,7 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.buildAnnotatedString
 import social.androiddev.common.theme.DodoTheme
 
 @Composable
@@ -48,7 +49,9 @@ fun TootContent(
         if (message != null) {
             Text(
                 modifier = Modifier.fillMaxWidth(),
-                text = message,
+                text = buildAnnotatedString {
+                    append(message)
+                },
                 style = MaterialTheme.typography.caption
             )
             VerticalSpacer()

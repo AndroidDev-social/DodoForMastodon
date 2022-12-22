@@ -12,15 +12,21 @@
  */
 package social.androiddev.domain.timeline.model
 
-data class Status(
-    val id: String,
+import social.androiddev.domain.timeline.FeedType
+
+data class StatusLocal(
+    val remoteId: String,
+    val feedType: FeedType,
     val createdAt: String,
-    val repliesCount: Int,
-    val reblogsCount: Int,
-    val favouritesCount: Int,
+    val repliesCount: Long = 0,
+    val reblogsCount: Long = 0,
+    val favoritesCount: Long = 0,
     val content: String,
-    val account: Account,
+    val account: Account? = null,
     val sensitive: Boolean = false,
     val spoilerText: String? = null,
-    val visibility: Visibility = Visibility.PUBLIC
+    val visibility: Visibility = Visibility.UNLISTED,
+    val avatarUrl: String = "",
+    val accountAddress: String = "",
+    val userName: String
 )

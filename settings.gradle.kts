@@ -2,19 +2,20 @@ enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {
     repositories {
-        google()
-        mavenCentral()
         gradlePluginPortal()
+        mavenCentral()
+        google()
     }
     includeBuild("build-logic")
 }
 
 dependencyResolutionManagement {
     repositories {
-        google()
         mavenCentral()
+        google()
         mavenLocal()
         maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
+        maven("https://s01.oss.sonatype.org/content/repositories/snapshots")
     }
 }
 
@@ -34,6 +35,7 @@ include(":ui:common")
 include(":ui:root")
 include(":ui:signed-in")
 include(":ui:signed-out")
+include(":ui:desktop-webview")
 
 include(":domain:timeline")
 include(":domain:authentication")

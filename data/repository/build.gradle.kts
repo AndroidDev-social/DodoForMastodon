@@ -1,44 +1,13 @@
 plugins {
-    id("kotlin-multiplatform")
-    id("com.android.library")
+    id("social.androiddev.library")
     kotlin("plugin.serialization")
-    id("social.androiddev.code-quality")
 }
-
-
-val targetSDKVersion: Int by rootProject.extra
-val minSDKVersion: Int by rootProject.extra
-val compileSDKVersion: Int by rootProject.extra
 
 android {
     namespace = "social.androiddev.common.repository"
-    compileSdk = compileSDKVersion
-
-    defaultConfig {
-        minSdk = minSDKVersion
-        targetSdk = targetSDKVersion
-    }
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-
-    sourceSets {
-        named("main") {
-            manifest.srcFile("src/androidMain/AndroidManifest.xml")
-            res.srcDirs("src/androidMain/res")
-        }
-    }
 }
 
 kotlin {
-    jvm("desktop")
-    android()
-    iosX64()
-    iosArm64()
-    iosSimulatorArm64()
-
     sourceSets {
         // shared
         val commonMain by getting {
@@ -46,53 +15,33 @@ kotlin {
                 implementation(projects.data.network)
                 implementation(projects.data.persistence)
                 implementation(projects.domain.authentication)
+                implementation(projects.domain.timeline)
                 implementation(libs.io.insert.koin.core)
                 implementation(libs.kotlinx.coroutines.core)
+                //TODO remove as api dependency once we can stop dependening on StoreResponse in UI
+                api(libs.store)
+                implementation(libs.com.squareup.sqldelight.coroutines.extensions)
             }
         }
-
-
-        // android
-        getByName("androidMain") {
-            dependsOn(commonMain)
-            dependencies {}
-        }
-
-
-        // desktop
-        getByName("desktopMain") {
-            dependencies {}
-        }
-
-
-        // iOS
-        val iosX64Main by getting
-        val iosArm64Main by getting
-        val iosSimulatorArm64Main by getting
-        val iosMain by creating {
-            dependsOn(getByName("commonMain"))
-
-            iosX64Main.dependsOn(this)
-            iosArm64Main.dependsOn(this)
-            iosSimulatorArm64Main.dependsOn(this)
-
-            dependencies {}
-        }
-
         // testing
-        named("androidTest") {
+        val androidTest by getting {
             dependencies {
                 implementation(kotlin("test"))
                 implementation(libs.org.jetbrains.kotlin.test.junit)
             }
         }
-        named("desktopTest") {
+        val androidMain by getting {
+            dependencies {
+                api (libs.org.jetbrains.kotlinx.atomicfu)
+            }
+        }
+        val desktopTest by getting {
             dependencies {
                 implementation(kotlin("test"))
                 implementation(libs.org.jetbrains.kotlin.test.junit)
             }
         }
-        named("commonTest") {
+        val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
                 implementation(libs.org.jetbrains.kotlin.test.common)

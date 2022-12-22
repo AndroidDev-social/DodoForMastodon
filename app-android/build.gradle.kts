@@ -1,33 +1,17 @@
 plugins {
     id("com.android.application")
+    id("social.androiddev.android.common")
     kotlin("android")
     id("org.jetbrains.compose")
     id("kotlin-parcelize")
-    id("social.androiddev.code-quality")
 }
-
-val targetSDKVersion: Int by rootProject.extra
-val minSDKVersion: Int by rootProject.extra
-val compileSDKVersion: Int by rootProject.extra
 
 android {
     namespace = "social.androiddev.dodo"
-    compileSdk = compileSDKVersion
 
     defaultConfig {
-        minSdk = minSDKVersion
-        targetSdk = targetSDKVersion
         versionCode = 1
         versionName = "1.0"
-    }
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-
-    kotlinOptions {
-        jvmTarget = "11"
     }
 }
 
