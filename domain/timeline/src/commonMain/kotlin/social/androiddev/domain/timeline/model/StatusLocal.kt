@@ -22,7 +22,7 @@ data class StatusLocal(
     val account: Account? = null,
     val sensitive: Boolean = false,
     val spoilerText: String? = null,
-    val visibility: Visibility = Visibility.UNLISTED,
+    val visibility: String ,
     val avatarUrl: String = "",
     val accountAddress: String = "",
     val userName: String

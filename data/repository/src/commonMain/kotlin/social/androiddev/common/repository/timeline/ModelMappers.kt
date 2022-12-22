@@ -27,7 +27,7 @@ fun StatusDB.toLocal(
     content = content,
     sensitive = sensitive ?: false,
     spoilerText = spoilerText,
-    visibility = Visibility.valueOf(visibility),
+    visibility = visibility,
     avatarUrl = avatarUrl,
     accountAddress = accountAddress,
     userName = userName

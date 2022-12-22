@@ -22,7 +22,7 @@ import social.androiddev.domain.timeline.model.StatusLocal
 fun TimelineDatabase.asSourceOfTruth(): SourceOfTruth<FeedType, List<StatusDB>, List<StatusLocal>> =
     SourceOfTruth.of(
         reader = reader(),
-        writer = { key, input ->
+        writer = { key, input: List<StatusDB> ->
             input.forEach { item -> tryWriteItem(item, key) }
         }
     )
