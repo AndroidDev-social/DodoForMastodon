@@ -10,6 +10,7 @@
 package social.androiddev.signedout.selectserver
 
 import kotlinx.coroutines.flow.StateFlow
+import social.androiddev.common.web.WebOpenExtras
 
 /**
  * The base component describing all business logic needed for the select server screen
@@ -18,9 +19,12 @@ interface SelectServerComponent {
 
     val state: StateFlow<State>
 
-    fun onServerSelected(server: String)
+    fun onServerSelected(server: String, extras: WebOpenExtras)
+    fun onAuthCanceled()
 
     data class State(
-        val selectButtonEnabled: Boolean = true,
+        val server: String = "",
+        val loading: Boolean = false,
+        val error: String? = null,
     )
 }

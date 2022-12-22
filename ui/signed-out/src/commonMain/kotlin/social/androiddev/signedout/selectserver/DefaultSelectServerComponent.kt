@@ -17,21 +17,33 @@ import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import social.androiddev.common.decompose.coroutineScope
+import social.androiddev.common.web.WebAuth
+import social.androiddev.common.web.WebOpenExtras
+import social.androiddev.domain.authentication.model.ApplicationOAuthToken
 import social.androiddev.domain.authentication.usecase.AuthenticateClient
+import social.androiddev.domain.authentication.usecase.CreateAccessToken
+import social.androiddev.domain.authentication.usecase.GetSelectedApplicationOAuthToken
+import social.androiddev.signedout.util.encode
 import kotlin.coroutines.CoroutineContext
 
 class DefaultSelectServerComponent(
     private val componentContext: ComponentContext,
     mainContext: CoroutineContext,
-    private val launchOAuth: () -> Unit,
+    onAuthenticated: () -> Unit,
 ) : KoinComponent, SelectServerComponent, ComponentContext by componentContext {
 
     private val authenticateClient: AuthenticateClient by inject()
+    private val getSelectedApplicationOAuthToken: GetSelectedApplicationOAuthToken by inject()
+    private val createAccessToken: CreateAccessToken by inject()
+    private val webAuth: WebAuth by inject()
 
     private val viewModel = instanceKeeper.getOrCreate {
         SelectServerViewModel(
             mainContext = mainContext,
             authenticateClient = authenticateClient,
+            getSelectedApplicationOAuthToken = getSelectedApplicationOAuthToken,
+            createAccessToken = createAccessToken,
+            webAuth = webAuth,
         )
     }
 
@@ -40,12 +52,24 @@ class DefaultSelectServerComponent(
 
     override val state: StateFlow<SelectServerComponent.State> = viewModel.state
 
-    override fun onServerSelected(server: String) {
+    init {
         scope.launch {
-            val success = viewModel.validateServer(server)
-            if (success) {
-                launchOAuth()
+            viewModel.authenticated.collect { authenticated ->
+                if (authenticated) {
+                   onAuthenticated()
+                }
             }
         }
     }
+
+    override fun onServerSelected(server: String, extras: WebOpenExtras) {
+        scope.launch {
+            viewModel.validateAndOpenServerAuth(server, extras)
+        }
+    }
+
+    override fun onAuthCanceled() {
+        viewModel.cancelServerAuth()
+    }
 }
+

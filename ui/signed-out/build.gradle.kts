@@ -12,6 +12,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(projects.ui.common)
+                implementation(projects.di)
                 implementation(projects.domain.authentication)
                 implementation(libs.io.insert.koin.core)
             }

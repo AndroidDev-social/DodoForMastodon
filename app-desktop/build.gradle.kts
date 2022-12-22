@@ -23,6 +23,8 @@ kotlin {
                 implementation(libs.io.insert.koin.core)
                 implementation(libs.kotlinx.coroutines.javafx)
                 implementation(libs.kotlinx.coroutines.core)
+                implementation(libs.io.ktor.server.core)
+                implementation(libs.io.ktor.server.netty)
             }
         }
     }

@@ -15,6 +15,7 @@ import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.decompose.router.stack.pop
 import com.arkivanov.decompose.router.stack.push
+import com.arkivanov.decompose.router.stack.replaceAll
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
@@ -78,9 +79,7 @@ class DefaultSignedOutRootComponent(
     ) = DefaultSelectServerComponent(
         componentContext = componentContext,
         mainContext = mainContext,
-        launchOAuth = {
-            navigation.push(Config.SignIn)
-        }
+        onAuthenticated = navigateToTimeLine,
     )
 
     private fun createSignInComponent(

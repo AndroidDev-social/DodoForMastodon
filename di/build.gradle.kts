@@ -15,6 +15,7 @@ kotlin {
                 implementation(projects.data.repository)
                 implementation(projects.domain.authentication)
                 implementation(libs.io.insert.koin.core)
+                implementation(libs.kotlinx.coroutines.core)
             }
         }
     }
