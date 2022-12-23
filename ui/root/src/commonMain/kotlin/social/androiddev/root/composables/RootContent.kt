@@ -18,7 +18,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.arkivanov.decompose.ExperimentalDecomposeApi
 import com.arkivanov.decompose.extensions.compose.jetbrains.stack.Children
 import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
 import social.androiddev.root.navigation.RootComponent
@@ -32,7 +31,6 @@ import social.androiddev.signedout.root.SignedOutRootContent
  * App root composable that delegates business logic
  * and decompose navigation to [RootComponent]
  */
-@OptIn(ExperimentalDecomposeApi::class)
 @Composable
 fun RootContent(
     component: RootComponent,
@@ -54,13 +52,11 @@ fun RootContent(
                         component = child.component,
                     )
                 }
-
                 is RootComponent.Child.SignedIn -> {
                     SignedInRoot(
                         component = child.component,
                     )
                 }
-
                 is RootComponent.Child.SignedOut -> {
                     SignedOutRoot(
                         component = child.component,

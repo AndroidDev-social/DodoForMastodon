@@ -18,7 +18,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.arkivanov.decompose.ExperimentalDecomposeApi
 import com.arkivanov.decompose.extensions.compose.jetbrains.stack.Children
 import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
 import kotlinx.coroutines.flow.StateFlow
@@ -32,7 +31,6 @@ import social.androiddev.timeline.TimelineContent
  * currently signed in.
  * Business logic and decompose navigation is delegated to [SignedInRootComponent].
  */
-@OptIn(ExperimentalDecomposeApi::class)
 @Composable
 fun SignedInRootContent(
     component: SignedInRootComponent,
