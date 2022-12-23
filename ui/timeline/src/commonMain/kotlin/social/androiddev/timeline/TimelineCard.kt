@@ -31,6 +31,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 import social.androiddev.common.composables.UserAvatar
 import social.androiddev.common.theme.DodoTheme
 
@@ -71,7 +73,7 @@ fun TimelineCard(
     userAddress: String,
     toot: String?,
     videoUrl: String?,
-    images: ImmutableListWrapper<String>,
+    images: ImmutableList<String>,
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(8.dp),
     backgroundColor: Color = MaterialTheme.colors.surface,
@@ -119,7 +121,7 @@ data class FeedItemState(
     val acctAddress: String,
     val message: String?,
     val videoUrl: String?,
-    val images: ImmutableListWrapper<String>,
+    val images: ImmutableList<String>,
 )
 
 val dummyFeedItem = FeedItemState(
@@ -130,7 +132,7 @@ val dummyFeedItem = FeedItemState(
     acctAddress = "@bino@mastodon.cloud",
     message = "\uD83D\uDC4BHello #AndroidDev",
     videoUrl = null,
-    images = ImmutableListWrapper.empty()
+    images = persistentListOf(),
 )
 
 // @Preview

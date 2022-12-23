@@ -22,6 +22,8 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.buildAnnotatedString
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 import social.androiddev.common.theme.DodoTheme
 
 @Composable
@@ -31,7 +33,7 @@ fun TootContent(
     message: String?,
     date: String,
     videoUrl: String?,
-    images: ImmutableListWrapper<String>,
+    images: ImmutableList<String>,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -72,7 +74,7 @@ private fun PreviewTootContentLight() {
                 userAddress = "@omid@androiddev.social",
                 message = "\uD83D\uDC4BHello #AndroidDev",
                 date = "1d",
-                images = ImmutableListWrapper.empty(),
+                images = persistentListOf(),
                 videoUrl = null
             )
         }
@@ -92,7 +94,7 @@ private fun PreviewTootContentDark() {
                 userAddress = "@omid@androiddev.social",
                 message = "\uD83D\uDC4BHello #AndroidDev",
                 date = "1d",
-                images = ImmutableListWrapper.empty(),
+                images = persistentListOf(),
                 videoUrl = null
             )
         }

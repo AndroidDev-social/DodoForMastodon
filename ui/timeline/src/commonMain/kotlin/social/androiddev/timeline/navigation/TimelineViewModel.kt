@@ -13,6 +13,7 @@
 package social.androiddev.timeline.navigation
 
 import com.arkivanov.essenty.instancekeeper.InstanceKeeper
+import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
@@ -26,7 +27,6 @@ import social.androiddev.domain.timeline.FeedType
 import social.androiddev.domain.timeline.HomeTimelineRepository
 import social.androiddev.domain.timeline.model.StatusLocal
 import social.androiddev.timeline.FeedItemState
-import social.androiddev.timeline.ImmutableListWrapper
 import kotlin.coroutines.CoroutineContext
 
 class TimelineViewModel(
@@ -54,7 +54,7 @@ class TimelineViewModel(
                             username = it.userName,
                             acctAddress = it.accountAddress,
                             message = it.content,
-                            images = ImmutableListWrapper.empty(),
+                            images = persistentListOf(),
                             videoUrl = null,
                         )
                     },

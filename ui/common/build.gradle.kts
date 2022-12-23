@@ -14,6 +14,7 @@ kotlin {
                 implementation(projects.data.network)
                 api(libs.com.arkivanov.decompose)
                 api(libs.com.arkivanov.decompose.extensions.compose.jetbrains)
+                api(libs.kotlinx.collections.immutable)
             }
         }
     }

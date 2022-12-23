@@ -2,6 +2,7 @@
 # plugins
 org-jetbrains-compose = "1.2.1"
 org-jetbrains-kotlin = "1.7.20"
+kotlinx-collections-immutable-v = "0.3.5"
 
 # Need to match with kotlin version used: https://github.com/Kotlin/kotlinx-atomicfu/blob/0.18.5/gradle.properties
 org-jetbrains-kotlinx-atomicfu = "0.18.5"
@@ -25,7 +26,7 @@ io-insert-koin = "3.2.0"
 com-russhwolf = "1.0.0-RC"
 kotlinx-serialization = "1.4.0"
 store = "5.0.0-alpha03"
-atomic-fu="0.18.5"
+atomic-fu = "0.18.5"
 io-github-aakira = "2.6.1"
 com-twitter-compose-rules = "0.0.26"
 
@@ -53,6 +54,7 @@ io-ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref =
 io-insert-koin-core = { module = "io.insert-koin:koin-core", version.ref = "io-insert-koin" }
 io-insert-koin-test = { module = "io.insert-koin:koin-test", version.ref = "io-insert-koin" }
 io-insert-koin-android = { module = "io.insert-koin:koin-android", version.ref = "io-insert-koin" }
+kotlinx-collections-immutable = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version.ref = "kotlinx-collections-immutable-v" }
 
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "org-jetbrains-kotlinx-coroutines" }
 kotlinx-coroutines-javafx = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-javafx", version.ref = "org-jetbrains-kotlinx-coroutines" }
@@ -81,10 +83,10 @@ com-arkivanov-decompose-extensions-compose-jetbrains = { module = "com.arkivanov
 com-arkivanov-decompose-extensions-compose-jetpack = { module = "com.arkivanov.decompose:extensions-compose-jetpack", version.ref = "com-arkivanov-decompose" }
 multiplatform-settings = { module = "com.russhwolf:multiplatform-settings", version.ref = "com-russhwolf" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
-store = { module = "org.mobilenativefoundation.store:store5", version.ref = "store"}
+store = { module = "org.mobilenativefoundation.store:store5", version.ref = "store" }
 io-github-aakira-napier = { module = "io.github.aakira:napier", version.ref = "io-github-aakira" }
 io-gitlab-arturbosch-detekt-formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "io-gitlab-arturbosch-detekt" }
 com-twitter-compose-rules-detekt = { module = "com.twitter.compose.rules:detekt", version.ref = "com-twitter-compose-rules" }
 
 [plugins]
-io-gitlab-arturbosch-detekt-gradle = { id = "io.gitlab.arturbosch.detekt", version.ref = "io-gitlab-arturbosch-detekt"}
+io-gitlab-arturbosch-detekt-gradle = { id = "io.gitlab.arturbosch.detekt", version.ref = "io-gitlab-arturbosch-detekt" }
