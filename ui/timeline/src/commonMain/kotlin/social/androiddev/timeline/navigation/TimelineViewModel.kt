@@ -13,7 +13,9 @@
 package social.androiddev.timeline.navigation
 
 import com.arkivanov.essenty.instancekeeper.InstanceKeeper
+import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
+import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
@@ -37,12 +39,14 @@ class TimelineViewModel(
 
     private val scope = CoroutineScope(mainContext + SupervisorJob())
 
-    val state: StateFlow<StoreResponse<List<FeedItemState>>> = homeTimelineRepository
+    val state: StateFlow<StoreResponse<ImmutableList<FeedItemState>>> = homeTimelineRepository
         .read(feedType, refresh = true)
         .mapLatest(::render)
         .stateIn(scope, SharingStarted.Eagerly, StoreResponse.Loading(ResponseOrigin.Cache))
 
-    private fun render(response: StoreResponse<List<StatusLocal>>): StoreResponse.Data<List<FeedItemState>> {
+    private fun render(
+        response: StoreResponse<List<StatusLocal>>
+    ): StoreResponse.Data<ImmutableList<FeedItemState>> {
         return when (response) {
             is StoreResponse.Data -> {
                 val result = StoreResponse.Data(
@@ -57,14 +61,14 @@ class TimelineViewModel(
                             images = persistentListOf(),
                             videoUrl = null,
                         )
-                    },
+                    }.toImmutableList(),
                     response.origin
                 )
                 result
             }
 
             else -> {
-                StoreResponse.Data(emptyList(), response.origin)
+                StoreResponse.Data(persistentListOf(), response.origin)
             }
         }
     }

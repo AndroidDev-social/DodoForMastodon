@@ -20,6 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.extensions.compose.jetbrains.stack.Children
 import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
+import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.flow.StateFlow
 import org.mobilenativefoundation.store.store5.StoreResponse
 import social.androiddev.signedin.navigation.SignedInRootComponent
@@ -58,7 +59,7 @@ fun SignedInRootContent(
 
 @Composable
 private fun TimelineTab(
-    state: StateFlow<StoreResponse<List<FeedItemState>>>
+    state: StateFlow<StoreResponse<ImmutableList<FeedItemState>>>
 ) {
     TimelineContent(
         state = state,
