@@ -34,7 +34,6 @@ internal class SignInViewModel(
     mainContext: CoroutineContext,
     private val getSelectedApplicationOAuthToken: GetSelectedApplicationOAuthToken,
     private val createAccessToken: CreateAccessToken,
-    private val onSignedIn: () -> Unit,
 ) : InstanceKeeper.Instance {
 
     // The scope survives Android configuration changes
@@ -42,6 +41,9 @@ internal class SignInViewModel(
 
     private val _state = MutableStateFlow(createInitialState())
     val state: StateFlow<SignInComponent.State> = _state.asStateFlow()
+
+    private val _userSignedIn = MutableStateFlow(false)
+    val userSignedIn = _userSignedIn
 
     private fun createInitialState() =
         SignInComponent.State(oauthAuthorizeUrl = "", redirectUri = "", server = "")
@@ -72,6 +74,10 @@ internal class SignInViewModel(
 
     fun onErrorFromOAuth(error: String) {
         displayErrorWithDuration(error)
+    }
+
+    fun consumeUserSignedInState() {
+        _userSignedIn.value = false
     }
 
     private fun displayErrorWithDuration(error: String) {
@@ -105,7 +111,7 @@ internal class SignInViewModel(
                         server = _state.value.server
                     )
                     if (success) {
-                        onSignedIn()
+                        _userSignedIn.value = true
                     } else {
                         displayErrorWithDuration("An error occurred.")
                     }
