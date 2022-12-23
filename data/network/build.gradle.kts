@@ -21,7 +21,6 @@ kotlin {
                 implementation(libs.io.ktor.client.logging)
                 implementation(libs.org.jetbrains.kotlinx.serialization.json)
                 implementation(libs.io.insert.koin.core)
-                implementation(projects.logging)
             }
         }
 
