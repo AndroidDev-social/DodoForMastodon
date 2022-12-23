@@ -175,7 +175,7 @@ $ ./gradlew :app-android:installDebug
 
 ### 🔬 Verifications
 
-To verify important checks, run the following commands on your local machine
+To verify checks, run the following commands on your local machine
 
 #### General Check
 
