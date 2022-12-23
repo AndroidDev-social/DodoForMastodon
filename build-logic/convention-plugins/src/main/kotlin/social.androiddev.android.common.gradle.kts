@@ -10,7 +10,7 @@ android {
     compileSdk = 33
 
     defaultConfig {
-        minSdk = 33
+        minSdk = 24
     }
 
     // targetSdk is in a different interface for library and application projects
