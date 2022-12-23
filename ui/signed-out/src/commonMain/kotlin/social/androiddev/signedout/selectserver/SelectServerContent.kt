@@ -54,7 +54,7 @@ fun SelectServerContent(
     onServerSelected: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    var server by rememberSaveable { mutableStateOf("") }
+    var server by rememberSaveable { mutableStateOf("androiddev.social") }
     Column(
         modifier = modifier,
         verticalArrangement = Arrangement.Center,

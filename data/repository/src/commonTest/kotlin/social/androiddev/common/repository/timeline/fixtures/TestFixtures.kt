@@ -50,7 +50,7 @@ val fakeLocalStatus = StatusLocal(
     null,
     false,
     "",
-    Visibility.UNLISTED,
+    Visibility.UNLISTED.name,
     "",
     "",
     ""
