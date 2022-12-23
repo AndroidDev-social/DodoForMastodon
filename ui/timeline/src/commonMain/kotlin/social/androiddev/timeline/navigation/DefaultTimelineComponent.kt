@@ -14,6 +14,7 @@ package social.androiddev.timeline.navigation
 
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.essenty.instancekeeper.getOrCreate
+import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.flow.StateFlow
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -39,5 +40,5 @@ class DefaultTimelineComponent(
         )
     }
 
-    override val state: StateFlow<StoreResponse<List<FeedItemState>>> = viewModel.state
+    override val state: StateFlow<StoreResponse<ImmutableList<FeedItemState>>> = viewModel.state
 }

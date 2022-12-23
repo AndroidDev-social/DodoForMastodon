@@ -24,6 +24,8 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.flow.StateFlow
 import org.mobilenativefoundation.store.store5.StoreResponse
 import social.androiddev.common.theme.DodoTheme
@@ -35,13 +37,13 @@ import social.androiddev.timeline.navigation.TimelineComponent
  */
 @Composable
 fun TimelineContent(
-    state: StateFlow<StoreResponse<List<FeedItemState>>>,
+    state: StateFlow<StoreResponse<ImmutableList<FeedItemState>>>,
     modifier: Modifier = Modifier,
 ) {
     when (val items = state.collectAsState().value) {
         is StoreResponse.Data -> {
             TimelineContent(
-                immutableListWrapper = ImmutableListWrapper(items.value),
+                feedItems = items.value,
                 modifier = modifier,
             )
         }
@@ -54,7 +56,7 @@ fun TimelineContent(
 
 @Composable
 fun TimelineContent(
-    immutableListWrapper: ImmutableListWrapper<FeedItemState>,
+    feedItems: ImmutableList<FeedItemState>,
     modifier: Modifier = Modifier,
 ) {
     Surface(
@@ -64,7 +66,7 @@ fun TimelineContent(
             .fillMaxSize()
     ) {
         LazyColumn {
-            items(immutableListWrapper.items, key = { item -> item.id }) { state ->
+            items(feedItems, key = { item -> item.id }) { state ->
                 TimelineCard(
                     state = state,
                     modifier = Modifier.wrapContentSize(),
@@ -80,6 +82,6 @@ fun TimelineContent(
 @Composable
 private fun TimelinePreview() {
     DodoTheme {
-        TimelineContent(ImmutableListWrapper(listOf(dummyFeedItem)))
+        TimelineContent(persistentListOf(dummyFeedItem))
     }
 }
