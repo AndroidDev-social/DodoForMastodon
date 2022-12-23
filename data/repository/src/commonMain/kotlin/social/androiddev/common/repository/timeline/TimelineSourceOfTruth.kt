@@ -45,13 +45,16 @@ private fun TimelineQueries.homeItemsAsLocal(key: FeedType) = selectHomeItems()
         it.map { item -> item.toLocal(key) }
     }
 
-fun TimelineDatabase.tryWriteItem(it: StatusDB, type: FeedType): Boolean = try {
+fun TimelineDatabase.tryWriteItem(it: StatusDB, type: FeedType): Boolean = runCatching {
     timelineQueries.insertFeedItem(
         it.copy(type = type.type)
     )
-    true
-} catch (t: Throwable) {
-    // TODO@Omid - fix
-    @Suppress("TooGenericExceptionThrown")
-    throw RuntimeException(t)
-}
+}.fold(
+    onSuccess = {
+        true
+    },
+    onFailure = {
+        // TODO: Add proper logging
+        false
+    }
+)
