@@ -12,6 +12,7 @@ kotlin {
         // shared
         val commonMain by getting {
             dependencies {
+                implementation(projects.logging)
                 implementation(libs.io.ktor.client.core)
                 implementation(libs.io.ktor.client.serialization)
                 implementation(libs.io.ktor.serialization.kotlinx.json)
@@ -20,7 +21,6 @@ kotlin {
                 implementation(libs.io.ktor.client.logging)
                 implementation(libs.org.jetbrains.kotlinx.serialization.json)
                 implementation(libs.io.insert.koin.core)
-                implementation(libs.io.github.aakira.napier)
             }
         }
 
