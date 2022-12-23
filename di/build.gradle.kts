@@ -13,6 +13,7 @@ kotlin {
                 implementation(projects.data.network)
                 implementation(projects.data.persistence)
                 implementation(projects.data.repository)
+                implementation(projects.logging)
                 implementation(projects.domain.authentication)
                 implementation(libs.io.insert.koin.core)
             }
