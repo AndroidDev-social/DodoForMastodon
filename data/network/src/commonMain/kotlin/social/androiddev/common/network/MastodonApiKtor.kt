@@ -73,8 +73,8 @@ internal class MastodonApiKtor(
                 )
             }.body()
         }.onFailure { t ->
-            DodoLogger.w {
-                "Error when creating access token. e=${t.message}"
+            DodoLogger.w(throwable = t) {
+                "Error when creating access token"
             }
         }
     }
@@ -102,8 +102,8 @@ internal class MastodonApiKtor(
                 )
             }.body()
         }.onFailure { t ->
-            DodoLogger.w {
-                "Error when creating application. e=${t.message}"
+            DodoLogger.w(throwable = t) {
+                "Error when creating application."
             }
         }
     }

@@ -45,7 +45,9 @@ fun <T> AsyncImage(
             }.fold(
                 onSuccess = { it },
                 onFailure = { t ->
-                    DodoLogger.w { "Error when loading image. e=${t.message}" }
+                    DodoLogger.w(throwable = t) {
+                        "Error when loading image."
+                    }
                     null
                 }
             )
