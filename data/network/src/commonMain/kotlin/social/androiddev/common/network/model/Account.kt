@@ -35,7 +35,7 @@ data class Account(
     @SerialName("header_static") val headerStatic: String,
     @SerialName("locked") val locked: Boolean,
     @SerialName("emojis") val emojis: List<Emoji>,
-    @SerialName("discoverable") val discoverable: Boolean,
+    @SerialName("discoverable") val discoverable: Boolean? = false,
 
     // statistical attributes
     @SerialName("created_at") val createdAt: String,
