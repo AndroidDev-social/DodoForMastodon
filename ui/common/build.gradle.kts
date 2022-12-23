@@ -6,7 +6,7 @@ plugins {
 android {
     namespace = "social.androiddev.common"
     packagingOptions {
-        exclude ("META-INF/DEPENDENCIES")
+        exclude("META-INF/DEPENDENCIES")
     }
 }
 

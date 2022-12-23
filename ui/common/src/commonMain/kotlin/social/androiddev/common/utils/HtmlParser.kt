@@ -25,7 +25,7 @@ import it.skrape.selects.html5.body
  * Takes a String reciever of html text
  * converts it to an annotated string of text and links
  */
-fun String.renderHtml(): AnnotatedString {
+fun String.extractContentFromMicroFormat(): AnnotatedString {
     val newlineReplace = this.replace("<br>", "\n")
 
     if (newlineReplace.contains("<p>").not()) return buildAnnotatedString { }

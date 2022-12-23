@@ -13,7 +13,6 @@ kotlin {
                 implementation(projects.domain.timeline)
                 implementation(projects.ui.common)
                 implementation(libs.io.insert.koin.core)
-                implementation(libs.io.insert.koin.core)
             }
         }
 
