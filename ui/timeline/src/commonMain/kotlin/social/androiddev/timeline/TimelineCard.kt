@@ -1,11 +1,14 @@
 /*
  * This file is part of Dodo.
  *
- * Dodo is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+ * Dodo is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  *
- * Dodo is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ * Dodo is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License along with Dodo. If not, see <https://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with Dodo.
+ * If not, see <https://www.gnu.org/licenses/>.
  */
 package social.androiddev.timeline
 
@@ -68,7 +71,7 @@ fun TimelineCard(
     userAddress: String,
     toot: String?,
     videoUrl: String?,
-    images: List<String>,
+    images: ImmutableListWrapper<String>,
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(8.dp),
     backgroundColor: Color = MaterialTheme.colors.surface,
@@ -116,7 +119,7 @@ data class FeedItemState(
     val acctAddress: String,
     val message: String?,
     val videoUrl: String?,
-    val images: List<String>,
+    val images: ImmutableListWrapper<String>,
 )
 
 val dummyFeedItem = FeedItemState(
@@ -127,7 +130,7 @@ val dummyFeedItem = FeedItemState(
     acctAddress = "@bino@mastodon.cloud",
     message = "\uD83D\uDC4BHello #AndroidDev",
     videoUrl = null,
-    images = emptyList(),
+    images = ImmutableListWrapper.empty()
 )
 
 // @Preview
