@@ -12,7 +12,6 @@
  */
 package social.androiddev.common.persistence.authentication
 
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import social.androiddev.common.persistence.AuthenticationDatabase
 import social.androiddev.common.persistence.provideTestSqlDriver
@@ -20,7 +19,6 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 
-@OptIn(ExperimentalCoroutinesApi::class)
 internal class AuthenticationDatabaseTests {
 
     @Test

@@ -14,7 +14,6 @@ package social.androiddev.timeline.navigation
 
 import com.arkivanov.essenty.instancekeeper.InstanceKeeper
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.SharingStarted
@@ -38,8 +37,6 @@ class TimelineViewModel(
 
     private val scope = CoroutineScope(mainContext + SupervisorJob())
 
-    // TODO@OMID - Add kotlin compiler args
-    @OptIn(ExperimentalCoroutinesApi::class)
     val state: StateFlow<StoreResponse<List<FeedItemState>>> = homeTimelineRepository
         .read(feedType, refresh = true)
         .mapLatest(::render)

@@ -62,6 +62,14 @@ subprojects {
                     "androidTestFixturesRelease",
                 ).contains(sourceSet.name)
             }
+            ext.sourceSets {
+                all {
+                    languageSettings.optIn("kotlinx.coroutines.ExperimentalCoroutinesApi")
+
+                    // LifecycleController
+                    languageSettings.optIn("com.arkivanov.decompose.ExperimentalDecomposeApi")
+                }
+            }
         }
     }
 }
