@@ -1,11 +1,14 @@
 /*
  * This file is part of Dodo.
  *
- * Dodo is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+ * Dodo is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  *
- * Dodo is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ * Dodo is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License along with Dodo. If not, see <https://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with Dodo.
+ * If not, see <https://www.gnu.org/licenses/>.
  */
 package social.androiddev.root.composables
 
@@ -15,7 +18,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.arkivanov.decompose.ExperimentalDecomposeApi
 import com.arkivanov.decompose.extensions.compose.jetbrains.stack.Children
 import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
 import social.androiddev.root.navigation.RootComponent
@@ -29,7 +31,6 @@ import social.androiddev.signedout.root.SignedOutRootContent
  * App root composable that delegates business logic
  * and decompose navigation to [RootComponent]
  */
-@OptIn(ExperimentalDecomposeApi::class)
 @Composable
 fun RootContent(
     component: RootComponent,
@@ -41,7 +42,6 @@ fun RootContent(
         modifier = modifier,
         contentAlignment = Alignment.Center,
     ) {
-
         Children(
             stack = childStack,
             modifier = Modifier.fillMaxSize(),
@@ -52,13 +52,11 @@ fun RootContent(
                         component = child.component,
                     )
                 }
-
                 is RootComponent.Child.SignedIn -> {
                     SignedInRoot(
                         component = child.component,
                     )
                 }
-
                 is RootComponent.Child.SignedOut -> {
                     SignedOutRoot(
                         component = child.component,

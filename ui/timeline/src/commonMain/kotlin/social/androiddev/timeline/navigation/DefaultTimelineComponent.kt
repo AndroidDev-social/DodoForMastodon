@@ -1,16 +1,20 @@
 /*
  * This file is part of Dodo.
  *
- * Dodo is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+ * Dodo is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  *
- * Dodo is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ * Dodo is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License along with Dodo. If not, see <https://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with Dodo.
+ * If not, see <https://www.gnu.org/licenses/>.
  */
 package social.androiddev.timeline.navigation
 
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.essenty.instancekeeper.getOrCreate
+import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.flow.StateFlow
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -20,6 +24,7 @@ import social.androiddev.domain.timeline.HomeTimelineRepository
 import social.androiddev.timeline.FeedItemState
 import kotlin.coroutines.CoroutineContext
 
+@Suppress("UnusedPrivateMember")
 class DefaultTimelineComponent(
     mainContext: CoroutineContext,
     private val componentContext: ComponentContext,
@@ -35,5 +40,5 @@ class DefaultTimelineComponent(
         )
     }
 
-    override val state: StateFlow<StoreResponse<List<FeedItemState>>> = viewModel.state
+    override val state: StateFlow<StoreResponse<ImmutableList<FeedItemState>>> = viewModel.state
 }

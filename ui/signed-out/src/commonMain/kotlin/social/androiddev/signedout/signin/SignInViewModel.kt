@@ -1,11 +1,14 @@
 /*
  * This file is part of Dodo.
  *
- * Dodo is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+ * Dodo is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  *
- * Dodo is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ * Dodo is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License along with Dodo. If not, see <https://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with Dodo.
+ * If not, see <https://www.gnu.org/licenses/>.
  */
 package social.androiddev.signedout.signin
 
@@ -31,7 +34,6 @@ internal class SignInViewModel(
     mainContext: CoroutineContext,
     private val getSelectedApplicationOAuthToken: GetSelectedApplicationOAuthToken,
     private val createAccessToken: CreateAccessToken,
-    private val onSignedIn: () -> Unit,
 ) : InstanceKeeper.Instance {
 
     // The scope survives Android configuration changes
@@ -39,6 +41,9 @@ internal class SignInViewModel(
 
     private val _state = MutableStateFlow(createInitialState())
     val state: StateFlow<SignInComponent.State> = _state.asStateFlow()
+
+    private val _userSignedIn = MutableStateFlow(false)
+    val userSignedIn = _userSignedIn
 
     private fun createInitialState() =
         SignInComponent.State(oauthAuthorizeUrl = "", redirectUri = "", server = "")
@@ -71,6 +76,10 @@ internal class SignInViewModel(
         displayErrorWithDuration(error)
     }
 
+    fun consumeUserSignedInState() {
+        _userSignedIn.value = false
+    }
+
     private fun displayErrorWithDuration(error: String) {
         _state.update { it.copy(error = error) }
         scope.launch {
@@ -83,11 +92,7 @@ internal class SignInViewModel(
         val uri = URI(url)
         val query = uri.query
 
-        if (!url.contains(_state.value.redirectUri)) {
-            return false
-        }
-
-        if (query.isNullOrEmpty()) {
+        if (!url.contains(_state.value.redirectUri) || query.isNullOrEmpty()) {
             return false
         }
 
@@ -106,7 +111,7 @@ internal class SignInViewModel(
                         server = _state.value.server
                     )
                     if (success) {
-                        onSignedIn()
+                        _userSignedIn.value = true
                     } else {
                         displayErrorWithDuration("An error occurred.")
                     }
