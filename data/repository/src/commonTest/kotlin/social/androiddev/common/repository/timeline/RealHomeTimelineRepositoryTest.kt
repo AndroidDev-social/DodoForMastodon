@@ -31,8 +31,7 @@ import kotlin.test.assertTrue
 import kotlin.test.fail
 
 class RealHomeTimelineRepositoryTest {
-    @Test
-    fun sucessTest(): TestResult {
+    @Test fun successTest(): TestResult {
         return runTest {
             val testRepo = RealHomeTimelineRepository(fakeSuccessStore)
             val result = testRepo.read(FeedType.Home).first()
@@ -41,8 +40,7 @@ class RealHomeTimelineRepositoryTest {
         }
     }
 
-    @Test
-    fun failureTest(): TestResult {
+    @Test fun failureTest(): TestResult {
         return runTest {
             val testRepo = RealHomeTimelineRepository(fakeFailureStore)
             val result = testRepo.read(FeedType.Home).first()
@@ -51,7 +49,6 @@ class RealHomeTimelineRepositoryTest {
         }
     }
 }
-
 val fakeSuccessStore = object : Store<FeedType, List<StatusLocal>> {
     override suspend fun clear(key: FeedType) {
         TODO("Not yet implemented")
