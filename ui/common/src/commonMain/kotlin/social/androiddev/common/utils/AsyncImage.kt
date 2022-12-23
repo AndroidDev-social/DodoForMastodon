@@ -23,6 +23,7 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import social.androiddev.common.logging.DodoLogger
 import social.androiddev.common.network.util.runCatchingIgnoreCancelled
 
 /**
@@ -44,7 +45,7 @@ fun <T> AsyncImage(
             }.fold(
                 onSuccess = { it },
                 onFailure = { t ->
-                    t.printStackTrace()
+                    DodoLogger.w { "Error when loading image. e=${t.message}" }
                     null
                 }
             )
