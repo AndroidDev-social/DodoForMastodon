@@ -28,7 +28,7 @@ import kotlin.test.assertTrue
 import kotlin.test.fail
 
 class RealHomeTimelineRepositoryTest {
-    @Test fun sucessTest(): TestResult {
+    @Test fun successTest(): TestResult {
         return runTest {
             val testRepo = RealHomeTimelineRepository(fakeSuccessStore)
             val result = testRepo.read(FeedType.Home).first()
