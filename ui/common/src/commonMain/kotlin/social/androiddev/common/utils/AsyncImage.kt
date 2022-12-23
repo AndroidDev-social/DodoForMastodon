@@ -25,10 +25,10 @@ import io.kamel.image.lazyPainterResource
 @Composable
 fun AsyncImage(
     contentDescription: String,
+    url: Any,
     modifier: Modifier = Modifier,
     alignment: Alignment = Alignment.Center,
-    contentScale: ContentScale = ContentScale.Fit,
-    url: Any
+    contentScale: ContentScale = ContentScale.Fit
 ) {
     KamelImage(
         resource = lazyPainterResource(data = url),

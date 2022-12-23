@@ -28,6 +28,7 @@ import it.skrape.selects.html5.body
  * Takes a String reciever of html text
  * converts it to an annotated string of text and links
  */
+@Suppress("ReturnCount")
 fun String.extractContentFromMicroFormat(): AnnotatedString {
     val newlineReplace = this.replace("<br>", "\n")
 
@@ -41,6 +42,8 @@ fun String.extractContentFromMicroFormat(): AnnotatedString {
         }
     }
     val paragraph = body
+
+    @Suppress("SwallowedException")
     val links = try {
         content.a { findAll { eachLink } }
     } catch (exception: Exception) {
@@ -48,8 +51,10 @@ fun String.extractContentFromMicroFormat(): AnnotatedString {
     }
 
     val plainText = paragraph.joinToString("\n")
-    if (links.isNullOrEmpty()) return buildAnnotatedString {
-        append(plainText)
+    if (links.isNullOrEmpty()) {
+        buildAnnotatedString {
+            append(plainText)
+        }
     }
     return buildAnnotatedString {
         // everything before first link
@@ -79,8 +84,8 @@ private fun AnnotatedString.Builder.appendLink(linkText: String, linkUrl: String
     pop()
 }
 
-private fun AnnotatedString.onLinkClick(offset: Int, onClick: (String) -> Unit) {
-    getStringAnnotations(start = offset, end = offset).firstOrNull()?.let {
-        onClick(it.item)
-    }
-}
+// private fun AnnotatedString.onLinkClick(offset: Int, onClick: (String) -> Unit) {
+//    getStringAnnotations(start = offset, end = offset).firstOrNull()?.let {
+//        onClick(it.item)
+//    }
+// }
