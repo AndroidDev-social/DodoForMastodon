@@ -1,11 +1,14 @@
 /*
  * This file is part of Dodo.
  *
- * Dodo is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+ * Dodo is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  *
- * Dodo is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ * Dodo is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License along with Dodo. If not, see <https://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with Dodo.
+ * If not, see <https://www.gnu.org/licenses/>.
  */
 package social.androiddev.common.composables.text
 
@@ -293,14 +296,16 @@ private const val AnimationDuration = 150
 
 // @androidx.compose.desktop.ui.tooling.preview.Preview
 @Composable
-fun PreviewTextField() {
+fun PreviewTextField(
+    modifier: Modifier = Modifier,
+) {
     DodoTheme {
         Surface {
             var text by remember { mutableStateOf("Hello World") }
             DodoTextField(
                 value = text,
                 onValueChange = { text = it },
-                modifier = Modifier
+                modifier = modifier
                     .fillMaxWidth()
                     .padding(horizontal = 24.dp),
             )

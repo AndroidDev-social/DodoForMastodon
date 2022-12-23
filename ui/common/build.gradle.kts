@@ -17,6 +17,7 @@ kotlin {
                 implementation(projects.data.network)
                 api(libs.com.arkivanov.decompose)
                 api(libs.com.arkivanov.decompose.extensions.compose.jetbrains)
+
                 implementation("com.alialbaali.kamel:kamel-image:0.4.0")
                 implementation("it.skrape:skrapeit:1.2.2")
 
@@ -33,6 +34,7 @@ kotlin {
             dependencies {
                 implementation(kotlin("test"))
                 implementation(libs.org.jetbrains.kotlin.test.junit)
+                api(libs.kotlinx.collections.immutable)
             }
         }
     }

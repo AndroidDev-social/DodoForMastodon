@@ -1,11 +1,14 @@
 /*
  * This file is part of Dodo.
  *
- * Dodo is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+ * Dodo is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  *
- * Dodo is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ * Dodo is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License along with Dodo. If not, see <https://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with Dodo.
+ * If not, see <https://www.gnu.org/licenses/>.
  */
 package social.androiddev.timeline
 
@@ -21,6 +24,8 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.flow.StateFlow
 import org.mobilenativefoundation.store.store5.StoreResponse
 import social.androiddev.common.theme.DodoTheme
@@ -32,13 +37,13 @@ import social.androiddev.timeline.navigation.TimelineComponent
  */
 @Composable
 fun TimelineContent(
-    state: StateFlow<StoreResponse<List<FeedItemState>>>,
+    state: StateFlow<StoreResponse<ImmutableList<FeedItemState>>>,
     modifier: Modifier = Modifier,
 ) {
     when (val items = state.collectAsState().value) {
         is StoreResponse.Data -> {
             TimelineContent(
-                items = items.value,
+                feedItems = items.value,
                 modifier = modifier,
             )
         }
@@ -51,7 +56,7 @@ fun TimelineContent(
 
 @Composable
 fun TimelineContent(
-    items: List<FeedItemState>,
+    feedItems: ImmutableList<FeedItemState>,
     modifier: Modifier = Modifier,
 ) {
     Surface(
@@ -61,7 +66,7 @@ fun TimelineContent(
             .fillMaxSize()
     ) {
         LazyColumn {
-            items(items, key = { item -> item.id }) { state ->
+            items(feedItems, key = { item -> item.id }) { state ->
                 TimelineCard(
                     state = state,
                     modifier = Modifier.wrapContentSize(),
@@ -77,6 +82,6 @@ fun TimelineContent(
 @Composable
 private fun TimelinePreview() {
     DodoTheme {
-        TimelineContent(listOf(dummyFeedItem))
+        TimelineContent(persistentListOf(dummyFeedItem))
     }
 }

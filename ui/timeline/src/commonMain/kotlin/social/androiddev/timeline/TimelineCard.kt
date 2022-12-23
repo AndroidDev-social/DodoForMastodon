@@ -1,11 +1,14 @@
 /*
  * This file is part of Dodo.
  *
- * Dodo is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+ * Dodo is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  *
- * Dodo is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ * Dodo is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License along with Dodo. If not, see <https://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with Dodo.
+ * If not, see <https://www.gnu.org/licenses/>.
  */
 package social.androiddev.timeline
 
@@ -29,6 +32,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.unit.dp
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 import social.androiddev.common.composables.UserAvatar
 import social.androiddev.common.theme.DodoTheme
 
@@ -69,7 +74,7 @@ fun TimelineCard(
     userAddress: String,
     toot: AnnotatedString?,
     videoUrl: String?,
-    images: List<String>,
+    images: ImmutableList<String>,
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(8.dp),
     backgroundColor: Color = MaterialTheme.colors.surface,
@@ -117,7 +122,7 @@ data class FeedItemState(
     val acctAddress: String,
     val message: AnnotatedString?,
     val videoUrl: String?,
-    val images: List<String>,
+    val images: ImmutableList<String>,
 )
 
 val dummyFeedItem = FeedItemState(
@@ -128,7 +133,7 @@ val dummyFeedItem = FeedItemState(
     acctAddress = "@bino@mastodon.cloud",
     message = AnnotatedString("\uD83D\uDC4BHello #AndroidDev"),
     videoUrl = null,
-    images = emptyList(),
+    images = persistentListOf(),
 )
 
 // @Preview

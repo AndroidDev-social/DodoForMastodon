@@ -1,12 +1,17 @@
 /*
  * This file is part of Dodo.
  *
- * Dodo is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+ * Dodo is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  *
- * Dodo is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ * Dodo is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License along with Dodo. If not, see <https://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with Dodo.
+ * If not, see <https://www.gnu.org/licenses/>.
  */
+@file:Suppress("MaximumLineLength", "MaxLineLength")
+
 package social.androiddev.common.network.model
 
 import kotlinx.coroutines.runBlocking
@@ -50,10 +55,16 @@ class CardTests {
         assertEquals(expected = "https://www.youtube.com/user/BlueXephos", actual = card.authorUrl)
         assertEquals(expected = "YouTube", actual = card.providerName)
         assertEquals(expected = "https://www.youtube.com/", actual = card.providerUrl)
-        assertEquals(expected = "<iframe width=\"480\" height=\"270\" src=\"https://www.youtube.com/embed/OMv_EPMED8Y?feature=oembed\" frameborder=\"0\" allowfullscreen=\"\"></iframe>", actual = card.html)
+        assertEquals(
+            expected = "<iframe width=\"480\" height=\"270\" src=\"https://www.youtube.com/embed/OMv_EPMED8Y?feature=oembed\" frameborder=\"0\" allowfullscreen=\"\"></iframe>",
+            actual = card.html
+        )
         assertEquals(expected = 480, actual = card.width)
         assertEquals(expected = 270, actual = card.height)
-        assertEquals(expected = "https://files.mastodon.social/preview_cards/images/014/179/145/original/9cf4b7cf5567b569.jpeg", actual = card.image)
+        assertEquals(
+            expected = "https://files.mastodon.social/preview_cards/images/014/179/145/original/9cf4b7cf5567b569.jpeg",
+            actual = card.image
+        )
         assertEquals(expected = "", actual = card.embedUrl)
         assertEquals(expected = "UvK0HNkV,:s9xBR%njog0fo2W=WBS5ozofV@", actual = card.blurhash)
     }
@@ -95,8 +106,14 @@ class CardTests {
         assertEquals(expected = "", actual = card.html)
         assertEquals(expected = 1024, actual = card.width)
         assertEquals(expected = 427, actual = card.height)
-        assertEquals(expected = "https://files.mastodon.social/preview_cards/images/014/287/139/original/651b1c6976817824.jpeg", actual = card.image)
-        assertEquals(expected = "https://live.staticflickr.com/65535/49088768431_6a4322b3bb_b.jpg", actual = card.embedUrl)
+        assertEquals(
+            expected = "https://files.mastodon.social/preview_cards/images/014/287/139/original/651b1c6976817824.jpeg",
+            actual = card.image
+        )
+        assertEquals(
+            expected = "https://live.staticflickr.com/65535/49088768431_6a4322b3bb_b.jpg",
+            actual = card.embedUrl
+        )
         assertEquals(expected = "UnE{@jt6M_oIAhjYs+ayT2WBf9ayRkkDXAj[", actual = card.blurhash)
     }
 
@@ -126,9 +143,19 @@ class CardTests {
         val card = Json.decodeFromString<Card>(json)
 
         // then
-        assertEquals(expected = "https://www.theguardian.com/money/2019/dec/07/i-lost-my-193000-inheritance-with-one-wrong-digit-on-my-sort-code", actual = card.url)
-        assertEquals(expected = "‘I lost my £193,000 inheritance – with one wrong digit on my sort code’", actual = card.title)
-        assertEquals(expected = "When Peter Teich’s money went to another Barclays customer, the bank offered £25 as a token gesture", actual = card.description)
+        assertEquals(
+            expected = "https://www.theguardian.com/money/2019/dec/07/i-lost-my-193000-inheritance-with-one-wrong-digit-on-my-sort-code",
+            actual = card.url
+        )
+        assertEquals(
+            expected = "‘I lost my £193,000 inheritance – with one wrong digit on my sort code’",
+            actual = card.title
+        )
+        assertEquals(
+            expected = "When Peter Teich’s money went to another Barclays customer," +
+                " the bank offered £25 as a token gesture",
+            actual = card.description
+        )
         assertEquals(expected = CardType.link, actual = card.type)
         assertEquals(expected = "", actual = card.authorName)
         assertEquals(expected = "", actual = card.authorUrl)

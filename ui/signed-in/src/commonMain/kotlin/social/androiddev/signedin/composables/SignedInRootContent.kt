@@ -1,11 +1,14 @@
 /*
  * This file is part of Dodo.
  *
- * Dodo is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+ * Dodo is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  *
- * Dodo is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ * Dodo is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License along with Dodo. If not, see <https://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with Dodo.
+ * If not, see <https://www.gnu.org/licenses/>.
  */
 package social.androiddev.signedin.composables
 
@@ -15,9 +18,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.arkivanov.decompose.ExperimentalDecomposeApi
 import com.arkivanov.decompose.extensions.compose.jetbrains.stack.Children
 import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
+import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.flow.StateFlow
 import org.mobilenativefoundation.store.store5.StoreResponse
 import social.androiddev.signedin.navigation.SignedInRootComponent
@@ -29,7 +32,6 @@ import social.androiddev.timeline.TimelineContent
  * currently signed in.
  * Business logic and decompose navigation is delegated to [SignedInRootComponent].
  */
-@OptIn(ExperimentalDecomposeApi::class)
 @Composable
 fun SignedInRootContent(
     component: SignedInRootComponent,
@@ -42,7 +44,6 @@ fun SignedInRootContent(
         modifier = modifier,
         contentAlignment = Alignment.Center
     ) {
-
         Children(
             stack = childStack,
             modifier = Modifier.fillMaxSize()
@@ -58,7 +59,7 @@ fun SignedInRootContent(
 
 @Composable
 private fun TimelineTab(
-    state: StateFlow<StoreResponse<List<FeedItemState>>>
+    state: StateFlow<StoreResponse<ImmutableList<FeedItemState>>>
 ) {
     TimelineContent(
         state = state,

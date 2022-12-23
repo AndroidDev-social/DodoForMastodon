@@ -1,11 +1,14 @@
 /*
  * This file is part of Dodo.
  *
- * Dodo is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+ * Dodo is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  *
- * Dodo is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ * Dodo is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License along with Dodo. If not, see <https://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with Dodo.
+ * If not, see <https://www.gnu.org/licenses/>.
  */
 package social.androiddev.common.repository.timeline
 
@@ -22,7 +25,7 @@ import social.androiddev.domain.timeline.model.StatusLocal
 fun TimelineDatabase.asSourceOfTruth(): SourceOfTruth<FeedType, List<StatusDB>, List<StatusLocal>> =
     SourceOfTruth.of(
         reader = reader(),
-        writer = { key, input ->
+        writer = { key, input: List<StatusDB> ->
             input.forEach { item -> tryWriteItem(item, key) }
         }
     )
@@ -42,11 +45,16 @@ private fun TimelineQueries.homeItemsAsLocal(key: FeedType) = selectHomeItems()
         it.map { item -> item.toLocal(key) }
     }
 
-fun TimelineDatabase.tryWriteItem(it: StatusDB, type: FeedType): Boolean = try {
+fun TimelineDatabase.tryWriteItem(it: StatusDB, type: FeedType): Boolean = runCatching {
     timelineQueries.insertFeedItem(
         it.copy(type = type.type)
     )
-    true
-} catch (t: Throwable) {
-    throw RuntimeException(t)
-}
+}.fold(
+    onSuccess = {
+        true
+    },
+    onFailure = {
+        // TODO: Add proper logging
+        false
+    }
+)
