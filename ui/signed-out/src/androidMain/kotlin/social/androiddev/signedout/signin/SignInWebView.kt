@@ -45,8 +45,12 @@ actual fun SignInWebView(
     shouldCancelLoadingUrl: (url: String) -> Boolean,
     modifier: Modifier,
 ) {
+    val webIntent = webBrowserIntent(
+        url = url,
+        primaryColor = MaterialTheme.colors.primary,
+        secondaryColor = MaterialTheme.colors.secondary
+    )
 
-    val webIntent = webBrowserIntent(url, MaterialTheme.colors.primary, MaterialTheme.colors.secondary)
     val handler = Handler(Looper.getMainLooper())
 
     val launcher =

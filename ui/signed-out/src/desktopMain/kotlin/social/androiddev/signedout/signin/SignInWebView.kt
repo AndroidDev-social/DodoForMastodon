@@ -24,7 +24,6 @@ actual fun SignInWebView(
     shouldCancelLoadingUrl: (url: String) -> Boolean,
     modifier: Modifier,
 ) {
-
     JFXWebView(
         modifier = modifier,
         url = url,
