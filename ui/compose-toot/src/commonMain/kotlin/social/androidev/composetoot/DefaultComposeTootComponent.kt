@@ -10,40 +10,40 @@
  * You should have received a copy of the GNU General Public License along with Dodo.
  * If not, see <https://www.gnu.org/licenses/>.
  */
-package social.androiddev.timeline.navigation
+package social.androidev.composetoot
 
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.essenty.instancekeeper.getOrCreate
-import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.flow.StateFlow
-import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
-import org.mobilenativefoundation.store.store5.StoreResponse
-import social.androiddev.domain.timeline.FeedType
-import social.androiddev.domain.timeline.HomeTimelineRepository
-import social.androiddev.timeline.FeedItemState
 import kotlin.coroutines.CoroutineContext
 
-@Suppress("UnusedPrivateMember")
-class DefaultTimelineComponent(
+class DefaultComposeTootComponent(
     mainContext: CoroutineContext,
     private val componentContext: ComponentContext,
-    private val onComposeTootClickedInternal: () -> Unit,
-) : TimelineComponent, KoinComponent, ComponentContext by componentContext {
-
-    private val homeTimelineRepository: HomeTimelineRepository by inject()
+    private val onCloseClickedInternal: () -> Unit,
+) : ComposeTootComponent, ComponentContext by componentContext {
 
     private val viewModel = instanceKeeper.getOrCreate {
-        TimelineViewModel(
+        ComposeTootViewModel(
             mainContext = mainContext,
-            homeTimelineRepository,
-            FeedType.Home
+            onTootSucceed = onCloseClickedInternal
         )
     }
+    override val state: StateFlow<ComposeTootState> = viewModel.state
 
-    override val state: StateFlow<StoreResponse<ImmutableList<FeedItemState>>> = viewModel.state
+    override fun onCloseClicked() {
+        onCloseClickedInternal()
+    }
 
-    override fun onComposeTootClicked() {
-        onComposeTootClickedInternal()
+    override fun onTootContentChange(text: String) {
+        viewModel.onTootContentChange(text)
+    }
+
+    override fun onPostClicked() {
+        viewModel.onPostClicked()
+    }
+
+    override fun onActionClicked(action: Action) {
+        viewModel.onActionClicked(action)
     }
 }

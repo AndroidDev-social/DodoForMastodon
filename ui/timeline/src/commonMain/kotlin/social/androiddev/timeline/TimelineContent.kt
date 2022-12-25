@@ -13,14 +13,22 @@
 package social.androiddev.timeline
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.FloatingActionButton
+import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Edit
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -38,12 +46,14 @@ import social.androiddev.timeline.navigation.TimelineComponent
 @Composable
 fun TimelineContent(
     state: StateFlow<StoreResponse<ImmutableList<FeedItemState>>>,
+    onComposeTootClicked: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     when (val items = state.collectAsState().value) {
         is StoreResponse.Data -> {
             TimelineContent(
                 feedItems = items.value,
+                onComposeTootClicked = onComposeTootClicked,
                 modifier = modifier,
             )
         }
@@ -57,6 +67,7 @@ fun TimelineContent(
 @Composable
 fun TimelineContent(
     feedItems: ImmutableList<FeedItemState>,
+    onComposeTootClicked: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Surface(
@@ -65,11 +76,25 @@ fun TimelineContent(
             .padding(8.dp)
             .fillMaxSize()
     ) {
-        LazyColumn {
-            items(feedItems, key = { item -> item.id }) { state ->
-                TimelineCard(
-                    state = state,
-                    modifier = Modifier.wrapContentSize(),
+        Box {
+            LazyColumn {
+                items(feedItems, key = { item -> item.id }) { state ->
+                    TimelineCard(
+                        state = state,
+                        modifier = Modifier.wrapContentSize(),
+                    )
+                }
+            }
+
+            FloatingActionButton(
+                modifier = Modifier.padding(32.dp).align(Alignment.BottomEnd).size(56.dp),
+                backgroundColor = MaterialTheme.colors.primary,
+                onClick = onComposeTootClicked
+            ) {
+                Icon(
+                    imageVector = Icons.Outlined.Edit,
+                    tint = MaterialTheme.colors.onPrimary,
+                    contentDescription = "Create toot"
                 )
             }
         }
@@ -82,6 +107,9 @@ fun TimelineContent(
 @Composable
 private fun TimelinePreview() {
     DodoTheme {
-        TimelineContent(persistentListOf(dummyFeedItem))
+        TimelineContent(
+            persistentListOf(dummyFeedItem),
+            onComposeTootClicked = {}
+        )
     }
 }
