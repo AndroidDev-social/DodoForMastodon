@@ -15,6 +15,7 @@ package social.androiddev.signedin.navigation
 import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.value.Value
 import social.androiddev.timeline.navigation.TimelineComponent
+import social.androidev.composetoot.ComposeTootComponent
 
 /**
  * The base component describing all business logic needed for the signed-in root entry point
@@ -31,5 +32,7 @@ interface SignedInRootComponent {
     sealed class Child {
 
         data class Timeline(val component: TimelineComponent) : Child()
+
+        data class ComposeToot(val component: ComposeTootComponent) : Child()
     }
 }

@@ -33,6 +33,7 @@ include(":ui:signed-in")
 include(":ui:signed-out")
 include(":ui:desktop-webview")
 
+include(":ui:compose-toot")
 include(":domain:timeline")
 include(":domain:authentication")
 

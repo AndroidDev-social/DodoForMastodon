@@ -10,18 +10,19 @@
  * You should have received a copy of the GNU General Public License along with Dodo.
  * If not, see <https://www.gnu.org/licenses/>.
  */
-package social.androiddev.timeline.navigation
+package social.androidev.composetoot
 
-import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.flow.StateFlow
-import org.mobilenativefoundation.store.store5.StoreResponse
-import social.androiddev.timeline.FeedItemState
 
 /**
- * The base component describing all business logic needed for the timeline view
+ * The base component describing all business logic needed for the toot screen
  */
-interface TimelineComponent {
-    val state: StateFlow<StoreResponse<ImmutableList<FeedItemState>>>
+interface ComposeTootComponent {
 
-    fun onComposeTootClicked()
+    val state: StateFlow<ComposeTootState>
+    fun onCloseClicked()
+
+    fun onTootContentChange(text: String)
+    fun onPostClicked()
+    fun onActionClicked(action: Action)
 }

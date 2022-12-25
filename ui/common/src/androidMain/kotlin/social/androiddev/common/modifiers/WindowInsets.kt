@@ -10,18 +10,12 @@
  * You should have received a copy of the GNU General Public License along with Dodo.
  * If not, see <https://www.gnu.org/licenses/>.
  */
-package social.androiddev.timeline.navigation
+package social.androiddev.common.modifiers
 
-import kotlinx.collections.immutable.ImmutableList
-import kotlinx.coroutines.flow.StateFlow
-import org.mobilenativefoundation.store.store5.StoreResponse
-import social.androiddev.timeline.FeedItemState
+import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.ui.Modifier
 
-/**
- * The base component describing all business logic needed for the timeline view
- */
-interface TimelineComponent {
-    val state: StateFlow<StoreResponse<ImmutableList<FeedItemState>>>
-
-    fun onComposeTootClicked()
+actual fun Modifier.moveWithKeyboard(): Modifier {
+    return this.navigationBarsPadding().imePadding()
 }

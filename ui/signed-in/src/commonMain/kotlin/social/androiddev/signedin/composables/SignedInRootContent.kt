@@ -26,6 +26,7 @@ import org.mobilenativefoundation.store.store5.StoreResponse
 import social.androiddev.signedin.navigation.SignedInRootComponent
 import social.androiddev.timeline.FeedItemState
 import social.androiddev.timeline.TimelineContent
+import social.androidev.composetoot.ComposeTootContent
 
 /**
  * The root composable for when the user launches the app and is
@@ -50,7 +51,16 @@ fun SignedInRootContent(
         ) { createdChild ->
             when (val child = createdChild.instance) {
                 is SignedInRootComponent.Child.Timeline -> {
-                    TimelineTab(child.component.state)
+                    TimelineTab(
+                        state = child.component.state,
+                        onComposeTootClicked = child.component::onComposeTootClicked
+                    )
+                }
+
+                is SignedInRootComponent.Child.ComposeToot -> {
+                    ComposeTootContent(
+                        component = child.component
+                    )
                 }
             }
         }
@@ -59,10 +69,12 @@ fun SignedInRootContent(
 
 @Composable
 private fun TimelineTab(
-    state: StateFlow<StoreResponse<ImmutableList<FeedItemState>>>
+    state: StateFlow<StoreResponse<ImmutableList<FeedItemState>>>,
+    onComposeTootClicked: () -> Unit,
 ) {
     TimelineContent(
         state = state,
+        onComposeTootClicked = onComposeTootClicked,
         modifier = Modifier.fillMaxSize(),
     )
 }

@@ -16,11 +16,14 @@ import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.childStack
+import com.arkivanov.decompose.router.stack.pop
+import com.arkivanov.decompose.router.stack.push
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
 import social.androiddev.signedin.navigation.DefaultSignedInRootComponent.Config
 import social.androiddev.timeline.navigation.DefaultTimelineComponent
+import social.androidev.composetoot.DefaultComposeTootComponent
 import kotlin.coroutines.CoroutineContext
 
 /**
@@ -46,10 +49,17 @@ class DefaultSignedInRootComponent(
 
     override val childStack: Value<ChildStack<*, SignedInRootComponent.Child>> = stack
 
-    private fun createChild(config: Config, componentContext: ComponentContext): SignedInRootComponent.Child =
+    private fun createChild(
+        config: Config,
+        componentContext: ComponentContext
+    ): SignedInRootComponent.Child =
         when (config) {
             Config.Timeline -> {
                 SignedInRootComponent.Child.Timeline(createTimelineComponent(componentContext))
+            }
+
+            Config.ComposeToot -> {
+                SignedInRootComponent.Child.ComposeToot(createComposeTootComponent(componentContext))
             }
         }
 
@@ -57,7 +67,16 @@ class DefaultSignedInRootComponent(
         componentContext: ComponentContext,
     ) = DefaultTimelineComponent(
         componentContext = componentContext,
-        mainContext = mainContext
+        mainContext = mainContext,
+        onComposeTootClickedInternal = { navigation.push(Config.ComposeToot) }
+    )
+
+    private fun createComposeTootComponent(
+        componentContext: ComponentContext,
+    ) = DefaultComposeTootComponent(
+        componentContext = componentContext,
+        mainContext = mainContext,
+        onCloseClickedInternal = { navigation.pop() }
     )
 
     /**
@@ -76,5 +95,8 @@ class DefaultSignedInRootComponent(
 
         @Parcelize
         object Timeline : Config
+
+        @Parcelize
+        object ComposeToot : Config
     }
 }
