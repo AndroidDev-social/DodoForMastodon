@@ -12,6 +12,8 @@
  */
 package social.androiddev.root.splash
 
+import kotlinx.coroutines.flow.StateFlow
+
 /**
  * The base component describing all business logic needed for the splash screen
  */
@@ -26,4 +28,11 @@ interface SplashComponent {
      * Callback invoked when the logged-out user should be taken to the landing screen
      */
     fun navigateToLanding()
+
+    val state: StateFlow<State>
+
+    sealed class State {
+        object Loading : State()
+        data class Ready(val isSignedIn: Boolean) : State()
+    }
 }

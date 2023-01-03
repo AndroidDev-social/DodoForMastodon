@@ -13,9 +13,11 @@
 package social.androiddev.root.splash
 
 import com.arkivanov.decompose.ComponentContext
-import kotlinx.coroutines.SupervisorJob
+import com.arkivanov.essenty.instancekeeper.getOrCreate
+import kotlinx.coroutines.flow.StateFlow
 import org.koin.core.component.KoinComponent
-import social.androiddev.common.decompose.coroutineScope
+import org.koin.core.component.inject
+import social.androiddev.domain.authentication.usecase.GetSelectedApplicationOAuthToken
 import kotlin.coroutines.CoroutineContext
 
 class DefaultSplashComponent(
@@ -25,7 +27,13 @@ class DefaultSplashComponent(
     private val navigateToTimelineInternal: () -> Unit,
 ) : SplashComponent, KoinComponent, ComponentContext by componentContext {
 
-    private val scope = coroutineScope(mainContext + SupervisorJob())
+    private val getSelectedAuthToken: GetSelectedApplicationOAuthToken by inject()
+
+    private val viewModel = instanceKeeper.getOrCreate {
+        SplashViewModel(mainContext = mainContext, getAuthToken = getSelectedAuthToken)
+    }
+
+    override val state: StateFlow<SplashComponent.State> = viewModel.state
 
     override fun navigateToTimeline() {
         navigateToTimelineInternal()

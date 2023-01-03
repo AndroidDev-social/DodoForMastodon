@@ -16,6 +16,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 
@@ -28,8 +30,11 @@ fun SplashContent(
     component: SplashComponent,
     modifier: Modifier = Modifier,
 ) {
+    val state by component.state.collectAsState()
+
     SplashContent(
         modifier = modifier,
+        state = state,
         navigateToWelcome = {
             component.navigateToLanding()
         },
@@ -45,6 +50,7 @@ fun SplashContent(
  */
 @Composable
 fun SplashContent(
+    state: SplashComponent.State,
     navigateToTimeline: () -> Unit,
     navigateToWelcome: () -> Unit,
     modifier: Modifier = Modifier,
@@ -53,14 +59,18 @@ fun SplashContent(
         modifier = modifier,
         contentAlignment = Alignment.Center,
     ) {
-        Text("Loading")
 
-        LaunchedEffect(Unit) {
-            // TODO: Hook up to a DI ViewModel
-            if (true) {
-                navigateToWelcome()
-            } else {
-                navigateToTimeline()
+        if (state is SplashComponent.State.Loading) {
+            Text("Loading")
+        }
+
+        LaunchedEffect(state) {
+            if (state is SplashComponent.State.Ready) {
+                if (state.isSignedIn) {
+                    navigateToTimeline()
+                } else {
+                    navigateToWelcome()
+                }
             }
         }
     }
