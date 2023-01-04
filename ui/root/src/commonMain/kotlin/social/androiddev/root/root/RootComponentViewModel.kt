@@ -25,7 +25,7 @@ import social.androiddev.domain.authentication.usecase.GetAuthStatus
 import kotlin.coroutines.CoroutineContext
 
 interface RootComponentViewModel : InstanceKeeper.Instance {
-    val authState: StateFlow<AuthStatus>
+    val authState: StateFlow<AuthStatus?>
 }
 
 fun RootComponentViewModel(coroutineContext: CoroutineContext, getAuthStatus: GetAuthStatus): RootComponentViewModel =
@@ -35,7 +35,7 @@ private class RealRootComponentViewModel(coroutineContext: CoroutineContext, get
     RootComponentViewModel {
     private val viewModelScope = CoroutineScope(coroutineContext + SupervisorJob())
 
-    private val _authState = MutableStateFlow<AuthStatus>(AuthStatus.Unknown)
+    private val _authState = MutableStateFlow<AuthStatus?>(null)
     override val authState = _authState.asStateFlow()
 
     init {

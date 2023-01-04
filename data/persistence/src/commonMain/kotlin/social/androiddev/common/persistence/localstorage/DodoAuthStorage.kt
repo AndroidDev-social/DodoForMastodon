@@ -29,7 +29,7 @@ interface DodoAuthStorage {
     /**
      * List of servers that user has access to
      */
-    val authorizedServersFlow: Flow<List<String>?>
+    val authorizedServersFlow: Flow<List<String>>
 
     /**
      * Save the @param token keyed by @param server

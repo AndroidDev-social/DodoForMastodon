@@ -29,7 +29,7 @@ interface RootComponent {
     val childStack: Value<ChildStack<*, Child>>
 
     // current authorization status
-    val authStatus: StateFlow<AuthStatus>
+    val authStatus: StateFlow<AuthStatus?>
 
     /**
      * Supported "Child"s in this navigation stack. These are created from a configuration that

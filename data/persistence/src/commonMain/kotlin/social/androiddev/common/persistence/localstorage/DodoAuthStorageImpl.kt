@@ -38,10 +38,10 @@ internal class DodoAuthStorageImpl(
             settings[KEY_DOMAIN_CACHE] = value
         }
 
-    override val authorizedServersFlow: Flow<List<String>?> = flow {
+    override val authorizedServersFlow: Flow<List<String>> = flow {
         settings.getStringOrNullFlow(KEY_ACCESS_TOKENS_CACHE).collect { authTokens ->
             if (authTokens == null) {
-                emit(null)
+                emit(listOf())
             } else {
                 val serverList = json.decodeFromString(ListSerializer(AccessToken.serializer()), authTokens)
                     .associateBy { it.server }.keys.toList()

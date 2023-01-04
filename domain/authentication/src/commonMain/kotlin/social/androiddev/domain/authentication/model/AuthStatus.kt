@@ -17,11 +17,6 @@ package social.androiddev.domain.authentication.model
  */
 sealed class AuthStatus {
     /**
-     * Status is not yet known
-     */
-    object Unknown : AuthStatus()
-
-    /**
      * Authenticated to at least one server
      */
     object Authorized : AuthStatus()

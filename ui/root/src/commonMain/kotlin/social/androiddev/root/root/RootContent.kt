@@ -96,7 +96,7 @@ private fun SignedInRoot(
 @Composable
 private fun SplashScreen(
     component: SplashComponent,
-    authStatus: AuthStatus,
+    authStatus: AuthStatus?,
 ) {
     SplashContent(
         authStatus = authStatus,

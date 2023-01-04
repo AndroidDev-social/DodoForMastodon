@@ -27,7 +27,7 @@ import social.androiddev.domain.authentication.model.AuthStatus
 @Composable
 fun SplashContent(
     component: SplashComponent,
-    authStatus: AuthStatus,
+    authStatus: AuthStatus?,
     modifier: Modifier = Modifier,
 ) {
     SplashContent(
@@ -48,7 +48,7 @@ fun SplashContent(
  */
 @Composable
 fun SplashContent(
-    authStatus: AuthStatus,
+    authStatus: AuthStatus?,
     navigateToTimeline: () -> Unit,
     navigateToWelcome: () -> Unit,
     modifier: Modifier = Modifier,

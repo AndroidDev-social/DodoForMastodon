@@ -115,12 +115,8 @@ internal class AuthenticationRepositoryImpl(
 
     override val selectedServer: String? = settings.currentDomain
 
-    override suspend fun getIsAccessTokenPresent(): Flow<Boolean?> =
+    override suspend fun getIsAccessTokenPresent(): Flow<Boolean> =
         settings.authorizedServersFlow.transform { servers ->
-            if (servers == null) {
-                emit(null)
-            } else {
-                emit(servers.isNotEmpty())
-            }
+            emit(servers.isNotEmpty())
         }
 }

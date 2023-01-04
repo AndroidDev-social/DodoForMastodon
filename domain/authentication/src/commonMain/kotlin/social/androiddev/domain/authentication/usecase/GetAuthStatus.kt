@@ -20,14 +20,10 @@ import social.androiddev.domain.authentication.repository.AuthenticationReposito
 class GetAuthStatus(private val authenticationRepository: AuthenticationRepository) {
     suspend operator fun invoke(): Flow<AuthStatus> = flow {
         authenticationRepository.getIsAccessTokenPresent().collect { hasAccessToken ->
-            if (hasAccessToken == null) {
-                emit(AuthStatus.Unknown)
+            if (hasAccessToken) {
+                emit(AuthStatus.Authorized)
             } else {
-                if (hasAccessToken) {
-                    emit(AuthStatus.Authorized)
-                } else {
-                    emit(AuthStatus.Unauthorized)
-                }
+                emit(AuthStatus.Unauthorized)
             }
         }
     }
