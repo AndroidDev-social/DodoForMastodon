@@ -10,21 +10,24 @@
  * You should have received a copy of the GNU General Public License along with Dodo.
  * If not, see <https://www.gnu.org/licenses/>.
  */
-package social.androiddev.root.splash
+package social.androiddev.domain.authentication.model
 
-import com.arkivanov.decompose.ComponentContext
+/**
+ * Represents the authentication status of user to Mastodon servers
+ */
+sealed class AuthStatus {
+    /**
+     * Status is not yet known
+     */
+    object Unknown : AuthStatus()
 
-class DefaultSplashComponent(
-    private val componentContext: ComponentContext,
-    private val navigateToLandingInternal: () -> Unit,
-    private val navigateToTimelineInternal: () -> Unit,
-) : SplashComponent, ComponentContext by componentContext {
+    /**
+     * Authenticated to at least one server
+     */
+    object Authorized : AuthStatus()
 
-    override fun navigateToTimeline() {
-        navigateToTimelineInternal()
-    }
-
-    override fun navigateToLanding() {
-        navigateToLandingInternal()
-    }
+    /**
+     * User logged out or never signed in before
+     */
+    object Unauthorized : AuthStatus()
 }

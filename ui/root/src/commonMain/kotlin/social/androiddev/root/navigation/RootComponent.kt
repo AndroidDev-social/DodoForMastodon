@@ -14,6 +14,8 @@ package social.androiddev.root.navigation
 
 import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.value.Value
+import kotlinx.coroutines.flow.StateFlow
+import social.androiddev.domain.authentication.model.AuthStatus
 import social.androiddev.root.splash.SplashComponent
 import social.androiddev.signedin.navigation.SignedInRootComponent
 import social.androiddev.signedout.root.SignedOutRootComponent
@@ -25,6 +27,9 @@ interface RootComponent {
 
     // Store a stack of components and their configurations in this root graph
     val childStack: Value<ChildStack<*, Child>>
+
+    // current authorization status
+    val authStatus: StateFlow<AuthStatus>
 
     /**
      * Supported "Child"s in this navigation stack. These are created from a configuration that

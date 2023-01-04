@@ -16,8 +16,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 
@@ -30,11 +28,8 @@ fun SplashContent(
     component: SplashComponent,
     modifier: Modifier = Modifier,
 ) {
-    val state by component.state.collectAsState()
-
     SplashContent(
         modifier = modifier,
-        state = state,
         navigateToWelcome = {
             component.navigateToLanding()
         },
@@ -50,7 +45,6 @@ fun SplashContent(
  */
 @Composable
 fun SplashContent(
-    state: SplashComponent.State,
     navigateToTimeline: () -> Unit,
     navigateToWelcome: () -> Unit,
     modifier: Modifier = Modifier,
@@ -60,17 +54,14 @@ fun SplashContent(
         contentAlignment = Alignment.Center,
     ) {
 
-        if (state is SplashComponent.State.Loading) {
-            Text("Loading")
-        }
+        Text("Loading")
 
-        LaunchedEffect(state) {
-            if (state is SplashComponent.State.Ready) {
-                if (state.isSignedIn) {
-                    navigateToTimeline()
-                } else {
-                    navigateToWelcome()
-                }
+        LaunchedEffect(Unit) {
+            // todo: remove this once finished with auth status
+            if (true) {
+                navigateToWelcome()
+            } else {
+                navigateToTimeline()
             }
         }
     }

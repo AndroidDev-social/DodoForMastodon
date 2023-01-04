@@ -19,8 +19,12 @@ import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.decompose.router.stack.replaceAll
 import com.arkivanov.decompose.router.stack.replaceCurrent
 import com.arkivanov.decompose.value.Value
+import com.arkivanov.essenty.instancekeeper.getOrCreate
 import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.get
+import social.androiddev.root.RootComponentViewModel
 import social.androiddev.root.navigation.DefaultRootComponent.Config
 import social.androiddev.root.splash.DefaultSplashComponent
 import social.androiddev.signedin.navigation.DefaultSignedInRootComponent
@@ -36,7 +40,7 @@ class DefaultRootComponent(
     componentContext: ComponentContext,
     private val mainContext: CoroutineContext,
     deepLink: RootComponent.DeepLink = RootComponent.DeepLink.None,
-) : RootComponent, ComponentContext by componentContext {
+) : RootComponent, KoinComponent, ComponentContext by componentContext {
 
     // StackNavigation accepts navigation commands and forwards them to all subscribed observers.
     private val navigation = StackNavigation<Config>()
@@ -50,6 +54,11 @@ class DefaultRootComponent(
     )
 
     override val childStack: Value<ChildStack<*, RootComponent.Child>> = stack
+
+    private val viewModel =
+        instanceKeeper.getOrCreate { RootComponentViewModel(coroutineContext = mainContext, getAuthStatus = get()) }
+
+    override val authStatus = viewModel.authState
 
     private fun createChild(config: Config, componentContext: ComponentContext): RootComponent.Child =
         when (config) {
@@ -79,7 +88,6 @@ class DefaultRootComponent(
         componentContext: ComponentContext,
     ) = DefaultSplashComponent(
         componentContext = componentContext,
-        mainContext = mainContext,
         navigateToTimelineInternal = {
             navigation.replaceCurrent(Config.SignedIn)
         },

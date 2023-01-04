@@ -12,7 +12,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(libs.io.insert.koin.core)
-
+                implementation(libs.kotlinx.coroutines.core)
             }
         }
 

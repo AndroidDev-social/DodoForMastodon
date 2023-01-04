@@ -12,6 +12,8 @@
  */
 package social.androiddev.common.repository
 
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.transform
 import kotlinx.coroutines.withContext
 import social.androiddev.common.network.MastodonApi
 import social.androiddev.common.persistence.AuthenticationDatabase
@@ -34,7 +36,7 @@ internal class AuthenticationRepositoryImpl(
         clientName: String,
         redirectUris: String,
         scopes: String,
-        website: String?
+        website: String?,
     ): NewAppOAuthToken? {
         val application = mastodonApi.createApplication(
             domain = domain,
@@ -112,4 +114,13 @@ internal class AuthenticationRepositoryImpl(
     }
 
     override val selectedServer: String? = settings.currentDomain
+
+    override suspend fun getIsAccessTokenPresent(): Flow<Boolean?> =
+        settings.authorizedServersFlow.transform { servers ->
+            if (servers == null) {
+                emit(null)
+            } else {
+                emit(servers.isNotEmpty())
+            }
+        }
 }

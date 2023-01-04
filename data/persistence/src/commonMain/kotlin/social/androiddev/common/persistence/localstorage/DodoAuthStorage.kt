@@ -12,6 +12,8 @@
  */
 package social.androiddev.common.persistence.localstorage
 
+import kotlinx.coroutines.flow.Flow
+
 /**
  * Contract for key => value storage for any authentication related data
  */
@@ -23,6 +25,11 @@ interface DodoAuthStorage {
      * the user can have multiple accounts
      */
     var currentDomain: String?
+
+    /**
+     * List of servers that user has access to
+     */
+    val authorizedServersFlow: Flow<List<String>?>
 
     /**
      * Save the @param token keyed by @param server

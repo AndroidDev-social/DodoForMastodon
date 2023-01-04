@@ -10,27 +10,25 @@
  * You should have received a copy of the GNU General Public License along with Dodo.
  * If not, see <https://www.gnu.org/licenses/>.
  */
-package social.androiddev.common.repository.di
+package social.androiddev.domain.authentication.usecase
 
-import kotlinx.coroutines.Dispatchers
-import org.koin.core.module.Module
-import org.koin.dsl.module
-import social.androiddev.common.repository.AuthenticationRepositoryImpl
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import social.androiddev.domain.authentication.model.AuthStatus
 import social.androiddev.domain.authentication.repository.AuthenticationRepository
 
-/**
- * Koin module containing all koin/bean definitions for
- * all repositories. Repositories encapsulate different data sources
- * and are typically injected into ViewModels or UseCases.
- */
-val repositoryModule: Module = module {
-
-    single<AuthenticationRepository> {
-        AuthenticationRepositoryImpl(
-            mastodonApi = get(),
-            database = get(),
-            settings = get(),
-            ioCoroutineContext = Dispatchers.Default
-        )
+class GetAuthStatus(private val authenticationRepository: AuthenticationRepository) {
+    suspend operator fun invoke(): Flow<AuthStatus> = flow {
+        authenticationRepository.getIsAccessTokenPresent().collect { hasAccessToken ->
+            if (hasAccessToken == null) {
+                emit(AuthStatus.Unknown)
+            } else {
+                if (hasAccessToken) {
+                    emit(AuthStatus.Authorized)
+                } else {
+                    emit(AuthStatus.Unauthorized)
+                }
+            }
+        }
     }
 }

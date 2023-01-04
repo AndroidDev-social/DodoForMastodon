@@ -1,4 +1,4 @@
-CREATE TABLE StatusDB (
+CREATE TABLE IF NOT EXISTS StatusDB (
   type TEXT NOT NULL,
   remoteId Text NOT NULL PRIMARY KEY,
   uri Text NOT NULL,

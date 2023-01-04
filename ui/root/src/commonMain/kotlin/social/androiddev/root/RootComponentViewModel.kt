@@ -10,7 +10,7 @@
  * You should have received a copy of the GNU General Public License along with Dodo.
  * If not, see <https://www.gnu.org/licenses/>.
  */
-package social.androiddev.root.splash
+package social.androiddev.root
 
 import com.arkivanov.essenty.instancekeeper.InstanceKeeper
 import kotlinx.coroutines.CoroutineScope
@@ -18,31 +18,35 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import social.androiddev.domain.authentication.usecase.GetSelectedApplicationOAuthToken
+import social.androiddev.domain.authentication.model.AuthStatus
+import social.androiddev.domain.authentication.usecase.GetAuthStatus
 import kotlin.coroutines.CoroutineContext
 
-internal class SplashViewModel(
-    mainContext: CoroutineContext,
-    private val getAuthToken: GetSelectedApplicationOAuthToken
-) : InstanceKeeper.Instance {
-    private val scope = CoroutineScope(mainContext + SupervisorJob())
+interface RootComponentViewModel : InstanceKeeper.Instance {
+    val authState: StateFlow<AuthStatus>
+}
 
-    private val _state: MutableStateFlow<SplashComponent.State> =
-        MutableStateFlow(SplashComponent.State.Loading)
+fun RootComponentViewModel(coroutineContext: CoroutineContext, getAuthStatus: GetAuthStatus): RootComponentViewModel =
+    RealRootComponentViewModel(coroutineContext, getAuthStatus)
 
-    val state: StateFlow<SplashComponent.State> = _state
+private class RealRootComponentViewModel(coroutineContext: CoroutineContext, getAuthStatus: GetAuthStatus) :
+    RootComponentViewModel {
+    private val viewModelScope = CoroutineScope(coroutineContext + SupervisorJob())
+
+    private val _authState = MutableStateFlow<AuthStatus>(AuthStatus.Unknown)
+    override val authState = _authState.asStateFlow()
 
     init {
-        scope.launch {
-            // if authToken is available, it means user is logged in
-            val result = runCatching { getAuthToken() }
-            _state.update { SplashComponent.State.Ready(result.isSuccess) }
+        viewModelScope.launch {
+            getAuthStatus().collect { currentStatus ->
+                _authState.value = currentStatus
+            }
         }
     }
 
     override fun onDestroy() {
-        scope.cancel()
+        viewModelScope.cancel()
     }
 }
