@@ -10,20 +10,19 @@
  * You should have received a copy of the GNU General Public License along with Dodo.
  * If not, see <https://www.gnu.org/licenses/>.
  */
-package social.androiddev.root.navigation
+package social.androiddev.domain.authentication.model
 
 /**
- * The base component describing all business logic needed for the splash screen
+ * Represents the authentication status of user to Mastodon servers
  */
-interface SplashComponent {
+sealed class AuthStatus {
+    /**
+     * Authenticated to at least one server
+     */
+    object Authorized : AuthStatus()
 
     /**
-     * Callback invoked when the logged-in user should be taken to the timeline screen
+     * User logged out or never signed in before
      */
-    fun navigateToTimeline()
-
-    /**
-     * Callback invoked when the logged-out user should be taken to the landing screen
-     */
-    fun navigateToLanding()
+    object Unauthorized : AuthStatus()
 }

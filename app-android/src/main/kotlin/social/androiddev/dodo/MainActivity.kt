@@ -20,8 +20,8 @@ import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.defaultComponentContext
 import kotlinx.coroutines.Dispatchers
 import social.androiddev.common.theme.DodoTheme
-import social.androiddev.root.composables.RootContent
-import social.androiddev.root.navigation.DefaultRootComponent
+import social.androiddev.root.root.DefaultRootComponent
+import social.androiddev.root.root.RootContent
 
 class MainActivity : AppCompatActivity() {
 

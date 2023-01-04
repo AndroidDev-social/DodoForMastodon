@@ -12,26 +12,43 @@
  */
 package social.androiddev.common.persistence.localstorage
 
-import com.russhwolf.settings.Settings
+import com.russhwolf.settings.ExperimentalSettingsApi
+import com.russhwolf.settings.ObservableSettings
+import com.russhwolf.settings.coroutines.getStringOrNullFlow
 import com.russhwolf.settings.get
 import com.russhwolf.settings.set
 import kotlinx.atomicfu.locks.ReentrantLock
 import kotlinx.atomicfu.locks.reentrantLock
 import kotlinx.atomicfu.locks.withLock
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.json.Json
 
+@OptIn(ExperimentalSettingsApi::class)
 internal class DodoAuthStorageImpl(
-    private val settings: Settings,
+    private val settings: ObservableSettings,
     private val json: Json,
-    private val lock: ReentrantLock = reentrantLock()
+    private val lock: ReentrantLock = reentrantLock(),
 ) : DodoAuthStorage {
     override var currentDomain: String?
         get() = settings[KEY_DOMAIN_CACHE]
         set(value) {
             settings[KEY_DOMAIN_CACHE] = value
         }
+
+    override val authorizedServersFlow: Flow<List<String>> = flow {
+        settings.getStringOrNullFlow(KEY_ACCESS_TOKENS_CACHE).collect { authTokens ->
+            if (authTokens == null) {
+                emit(listOf())
+            } else {
+                val serverList = json.decodeFromString(ListSerializer(AccessToken.serializer()), authTokens)
+                    .associateBy { it.server }.keys.toList()
+                emit(serverList)
+            }
+        }
+    }
 
     /**
      * The user can set up multiple accounts on their device. So we

@@ -10,7 +10,7 @@
  * You should have received a copy of the GNU General Public License along with Dodo.
  * If not, see <https://www.gnu.org/licenses/>.
  */
-package social.androiddev.root.composables
+package social.androiddev.root.splash
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.material.Text
@@ -18,7 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import social.androiddev.root.navigation.SplashComponent
+import social.androiddev.domain.authentication.model.AuthStatus
 
 /**
  * Stateful SplashScreen composable using [SplashComponent] for
@@ -27,9 +27,11 @@ import social.androiddev.root.navigation.SplashComponent
 @Composable
 fun SplashContent(
     component: SplashComponent,
+    authStatus: AuthStatus?,
     modifier: Modifier = Modifier,
 ) {
     SplashContent(
+        authStatus = authStatus,
         modifier = modifier,
         navigateToWelcome = {
             component.navigateToLanding()
@@ -46,6 +48,7 @@ fun SplashContent(
  */
 @Composable
 fun SplashContent(
+    authStatus: AuthStatus?,
     navigateToTimeline: () -> Unit,
     navigateToWelcome: () -> Unit,
     modifier: Modifier = Modifier,
@@ -56,12 +59,14 @@ fun SplashContent(
     ) {
         Text("Loading")
 
-        LaunchedEffect(Unit) {
-            // TODO: Hook up to a DI ViewModel
-            if (true) {
+        LaunchedEffect(authStatus) {
+            if (authStatus is AuthStatus.Authorized) {
+                // TODO(krzysztof): Do not navigate to timeline, until logout func is implemented
+                //                  https://github.com/AndroidDev-social/DodoForMastodon/issues/107
                 navigateToWelcome()
-            } else {
-                navigateToTimeline()
+                // navigateToTimeline()
+            } else if (authStatus is AuthStatus.Unauthorized) {
+                navigateToWelcome()
             }
         }
     }

@@ -71,6 +71,7 @@ com-squareup-sqldelight-native-driver = { module = "com.squareup.sqldelight:nati
 com-squareup-sqldelight-sqlite-driver = { module = "com.squareup.sqldelight:sqlite-driver", version.ref = "com-squareup-sqldelight" }
 com-squareup-sqldelight-coroutines-extensions = { module = "com.squareup.sqldelight:coroutines-extensions", version.ref = "com-squareup-sqldelight" }
 org-xerial-sqlite-jdbc = { module = "org.xerial:sqlite-jdbc", version.ref = "org-xerial" }
+app-cash-turbine = { module = "app.cash.turbine:turbine", version = "0.12.1" }
 
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appcompat" }
@@ -82,6 +83,7 @@ com-arkivanov-decompose = { module = "com.arkivanov.decompose:decompose", versio
 com-arkivanov-decompose-extensions-compose-jetbrains = { module = "com.arkivanov.decompose:extensions-compose-jetbrains", version.ref = "com-arkivanov-decompose" }
 com-arkivanov-decompose-extensions-compose-jetpack = { module = "com.arkivanov.decompose:extensions-compose-jetpack", version.ref = "com-arkivanov-decompose" }
 multiplatform-settings = { module = "com.russhwolf:multiplatform-settings", version.ref = "com-russhwolf" }
+multiplatform-settings-coroutines = { module = "com.russhwolf:multiplatform-settings-coroutines", version.ref = "com-russhwolf" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
 store = { module = "org.mobilenativefoundation.store:store5", version.ref = "store" }
 io-github-aakira-napier = { module = "io.github.aakira:napier", version.ref = "io-github-aakira" }
