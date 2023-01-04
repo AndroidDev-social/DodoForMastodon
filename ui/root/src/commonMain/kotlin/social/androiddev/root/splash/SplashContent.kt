@@ -57,7 +57,6 @@ fun SplashContent(
         modifier = modifier,
         contentAlignment = Alignment.Center,
     ) {
-
         Text("Loading")
 
         LaunchedEffect(authStatus) {

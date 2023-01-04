@@ -71,6 +71,7 @@ com-squareup-sqldelight-native-driver = { module = "com.squareup.sqldelight:nati
 com-squareup-sqldelight-sqlite-driver = { module = "com.squareup.sqldelight:sqlite-driver", version.ref = "com-squareup-sqldelight" }
 com-squareup-sqldelight-coroutines-extensions = { module = "com.squareup.sqldelight:coroutines-extensions", version.ref = "com-squareup-sqldelight" }
 org-xerial-sqlite-jdbc = { module = "org.xerial:sqlite-jdbc", version.ref = "org-xerial" }
+app-cash-turbine = { module = "app.cash.turbine:turbine", version = "0.12.1" }
 
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appcompat" }

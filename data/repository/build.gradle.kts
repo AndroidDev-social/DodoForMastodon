@@ -48,6 +48,7 @@ kotlin {
                 implementation(libs.org.jetbrains.kotlin.test.common)
                 implementation(libs.org.jetbrains.kotlin.test.annotations.common)
                 implementation(libs.org.jetbrains.kotlinx.coroutines.test)
+                implementation(libs.app.cash.turbine)
             }
         }
     }
