@@ -18,6 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import social.androiddev.domain.authentication.model.AuthStatus
 
 /**
  * Stateful SplashScreen composable using [SplashComponent] for
@@ -26,9 +27,11 @@ import androidx.compose.ui.Modifier
 @Composable
 fun SplashContent(
     component: SplashComponent,
+    authStatus: AuthStatus,
     modifier: Modifier = Modifier,
 ) {
     SplashContent(
+        authStatus = authStatus,
         modifier = modifier,
         navigateToWelcome = {
             component.navigateToLanding()
@@ -45,6 +48,7 @@ fun SplashContent(
  */
 @Composable
 fun SplashContent(
+    authStatus: AuthStatus,
     navigateToTimeline: () -> Unit,
     navigateToWelcome: () -> Unit,
     modifier: Modifier = Modifier,
@@ -56,12 +60,11 @@ fun SplashContent(
 
         Text("Loading")
 
-        LaunchedEffect(Unit) {
-            // todo: remove this once finished with auth status
-            if (true) {
-                navigateToWelcome()
-            } else {
+        LaunchedEffect(authStatus) {
+            if (authStatus is AuthStatus.Authorized) {
                 navigateToTimeline()
+            } else if (authStatus is AuthStatus.Unauthorized) {
+                navigateToWelcome()
             }
         }
     }

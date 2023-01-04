@@ -10,7 +10,7 @@
  * You should have received a copy of the GNU General Public License along with Dodo.
  * If not, see <https://www.gnu.org/licenses/>.
  */
-package social.androiddev.root.navigation
+package social.androiddev.root.root
 
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.router.stack.ChildStack
@@ -24,8 +24,7 @@ import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.get
-import social.androiddev.root.RootComponentViewModel
-import social.androiddev.root.navigation.DefaultRootComponent.Config
+import social.androiddev.root.root.DefaultRootComponent.Config
 import social.androiddev.root.splash.DefaultSplashComponent
 import social.androiddev.signedin.navigation.DefaultSignedInRootComponent
 import social.androiddev.signedout.root.DefaultSignedOutRootComponent
