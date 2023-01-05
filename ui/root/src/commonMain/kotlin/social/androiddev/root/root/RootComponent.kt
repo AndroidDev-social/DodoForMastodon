@@ -15,7 +15,6 @@ package social.androiddev.root.root
 import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.value.Value
 import kotlinx.coroutines.flow.StateFlow
-import social.androiddev.domain.authentication.model.AuthStatus
 import social.androiddev.root.splash.SplashComponent
 import social.androiddev.signedin.navigation.SignedInRootComponent
 import social.androiddev.signedout.root.SignedOutRootComponent
@@ -29,7 +28,7 @@ interface RootComponent {
     val childStack: Value<ChildStack<*, Child>>
 
     // current authorization status
-    val authStatus: StateFlow<AuthStatus?>
+    val authStatus: StateFlow<UiAuthStatus>
 
     /**
      * Supported "Child"s in this navigation stack. These are created from a configuration that
@@ -48,5 +47,11 @@ interface RootComponent {
      */
     sealed interface DeepLink {
         object None : DeepLink
+    }
+
+    sealed class UiAuthStatus {
+        object Unknown : UiAuthStatus()
+        object Authorized : UiAuthStatus()
+        object Unauthorized : UiAuthStatus()
     }
 }

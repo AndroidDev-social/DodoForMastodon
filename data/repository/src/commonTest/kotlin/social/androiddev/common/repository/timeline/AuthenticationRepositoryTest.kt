@@ -42,7 +42,7 @@ class AuthenticationRepositoryTest {
         val serverFlow = MutableStateFlow<List<String>>(listOf())
         val repo = createRepo(this.coroutineContext, serverFlow)
 
-        repo.getIsAccessTokenPresent().test {
+        repo.isAccessTokenPresent().test {
             skipItems(1) // skip initial
             serverFlow.emit(listOf("server1", "server2"))
             assertEquals(true, awaitItem())

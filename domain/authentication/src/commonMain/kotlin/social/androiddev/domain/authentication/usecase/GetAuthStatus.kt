@@ -13,18 +13,17 @@
 package social.androiddev.domain.authentication.usecase
 
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 import social.androiddev.domain.authentication.model.AuthStatus
 import social.androiddev.domain.authentication.repository.AuthenticationRepository
 
 class GetAuthStatus(private val authenticationRepository: AuthenticationRepository) {
-    suspend operator fun invoke(): Flow<AuthStatus> = flow {
-        authenticationRepository.getIsAccessTokenPresent().collect { hasAccessToken ->
+    operator fun invoke(): Flow<AuthStatus> =
+        authenticationRepository.isAccessTokenPresent().map { hasAccessToken ->
             if (hasAccessToken) {
-                emit(AuthStatus.Authorized)
+                AuthStatus.Authorized
             } else {
-                emit(AuthStatus.Unauthorized)
+                AuthStatus.Unauthorized
             }
         }
-    }
 }

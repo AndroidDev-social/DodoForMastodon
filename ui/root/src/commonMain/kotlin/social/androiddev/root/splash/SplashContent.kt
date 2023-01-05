@@ -18,7 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import social.androiddev.domain.authentication.model.AuthStatus
+import social.androiddev.root.root.RootComponent
 
 /**
  * Stateful SplashScreen composable using [SplashComponent] for
@@ -27,7 +27,7 @@ import social.androiddev.domain.authentication.model.AuthStatus
 @Composable
 fun SplashContent(
     component: SplashComponent,
-    authStatus: AuthStatus?,
+    authStatus: RootComponent.UiAuthStatus,
     modifier: Modifier = Modifier,
 ) {
     SplashContent(
@@ -48,7 +48,7 @@ fun SplashContent(
  */
 @Composable
 fun SplashContent(
-    authStatus: AuthStatus?,
+    authStatus: RootComponent.UiAuthStatus,
     navigateToTimeline: () -> Unit,
     navigateToWelcome: () -> Unit,
     modifier: Modifier = Modifier,
@@ -60,12 +60,12 @@ fun SplashContent(
         Text("Loading")
 
         LaunchedEffect(authStatus) {
-            if (authStatus is AuthStatus.Authorized) {
+            if (authStatus is RootComponent.UiAuthStatus.Authorized) {
                 // TODO(krzysztof): Do not navigate to timeline, until logout func is implemented
                 //                  https://github.com/AndroidDev-social/DodoForMastodon/issues/107
                 navigateToWelcome()
                 // navigateToTimeline()
-            } else if (authStatus is AuthStatus.Unauthorized) {
+            } else if (authStatus is RootComponent.UiAuthStatus.Unauthorized) {
                 navigateToWelcome()
             }
         }
