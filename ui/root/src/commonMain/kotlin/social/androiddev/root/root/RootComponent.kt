@@ -48,10 +48,4 @@ interface RootComponent {
     sealed interface DeepLink {
         object None : DeepLink
     }
-
-    sealed class UiAuthStatus {
-        object Unknown : UiAuthStatus()
-        object Authorized : UiAuthStatus()
-        object Unauthorized : UiAuthStatus()
-    }
 }
