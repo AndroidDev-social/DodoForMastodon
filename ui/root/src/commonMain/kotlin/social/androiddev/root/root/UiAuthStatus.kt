@@ -10,20 +10,10 @@
  * You should have received a copy of the GNU General Public License along with Dodo.
  * If not, see <https://www.gnu.org/licenses/>.
  */
-package social.androiddev.domain.authentication.usecase
+package social.androiddev.root.root
 
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
-import social.androiddev.domain.authentication.model.AuthStatus
-import social.androiddev.domain.authentication.repository.AuthenticationRepository
-
-class GetAuthStatus(private val authenticationRepository: AuthenticationRepository) {
-    operator fun invoke(): Flow<AuthStatus> =
-        authenticationRepository.isAccessTokenPresent().map { hasAccessToken ->
-            if (hasAccessToken) {
-                AuthStatus.Authorized
-            } else {
-                AuthStatus.Unauthorized
-            }
-        }
+sealed class UiAuthStatus {
+    object Loading : UiAuthStatus()
+    object Authorized : UiAuthStatus()
+    object Unauthorized : UiAuthStatus()
 }

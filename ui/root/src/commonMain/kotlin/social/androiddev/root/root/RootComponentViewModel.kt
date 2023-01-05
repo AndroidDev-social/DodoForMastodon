@@ -16,37 +16,32 @@ import com.arkivanov.essenty.instancekeeper.InstanceKeeper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import social.androiddev.domain.authentication.model.AuthStatus
 import social.androiddev.domain.authentication.usecase.GetAuthStatus
 import kotlin.coroutines.CoroutineContext
 
-interface RootComponentViewModel : InstanceKeeper.Instance {
-    val authState: StateFlow<AuthStatus?>
-}
-
-fun RootComponentViewModel(coroutineContext: CoroutineContext, getAuthStatus: GetAuthStatus): RootComponentViewModel =
-    RealRootComponentViewModel(coroutineContext, getAuthStatus)
-
-private class RealRootComponentViewModel(coroutineContext: CoroutineContext, getAuthStatus: GetAuthStatus) :
-    RootComponentViewModel {
+class RootComponentViewModel(
+    coroutineContext: CoroutineContext,
+    getAuthStatus: GetAuthStatus,
+) : InstanceKeeper.Instance {
     private val viewModelScope = CoroutineScope(coroutineContext + SupervisorJob())
 
-    private val _authState = MutableStateFlow<AuthStatus?>(null)
-    override val authState = _authState.asStateFlow()
-
-    init {
-        viewModelScope.launch {
-            getAuthStatus().collect { currentStatus ->
-                _authState.value = currentStatus
-            }
-        }
-    }
+    val authState =
+        getAuthStatus()
+            .map { it.toUiAuthStatus() }
+            .stateIn(viewModelScope, SharingStarted.Lazily, UiAuthStatus.Loading)
 
     override fun onDestroy() {
         viewModelScope.cancel()
+    }
+}
+
+private fun AuthStatus.toUiAuthStatus(): UiAuthStatus {
+    return when (this) {
+        is AuthStatus.Authorized -> UiAuthStatus.Authorized
+        is AuthStatus.Unauthorized -> UiAuthStatus.Unauthorized
     }
 }

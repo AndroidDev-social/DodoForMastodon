@@ -21,7 +21,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.extensions.compose.jetbrains.stack.Children
 import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
-import social.androiddev.domain.authentication.model.AuthStatus
 import social.androiddev.root.splash.SplashComponent
 import social.androiddev.root.splash.SplashContent
 import social.androiddev.signedin.composables.SignedInRootContent
@@ -96,7 +95,7 @@ private fun SignedInRoot(
 @Composable
 private fun SplashScreen(
     component: SplashComponent,
-    authStatus: AuthStatus?,
+    authStatus: UiAuthStatus,
 ) {
     SplashContent(
         authStatus = authStatus,
