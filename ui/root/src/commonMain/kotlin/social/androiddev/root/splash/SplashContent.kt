@@ -61,11 +61,13 @@ fun SplashContent(
 
         LaunchedEffect(authStatus) {
             when (authStatus) {
-                // TODO(krzysztof): Do not navigate to timeline, until logout func is implemented
-                //                  https://github.com/AndroidDev-social/DodoForMastodon/issues/107
-                is UiAuthStatus.Authorized,
-                is UiAuthStatus.Unauthorized,
-                -> navigateToWelcome()
+                is UiAuthStatus.Authorized -> {
+                    navigateToTimeline()
+                }
+
+                is UiAuthStatus.Unauthorized -> {
+                    navigateToWelcome()
+                }
 
                 is UiAuthStatus.Loading -> {}
             }
