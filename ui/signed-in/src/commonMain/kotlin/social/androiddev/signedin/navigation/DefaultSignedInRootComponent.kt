@@ -16,9 +16,12 @@ import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.childStack
+import com.arkivanov.decompose.router.stack.pop
+import com.arkivanov.decompose.router.stack.push
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
+import social.androiddev.settings.RealSettingsComponent
 import social.androiddev.signedin.navigation.DefaultSignedInRootComponent.Config
 import social.androiddev.timeline.navigation.DefaultTimelineComponent
 import kotlin.coroutines.CoroutineContext
@@ -46,10 +49,22 @@ class DefaultSignedInRootComponent(
 
     override val childStack: Value<ChildStack<*, SignedInRootComponent.Child>> = stack
 
+    override fun navigateToSettings() {
+        navigation.push(Config.Settings)
+    }
+
+    override fun navigateBack() {
+        navigation.pop()
+    }
+
     private fun createChild(config: Config, componentContext: ComponentContext): SignedInRootComponent.Child =
         when (config) {
             Config.Timeline -> {
                 SignedInRootComponent.Child.Timeline(createTimelineComponent(componentContext))
+            }
+
+            Config.Settings -> {
+                SignedInRootComponent.Child.Settings(createSettingsComponent(componentContext))
             }
         }
 
@@ -59,6 +74,10 @@ class DefaultSignedInRootComponent(
         componentContext = componentContext,
         mainContext = mainContext
     )
+
+    private fun createSettingsComponent(
+        componentContext: ComponentContext,
+    ) = RealSettingsComponent(componentContext)
 
     /**
      * Supported configurations for all children in this root.
@@ -76,5 +95,8 @@ class DefaultSignedInRootComponent(
 
         @Parcelize
         object Timeline : Config
+
+        @Parcelize
+        object Settings : Config
     }
 }

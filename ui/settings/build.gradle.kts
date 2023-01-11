@@ -1,10 +1,9 @@
 plugins {
     id("social.androiddev.library.ui")
-    id("kotlin-parcelize")
 }
 
 android {
-    namespace = "social.androiddev.ui.signed_in"
+    namespace = "social.androiddev.ui.settings"
 }
 
 kotlin {
@@ -12,18 +11,9 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(projects.ui.common)
-                implementation(projects.ui.timeline)
-                implementation(projects.ui.settings)
                 implementation(projects.data.persistence)
                 implementation(projects.data.repository)
-                implementation(projects.domain.timeline)
                 implementation(libs.io.insert.koin.core)
-            }
-        }
-
-        val androidMain by getting {
-            dependencies {
-                implementation(libs.androidx.appcompat)
             }
         }
     }

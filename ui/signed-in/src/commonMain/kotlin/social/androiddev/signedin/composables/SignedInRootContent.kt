@@ -12,17 +12,28 @@
  */
 package social.androiddev.signedin.composables
 
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.extensions.compose.jetbrains.stack.Children
 import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.flow.StateFlow
 import org.mobilenativefoundation.store.store5.StoreResponse
+import social.androiddev.settings.SettingsContent
+import social.androiddev.signedin.navigation.NavHeaderSettings
 import social.androiddev.signedin.navigation.SignedInRootComponent
 import social.androiddev.timeline.FeedItemState
 import social.androiddev.timeline.TimelineContent
@@ -38,12 +49,39 @@ fun SignedInRootContent(
     modifier: Modifier = Modifier,
 ) {
     val childStack by component.childStack.subscribeAsState()
+    var headerSettings by remember { mutableStateOf<NavHeaderSettings>(NavHeaderSettings.Empty) }
 
-    // TODO Add bottom navigation
-    Box(
+    LaunchedEffect(childStack.active) {
+        headerSettings = when (childStack.active.instance) {
+            is SignedInRootComponent.Child.Settings -> {
+                NavHeaderSettings.Settings
+            }
+
+            is SignedInRootComponent.Child.Timeline -> {
+                NavHeaderSettings.Timeline(action = component::navigateToSettings)
+            }
+        }
+    }
+    Column(
         modifier = modifier,
-        contentAlignment = Alignment.Center
     ) {
+        TopAppBar(
+            title = { Text(headerSettings.title) },
+            actions = {
+                headerSettings.headerAction?.let { header ->
+                    IconButton(onClick = header.action) {
+                        Icon(header.icon, null)
+                    }
+                }
+            },
+            navigationIcon = if (childStack.backStack.isNotEmpty()) (
+                {
+                    IconButton(onClick = component::navigateBack) {
+                        Icon(Icons.Default.ArrowBack, null)
+                    }
+                }
+                ) else null
+        )
         Children(
             stack = childStack,
             modifier = Modifier.fillMaxSize()
@@ -52,6 +90,10 @@ fun SignedInRootContent(
                 is SignedInRootComponent.Child.Timeline -> {
                     TimelineTab(child.component.state)
                 }
+
+                is SignedInRootComponent.Child.Settings -> {
+                    SettingsContent(component = child.component)
+                }
             }
         }
     }
@@ -59,7 +101,7 @@ fun SignedInRootContent(
 
 @Composable
 private fun TimelineTab(
-    state: StateFlow<StoreResponse<ImmutableList<FeedItemState>>>
+    state: StateFlow<StoreResponse<ImmutableList<FeedItemState>>>,
 ) {
     TimelineContent(
         state = state,
