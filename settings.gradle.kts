@@ -19,7 +19,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name="DodoForMastodon"
+rootProject.name = "DodoForMastodon"
 
 include(":di")
 include(":logging")
@@ -32,6 +32,7 @@ include(":ui:root")
 include(":ui:signed-in")
 include(":ui:signed-out")
 include(":ui:desktop-webview")
+include(":ui:settings")
 
 include(":domain:timeline")
 include(":domain:authentication")

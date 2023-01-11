@@ -31,6 +31,16 @@ interface RootComponent {
     val authStatus: StateFlow<UiAuthStatus>
 
     /**
+     * Replaces the navigation stack to be root of SignedIn navigation flow
+     */
+    fun navigateToSignedIn()
+
+    /**
+     * Replaces the navigation stack to be root of SignedOut navigation flow
+     */
+    fun navigateToSignedOut()
+
+    /**
      * Supported "Child"s in this navigation stack. These are created from a configuration that
      * contains any arguments for this particular child in the navigation stack.
      */

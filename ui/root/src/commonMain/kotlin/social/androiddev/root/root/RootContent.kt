@@ -15,13 +15,13 @@ package social.androiddev.root.root
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.extensions.compose.jetbrains.stack.Children
 import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
-import social.androiddev.root.splash.SplashComponent
 import social.androiddev.root.splash.SplashContent
 import social.androiddev.signedin.composables.SignedInRootContent
 import social.androiddev.signedin.navigation.SignedInRootComponent
@@ -40,6 +40,20 @@ fun RootContent(
     val childStack by component.childStack.subscribeAsState()
     val authStatus by component.authStatus.collectAsState()
 
+    LaunchedEffect(authStatus) {
+        when (authStatus) {
+            is UiAuthStatus.Authorized -> {
+                component.navigateToSignedIn()
+            }
+
+            is UiAuthStatus.Unauthorized -> {
+                component.navigateToSignedOut()
+            }
+
+            is UiAuthStatus.Loading -> {}
+        }
+    }
+
     Box(
         modifier = modifier,
         contentAlignment = Alignment.Center,
@@ -50,10 +64,7 @@ fun RootContent(
         ) { createdChild ->
             when (val child = createdChild.instance) {
                 is RootComponent.Child.Splash -> {
-                    SplashScreen(
-                        component = child.component,
-                        authStatus = authStatus,
-                    )
+                    SplashContent()
                 }
 
                 is RootComponent.Child.SignedIn -> {
@@ -87,18 +98,6 @@ private fun SignedInRoot(
     component: SignedInRootComponent,
 ) {
     SignedInRootContent(
-        modifier = Modifier.fillMaxSize(),
-        component = component,
-    )
-}
-
-@Composable
-private fun SplashScreen(
-    component: SplashComponent,
-    authStatus: UiAuthStatus,
-) {
-    SplashContent(
-        authStatus = authStatus,
         modifier = Modifier.fillMaxSize(),
         component = component,
     )

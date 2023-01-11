@@ -81,6 +81,13 @@ internal class DodoAuthStorageImpl(
         }
     }
 
+    override fun clearAccessToken(server: String) {
+        lock.withLock {
+            memCache.remove(server)
+            diskCache = memCache
+        }
+    }
+
     private companion object {
         private const val KEY_DOMAIN_CACHE = "key_domain_cache"
         private const val KEY_ACCESS_TOKENS_CACHE = "key_access_tokens_cache"

@@ -40,4 +40,9 @@ interface DodoAuthStorage {
      * Get the Access token for @param server
      */
     fun getAccessToken(server: String): String?
+
+    /**
+     * Remove stored access token for selected @param server
+     */
+    fun clearAccessToken(server: String)
 }

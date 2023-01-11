@@ -14,6 +14,7 @@ package social.androiddev.signedin.navigation
 
 import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.value.Value
+import social.androiddev.settings.SettingsComponent
 import social.androiddev.timeline.navigation.TimelineComponent
 
 /**
@@ -25,11 +26,21 @@ interface SignedInRootComponent {
     val childStack: Value<ChildStack<*, Child>>
 
     /**
+     * Opens Settings screen
+     */
+    fun navigateToSettings()
+
+    /**
+     * Pops one route in navigation stack
+     */
+    fun navigateBack()
+
+    /**
      * Supported "Child"s in this navigation stack. These are created from a configuration that
      * contains any arguments for this particular child in the navigation stack.
      */
     sealed class Child {
-
         data class Timeline(val component: TimelineComponent) : Child()
+        data class Settings(val component: SettingsComponent) : Child()
     }
 }

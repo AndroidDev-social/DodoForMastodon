@@ -16,15 +16,4 @@ import com.arkivanov.decompose.ComponentContext
 
 class DefaultSplashComponent(
     private val componentContext: ComponentContext,
-    private val navigateToLandingInternal: () -> Unit,
-    private val navigateToTimelineInternal: () -> Unit,
-) : SplashComponent, ComponentContext by componentContext {
-
-    override fun navigateToTimeline() {
-        navigateToTimelineInternal()
-    }
-
-    override fun navigateToLanding() {
-        navigateToLandingInternal()
-    }
-}
+) : SplashComponent, ComponentContext by componentContext

@@ -42,6 +42,10 @@ class FakeAuthStorage(serversFlow: Flow<List<String>> = flowOf(listOf())) : Dodo
     }
 
     override fun getAccessToken(server: String): String = "FakeToken"
+
+    override fun clearAccessToken(server: String) {
+        TODO("Not yet implemented")
+    }
 }
 
 class FakeAuthDatabase : AuthenticationDatabase {

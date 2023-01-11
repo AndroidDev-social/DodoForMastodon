@@ -45,4 +45,6 @@ interface AuthenticationRepository {
     suspend fun getApplicationOAuthToken(server: String): ApplicationOAuthToken?
 
     fun isAccessTokenPresent(): Flow<Boolean>
+
+    fun removeAccessToken(server: String)
 }

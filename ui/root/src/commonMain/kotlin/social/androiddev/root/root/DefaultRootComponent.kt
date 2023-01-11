@@ -59,6 +59,14 @@ class DefaultRootComponent(
 
     override val authStatus = viewModel.authState
 
+    override fun navigateToSignedIn() {
+        navigation.replaceCurrent(Config.SignedIn)
+    }
+
+    override fun navigateToSignedOut() {
+        navigation.replaceCurrent(Config.SignedOut)
+    }
+
     private fun createChild(config: Config, componentContext: ComponentContext): RootComponent.Child =
         when (config) {
             Config.Splash -> RootComponent.Child.Splash(createSplashComponent(componentContext))
@@ -87,12 +95,6 @@ class DefaultRootComponent(
         componentContext: ComponentContext,
     ) = DefaultSplashComponent(
         componentContext = componentContext,
-        navigateToTimelineInternal = {
-            navigation.replaceCurrent(Config.SignedIn)
-        },
-        navigateToLandingInternal = {
-            navigation.replaceCurrent(Config.SignedOut)
-        },
     )
 
     private fun getInitialStack(
