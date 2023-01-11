@@ -14,10 +14,12 @@ package social.androiddev.settings
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import social.androiddev.common.composables.buttons.DodoButton
 import social.androiddev.common.composables.buttons.buttonColors
 
@@ -35,10 +37,10 @@ fun SettingsContent(
 @Composable
 internal fun SettingsContent(
     onLogout: () -> Unit,
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
 ) {
     Box(
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize().padding(bottom = 64.dp),
         contentAlignment = Alignment.BottomCenter
     ) {
         DodoButton(

@@ -74,13 +74,17 @@ fun SignedInRootContent(
                     }
                 }
             },
-            navigationIcon = if (childStack.backStack.isNotEmpty()) (
-                {
-                    IconButton(onClick = component::navigateBack) {
-                        Icon(Icons.Default.ArrowBack, null)
+            navigationIcon = if (childStack.backStack.isNotEmpty()) {
+                (
+                    {
+                        IconButton(onClick = component::navigateBack) {
+                            Icon(Icons.Default.ArrowBack, null)
+                        }
                     }
-                }
-                ) else null
+                    )
+            } else {
+                null
+            }
         )
         Children(
             stack = childStack,
