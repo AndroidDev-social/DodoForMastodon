@@ -15,32 +15,8 @@ package social.androiddev.root.splash
 import androidx.compose.foundation.layout.Box
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import social.androiddev.root.root.UiAuthStatus
-
-/**
- * Stateful SplashScreen composable using [SplashComponent] for
- * decompose navigation and business logic.
- */
-@Composable
-fun SplashContent(
-    component: SplashComponent,
-    authStatus: UiAuthStatus,
-    modifier: Modifier = Modifier,
-) {
-    SplashContent(
-        authStatus = authStatus,
-        modifier = modifier,
-        navigateToWelcome = {
-            component.navigateToLanding()
-        },
-        navigateToTimeline = {
-            component.navigateToTimeline()
-        },
-    )
-}
 
 /**
  * Stateless composable for rendering a simple Splash Screen
@@ -48,9 +24,6 @@ fun SplashContent(
  */
 @Composable
 fun SplashContent(
-    authStatus: UiAuthStatus,
-    navigateToTimeline: () -> Unit,
-    navigateToWelcome: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Box(
@@ -58,19 +31,5 @@ fun SplashContent(
         contentAlignment = Alignment.Center,
     ) {
         Text("Loading")
-
-        LaunchedEffect(authStatus) {
-            when (authStatus) {
-                is UiAuthStatus.Authorized -> {
-                    navigateToTimeline()
-                }
-
-                is UiAuthStatus.Unauthorized -> {
-                    navigateToWelcome()
-                }
-
-                is UiAuthStatus.Loading -> {}
-            }
-        }
     }
 }
