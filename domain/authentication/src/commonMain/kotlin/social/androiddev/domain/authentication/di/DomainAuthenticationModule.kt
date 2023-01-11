@@ -18,6 +18,7 @@ import social.androiddev.domain.authentication.usecase.AuthenticateClient
 import social.androiddev.domain.authentication.usecase.CreateAccessToken
 import social.androiddev.domain.authentication.usecase.GetAuthStatus
 import social.androiddev.domain.authentication.usecase.GetSelectedApplicationOAuthToken
+import social.androiddev.domain.authentication.usecase.LogoutFromCurrentServer
 
 /**
  * Koin module containing all koin/bean definitions for
@@ -45,6 +46,12 @@ val domainAuthModule: Module = module {
 
     factory {
         GetAuthStatus(
+            authenticationRepository = get()
+        )
+    }
+
+    factory {
+        LogoutFromCurrentServer(
             authenticationRepository = get()
         )
     }

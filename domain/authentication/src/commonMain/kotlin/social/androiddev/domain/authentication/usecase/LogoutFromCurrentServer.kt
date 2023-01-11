@@ -10,18 +10,15 @@
  * You should have received a copy of the GNU General Public License along with Dodo.
  * If not, see <https://www.gnu.org/licenses/>.
  */
-package social.androiddev.settings
+package social.androiddev.domain.authentication.usecase
 
-import com.arkivanov.decompose.ComponentContext
-import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
-import social.androiddev.domain.authentication.usecase.LogoutFromCurrentServer
+import social.androiddev.domain.authentication.repository.AuthenticationRepository
 
-class RealSettingsComponent(ctx: ComponentContext) : SettingsComponent, ComponentContext by ctx, KoinComponent {
-
-    val logoutFromCurrentServer: LogoutFromCurrentServer by inject()
-
-    override fun logout() {
-        logoutFromCurrentServer()
+class LogoutFromCurrentServer(private val authenticationRepository: AuthenticationRepository) {
+    operator fun invoke() {
+        val server = authenticationRepository.selectedServer
+        if (server != null) {
+            authenticationRepository.removeAccessToken(server)
+        }
     }
 }

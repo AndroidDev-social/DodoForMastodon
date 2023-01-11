@@ -39,7 +39,7 @@ internal fun SettingsContent(
 ) {
     Box(
         modifier = modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.BottomCenter
     ) {
         DodoButton(
             text = "Logout",

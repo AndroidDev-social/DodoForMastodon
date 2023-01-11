@@ -119,4 +119,9 @@ internal class AuthenticationRepositoryImpl(
         settings.authorizedServersFlow.transform { servers ->
             emit(servers.isNotEmpty())
         }
+
+    override fun removeAccessToken(server: String) {
+        settings.currentDomain = null
+        settings.clearAccessToken(server)
+    }
 }
