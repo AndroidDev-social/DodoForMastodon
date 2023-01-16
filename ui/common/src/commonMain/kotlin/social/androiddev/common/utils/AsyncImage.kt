@@ -19,7 +19,6 @@ import androidx.compose.ui.layout.ContentScale
 import io.kamel.image.KamelImage
 import io.kamel.image.lazyPainterResource
 
-
 /**
  * Use this helper until we switch to a image loading library which supports multiplatform
  */
