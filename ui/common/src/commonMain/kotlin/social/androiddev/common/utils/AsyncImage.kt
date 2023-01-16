@@ -12,59 +12,29 @@
  */
 package social.androiddev.common.utils
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.produceState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
-import social.androiddev.common.logging.DodoLogger
-import social.androiddev.common.network.util.runCatchingIgnoreCancelled
+import io.kamel.image.KamelImage
+import io.kamel.image.lazyPainterResource
 
 /**
  * Use this helper until we switch to a image loading library which supports multiplatform
  */
 @Composable
-fun <T> AsyncImage(
+fun AsyncImage(
     contentDescription: String,
-    load: suspend () -> T,
-    painterFor: @Composable (T) -> Painter,
+    url: Any,
     modifier: Modifier = Modifier,
     alignment: Alignment = Alignment.Center,
-    contentScale: ContentScale = ContentScale.Fit,
+    contentScale: ContentScale = ContentScale.Fit
 ) {
-    val image: T? by produceState<T?>(null) {
-        value = withContext(Dispatchers.IO) {
-            runCatchingIgnoreCancelled {
-                load()
-            }.fold(
-                onSuccess = { it },
-                onFailure = { t ->
-                    DodoLogger.w(throwable = t) {
-                        "Error when loading image."
-                    }
-                    null
-                }
-            )
-        }
-    }
-
-    if (image != null) {
-        Image(
-            painter = painterFor(image!!),
-            contentDescription = contentDescription,
-            contentScale = contentScale,
-            modifier = modifier,
-            alignment = alignment,
-        )
-    } else {
-        Spacer(
-            modifier = modifier
-        )
-    }
+    KamelImage(
+        resource = lazyPainterResource(data = url),
+        contentDescription = contentDescription,
+        modifier = modifier,
+        alignment = alignment,
+        contentScale = contentScale
+    )
 }

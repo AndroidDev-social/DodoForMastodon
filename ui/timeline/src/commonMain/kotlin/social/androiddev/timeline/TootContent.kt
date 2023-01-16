@@ -21,7 +21,7 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.AnnotatedString
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import social.androiddev.common.theme.DodoTheme
@@ -30,7 +30,7 @@ import social.androiddev.common.theme.DodoTheme
 fun TootContent(
     username: String,
     userAddress: String,
-    message: String?,
+    message: AnnotatedString?,
     date: String,
     videoUrl: String?,
     images: ImmutableList<String>,
@@ -51,9 +51,7 @@ fun TootContent(
         if (message != null) {
             Text(
                 modifier = Modifier.fillMaxWidth(),
-                text = buildAnnotatedString {
-                    append(message)
-                },
+                text = message,
                 style = MaterialTheme.typography.caption
             )
             VerticalSpacer()
@@ -72,7 +70,7 @@ private fun PreviewTootContentLight() {
                     .wrapContentHeight(),
                 username = "@Omid",
                 userAddress = "@omid@androiddev.social",
-                message = "\uD83D\uDC4BHello #AndroidDev",
+                message = AnnotatedString("\uD83D\uDC4BHello #AndroidDev"),
                 date = "1d",
                 images = persistentListOf(),
                 videoUrl = null
@@ -92,7 +90,7 @@ private fun PreviewTootContentDark() {
                     .wrapContentHeight(),
                 username = "@Omid",
                 userAddress = "@omid@androiddev.social",
-                message = "\uD83D\uDC4BHello #AndroidDev",
+                message = AnnotatedString("\uD83D\uDC4BHello #AndroidDev"),
                 date = "1d",
                 images = persistentListOf(),
                 videoUrl = null

@@ -25,6 +25,7 @@ import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.stateIn
 import org.mobilenativefoundation.store.store5.ResponseOrigin
 import org.mobilenativefoundation.store.store5.StoreResponse
+import social.androiddev.common.utils.extractContentFromMicroFormat
 import social.androiddev.domain.timeline.FeedType
 import social.androiddev.domain.timeline.HomeTimelineRepository
 import social.androiddev.domain.timeline.model.StatusLocal
@@ -57,7 +58,7 @@ class TimelineViewModel(
                             date = it.createdAt,
                             username = it.userName,
                             acctAddress = it.accountAddress,
-                            message = it.content,
+                            message = it.content.extractContentFromMicroFormat(),
                             images = persistentListOf(),
                             videoUrl = null,
                         )

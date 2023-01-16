@@ -8,7 +8,12 @@ plugins {
 
 android {
     namespace = "social.androiddev.dodo"
+    packagingOptions {
+        exclude ("META-INF/DEPENDENCIES")
+        exclude ("META-INF/NOTICE")
+        exclude ("mozilla/public-suffix-list.txt")
 
+    }
     defaultConfig {
         versionCode = 1
         versionName = "1.0"
