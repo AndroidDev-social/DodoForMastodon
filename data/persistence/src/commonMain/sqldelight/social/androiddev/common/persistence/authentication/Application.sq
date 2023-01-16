@@ -1,4 +1,4 @@
-CREATE TABLE Application (
+CREATE TABLE IF NOT EXISTS Application (
   instance Text NOT NULL PRIMARY KEY,
   client_id Text NOT NULL,
   client_secret TEXT NOT NULL,

@@ -10,18 +10,19 @@
  * You should have received a copy of the GNU General Public License along with Dodo.
  * If not, see <https://www.gnu.org/licenses/>.
  */
-package social.androiddev.root.composables
+package social.androiddev.root.root
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.extensions.compose.jetbrains.stack.Children
 import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
-import social.androiddev.root.navigation.RootComponent
-import social.androiddev.root.navigation.SplashComponent
+import social.androiddev.root.splash.SplashComponent
+import social.androiddev.root.splash.SplashContent
 import social.androiddev.signedin.composables.SignedInRootContent
 import social.androiddev.signedin.navigation.SignedInRootComponent
 import social.androiddev.signedout.root.SignedOutRootComponent
@@ -37,6 +38,7 @@ fun RootContent(
     modifier: Modifier = Modifier,
 ) {
     val childStack by component.childStack.subscribeAsState()
+    val authStatus by component.authStatus.collectAsState()
 
     Box(
         modifier = modifier,
@@ -50,13 +52,16 @@ fun RootContent(
                 is RootComponent.Child.Splash -> {
                     SplashScreen(
                         component = child.component,
+                        authStatus = authStatus,
                     )
                 }
+
                 is RootComponent.Child.SignedIn -> {
                     SignedInRoot(
                         component = child.component,
                     )
                 }
+
                 is RootComponent.Child.SignedOut -> {
                     SignedOutRoot(
                         component = child.component,
@@ -90,8 +95,10 @@ private fun SignedInRoot(
 @Composable
 private fun SplashScreen(
     component: SplashComponent,
+    authStatus: UiAuthStatus,
 ) {
     SplashContent(
+        authStatus = authStatus,
         modifier = Modifier.fillMaxSize(),
         component = component,
     )

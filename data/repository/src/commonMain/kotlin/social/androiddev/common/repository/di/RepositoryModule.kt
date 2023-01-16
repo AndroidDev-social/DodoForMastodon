@@ -25,7 +25,7 @@ import social.androiddev.domain.authentication.repository.AuthenticationReposito
  */
 val repositoryModule: Module = module {
 
-    factory<AuthenticationRepository> {
+    single<AuthenticationRepository> {
         AuthenticationRepositoryImpl(
             mastodonApi = get(),
             database = get(),

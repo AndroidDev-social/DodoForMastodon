@@ -10,20 +10,20 @@
  * You should have received a copy of the GNU General Public License along with Dodo.
  * If not, see <https://www.gnu.org/licenses/>.
  */
-package social.androiddev.root.navigation
+package social.androiddev.domain.authentication.usecase
 
-/**
- * The base component describing all business logic needed for the splash screen
- */
-interface SplashComponent {
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
+import social.androiddev.domain.authentication.model.AuthStatus
+import social.androiddev.domain.authentication.repository.AuthenticationRepository
 
-    /**
-     * Callback invoked when the logged-in user should be taken to the timeline screen
-     */
-    fun navigateToTimeline()
-
-    /**
-     * Callback invoked when the logged-out user should be taken to the landing screen
-     */
-    fun navigateToLanding()
+class GetAuthStatus(private val authenticationRepository: AuthenticationRepository) {
+    operator fun invoke(): Flow<AuthStatus> =
+        authenticationRepository.isAccessTokenPresent().map { hasAccessToken ->
+            if (hasAccessToken) {
+                AuthStatus.Authorized
+            } else {
+                AuthStatus.Unauthorized
+            }
+        }
 }

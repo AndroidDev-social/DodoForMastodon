@@ -12,8 +12,6 @@
  */
 package social.androiddev.common.network.di
 
-import io.github.aakira.napier.DebugAntilog
-import io.github.aakira.napier.Napier
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.defaultRequest
@@ -26,6 +24,7 @@ import kotlinx.serialization.json.Json
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
+import social.androiddev.common.logging.DodoLogger
 import social.androiddev.common.network.MastodonApi
 import social.androiddev.common.network.MastodonApiKtor
 
@@ -39,12 +38,10 @@ val networkModule: Module = module {
             install(Logging) {
                 logger = object : Logger {
                     override fun log(message: String) {
-                        Napier.v(message, null, "HttpClient")
+                        DodoLogger.v(message, null, "HttpClient")
                     }
                 }
                 level = LogLevel.BODY
-                // todo: provide different antilog for release
-                Napier.base(DebugAntilog())
             }
             // install plugin so we can use type-safe data models for serialization in ktor
             install(ContentNegotiation) {

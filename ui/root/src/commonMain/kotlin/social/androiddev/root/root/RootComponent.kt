@@ -10,10 +10,12 @@
  * You should have received a copy of the GNU General Public License along with Dodo.
  * If not, see <https://www.gnu.org/licenses/>.
  */
-package social.androiddev.root.navigation
+package social.androiddev.root.root
 
 import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.value.Value
+import kotlinx.coroutines.flow.StateFlow
+import social.androiddev.root.splash.SplashComponent
 import social.androiddev.signedin.navigation.SignedInRootComponent
 import social.androiddev.signedout.root.SignedOutRootComponent
 
@@ -24,6 +26,9 @@ interface RootComponent {
 
     // Store a stack of components and their configurations in this root graph
     val childStack: Value<ChildStack<*, Child>>
+
+    // current authorization status
+    val authStatus: StateFlow<UiAuthStatus>
 
     /**
      * Supported "Child"s in this navigation stack. These are created from a configuration that

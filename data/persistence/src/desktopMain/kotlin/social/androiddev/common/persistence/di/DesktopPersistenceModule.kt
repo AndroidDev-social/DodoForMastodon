@@ -21,6 +21,7 @@ import social.androiddev.common.persistence.AuthenticationDatabase
 import social.androiddev.common.persistence.localstorage.DodoAuthStorage
 import social.androiddev.common.persistence.localstorage.DodoAuthStorageImpl
 import social.androiddev.common.timeline.TimelineDatabase
+import java.io.File
 
 /**
  * Koin DI module for all desktop specific persistence dependencies
@@ -39,7 +40,13 @@ actual val persistenceModule: Module = module {
     }
 
     single {
-        val driver = JdbcSqliteDriver(url = JdbcSqliteDriver.IN_MEMORY).also { driver ->
+        // refers to the user directory, such us /Users/my_username or /home/my_username or C:\Users\my_username
+        val dbDir = File(System.getProperty("user.home"), "dodo")
+        if (!dbDir.exists()) {
+            dbDir.mkdirs()
+        }
+        val dbFile = File(dbDir, AUTH_DB_NAME)
+        val driver = JdbcSqliteDriver(url = "jdbc:sqlite:${dbFile.absolutePath}").also { driver ->
             AuthenticationDatabase.Schema.create(driver = driver)
         }
         AuthenticationDatabase(driver)

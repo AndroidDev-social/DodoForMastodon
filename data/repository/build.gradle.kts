@@ -18,6 +18,7 @@ kotlin {
                 implementation(projects.domain.timeline)
                 implementation(libs.io.insert.koin.core)
                 implementation(libs.kotlinx.coroutines.core)
+                implementation(libs.com.squareup.sqldelight.coroutines.extensions)
                 //TODO remove as api dependency once we can stop dependening on StoreResponse in UI
                 api(libs.store)
                 implementation(libs.com.squareup.sqldelight.coroutines.extensions)
@@ -32,7 +33,7 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
-                api (libs.org.jetbrains.kotlinx.atomicfu)
+                api(libs.org.jetbrains.kotlinx.atomicfu)
             }
         }
         val desktopTest by getting {
@@ -47,6 +48,7 @@ kotlin {
                 implementation(libs.org.jetbrains.kotlin.test.common)
                 implementation(libs.org.jetbrains.kotlin.test.annotations.common)
                 implementation(libs.org.jetbrains.kotlinx.coroutines.test)
+                implementation(libs.app.cash.turbine)
             }
         }
     }

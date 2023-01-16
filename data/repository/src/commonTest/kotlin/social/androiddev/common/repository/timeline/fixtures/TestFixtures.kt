@@ -12,6 +12,10 @@
  */
 package social.androiddev.common.repository.timeline.fixtures
 
+import com.squareup.sqldelight.TransactionWithReturn
+import com.squareup.sqldelight.TransactionWithoutReturn
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
 import org.mobilenativefoundation.store.store5.ResponseOrigin
 import org.mobilenativefoundation.store.store5.StoreResponse
 import social.androiddev.common.network.MastodonApi
@@ -22,19 +26,35 @@ import social.androiddev.common.network.model.NewOauthApplication
 import social.androiddev.common.network.model.Privacy
 import social.androiddev.common.network.model.Status
 import social.androiddev.common.network.model.Token
+import social.androiddev.common.persistence.AuthenticationDatabase
+import social.androiddev.common.persistence.authentication.ApplicationQueries
 import social.androiddev.common.persistence.localstorage.DodoAuthStorage
 import social.androiddev.domain.timeline.FeedType
 import social.androiddev.domain.timeline.model.StatusLocal
 import social.androiddev.domain.timeline.model.Visibility
 
-val fakeStorage = object : DodoAuthStorage {
+class FakeAuthStorage(serversFlow: Flow<List<String>> = flowOf(listOf())) : DodoAuthStorage {
     override var currentDomain: String? = "androiddev.social"
 
+    override val authorizedServersFlow = serversFlow
     override suspend fun saveAccessToken(server: String, token: String) {
         TODO("Not yet implemented")
     }
 
     override fun getAccessToken(server: String): String = "FakeToken"
+}
+
+class FakeAuthDatabase : AuthenticationDatabase {
+    override fun transaction(noEnclosing: Boolean, body: TransactionWithoutReturn.() -> Unit) {
+        TODO("Not yet implemented")
+    }
+
+    override fun <R> transactionWithResult(noEnclosing: Boolean, bodyWithReturn: TransactionWithReturn<R>.() -> R): R {
+        TODO("Not yet implemented")
+    }
+
+    override val applicationQueries: ApplicationQueries
+        get() = TODO("Not yet implemented")
 }
 
 val failureResponse = StoreResponse.Error.Message("We failed", ResponseOrigin.Cache)
@@ -77,7 +97,7 @@ val fakeApi = object : MastodonApi {
         clientName: String,
         redirectUris: String,
         scopes: String,
-        website: String?
+        website: String?,
     ): Result<NewOauthApplication> {
         TODO("Not yet implemented")
     }
@@ -89,7 +109,7 @@ val fakeApi = object : MastodonApi {
         redirectUri: String,
         grantType: String,
         code: String,
-        scope: String
+        scope: String,
     ): Result<Token> {
         TODO("Not yet implemented")
     }
@@ -104,7 +124,7 @@ val fakeApi = object : MastodonApi {
 
     override suspend fun getHomeFeed(
         domain: String,
-        accessToken: String
+        accessToken: String,
     ): Result<List<Status>> {
         return Result.success(
             listOf<Status>(

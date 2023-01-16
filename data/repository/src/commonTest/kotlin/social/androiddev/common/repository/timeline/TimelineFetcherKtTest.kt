@@ -19,8 +19,8 @@ import kotlinx.coroutines.test.runTest
 import org.mobilenativefoundation.store.store5.FetcherResult
 import social.androiddev.common.network.model.Privacy
 import social.androiddev.common.network.model.Status
+import social.androiddev.common.repository.timeline.fixtures.FakeAuthStorage
 import social.androiddev.common.repository.timeline.fixtures.fakeApi
-import social.androiddev.common.repository.timeline.fixtures.fakeStorage
 import social.androiddev.common.timeline.StatusDB
 import social.androiddev.domain.timeline.FeedType
 import kotlin.test.Test
@@ -29,7 +29,7 @@ import kotlin.test.assertTrue
 class TimelineFetcherKtTest {
     @Test
     fun timelineFetcher() = runTest {
-        val fetcher = fakeApi.timelineFetcher(fakeStorage)
+        val fetcher = fakeApi.timelineFetcher(FakeAuthStorage())
         val result = fetcher.invoke(FeedType.Home)
         val value: FetcherResult<List<StatusDB>> = result.first()
         assertTrue { value is FetcherResult.Data<*> }

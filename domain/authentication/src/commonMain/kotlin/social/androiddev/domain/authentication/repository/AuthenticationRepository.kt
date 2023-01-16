@@ -12,6 +12,7 @@
  */
 package social.androiddev.domain.authentication.repository
 
+import kotlinx.coroutines.flow.Flow
 import social.androiddev.domain.authentication.model.ApplicationOAuthToken
 import social.androiddev.domain.authentication.model.NewAppOAuthToken
 
@@ -22,7 +23,7 @@ interface AuthenticationRepository {
         clientName: String,
         redirectUris: String,
         scopes: String,
-        website: String?
+        website: String?,
     ): NewAppOAuthToken?
 
     suspend fun saveApplication(
@@ -42,4 +43,6 @@ interface AuthenticationRepository {
     val selectedServer: String?
 
     suspend fun getApplicationOAuthToken(server: String): ApplicationOAuthToken?
+
+    fun isAccessTokenPresent(): Flow<Boolean>
 }

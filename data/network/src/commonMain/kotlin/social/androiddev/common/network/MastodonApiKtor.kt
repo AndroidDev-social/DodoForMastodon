@@ -24,6 +24,7 @@ import io.ktor.http.HttpHeaders
 import io.ktor.http.contentType
 import io.ktor.http.path
 import kotlinx.serialization.SerializationException
+import social.androiddev.common.logging.DodoLogger
 import social.androiddev.common.network.model.Application
 import social.androiddev.common.network.model.AvailableInstance
 import social.androiddev.common.network.model.Instance
@@ -72,7 +73,9 @@ internal class MastodonApiKtor(
                 )
             }.body()
         }.onFailure { t ->
-            t.printStackTrace()
+            DodoLogger.w(throwable = t) {
+                "Error when creating access token"
+            }
         }
     }
 
@@ -99,7 +102,9 @@ internal class MastodonApiKtor(
                 )
             }.body()
         }.onFailure { t ->
-            t.printStackTrace()
+            DodoLogger.w(throwable = t) {
+                "Error when creating application."
+            }
         }
     }
 

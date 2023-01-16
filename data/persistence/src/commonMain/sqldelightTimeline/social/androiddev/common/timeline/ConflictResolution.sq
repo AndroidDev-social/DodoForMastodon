@@ -1,4 +1,4 @@
-CREATE TABLE failedWrite (
+CREATE TABLE IF NOT EXISTS failedWrite (
     key TEXT NOT NULL PRIMARY KEY,
     datetime INTEGER AS Long
 );
