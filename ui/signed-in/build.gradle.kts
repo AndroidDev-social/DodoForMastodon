@@ -18,6 +18,7 @@ kotlin {
                 implementation(projects.data.repository)
                 implementation(projects.domain.timeline)
                 implementation(libs.io.insert.koin.core)
+                implementation(projects.kotlinUtils)
             }
         }
 

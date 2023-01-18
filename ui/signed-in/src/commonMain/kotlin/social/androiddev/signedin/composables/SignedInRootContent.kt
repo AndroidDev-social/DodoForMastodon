@@ -14,6 +14,7 @@ package social.androiddev.signedin.composables
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
@@ -27,11 +28,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import com.arkivanov.decompose.extensions.compose.jetbrains.stack.Children
 import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.flow.StateFlow
 import org.mobilenativefoundation.store.store5.StoreResponse
+import social.androiddev.kotlinutils.nullUnless
 import social.androiddev.settings.SettingsContent
 import social.androiddev.signedin.navigation.NavHeaderSettings
 import social.androiddev.signedin.navigation.SignedInRootComponent
@@ -74,16 +77,12 @@ fun SignedInRootContent(
                     }
                 }
             },
-            navigationIcon = if (childStack.backStack.isNotEmpty()) {
-                (
-                    {
-                        IconButton(onClick = component::navigateBack) {
-                            Icon(Icons.Default.ArrowBack, null)
-                        }
+            navigationIcon = nullUnless(childStack.backStack.isNotEmpty()) {
+                {
+                    IconButton(onClick = component::navigateBack) {
+                        Icon(Icons.Default.ArrowBack, null)
                     }
-                    )
-            } else {
-                null
+                }
             }
         )
         Children(
@@ -96,7 +95,10 @@ fun SignedInRootContent(
                 }
 
                 is SignedInRootComponent.Child.Settings -> {
-                    SettingsContent(component = child.component)
+                    SettingsContent(
+                        component = child.component,
+                        modifier = Modifier.fillMaxSize().padding(bottom = 64.dp)
+                    )
                 }
             }
         }

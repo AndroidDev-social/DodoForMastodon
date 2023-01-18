@@ -40,3 +40,5 @@ include(":domain:authentication")
 include(":data:persistence")
 include(":data:network")
 include(":data:repository")
+
+include(":kotlin-utils")
