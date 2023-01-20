@@ -15,15 +15,4 @@ package social.androiddev.root.splash
 /**
  * The base component describing all business logic needed for the splash screen
  */
-interface SplashComponent {
-
-    /**
-     * Callback invoked when the logged-in user should be taken to the timeline screen
-     */
-    fun navigateToTimeline()
-
-    /**
-     * Callback invoked when the logged-out user should be taken to the landing screen
-     */
-    fun navigateToLanding()
-}
+interface SplashComponent

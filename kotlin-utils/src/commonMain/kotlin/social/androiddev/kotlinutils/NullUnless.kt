@@ -10,27 +10,24 @@
  * You should have received a copy of the GNU General Public License along with Dodo.
  * If not, see <https://www.gnu.org/licenses/>.
  */
-package social.androiddev.root.splash
+package social.androiddev.kotlinutils
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
+import kotlin.contracts.ExperimentalContracts
+import kotlin.contracts.InvocationKind
+import kotlin.contracts.contract
 
 /**
- * Stateless composable for rendering a simple Splash Screen
- * upon app launch.
+ * Only return the result of [block] if [expression] is true, otherwise always returns null
  */
-@Composable
-fun SplashContent(
-    modifier: Modifier = Modifier,
-) {
-    Box(
-        modifier = modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center,
-    ) {
-        Text("Loading")
+@OptIn(ExperimentalContracts::class)
+inline fun <T> nullUnless(expression: Boolean, block: () -> T): T? {
+    contract {
+        returnsNotNull() implies (expression)
+        callsInPlace(block, InvocationKind.AT_MOST_ONCE)
+    }
+    return if (!expression) {
+        null
+    } else {
+        block()
     }
 }

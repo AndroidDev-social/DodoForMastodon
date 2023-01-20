@@ -10,27 +10,40 @@
  * You should have received a copy of the GNU General Public License along with Dodo.
  * If not, see <https://www.gnu.org/licenses/>.
  */
-package social.androiddev.root.splash
+package social.androiddev.settings
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.Text
+import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import social.androiddev.common.composables.buttons.DodoButton
+import social.androiddev.common.composables.buttons.buttonColors
 
-/**
- * Stateless composable for rendering a simple Splash Screen
- * upon app launch.
- */
 @Composable
-fun SplashContent(
+fun SettingsContent(
+    component: SettingsComponent,
+    modifier: Modifier = Modifier,
+) {
+    SettingsContent(
+        modifier = modifier,
+        onLogout = component::logout,
+    )
+}
+
+@Composable
+internal fun SettingsContent(
+    onLogout: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Box(
-        modifier = modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center,
+        modifier = modifier,
+        contentAlignment = Alignment.BottomCenter
     ) {
-        Text("Loading")
+        DodoButton(
+            text = "Logout",
+            onClick = onLogout,
+            colors = buttonColors(backgroundColor = MaterialTheme.colors.error)
+        )
     }
 }

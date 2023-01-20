@@ -10,27 +10,15 @@
  * You should have received a copy of the GNU General Public License along with Dodo.
  * If not, see <https://www.gnu.org/licenses/>.
  */
-package social.androiddev.root.splash
+package social.androiddev.domain.authentication.usecase
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
+import social.androiddev.domain.authentication.repository.AuthenticationRepository
 
-/**
- * Stateless composable for rendering a simple Splash Screen
- * upon app launch.
- */
-@Composable
-fun SplashContent(
-    modifier: Modifier = Modifier,
-) {
-    Box(
-        modifier = modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center,
-    ) {
-        Text("Loading")
+class LogoutFromCurrentServer(private val authenticationRepository: AuthenticationRepository) {
+    operator fun invoke() {
+        val server = authenticationRepository.selectedServer
+        if (server != null) {
+            authenticationRepository.removeAccessToken(server)
+        }
     }
 }
